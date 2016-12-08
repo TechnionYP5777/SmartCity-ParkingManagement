@@ -5,4 +5,4 @@
  * @author zahi
  *
  */
-package ManagerGUI;
+package gui.manager;
