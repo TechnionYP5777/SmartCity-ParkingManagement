@@ -1,5 +1,7 @@
 # SmartCity-Parking Management & Navigation
 
+![SmartCity logo](https://s24.postimg.org/j36nmvh8l/smart_parking.png) 
+
 Smart Parking system is a dynamic management system of parking slots within the Technion. On every parking slot there will be placed a detection sensor that will update in real time the parking slot status.
 Note that a parking slot's status is defined as a tuple of : color , location and taken/not taken.
 
