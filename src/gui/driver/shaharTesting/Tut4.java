@@ -1,4 +1,3 @@
-//written by: Shahar-Y
 package gui.driver.shaharTesting;
 
 
