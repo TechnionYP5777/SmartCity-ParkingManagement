@@ -29,7 +29,7 @@ public class example extends Application {
 		window = primaryStage;
 		Label label1 = new Label("Welcome to first Scene!"); 
 		Button button1 = new Button ("Click Me!"); 
-		button1.setOnAction(e -> AlertBox.display("Title", "Alert Box...")); 
+		button1.setOnAction(e -> System.out.println(ConfirmBox.display("Title", "Are you sure you want to do it?"))); 
 
 		VBox layout1 = new VBox();
 			
