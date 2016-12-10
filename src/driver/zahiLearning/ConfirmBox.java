@@ -5,7 +5,7 @@
  * 
  */
 
-package gui.driver.zahiLearning;
+package driver.zahiLearning;
 
 import javafx.geometry.Pos;
 import javafx.stage.Modality;
