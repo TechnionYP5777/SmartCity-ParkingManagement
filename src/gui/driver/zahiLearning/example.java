@@ -10,15 +10,15 @@ import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.CheckBox;
+import javafx.scene.layout.VBox;
 ;
 
 public class example extends Application {
 
 	Stage window;
 	Scene scene;
+	Button button; 
 
 	public static void main(String[] args) {
 		launch(args);
@@ -27,30 +27,30 @@ public class example extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
-		GridPane grid = new GridPane();
-		grid.setPadding(new Insets(10, 10, 10, 10));
-		grid.setVgap(8);
-		grid.setHgap(10);
+		window.setTitle("checkbox example");
 		
-		Label user = new Label ("Username");
-		TextField nameInput = new TextField("Zahi"); 
+		//CheckBox
+		CheckBox box1 = new CheckBox ("Option No.1"); 
+		CheckBox box2 = new CheckBox ("Option No.2"); 
+		box1.setSelected(true);
+		//Button
+		button = new Button ("Click Me!"); 
+		button.setOnAction( e -> handleOptions(box1,box2));
+	    VBox layout = new VBox (10); 
+	    layout.setPadding(new Insets(20,20,20,20));
+	    layout.getChildren().addAll(box1, box2, button);
+		scene = new Scene (layout, 300,250);
 		
-		Label pass = new Label ("Password");
-		TextField passInput = new TextField();
-		passInput.setPromptText("password");
-		
-		Button button = new Button ("Login");
-		GridPane.setConstraints (user,0,0);
-		GridPane.setConstraints(nameInput, 1,0); 
-		GridPane.setConstraints(pass, 0,1);
-		GridPane.setConstraints(passInput, 1,1);
-		GridPane.setConstraints(button,1,2); 
-		
-		grid.getChildren().addAll(user,nameInput,pass,passInput,button);
-		Scene scene = new Scene (grid);
 		window.setScene(scene);
-		window.setTitle("The Window");
 		window.show();
 	}
-
+	
+	private void handleOptions (CheckBox b1, CheckBox b2) {
+		String message = "User chose:\n" + (!b1.isSelected() ? "" : "option no.1\n"); 
+		if (b2.isSelected())
+			message += "option no.2\n";
+		
+		System.out.println(message);
+		
+	}
 }
