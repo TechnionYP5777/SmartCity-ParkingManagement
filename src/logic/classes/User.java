@@ -54,7 +54,7 @@ public class User {
 		return sticker;
 	}
 	
-	public void setSticker(StickerType ¢) {
-		this.sticker = ¢;
+	public void setSticker(StickerType m) {
+		this.sticker = m;
 	}
 }
