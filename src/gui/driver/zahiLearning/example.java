@@ -6,21 +6,16 @@
 package gui.driver.zahiLearning;
 
 import javafx.application.Application;
-import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
+import javafx.scene.layout.StackPane;
 
 public class example extends Application {
 
 	Stage window;
-	Scene scene;
-	Button button; 
-	ListView<String> listView; 
+	TreeView <String> tree; 
 
 	public static void main(String[] args) {
 		launch(args);
@@ -29,31 +24,42 @@ public class example extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
-		window.setTitle("choicebox example");
+		window.setTitle("Java Fx");
 		
-		listView = new ListView<> (); 
-		listView.getItems().addAll ("Pizza", "Sushi", "Hamburger", "Fries");
+		TreeItem<String> root = new TreeItem<>(), br1, br2; 
 		
-		listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		//Button
-		button = new Button ("Click Me!"); 
-		button.setOnAction(e -> buttonClicked());
-	    VBox layout = new VBox (10); 
-	    layout.setPadding(new Insets(20,20,20,20));
-	    layout.getChildren().addAll(listView, button);
-		scene = new Scene (layout, 300,250);
+		root.setExpanded(true);
 		
+		//br1
+		br1 = makeBranch("br1", root); 
+		makeBranch ("christmas tree", br1); 
+		makeBranch ("apple tree", br1); 
+		makeBranch ("dark tree", br1); 
+		
+		//br2
+		br2 = makeBranch ("br2", root); 
+		makeBranch ("dark tree", br2);
+		makeBranch ("palm tree", br2);
+		
+		tree = new TreeView<String> (root);
+		tree.setShowRoot(false);
+		tree.getSelectionModel().selectedItemProperty()
+		.addListener((v,oldValue,newValue)->{
+			if (newValue!=null)  System.out.println(newValue.getValue());
+		});
+		
+		StackPane layout = new StackPane();
+		layout.getChildren().add(tree);
+		Scene scene = new Scene (layout, 300,250);
 		window.setScene(scene);
 		window.show();
 	}
-	
-	private void buttonClicked () {
-		String message = "";
-		ObservableList<String> foods = listView.getSelectionModel().getSelectedItems(); 
-		for (String food : foods)
-			message += food + "\n";
-		System.out.println(message);
-		
-	}
 
+	private TreeItem<String> makeBranch(String title, TreeItem<String> parent) {
+		TreeItem<String> $ = new TreeItem<String> (title); 
+		$.setExpanded(true);
+		parent.getChildren().add($); 
+		return $; 
+	}
+	
 }
