@@ -4,7 +4,7 @@ package logic.classes;
  * @Author DavidCohen55
  */
 
-enum StickerType{BLUE,BLUE_WHITE,BLUE_YELLOW,YELLOW,GREEN,GREEN_RED,RED,ORANGE}
+enum StickerType{BLUE,BLUE_WHITE,YELLOW,GREEN,GREEN_RED,RED,ORANGE}
 	
 public class User {
 	
