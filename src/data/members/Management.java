@@ -10,28 +10,25 @@ import java.util.Set;
  *        This class represent the data of Technion's security unit
  */
 public class Management {
-	
+
 	// users in the system
 	private Set<User> users;
 	// all parking slots on Technion area
 	private Set<ParkingSlot> parkingSlots;
-	
-	//TODO : extract to a different class containing a set of Areas
 	// all parking areas
-	private Set<ParkingArea> parkingAreas;
+	private ParkingAreas parkingAreas;
 
-	public Set<ParkingArea> getParkingAreas() {
+	public ParkingAreas getParkingAreas() {
 		return parkingAreas;
 	}
 
-	public void setParkingAreas(Set<ParkingArea> parkingAreas) {
+	public void setParkingAreas(ParkingAreas parkingAreas) {
 		this.parkingAreas = parkingAreas;
 	}
 
 	public Management() {
 		this.users = new HashSet<User>();
 		this.parkingSlots = new HashSet<ParkingSlot>();
-		this.parkingAreas = new HashSet<ParkingArea>();
 	}
 
 	public Set<User> getUsers() {
@@ -64,14 +61,6 @@ public class Management {
 
 	public void removeParkingSlot(ParkingSlot slotToRemove) {
 		this.parkingSlots.remove(slotToRemove);
-	}
-
-	public void addParkingArea(ParkingArea newParkingArea) {
-		this.parkingAreas.add(newParkingArea);
-	}
-
-	public void removeParkingArea(ParkingArea parkingArea) {
-		this.parkingAreas.remove(parkingArea);
 	}
 
 	// Return sticker type of a given user
@@ -118,78 +107,32 @@ public class Management {
 
 	// Return num of taken parking slots by a given area
 	public int getNumOfTakenByArea(ParkingArea area) {
-		if (!this.parkingAreas.contains(area)) {
-			return 0;
-		}
-		int count = 0;
-		for (ParkingArea currentArea : this.parkingAreas) {
-			if (currentArea.equals(area)) {
-				count = currentArea.getNumOfTakenSlots();
-			}
-		}
-		return count;
+		return this.parkingAreas.getNumOfTakenByArea(area);
 	}
 
 	// Return num of free parking slots by given area
 	public int getNumOfFreeByArea(ParkingArea area) {
-		if (!this.parkingAreas.contains(area)) {
-			return 0;
-		}
-		int count = 0;
-		for (ParkingArea currentArea : this.parkingAreas) {
-			if (currentArea.equals(area)) {
-				count = currentArea.getNumOfFreeSlots();
-			}
-		}
-		return count;
+		return this.parkingAreas.getNumOfFreeByArea(area);
 	}
 
 	// Return num of free parking slots
 	public int getNumOfFreeSlots() {
-		int count = 0;
-		for (ParkingArea currentArea : this.parkingAreas) {
-			count += currentArea.getNumOfFreeSlots();
-		}
-		return count;
+		return this.parkingAreas.getNumOfFreeSlots();
 	}
 
 	// Return num of taken parking slots
 	public int getNumOfTakenSlots() {
-		int count = 0;
-		for (ParkingArea currentArea : this.parkingAreas) {
-			count += currentArea.getNumOfTakenSlots();
-		}
-		return count;
+		return this.parkingAreas.getNumOfTakenSlots();
 	}
 
 	// Return parking slots per area
 	public int getNumOfSlotsByArea(ParkingArea area) {
-		if (!this.parkingAreas.contains(area)) {
-			return 0;
-		}
-		int count = 0;
-		for (ParkingArea currentArea : this.parkingAreas) {
-			if (currentArea.equals(area)) {
-				count = currentArea.getNumOfParkingSlots();
-			}
-		}
-		return count;
+		return this.parkingAreas.getNumOfSlotsByArea(area);
 	}
 
 	// Return a free parking slot by a given area
-	public ParkingSlot getParkingslotByUser(ParkingArea area) {
-		ParkingSlot parkingSlot = null;
-		if (!this.parkingAreas.contains(area)) {
-			return parkingSlot;
-		}
-		for (ParkingArea currentArea : this.parkingAreas) {
-			if (currentArea.equals(area)) {
-				for (ParkingSlot currentSlot : currentArea.getFreeSlots()) {
-					parkingSlot = currentSlot;
-				}
-			}
-		}
-		return parkingSlot;
+	public ParkingSlot getParkingslotByArea(ParkingArea area) {
+		return this.parkingAreas.getParkingslotByArea(area);
 	}
 
 }
