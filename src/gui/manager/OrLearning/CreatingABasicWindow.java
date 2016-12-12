@@ -2,14 +2,16 @@ package gui.manager.OrLearning;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class CreatingABasicWindow extends Application implements EventHandler<ActionEvent> {
 	Stage window;
-	Button myButton, switchToScene2, switchToScene1;
+	Button myButton, switchToScene2, switchToScene1, alertBoxBtn;
 	Scene scene1, scene2;
 	
 	public static void main(String[] args) {
@@ -30,13 +32,18 @@ public class CreatingABasicWindow extends Application implements EventHandler<Ac
 		switchToScene2.setText("Switch to 2");
 		switchToScene2.setOnAction(e -> window.setScene(scene2));
 		
+		alertBoxBtn = new Button();
+		alertBoxBtn.setText("Open Alert Box");
+		alertBoxBtn.setOnAction(e -> AlertBox.display("Box", "Please close this window"));
+		
 		switchToScene1 = new Button();
 		switchToScene1.setText("Switch to 1");
 		switchToScene1.setOnAction(e -> window.setScene(scene1));
 		
 		//Layouts
-		StackPane layout = new StackPane();
-		layout.getChildren().add(switchToScene2);
+		VBox layout = new VBox(10);
+		layout.getChildren().addAll(myButton,switchToScene2, alertBoxBtn);
+		layout.setAlignment(Pos.CENTER);
 		scene1 = new Scene(layout, 500, 500);
 		
 		StackPane layout2 = new StackPane();
