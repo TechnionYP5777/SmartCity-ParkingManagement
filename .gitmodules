@@ -1,0 +1,3 @@
+[submodule "pm-parse-server"]
+	path = pm-parse-server
+	url = ssh://path.to.repo/pm-parse-server
