@@ -1,10 +1,15 @@
 package gui.manager.OrLearning;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -46,9 +51,37 @@ public class CreatingABasicWindow extends Application implements EventHandler<Ac
 		layout.setAlignment(Pos.CENTER);
 		scene1 = new Scene(layout, 500, 500);
 		
-		StackPane layout2 = new StackPane();
-		layout2.getChildren().add(switchToScene1);
-		scene2 = new Scene(layout2, 500, 500);
+		//GridPane form
+		GridPane gridLayout = new GridPane();
+		gridLayout.setPadding(new Insets(15,15,15,15));
+		gridLayout.setVgap(10);
+		gridLayout.setHgap(10);
+		
+		//labels & Text Fields
+		Label usernameLabel = new Label("Username:");
+		GridPane.setConstraints(usernameLabel, 0, 0);
+		
+		TextField usernameInput = new TextField();
+		usernameInput.setPromptText("username");
+		GridPane.setConstraints(usernameInput, 1, 0);
+		
+		Label passLabel = new Label("Password:");
+		GridPane.setConstraints(passLabel, 0, 1);
+		
+		TextField passInput = new TextField();
+		passInput.setPromptText("password");
+		GridPane.setConstraints(passInput, 1, 1);
+		
+		//Login button
+		Button loginBtn = new Button("Login");
+		GridPane.setConstraints(loginBtn, 0, 2);
+		
+		//Taking care of switchToScene1 button from before
+		GridPane.setConstraints(switchToScene1, 0, 3);
+
+		
+		gridLayout.getChildren().addAll(switchToScene1, usernameLabel, usernameInput, passLabel, passInput, loginBtn);
+		scene2 = new Scene(gridLayout, 500, 500);
 		
 		window.setScene(scene1);
 		window.show();
