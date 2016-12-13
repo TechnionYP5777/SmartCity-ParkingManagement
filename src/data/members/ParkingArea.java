@@ -102,7 +102,7 @@ public class ParkingArea {
 		this.getTakenSlots().remove(slot);
 		this.setNumOfTakenSlots(this.getNumOfTakenSlots() - 1);
 		slot.setStatus(ParkingSlotStatus.FREE);
-		slot.setCurrentUser(null);
+//		slot.setCurrentUser(null);
 		this.getFreeSlots().add(slot);
 		this.setNumOfFreeSlots(this.getNumOfFreeSlots() + 1);
 	}
@@ -118,7 +118,7 @@ public class ParkingArea {
 		this.setNumOfFreeSlots(this.getNumOfFreeSlots() - 1);
 		slot.setStatus(ParkingSlotStatus.TAKEN);
 		user.setCurrentParking(slot);
-		slot.setCurrentUser(user);
+//		slot.setCurrentUser(user);
 		this.getTakenSlots().add(slot);
 		this.setNumOfTakenSlots(this.getNumOfTakenSlots() + 1);
 	}

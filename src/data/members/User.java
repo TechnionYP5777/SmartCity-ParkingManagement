@@ -6,12 +6,23 @@ package data.members;
 
 public class User {
 
-	private String name; // the name of the user
-	private String password; // the password of the user
-	private String phoneNumber; // the phone number of the user, maybe be use to send notifications to the user
-	private String carNumber; // the serial number of the users car will use to identify the user
-	private StickerType sticker; // the type of sticker of the user, will determine where can he park
-	private ParkingSlot currentParking; // saves the parking slot of a user if he parked 
+	// the name of the user
+	private String name; 
+	
+	 // the password of the user
+	private String password;
+	
+	// the phone number of the user, maybe be use to send notifications to the user
+	private String phoneNumber; 
+	
+	 // the serial number of the users car will use to identify the user
+	private String carNumber;
+	
+	// the type of sticker of the user, will determine where can he park
+	private StickerType sticker; 
+	
+	// saves the parking slot of a user if he parked 
+	private ParkingSlot currentParking; 
 
 	public User(String name, String password, String phoneNumber, String carNumber, StickerType type,
 			ParkingSlot currentLocation) {

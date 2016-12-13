@@ -1,9 +1,8 @@
-package tests;
-import Logic.*;
-
-
+package logic;
 import org.junit.Assert;
 import org.junit.Test;
+
+import logic.*;
 
 public class NavigationTest {
 

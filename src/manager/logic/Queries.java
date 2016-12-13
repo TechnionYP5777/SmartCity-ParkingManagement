@@ -170,7 +170,7 @@ public class Queries {
 	public User returnParkingSlotCurrentUser(Location location){
 		ParkingSlot currentSlot=this.returnParkingSlot(location);
 		if (currentSlot!=null){
-			return currentSlot.getCurrentUser();
+//			return currentSlot.getCurrentUser();
 		}
 		return null;
 	}

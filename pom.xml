@@ -9,6 +9,13 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+    <repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+    
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -16,9 +23,9 @@
 			<version>4.12</version>
 		</dependency>
 		<dependency>
-			<groupId>com.github.thiagolocatelli</groupId>
+			<groupId>com.github.abdielou</groupId>
 			<artifactId>parse4j</artifactId>
-			<version>1.4</version>
+			<version>1.5-1216d3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -53,4 +60,7 @@
 			</plugin>
 		</plugins>
 	</build>
+
+    
+    
 </project>
