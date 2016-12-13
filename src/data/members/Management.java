@@ -75,30 +75,24 @@ public class Management {
 	}
 
 	// Return parking slot id by a given user
-	public ParkingSlot getParkingslotByUser(User user) {
+	public ParkingSlot getParkingslotByUser(User u) {
 		ParkingSlot $ = null;
-		if (!this.users.contains(user)) {
+		if (!this.users.contains(u))
 			return $;
-		}
-		for (User currentUser : this.users) {
-			if (currentUser.equals(user)) {
+		for (User currentUser : this.users)
+			if (currentUser.equals(u))
 				$ = currentUser.getCurrentParking();
-			}
-		}
 		return $;
 	}
 
 	// Return parking slot id by a given user
 	public User getUserByParkingslot(ParkingSlot parkinSlot) {
 		User $ = null;
-		if (!this.parkingSlots.contains(parkinSlot)) {
+		if (!this.parkingSlots.contains(parkinSlot))
 			return $;
-		}
-		for (ParkingSlot currentSlot : this.parkingSlots) {
-			if (currentSlot.equals(parkinSlot)) {
+		for (ParkingSlot currentSlot : this.parkingSlots)
+			if (currentSlot.equals(parkinSlot))
 				$ = currentSlot.getCurrentUser();
-			}
-		}
 		return $;
 	}
 
