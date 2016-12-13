@@ -1,38 +1,65 @@
 package gui.driver.shaharTesting;
 
 import javafx.application.Application;
-
+//import javafx.event.ActionEvent;
+//import javafx.event.EventHandler;
+//import javafx.geometry.Insets;
+//import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+//import javafx.scene.control.ListView;
 //import javafx.scene.layout.StackPane;
-import javafx.scene.layout.StackPane;
+//import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+//import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
 public class Main extends Application {
-	Button button;
+
 	Stage window;
 	
-	public static void main(String[] args) {
-		launch(args);
-	}
+//	public static void main(String[] args) {
+//		launch(args);
+//	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
-		window.setTitle("JavaFX - Window Title");
+		window.setTitle("Main Screen");
 		window.setOnCloseRequest(e -> closeProgram());
 		
+		HBox topMenu = new HBox();
+		Button buttonA = new Button("buttonA");
+		Button buttonB = new Button("buttonB");
+		Button buttonC = new Button("buttonC");
+		topMenu.getChildren().addAll(buttonA,buttonB,buttonC);
 		
-		button = new Button("Close Program");
+		VBox leftMenu = new VBox();
+		Button buttonD = new Button("buttonD");
+		Button buttonE = new Button("buttonE");
+		Button buttonF = new Button("buttonF");
+		leftMenu.getChildren().addAll(buttonD,buttonE,buttonF);
+		
+		HBox middleMenu = new HBox();
+		Button button = new Button("Close Program");
 		button.setOnAction(e -> {
 			e.consume(); //Hey, I'm gonna take care of this event manually.
 			closeProgram();});
+		middleMenu.getChildren().addAll(button);
+		
+		BorderPane borderPane = new BorderPane();
+		borderPane.setTop(topMenu);
+		borderPane.setLeft(leftMenu);
+		borderPane.setBottom(middleMenu);
 		
 		
-		StackPane layout = new StackPane();
-		layout.getChildren().add(button);
-		Scene scene = new Scene(layout, 300, 150);
+		
+		//StackPane layout = new StackPane();
+		//borderPane.getChildren().add(button);
+		Scene scene = new Scene(borderPane, 300, 150);
 		window.setScene(scene);
 		window.show();
 	}
