@@ -22,8 +22,8 @@ public class Management {
 		return parkingAreas;
 	}
 
-	public void setParkingAreas(ParkingAreas parkingAreas) {
-		this.parkingAreas = parkingAreas;
+	public void setParkingAreas(ParkingAreas ¢) {
+		this.parkingAreas = ¢;
 	}
 
 	public Management() {
@@ -35,16 +35,16 @@ public class Management {
 		return users;
 	}
 
-	public void setUsers(Set<User> users) {
-		this.users = users;
+	public void setUsers(Set<User> ¢) {
+		this.users = ¢;
 	}
 
 	public Set<ParkingSlot> getParkingSlots() {
 		return parkingSlots;
 	}
 
-	public void setParkingSlots(Set<ParkingSlot> parkingSlots) {
-		this.parkingSlots = parkingSlots;
+	public void setParkingSlots(Set<ParkingSlot> ¢) {
+		this.parkingSlots = ¢;
 	}
 
 	public void addUser(User newUser) {
@@ -64,55 +64,52 @@ public class Management {
 	}
 
 	// Return sticker type of a given user
-	public StickerType getColorByUser(User user) {
-		StickerType stickerType = null;
-		if (!this.users.contains(user)) {
-			return stickerType;
-		}
-		for (User currentUser : this.users) {
-			if (currentUser.equals(user)) {
-				stickerType = currentUser.getSticker();
-			}
-		}
-		return stickerType;
+	public StickerType getColorByUser(User u) {
+		StickerType $ = null;
+		if (!this.users.contains(u))
+			return $;
+		for (User currentUser : this.users)
+			if (currentUser.equals(u))
+				$ = currentUser.getSticker();
+		return $;
 	}
 
 	// Return parking slot id by a given user
 	public ParkingSlot getParkingslotByUser(User user) {
-		ParkingSlot parkingSlot = null;
+		ParkingSlot $ = null;
 		if (!this.users.contains(user)) {
-			return parkingSlot;
+			return $;
 		}
 		for (User currentUser : this.users) {
 			if (currentUser.equals(user)) {
-				parkingSlot = currentUser.getCurrentParking();
+				$ = currentUser.getCurrentParking();
 			}
 		}
-		return parkingSlot;
+		return $;
 	}
 
 	// Return parking slot id by a given user
 	public User getUserByParkingslot(ParkingSlot parkinSlot) {
-		User user = null;
+		User $ = null;
 		if (!this.parkingSlots.contains(parkinSlot)) {
-			return user;
+			return $;
 		}
 		for (ParkingSlot currentSlot : this.parkingSlots) {
 			if (currentSlot.equals(parkinSlot)) {
-				user = currentSlot.getCurrentUser();
+				$ = currentSlot.getCurrentUser();
 			}
 		}
-		return user;
+		return $;
 	}
 
 	// Return num of taken parking slots by a given area
-	public int getNumOfTakenByArea(ParkingArea area) {
-		return this.parkingAreas.getNumOfTakenByArea(area);
+	public int getNumOfTakenByArea(ParkingArea ¢) {
+		return this.parkingAreas.getNumOfTakenByArea(¢);
 	}
 
 	// Return num of free parking slots by given area
-	public int getNumOfFreeByArea(ParkingArea area) {
-		return this.parkingAreas.getNumOfFreeByArea(area);
+	public int getNumOfFreeByArea(ParkingArea ¢) {
+		return this.parkingAreas.getNumOfFreeByArea(¢);
 	}
 
 	// Return num of free parking slots
@@ -126,13 +123,13 @@ public class Management {
 	}
 
 	// Return parking slots per area
-	public int getNumOfSlotsByArea(ParkingArea area) {
-		return this.parkingAreas.getNumOfSlotsByArea(area);
+	public int getNumOfSlotsByArea(ParkingArea ¢) {
+		return this.parkingAreas.getNumOfSlotsByArea(¢);
 	}
 
 	// Return a free parking slot by a given area
-	public ParkingSlot getParkingslotByArea(ParkingArea area) {
-		return this.parkingAreas.getParkingslotByArea(area);
+	public ParkingSlot getParkingslotByArea(ParkingArea ¢) {
+		return this.parkingAreas.getParkingslotByArea(¢);
 	}
 
 }
