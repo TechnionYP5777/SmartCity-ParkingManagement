@@ -124,7 +124,7 @@ public class Queries {
 	public ParkingSlot returnUserCurrentParking(String carNum){
 		User currentUser=this.returnUser(carNum);
 		if (currentUser!=null){
-			return currentUser.getCurrentLocation();
+			return currentUser.getCurrentParking();
 		}
 		return null;
 	}

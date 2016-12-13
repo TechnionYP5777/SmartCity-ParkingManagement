@@ -85,7 +85,7 @@ public class Management {
 		}
 		for (User currentUser : this.users) {
 			if (currentUser.equals(user)) {
-				parkingSlot = currentUser.getCurrentLocation();
+				parkingSlot = currentUser.getCurrentParking();
 			}
 		}
 		return parkingSlot;

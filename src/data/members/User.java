@@ -6,12 +6,12 @@ package data.members;
 
 public class User {
 
-	private String name;
-	private String password;
-	private String phoneNumber;
-	private String carNumber;
-	private StickerType sticker;
-	private ParkingSlot currentParking;
+	private String name; // the name of the user
+	private String password; // the password of the user
+	private String phoneNumber; // the phone number of the user, maybe be use to send notifications to the user
+	private String carNumber; // the serial number of the users car will use to identify the user
+	private StickerType sticker; // the type of sticker of the user, will determine where can he park
+	private ParkingSlot currentParking; // saves the parking slot of a user if he parked 
 
 	public User(String name, String password, String phoneNumber, String carNumber, StickerType type,
 			ParkingSlot currentLocation) {
@@ -27,12 +27,12 @@ public class User {
 		this.name = name;
 	}
 
-	public ParkingSlot getCurrentLocation() {
+	public ParkingSlot getCurrentParking() {
 		return currentParking;
 	}
 
-	public void setCurrentLocation(ParkingSlot currentLocation) {
-		this.currentParking = currentLocation;
+	public void setCurrentParking(ParkingSlot currentParking) {
+		this.currentParking = currentParking;
 	}
 
 	public String getName() {
@@ -43,8 +43,9 @@ public class User {
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassword(String newPassword, String passwordVerify) {
+		if (newPassword.equals(passwordVerify))
+			this.password = newPassword;
 	}
 
 	public String getPhoneNumber() {
@@ -59,10 +60,6 @@ public class User {
 		return carNumber;
 	}
 
-	public void setCarNumber(String carNumber) {
-		this.carNumber = carNumber;
-	}
-
 	public StickerType getSticker() {
 		return sticker;
 	}
@@ -70,4 +67,17 @@ public class User {
 	public void setSticker(StickerType type) {
 		this.sticker = type;
 	}
+	
+	/**
+	 * will be use to update the properties of a user
+	 * won't change stickerType because you will need a manager approve
+	 * won't change carNumber because this will be identification of a user
+	 * @param name
+	 * @param phoneNumber
+	 */
+	 public void updateUser(String name, String phoneNumber){
+			this.name = name;
+			this.phoneNumber = phoneNumber;
+			/*need to update DB*/
+	 }
 }
