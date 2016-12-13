@@ -141,15 +141,13 @@ public class Queries {
 	}
 	
 	//Return parking slot's current user according to given location
-<<<<<<< HEAD
+
 	public User returnParkingSlotCurrentUser(Location location){
 		ParkingSlot currentSlot=this.returnParkingSlot(location);
 		if (currentSlot!=null){
 //			return currentSlot.getCurrentUser();
-=======
-	public User returnParkingSlotCurrentUser(Location l){
-		ParkingSlot currentSlot = this.returnParkingSlot(l);
-		return currentSlot == null ? null : currentSlot.getCurrentUser();
+		}
+		return null;
 	}
 	
 	//Return parkingArea according to areaId
@@ -157,7 +155,7 @@ public class Queries {
 		for (ParkingArea currentArea : this.managment.getParkingAreas().getParkingAreas()) {
 			if (currentArea.getAreaId()==areaID)
 				return currentArea;
->>>>>>> 77e2db89f4a16dbc2d3d8a532e201116ed8716bd
+
 		}
 		return null;
 	}

@@ -87,7 +87,6 @@ public class Management {
 
 	// Return parking slot id by a given user
 	public User getUserByParkingslot(ParkingSlot parkinSlot) {
-<<<<<<< HEAD
 		User user = null;
 		if (!this.parkingSlots.contains(parkinSlot)) {
 			return user;
@@ -98,15 +97,6 @@ public class Management {
 			}
 		}
 		return user;
-=======
-		User $ = null;
-		if (!this.parkingSlots.contains(parkinSlot))
-			return $;
-		for (ParkingSlot currentSlot : this.parkingSlots)
-			if (currentSlot.equals(parkinSlot))
-				$ = currentSlot.getCurrentUser();
-		return $;
->>>>>>> 77e2db89f4a16dbc2d3d8a532e201116ed8716bd
 	}
 
 	// Return num of taken parking slots by a given area

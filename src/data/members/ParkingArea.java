@@ -110,21 +110,15 @@ public class ParkingArea {
 	/*
 	 * change a specific parking slot status from taken to free
 	 */
-	public void changeTakenToFree(ParkingSlot ¢) {
-		if (!this.getTakenSlots().contains(¢))
+	public void changeTakenToFree(ParkingSlot s) {
+		if (!this.getTakenSlots().contains(s))
 			return;
 
-		this.getTakenSlots().remove(¢);
+		this.getTakenSlots().remove(s);
 		this.setNumOfTakenSlots(this.getNumOfTakenSlots() - 1);
-<<<<<<< HEAD
-		slot.setStatus(ParkingSlotStatus.FREE);
+		s.setStatus(ParkingSlotStatus.FREE);
 //		slot.setCurrentUser(null);
-		this.getFreeSlots().add(slot);
-=======
-		¢.setStatus(ParkingSlotStatus.FREE);
-		¢.setCurrentUser(null);
-		this.getFreeSlots().add(¢);
->>>>>>> 77e2db89f4a16dbc2d3d8a532e201116ed8716bd
+		this.getFreeSlots().add(s);
 		this.setNumOfFreeSlots(this.getNumOfFreeSlots() + 1);
 	}
 
@@ -137,17 +131,10 @@ public class ParkingArea {
 		}
 		this.getFreeSlots().remove(s);
 		this.setNumOfFreeSlots(this.getNumOfFreeSlots() - 1);
-<<<<<<< HEAD
-		slot.setStatus(ParkingSlotStatus.TAKEN);
-		user.setCurrentParking(slot);
-//		slot.setCurrentUser(user);
-		this.getTakenSlots().add(slot);
-=======
 		s.setStatus(ParkingSlotStatus.TAKEN);
 		user.setCurrentParking(s);
-		s.setCurrentUser(user);
+//		slot.setCurrentUser(user);
 		this.getTakenSlots().add(s);
->>>>>>> 77e2db89f4a16dbc2d3d8a532e201116ed8716bd
 		this.setNumOfTakenSlots(this.getNumOfTakenSlots() + 1);
 	}
 }
