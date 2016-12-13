@@ -56,10 +56,10 @@ public class example extends Application {
 	}
 
 	private TreeItem<String> makeBranch(String title, TreeItem<String> parent) {
-		TreeItem<String> m = new TreeItem<String> (title); 
-		m.setExpanded(true);
-		parent.getChildren().add(m); 
-		return m; 
+		TreeItem<String> $ = new TreeItem<String> (title); 
+		$.setExpanded(true);
+		parent.getChildren().add($); 
+		return $; 
 	}
 	
 }

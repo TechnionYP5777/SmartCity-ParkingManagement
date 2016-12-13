@@ -86,91 +86,78 @@ public class Queries {
 	
 	//Return user userName according to user carNum
 	public String returnUserName(String carNum){
-		User currentUser=this.returnUser(carNum);
-		if (currentUser!=null){
-			return currentUser.getName();
-		}
-		return null;
+		User currentUser = this.returnUser(carNum);
+		return currentUser == null ? null : currentUser.getName();
 	}
 	
 	//Return user password according to user carNum
 	public String returnUserPassword(String carNum){
-		User currentUser=this.returnUser(carNum);
-		if (currentUser!=null){
-			return currentUser.getPassword();
-		}
-		return null;
+		User currentUser = this.returnUser(carNum);
+		return currentUser == null ? null : currentUser.getPassword();
 	}
 	
 	//Return user phoneNum according to user carNum
 	public String returnUserPhoneNum(String carNum){
-		User currentUser=this.returnUser(carNum);
-		if (currentUser!=null){
-			return currentUser.getPhoneNumber();
-		}
-		return null;
+		User currentUser = this.returnUser(carNum);
+		return currentUser == null ? null : currentUser.getPhoneNumber();
 	}
 	
 	//Return user sticker according to user carNum
 	public StickerType returnUserSticker(String carNum){
-		User currentUser=this.returnUser(carNum);
-		if (currentUser!=null){
-			return currentUser.getSticker();
-		}
-		return null;
+		User currentUser = this.returnUser(carNum);
+		return currentUser == null ? null : currentUser.getSticker();
 	}
 	
 	//Return user current parking according to user carNum
 	public ParkingSlot returnUserCurrentParking(String carNum){
-		User currentUser=this.returnUser(carNum);
-		if (currentUser!=null){
-			return currentUser.getCurrentParking();
-		}
-		return null;
+		User currentUser = this.returnUser(carNum);
+		return currentUser == null ? null : currentUser.getCurrentParking();
 	}
 
 	//Return parking slot according to given location
-	public ParkingSlot returnParkingSlot(Location location){
-		for (ParkingSlot currentSlot : this.managment.getParkingSlots()) {
-			if (currentSlot.getLocation().equals(location)) {
-				return currentSlot;
-			}
-		}
+	public ParkingSlot returnParkingSlot(Location ¢){
+		for (ParkingSlot $ : this.managment.getParkingSlots())
+			if ($.getLocation().equals(¢))
+				return $;
 		return null;
 	}
 	
 	//Return parking slot's status according to given location
-	public ParkingSlotStatus returnParkingSlotStatus(Location location){
-		ParkingSlot currentSlot=this.returnParkingSlot(location);
-		if (currentSlot!=null){
-			return currentSlot.getStatus();
-		}
-		return null;
+	public ParkingSlotStatus returnParkingSlotStatus(Location l){
+		ParkingSlot currentSlot = this.returnParkingSlot(l);
+		return currentSlot == null ? null : currentSlot.getStatus();
 	}
 	
 	//Return parking slot's color according to given location
-	public ParkingSlotColor returnParkingSlotColor(Location location){
-		ParkingSlot currentSlot=this.returnParkingSlot(location);
-		if (currentSlot!=null){
-			return currentSlot.getColor();
-		}
-		return null;
+	public ParkingSlotColor returnParkingSlotColor(Location l){
+		ParkingSlot currentSlot = this.returnParkingSlot(l);
+		return currentSlot == null ? null : currentSlot.getColor();
 	}
 	
 	//Return parking slot's area according to given location
-	public ParkingArea returnParkingSlotArea(Location location){
-		ParkingSlot currentSlot=this.returnParkingSlot(location);
-		if (currentSlot!=null){
-			return currentSlot.getParkingArea();
-		}
-		return null;
+	public ParkingArea returnParkingSlotArea(Location l){
+		ParkingSlot currentSlot = this.returnParkingSlot(l);
+		return currentSlot == null ? null : currentSlot.getParkingArea();
 	}
 	
 	//Return parking slot's current user according to given location
+<<<<<<< HEAD
 	public User returnParkingSlotCurrentUser(Location location){
 		ParkingSlot currentSlot=this.returnParkingSlot(location);
 		if (currentSlot!=null){
 //			return currentSlot.getCurrentUser();
+=======
+	public User returnParkingSlotCurrentUser(Location l){
+		ParkingSlot currentSlot = this.returnParkingSlot(l);
+		return currentSlot == null ? null : currentSlot.getCurrentUser();
+	}
+	
+	//Return parkingArea according to areaId
+	public ParkingArea returnArea(int areaID){
+		for (ParkingArea currentArea : this.managment.getParkingAreas().getParkingAreas()) {
+			if (currentArea.getAreaId()==areaID)
+				return currentArea;
+>>>>>>> 77e2db89f4a16dbc2d3d8a532e201116ed8716bd
 		}
 		return null;
 	}

@@ -7,15 +7,18 @@ import logic.*;
 public class NavigationTest {
 
 	@Test
-	public void test() {
-		double sourceLat = 32.777400;
-		double sourceLon = 35.020178;
-		double targetLat = 32.777544;
-		double targetLon = 35.020092;
-		
+	public void test1() {
 		// Might fail while there is traffic in the technion.
-		Assert.assertEquals(317,Navigation.getDistance( sourceLat,  sourceLon,  targetLat,  targetLon, false));
-
+		Assert.assertEquals(317, Navigation.getDistance(32.777400, 35.020178, 32.777544, 35.020092, false));
+		
+		
 	}
-
+	@Test
+	public void test2() {
+		Assert.assertEquals(0, Navigation.getClosestParkingArea(32.777297, 35.019971, false));
+	}
+	@Test
+	public void test3() {
+		Assert.assertEquals(1, Navigation.getClosestParkingArea(32.778848, 35.017095, false));
+	}
 }
