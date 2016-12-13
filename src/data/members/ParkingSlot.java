@@ -11,17 +11,57 @@ import javax.tools.JavaFileManager.Location;
 public class ParkingSlot {
 
 	// The slot's status. Can be either free, taken or unavailable
-	ParkingSlotStatus status;
+	private ParkingSlotStatus status;
 
 	// The slot's color. Can be any sticker color
-	ParkingSlotColor color;
+	private ParkingSlotColor color;
 
 	// The slot's location
-	Location location;
+	private Location location;
 
 	// The slot's area
-	ParkingArea parkingArea;
+	private ParkingArea parkingArea;
 
 	// current user which park on this parking slot
-	User currentUser;
+	private User currentUser;
+
+	public ParkingSlotStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(ParkingSlotStatus status) {
+		this.status = status;
+	}
+
+	public ParkingSlotColor getColor() {
+		return color;
+	}
+
+	public void setColor(ParkingSlotColor color) {
+		this.color = color;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+
+	public ParkingArea getParkingArea() {
+		return parkingArea;
+	}
+
+	public void setParkingArea(ParkingArea parkingArea) {
+		this.parkingArea = parkingArea;
+	}
+
+	public User getCurrentUser() {
+		return currentUser;
+	}
+
+	public void setCurrentUser(User currentUser) {
+		this.currentUser = currentUser;
+	}
 }

@@ -99,7 +99,7 @@ public class Management {
 		}
 		for (ParkingSlot currentSlot : this.parkingSlots) {
 			if (currentSlot.equals(parkinSlot)) {
-				user = currentSlot.currentUser;
+				user = currentSlot.getCurrentUser();
 			}
 		}
 		return user;
