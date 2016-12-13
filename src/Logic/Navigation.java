@@ -7,7 +7,7 @@ import data.members.*;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.io.FileNotFoundException;
-//import java.io.FileReader;
+import java.io.FileReader;
 import java.io.IOException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -113,5 +113,44 @@ public class Navigation {
         return (long) duration.get("value");
 	}
 	
+	  public static void main(String args[]){
+		  getClosestParkingArea(32.778848, 35.017095, false);
+	  }
+	
+	public static int getClosestParkingArea(double currentLat, double currentLon, boolean walkingMode){
+		JSONParser parser = new JSONParser();
+		try{
+			JSONArray a = (JSONArray) parser.parse(new FileReader("./src/Logic/parkingAreas.json"));
+			
+			int minID = -1;
+			long dist = Integer.MAX_VALUE;
+			
+			for (Object o : a)
+			{
+				JSONObject parkingArea = (JSONObject) o;
+				
+				
+				int id = Integer.parseInt((String) parkingArea.get("id"));
+				double targetLat = Double.parseDouble((String) parkingArea.get("locationX"));
+				double targetLon =  Double.parseDouble((String) parkingArea.get("locationY"));
+				
+				long d = getDistance(currentLat, currentLon, targetLat, targetLon, walkingMode);
+				System.out.println(d);
+				if (d < dist){
+					minID = id;
+					dist = d;
+				}
+			}
+			return minID;
+			
+		}catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+		return -1; 
+	}
 	
 }
