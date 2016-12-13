@@ -27,7 +27,7 @@ public class ParkingSlot {
 	private ParkingSlotStatus status;
 
 	// The slot's color. Can be any sticker color
-	private ParkingSlotColor color;
+	private StickersColor color;
 
 	// FIXME: Decide on location format
 	//	 The slot's location
@@ -43,7 +43,7 @@ public class ParkingSlot {
 	//	private User currentUser;
 
 	// Create a new parking slot. Will result in a new slot in the DB.
-	public ParkingSlot(String name, ParkingSlotStatus status, ParkingSlotColor color, ParkingArea parkingArea) throws ParseException{
+	public ParkingSlot(String name, ParkingSlotStatus status, StickersColor color, ParkingArea parkingArea) throws ParseException{
 		DBManager.initialize();
 		this.slot = new ParseObject("ParkingSlot");
 		this.setName(name);
@@ -71,11 +71,11 @@ public class ParkingSlot {
 		this.slot.put("status", status);
 	}
 
-	public ParkingSlotColor getColor() {
+	public StickersColor getColor() {
 		return color;
 	}
 
-	public void setColor(ParkingSlotColor color) {
+	public void setColor(StickersColor color) {
 		this.color = color;
 		this.slot.put("color", color);
 	}

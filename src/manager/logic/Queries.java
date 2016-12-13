@@ -5,9 +5,9 @@ import javax.tools.JavaFileManager.Location;
 import data.members.Management;
 import data.members.ParkingArea;
 import data.members.ParkingSlot;
-import data.members.ParkingSlotColor;
+import data.members.StickersColor;
 import data.members.ParkingSlotStatus;
-import data.members.StickerType;
+import data.members.StickersColor;
 import data.members.User;
 
 /**
@@ -30,7 +30,7 @@ public class Queries {
 	}
 	
 	// Return sticker type of a given user
-	public StickerType getColorByUser(User user) {
+	public StickersColor getColorByUser(User user) {
 		return this.managment.getColorByUser(user);
 	}
 
@@ -103,7 +103,7 @@ public class Queries {
 	}
 	
 	//Return user sticker according to user carNum
-	public StickerType returnUserSticker(String carNum){
+	public StickersColor returnUserSticker(String carNum){
 		User currentUser = this.returnUser(carNum);
 		return currentUser == null ? null : currentUser.getSticker();
 	}
@@ -129,7 +129,7 @@ public class Queries {
 	}
 	
 	//Return parking slot's color according to given location
-	public ParkingSlotColor returnParkingSlotColor(Location l){
+	public StickersColor returnParkingSlotColor(Location l){
 		ParkingSlot currentSlot = this.returnParkingSlot(l);
 		return currentSlot == null ? null : currentSlot.getColor();
 	}

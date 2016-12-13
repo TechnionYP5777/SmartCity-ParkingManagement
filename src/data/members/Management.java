@@ -2,6 +2,7 @@ package data.members;
 
 import java.util.HashSet;
 import java.util.Set;
+import data.members.StickersColor;;
 
 /**
  * @author Inbal Matityahu
@@ -64,8 +65,8 @@ public class Management {
 	}
 
 	// Return sticker type of a given user
-	public StickerType getColorByUser(User u) {
-		StickerType $ = null;
+	public StickersColor getColorByUser(User u) {
+		StickersColor $ = null;
 		if (!this.users.contains(u))
 			return $;
 		for (User currentUser : this.users)

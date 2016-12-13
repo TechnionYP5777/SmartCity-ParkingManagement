@@ -19,12 +19,12 @@ public class User {
 	private String carNumber;
 	
 	// the type of sticker of the user, will determine where can he park
-	private StickerType sticker; 
+	private StickersColor sticker; 
 	
 	// saves the parking slot of a user if he parked 
 	private ParkingSlot currentParking; 
 
-	public User(String name, String password, String phoneNumber, String carNumber, StickerType type,
+	public User(String name, String password, String phoneNumber, String carNumber, StickersColor type,
 			ParkingSlot currentLocation) {
 		this.name = name;
 		this.password = password;
@@ -71,11 +71,11 @@ public class User {
 		return carNumber;
 	}
 
-	public StickerType getSticker() {
+	public StickersColor getSticker() {
 		return sticker;
 	}
 
-	public void setSticker(StickerType type) {
+	public void setSticker(StickersColor type) {
 		this.sticker = type;
 	}
 	

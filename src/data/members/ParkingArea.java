@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class ParkingArea {
 
-	private StickerType color;
+	private StickersColor color;
 	private int areaId;
 	private int numOfParkingSlots;
 	private int numOfFreeSlots;
@@ -79,11 +79,11 @@ public class ParkingArea {
 	public void setTakenSlots(Set<ParkingSlot> takenSlots) {
 		this.takenSlots = takenSlots;
 	}
-	public StickerType getColor() {
+	public StickersColor getColor() {
 		return color;
 	}
 
-	public void setColor(StickerType color) {
+	public void setColor(StickersColor color) {
 		this.color = color;
 	}
 
