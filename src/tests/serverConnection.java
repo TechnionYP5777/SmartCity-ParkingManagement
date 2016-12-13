@@ -12,5 +12,4 @@ public class serverConnection {
 		Assert.assertEquals("parkingmanagment", Parse.getApplicationId());
 		Assert.assertEquals("2139d-231cb2-738aa", Parse.getRestAPIKey());
 	}
-
 }
