@@ -11,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -38,7 +39,7 @@ public class Login extends Application {
 		TextField nameInput = new TextField();
 		nameInput.setPromptText("username");
 		Label pass = new Label("Password");
-		TextField passInput = new TextField();
+		PasswordField passInput = new PasswordField();
 		passInput.setPromptText("password");
 		Label forgotPass = new Label ("Forgot Password?");
 		
