@@ -14,6 +14,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -73,6 +76,7 @@ public class Login extends Application {
 
 		grid.getChildren().addAll(title,user, nameInput, pass, passInput, button,forgotPass);
 		button.setOnAction( e-> display("Successful", "You have successfully logged in!"));
+		grid.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2,2,2,2))));
 		Scene scene = new Scene(grid);
 		window.setScene(scene);
 		window.setTitle("Login");
