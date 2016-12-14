@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
 public class Main extends Application {
 	static Scene scene;
 	Stage window;
@@ -14,10 +15,13 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		if(ConfirmBox.display("Choose Action", "would you like to get password?"))
-			GetPassByMail.display(primaryStage);
-		else
-			AlertBox.display("Goodbye!", "Hope you enjoyed!");
+		
+		ChooseAction.display(primaryStage, WindowEnum.NONE);
+		
+//		if (!ConfirmBox.display("Choose Action", "would you like to get password?"))
+//			AlertBox.display("Goodbye!", "Hope you enjoyed!");
+//		else
+//			GetPassByMail.display(primaryStage, WindowEnum.NONE);
 		
 		
 		

@@ -6,38 +6,29 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
-//import javafx.event.ActionEvent;
-//import javafx.event.EventHandler;
-//import javafx.geometry.Insets;
-//import javafx.geometry.Pos;
-//import javafx.scene.Scene;
-//import javafx.scene.control.Button;
-//import javafx.scene.control.ListView;
-//import javafx.scene.layout.StackPane;
-//import javafx.scene.layout.AnchorPane;
-//import javafx.scene.layout.BorderPane;
-//import javafx.scene.layout.HBox;
-//import javafx.scene.layout.StackPane;
-//import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class GetPassByMail{
 	static Stage window;
 	
-	public static void display(Stage primaryStage){
+	public static void display(Stage primaryStage, WindowEnum prevWindow){
 		window = primaryStage;
 		window.setTitle("Get Password By Email");
 		GridPane grid = new GridPane();
 		grid.setPadding(new Insets(20,20,20,20));
 		grid.setVgap(8);
 		grid.setHgap(10);
+		grid.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2,2,2,2))));
+		
 		
 		Label instruction = new Label("Please enter your eMail address in order to get your password");
 		GridPane.setConstraints(instruction, 0, 0);
 		
-//		Label nameLabel = new Label("Mail: ");
-//		GridPane.setConstraints(nameLabel, 0, 1);
 		
 		TextField eMailInput = new TextField();
 		String defaultMail = "user@gmail.com";
@@ -59,7 +50,6 @@ public class GetPassByMail{
 					System.out.println(e);
 				}
 				AlertBox.display("Password Sent", "The password was sent to your eMail account");
-				//window.setScene(Main.getScene());
 			}
 			
 		});
