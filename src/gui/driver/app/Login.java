@@ -66,7 +66,7 @@ public class Login extends Application {
 		Label forgotPass = new Label ("Forgot Password?");
 		
 		Button button = new Button("Login");
-		GridPane.setRowIndex(title, 0);
+		GridPane.setConstraints(title, 1, 0);
 		GridPane.setConstraints(user, 0, 1);
 		GridPane.setConstraints(nameInput, 1, 1);
 		GridPane.setConstraints(pass, 0, 2);
