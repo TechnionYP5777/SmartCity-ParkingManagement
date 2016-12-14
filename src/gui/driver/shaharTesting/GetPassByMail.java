@@ -1,6 +1,6 @@
 package gui.driver.shaharTesting;
 
-import javafx.application.Application;
+
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,19 +22,14 @@ import javafx.scene.layout.GridPane;
 //import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class GetPassByMail extends Application{
-	Stage mainWindow;
+public class GetPassByMail{
+	static Stage window;
 	
-	public static void main(String[] args) {
-		launch(args);
-	}
-
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		mainWindow = primaryStage;
-		mainWindow.setTitle("Get Password By Email");
+	public static void display(Stage primaryStage){
+		window = primaryStage;
+		window.setTitle("Get Password By Email");
 		GridPane grid = new GridPane();
-		grid.setPadding(new Insets(20,20,20,2));
+		grid.setPadding(new Insets(20,20,20,20));
 		grid.setVgap(8);
 		grid.setHgap(10);
 		
@@ -44,28 +39,46 @@ public class GetPassByMail extends Application{
 //		Label nameLabel = new Label("Mail: ");
 //		GridPane.setConstraints(nameLabel, 0, 1);
 		
-		TextField nameInput = new TextField();
-		nameInput.setText("user@gmail.com");
-		GridPane.setConstraints(nameInput, 0, 1);
+		TextField eMailInput = new TextField();
+		String defaultMail = "user@gmail.com";
+		eMailInput.setText(defaultMail);
+		GridPane.setConstraints(eMailInput, 0, 1);
 		
 		Button sendButton = new Button();
 		sendButton.setText("Send Mail");
+		
 		sendButton.setOnAction(e->{
-			if(!nameInput.getText().endsWith("@gmail.com")){
-				AlertBox.display("Bad Input", "Illegal address entered! "
-						+ "\nPlease try again.");
-			}
-			else{
+			if(eMailInput.getText().equals(defaultMail))
+				AlertBox.display("Bad Input", "The mail you entered is the default! " + "\nPlease try again.");
+			else if (!isValidMailAddress(eMailInput))
+				AlertBox.display("Bad Input", "Illegal address entered! " + "\nPlease try again.");
+			else {
+				try {
+					sendPassword(eMailInput);
+				} catch (Exception eMailException) {
+					System.out.println(e);
+				}
 				AlertBox.display("Password Sent", "The password was sent to your eMail account");
+				//window.setScene(Main.getScene());
 			}
 			
 		});
 		GridPane.setConstraints(sendButton, 0,2);
 		
-		grid.getChildren().addAll(instruction, nameInput, sendButton);
+		grid.getChildren().addAll(instruction, eMailInput, sendButton);
 		Scene scene = new Scene(grid, 420,150);
-		mainWindow.setScene(scene);
-		mainWindow.show();
+		window.setScene(scene);
+		window.show();
+		
+	}
+
+	public static boolean isValidMailAddress(TextField eMailInput){
+		//A regular expression, translated into code by regex101.com
+		return eMailInput.getText().matches("[\\d\\w\\.]+@(campus|gmail|walla|hotmail|t2)(\\.(technion|ac|il|net|com)+)+");
+	}
+	
+	public static void sendPassword(TextField eMailInput){
+		//Send password to the mail entered, display error message if there is a problem.
 		
 	}
 
