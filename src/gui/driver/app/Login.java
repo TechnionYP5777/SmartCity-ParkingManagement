@@ -72,7 +72,6 @@ public class Login extends Application {
 		GridPane.setConstraints(forgotPass,3,3);
 
 		grid.getChildren().addAll(title,user, nameInput, pass, passInput, button,forgotPass);
-		
 		button.setOnAction( e-> display("Successful", "You have successfully logged in!"));
 		Scene scene = new Scene(grid);
 		window.setScene(scene);

@@ -2,7 +2,7 @@ package database;
 
 import org.parse4j.Parse;
 import org.parse4j.ParseException;
-import org.parse4j.ParseGeoPoint;
+//import org.parse4j.ParseGeoPoint;
 import org.parse4j.ParseObject;
 
 public class populateDB {
