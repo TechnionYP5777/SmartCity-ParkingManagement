@@ -6,60 +6,64 @@
 package gui.driver.zahiLearning;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 
 public class example extends Application {
 
 	Stage window;
-	TreeView <String> tree; 
-
+	TableView<Product> table; 
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
 		window.setTitle("Java Fx");
+
+		TableColumn<Product,String> nameCol = new TableColumn<>("Name");
+		nameCol.setMinWidth(200);
+		nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 		
-		TreeItem<String> root = new TreeItem<>(), br1, br2; 
+		TableColumn<Product,Double> priceCol = new TableColumn<>("Price");
+		priceCol.setMinWidth(100);
+		priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
 		
-		root.setExpanded(true);
+		TableColumn<Product,Integer> quantityCol = new TableColumn<>("Quantity");
+		quantityCol.setMinWidth(100);
+		quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 		
-		//br1
-		br1 = makeBranch("br1", root); 
-		makeBranch ("christmas tree", br1); 
-		makeBranch ("apple tree", br1); 
-		makeBranch ("dark tree", br1); 
 		
-		//br2
-		br2 = makeBranch ("br2", root); 
-		makeBranch ("dark tree", br2);
-		makeBranch ("palm tree", br2);
+		table = new TableView<>(); 
+		table.setItems(getProducts());
+		table.getColumns().addAll(nameCol,priceCol, quantityCol);
 		
-		tree = new TreeView<String> (root);
-		tree.setShowRoot(false);
-		tree.getSelectionModel().selectedItemProperty()
-		.addListener((v,oldValue,newValue)->{
-			if (newValue!=null)  System.out.println(newValue.getValue());
-		});
-		
-		StackPane layout = new StackPane();
-		layout.getChildren().add(tree);
-		Scene scene = new Scene (layout, 300,250);
+		VBox vbox = new VBox();
+		vbox.getChildren().addAll(table);
+
+		Scene scene = new Scene(vbox);
 		window.setScene(scene);
 		window.show();
 	}
 
-	private TreeItem<String> makeBranch(String title, TreeItem<String> parent) {
-		TreeItem<String> $ = new TreeItem<String> (title); 
-		$.setExpanded(true);
-		parent.getChildren().add($); 
-		return $; 
+	// get all the products
+	public ObservableList<Product> getProducts() {
+		ObservableList<Product> products = FXCollections.observableArrayList();
+		products.add(new Product("Computer", 700.00, 10));
+		products.add(new Product("Laptop", 600.00, 20)); 
+		products.add(new Product ("Keyboard", 20.50, 100)); 
+		products.add(new Product("Mouse",20.00,100));
+		products.add(new Product ("Earphones", 5.00, 177));
+		return products;
 	}
-	
+
 }
