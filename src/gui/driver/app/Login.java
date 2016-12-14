@@ -52,9 +52,9 @@ public class Login extends Application {
 		title.setFont(Font.font(null, FontWeight.BOLD, 48));
 
 		//user
-		Label user = new Label("Username");
+		Label user = new Label("Car Number");
 		TextField nameInput = new TextField();
-		nameInput.setPromptText("username");
+		nameInput.setPromptText("car number");
 		
 		//password
 		Label pass = new Label("Password");
