@@ -38,19 +38,32 @@ public class GetPassByMail extends Application{
 		grid.setVgap(8);
 		grid.setHgap(10);
 		
-		Label nameLabel = new Label("Mail: ");
-		GridPane.setConstraints(nameLabel, 0, 0);
+		Label instruction = new Label("Please enter your eMail address in order to get your password");
+		GridPane.setConstraints(instruction, 0, 0);
+		
+//		Label nameLabel = new Label("Mail: ");
+//		GridPane.setConstraints(nameLabel, 0, 1);
 		
 		TextField nameInput = new TextField();
-		nameInput.setPromptText("<mail>");
-		GridPane.setConstraints(nameInput, 1, 0);
+		nameInput.setText("user@gmail.com");
+		GridPane.setConstraints(nameInput, 0, 1);
 		
 		Button sendButton = new Button();
 		sendButton.setText("Send Mail");
-		GridPane.setConstraints(sendButton, 1,2);
+		sendButton.setOnAction(e->{
+			if(!nameInput.getText().endsWith("@gmail.com")){
+				AlertBox.display("Bad Input", "Illegal address entered! "
+						+ "\nPlease try again.");
+			}
+			else{
+				AlertBox.display("Password Sent", "The password was sent to your eMail account");
+			}
+			
+		});
+		GridPane.setConstraints(sendButton, 0,2);
 		
-		grid.getChildren().addAll(nameLabel, nameInput, sendButton);
-		Scene scene = new Scene(grid, 300,150);
+		grid.getChildren().addAll(instruction, nameInput, sendButton);
+		Scene scene = new Scene(grid, 420,150);
 		mainWindow.setScene(scene);
 		mainWindow.show();
 		
