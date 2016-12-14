@@ -7,7 +7,6 @@ import data.members.ParkingArea;
 import data.members.ParkingSlot;
 import data.members.StickersColor;
 import data.members.ParkingSlotStatus;
-import data.members.StickersColor;
 import data.members.User;
 
 /**
