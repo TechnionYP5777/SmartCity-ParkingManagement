@@ -15,7 +15,7 @@ static Stage window;
 	
 	public static void display(Stage primaryStage, WindowEnum prevWindow){
 		String title  = "Next Action";
-		String message = "What would you like to do next?";
+		String message = "Choose next action";
 		
 		GridPane layout = new GridPane();
 		layout.setHgap(10);
@@ -39,6 +39,15 @@ static Stage window;
 		});
 		GridPane.setConstraints(button1, 0, 1);
 		
+		Button button3 = new Button("My Details");
+		button3.setOnAction(e-> {
+			window.close();
+			MyDetails.display(primaryStage, WindowEnum.CHOOSE_ACTION);
+			
+		});
+		GridPane.setConstraints(button3, 2, 1);
+		
+		
 		Button button2 = new Button("Close Program");
 		button2.setOnAction(e-> {
 			if(prevWindow == WindowEnum.NONE){
@@ -49,7 +58,7 @@ static Stage window;
 		GridPane.setConstraints(button2, 1, 1);
 		
 		
-		layout.getChildren().addAll(label, button2, button1);
+		layout.getChildren().addAll(label, button2, button1, button3);
 		layout.setAlignment(Pos.CENTER);
 		Scene scene = new Scene(layout);
 		window.setScene(scene);
