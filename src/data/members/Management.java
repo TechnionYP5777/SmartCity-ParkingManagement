@@ -2,6 +2,7 @@ package data.members;
 
 import java.util.HashSet;
 import java.util.Set;
+import data.members.StickersColor;;
 
 /**
  * @author Inbal Matityahu
@@ -64,8 +65,8 @@ public class Management {
 	}
 
 	// Return sticker type of a given user
-	public StickerType getColorByUser(User u) {
-		StickerType $ = null;
+	public StickersColor getColorByUser(User u) {
+		StickersColor $ = null;
 		if (!this.users.contains(u))
 			return $;
 		for (User currentUser : this.users)
@@ -87,13 +88,16 @@ public class Management {
 
 	// Return parking slot id by a given user
 	public User getUserByParkingslot(ParkingSlot parkinSlot) {
-		User $ = null;
-		if (!this.parkingSlots.contains(parkinSlot))
-			return $;
-		for (ParkingSlot currentSlot : this.parkingSlots)
-			if (currentSlot.equals(parkinSlot))
-				$ = currentSlot.getCurrentUser();
-		return $;
+		User user = null;
+		if (!this.parkingSlots.contains(parkinSlot)) {
+			return user;
+		}
+		for (ParkingSlot currentSlot : this.parkingSlots) {
+			if (currentSlot.equals(parkinSlot)) {
+//				user = currentSlot.getCurrentUser();
+			}
+		}
+		return user;
 	}
 
 	// Return num of taken parking slots by a given area

@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class ParkingArea {
 
-	private StickerType color;
+	private StickersColor color;
 	private int areaId;
 	private int numOfParkingSlots;
 	private int numOfFreeSlots;
@@ -79,11 +79,11 @@ public class ParkingArea {
 	public void setTakenSlots(Set<ParkingSlot> takenSlots) {
 		this.takenSlots = takenSlots;
 	}
-	public StickerType getColor() {
+	public StickersColor getColor() {
 		return color;
 	}
 
-	public void setColor(StickerType color) {
+	public void setColor(StickersColor color) {
 		this.color = color;
 	}
 
@@ -110,15 +110,15 @@ public class ParkingArea {
 	/*
 	 * change a specific parking slot status from taken to free
 	 */
-	public void changeTakenToFree(ParkingSlot ¢) {
-		if (!this.getTakenSlots().contains(¢))
+	public void changeTakenToFree(ParkingSlot s) {
+		if (!this.getTakenSlots().contains(s))
 			return;
 
-		this.getTakenSlots().remove(¢);
+		this.getTakenSlots().remove(s);
 		this.setNumOfTakenSlots(this.getNumOfTakenSlots() - 1);
-		¢.setStatus(ParkingSlotStatus.FREE);
-		¢.setCurrentUser(null);
-		this.getFreeSlots().add(¢);
+		s.setStatus(ParkingSlotStatus.FREE);
+//		slot.setCurrentUser(null);
+		this.getFreeSlots().add(s);
 		this.setNumOfFreeSlots(this.getNumOfFreeSlots() + 1);
 	}
 
@@ -133,7 +133,7 @@ public class ParkingArea {
 		this.setNumOfFreeSlots(this.getNumOfFreeSlots() - 1);
 		s.setStatus(ParkingSlotStatus.TAKEN);
 		user.setCurrentParking(s);
-		s.setCurrentUser(user);
+//		slot.setCurrentUser(user);
 		this.getTakenSlots().add(s);
 		this.setNumOfTakenSlots(this.getNumOfTakenSlots() + 1);
 	}

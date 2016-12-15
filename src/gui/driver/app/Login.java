@@ -5,17 +5,20 @@
  */
 package gui.driver.app;
 
+
+
 import javafx.application.Application;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -54,9 +57,9 @@ public class Login extends Application {
 		title.setFont(Font.font(null, FontWeight.BOLD, 48));
 
 		//user
-		Label user = new Label("Username");
+		Label user = new Label("Car Number");
 		TextField nameInput = new TextField();
-		nameInput.setPromptText("username");
+		nameInput.setPromptText("car number");
 		
 		//password
 		Label pass = new Label("Password");
@@ -64,8 +67,9 @@ public class Login extends Application {
 		passInput.setPromptText("password");
 		Label forgotPass = new Label ("Forgot Password?");
 		
+		
 		Button button = new Button("Login");
-		GridPane.setRowIndex(title, 0);
+		GridPane.setConstraints(title, 1, 0);
 		GridPane.setConstraints(user, 0, 1);
 		GridPane.setConstraints(nameInput, 1, 1);
 		GridPane.setConstraints(pass, 0, 2);
@@ -73,9 +77,9 @@ public class Login extends Application {
 		GridPane.setConstraints(button, 1, 3);
 		GridPane.setConstraints(forgotPass,3,3);
 
-		grid.getChildren().addAll(title,user, nameInput, pass, passInput, button,forgotPass);
-		
+		grid.getChildren().addAll(title,user, nameInput, pass, passInput, button,forgotPass); 
 		button.setOnAction( e-> display("Successful", "You have successfully logged in!"));
+		grid.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2,2,2,2))));
 		Scene scene = new Scene(grid);
 		window.setScene(scene);
 		window.setTitle("Login");

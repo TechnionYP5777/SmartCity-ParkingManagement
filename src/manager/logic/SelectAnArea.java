@@ -1,7 +1,7 @@
 package manager.logic;
 
 import data.members.ParkingArea;
-import data.members.StickerType;
+import data.members.StickersColor;
 
 /**
  * @author Inbal Matityahu
@@ -41,7 +41,7 @@ public class SelectAnArea {
 	}
 
 	// return the color of slots in a given area
-	public StickerType getColorOfArea(int areaId) {
+	public StickersColor getColorOfArea(int areaId) {
 		ParkingArea currentArea = this.queries.returnArea(areaId);
 		return currentArea == null ? null : currentArea.getColor();
 	}

@@ -1,4 +1,4 @@
-package Logic;
+package logic;
 
 // DO NOT DELETE imports in the comments, they are needed for future use
 

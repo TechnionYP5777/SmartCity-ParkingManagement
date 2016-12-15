@@ -1,5 +1,5 @@
 package data.members;
 
-public enum ParkingSlotColor {
+public enum StickersColor {
 	RED, GREED, BLUE, WHITE, GREY
 }
