@@ -113,9 +113,6 @@ public class Navigation {
         return (long) duration.get("value");
 	}
 	
-	  public static void main(String args[]){
-		  getClosestParkingArea(32.778848, 35.017095, false);
-	  }
 	
 	public static int getClosestParkingArea(double currentLat, double currentLon, boolean walkingMode){
 		JSONParser parser = new JSONParser();
@@ -129,13 +126,11 @@ public class Navigation {
 			{
 				JSONObject parkingArea = (JSONObject) o;
 				
-				
 				int id = Integer.parseInt((String) parkingArea.get("id"));
 				double targetLat = Double.parseDouble((String) parkingArea.get("locationX"));
 				double targetLon =  Double.parseDouble((String) parkingArea.get("locationY"));
 				
 				long d = getDistance(currentLat, currentLon, targetLat, targetLon, walkingMode);
-				System.out.println(d);
 				if (d < dist){
 					minID = id;
 					dist = d;
