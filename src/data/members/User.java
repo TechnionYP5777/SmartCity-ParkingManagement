@@ -1,6 +1,7 @@
 package data.members;
 
 import org.parse4j.ParseObject;
+import org.parse4j.ParseUser;
 import org.parse4j.ParseException;
 import data.management.DBManager;
 
@@ -29,24 +30,23 @@ public class User {
 	// saves the parking slot of a user if he parked
 	private ParkingSlot currentParking;
 
-	private ParseObject user;
+	private ParseUser user;
 
 	public User(String name, String password, String phoneNumber, String carNumber, StickersColor type,
 			ParkingSlot currentLocation) throws ParseException {
 		DBManager.initialize();
-		this.user = new ParseObject("_User");
+		this.user = new ParseUser();
 		this.setName(name);
 		this.setPassword(password);
-		this.phoneNumber = phoneNumber;
-		this.carNumber = carNumber;
-		this.sticker = type;
-		this.currentParking = currentLocation;
-		user.save();
+		this.setPhoneNumber(phoneNumber);
+		this.setCarName(carNumber);
+		this.setSticker(type);
+		this.setCurrentParking(currentLocation);
+		user.signUp();
 	}
 
-	
-	/*Get functions*/
-	
+	/* Get functions */
+
 	public ParkingSlot getCurrentParking() {
 		return currentParking;
 	}
@@ -62,7 +62,7 @@ public class User {
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
-	
+
 	public String getCarNumber() {
 		return carNumber;
 	}
@@ -70,32 +70,41 @@ public class User {
 	public StickersColor getSticker() {
 		return sticker;
 	}
-	
-	/*Set functions*/
+
+	public void DeleteUser() throws ParseException {
+		this.user.delete();
+	}
+
+	/* Set functions */
 	public void setName(String name) {
 		this.name = name;
-		this.user.put("username", name);
+		this.user.setUsername(name);
 	}
-	
+
 	public void setCurrentParking(ParkingSlot currentParking) {
 		this.currentParking = currentParking;
-		this.user.put("currentParking", currentParking);
+		// this.user.put("currentParking", currentParking);
 	}
-	
+
 	public void setPassword(String password) {
 		this.password = password;
 		this.user.put("userPass", password);
+		this.user.setPassword(password);
 	}
-	
+
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 		this.user.put("phoneNumber", phoneNumber);
 	}
 
-
 	public void setSticker(StickersColor type) {
 		this.sticker = type;
 		this.user.put("sticker", type.ordinal());
+	}
+
+	public void setCarName(String carNum) {
+		this.carNumber = carNum;
+		this.user.put("carNumber", carNum);
 	}
 
 	/**
@@ -105,14 +114,14 @@ public class User {
 	 * 
 	 * @param name
 	 * @param phoneNumber
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	public void updateUser(String name, String phoneNumber) throws ParseException {
 		this.setName(name);
 		this.setPhoneNumber(phoneNumber);
 		this.user.save();
 	}
-	
+
 	public void updatePassword(String newPassword, String passwordVerify) {
 		if (!newPassword.equals(passwordVerify))
 			return;
@@ -120,5 +129,8 @@ public class User {
 		this.user.put("password", password);
 	}
 
-	
+	public String getTableID() {
+		return this.user.getObjectId();
+	}
+
 }

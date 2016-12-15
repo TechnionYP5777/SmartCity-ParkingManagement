@@ -2,13 +2,13 @@ package logic;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.parse4j.Parse;
 import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
 import org.parse4j.ParseQuery;
 import org.parse4j.ParseUser;
 
 import data.management.DBManager;
+import data.members.StickersColor;
 
 /**
  * @Author DavidCohen55
@@ -69,5 +69,29 @@ public class LoginTest {
 			Assert.assertEquals(true, false);
 		}
 	}
-
+	
+	@Test
+	public void test5(){
+		Login lg = new Login();
+		String uID = lg.userSignUp("Sefi Albo", "sefi987", "0507788999", "3216549", StickersColor.GREEN);
+		Assert.assertNotEquals("", uID);
+		ParseQuery<ParseUser> query = ParseQuery.getQuery("_User");
+		ParseObject user=null;
+		try {
+			user = query.get(uID);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			Assert.assertEquals(true, false);
+		}
+		Assert.assertEquals("Sefi Albo", user.getString("username"));
+		Assert.assertEquals("sefi987", user.getString("userPass"));
+		Assert.assertEquals("0507788999", user.getString("phoneNumber"));
+		Assert.assertEquals("3216549", user.getString("carNumber"));
+		Assert.assertEquals(StickersColor.GREEN.ordinal(), user.getInt("sticker"));
+		try {
+			lg.deleteUser();
+		} catch (ParseException e) {
+			Assert.assertEquals(true, false);
+		}
+	}
 }
