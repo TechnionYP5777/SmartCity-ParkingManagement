@@ -35,24 +35,12 @@ import org.apache.commons.io.IOUtils;
 public class Navigation {
 
 	// It should be ParkingArea instead of ParkingSlot. Will be updated when we implement ParkingArea	
-	public static boolean canPark(User u, ParkingSlot ps){
+	public static boolean canPark(User u, ParkingArea pa){
 		
-		if(ps.getStatus() != ParkingSlotStatus.FREE)
+		if(pa.getNumOfFreeSlots() <= 0)
 			return false;
 		
-		// uncomment after TOM CHANGS
-		//if(u.getSticker() >= ps.getColor())
-		//	return true;
-		
-		LocalDateTime d = LocalDateTime.now();
-		if(d.getDayOfWeek() == DayOfWeek.FRIDAY || d.getDayOfWeek() == DayOfWeek.SATURDAY)
-			return true;
-		
-		// uncomment after TOM CHANGS
-		//if(d.getHour() >= 15 && d.getMinute() >= 30 && ps.getColor() != StickerType.RED)
-		//	return true;
-		
-		return false;
+		return u.getSticker().ordinal() <= pa.getColor().ordinal();
 	}
 	
 	private static JSONObject getInnerJSON(String url){
