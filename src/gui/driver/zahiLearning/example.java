@@ -55,6 +55,9 @@ public class example extends Application {
 		window.show();
 	}
 
+	/**
+	 * [[SuppressWarningsSpartan]]
+	 */
 	// get all the products
 	public ObservableList<Product> getProducts() {
 		ObservableList<Product> products = FXCollections.observableArrayList();

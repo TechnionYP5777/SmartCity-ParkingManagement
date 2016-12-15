@@ -5,6 +5,8 @@
  */
 package gui.driver.app;
 
+
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,6 +16,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -65,6 +69,12 @@ public class Login extends Application {
 		passInput.setPromptText("password");
 		Label forgotPass = new Label ("Forgot Password?");
 		
+		//Image
+//		Image image = new Image ("\\pictures\\logo-login.png");
+//		ImageView imageview = new ImageView ();
+//		imageview.setImage(image);
+//		imageview.setSmooth(true);
+		
 		Button button = new Button("Login");
 		GridPane.setConstraints(title, 1, 0);
 		GridPane.setConstraints(user, 0, 1);
@@ -73,6 +83,7 @@ public class Login extends Application {
 		GridPane.setConstraints(passInput, 1, 2);
 		GridPane.setConstraints(button, 1, 3);
 		GridPane.setConstraints(forgotPass,3,3);
+		//GridPane.setConstraints(imageview, 1, 4); 
 
 		grid.getChildren().addAll(title,user, nameInput, pass, passInput, button,forgotPass);
 		button.setOnAction( e-> display("Successful", "You have successfully logged in!"));
