@@ -34,7 +34,7 @@ public class User {
 	public User(String name, String password, String phoneNumber, String carNumber, StickersColor type,
 			ParkingSlot currentLocation) throws ParseException {
 		DBManager.initialize();
-		this.user = new ParseObject("User");
+		this.user = new ParseObject("_User");
 		this.setName(name);
 		this.setPassword(password);
 		this.phoneNumber = phoneNumber;
@@ -74,7 +74,7 @@ public class User {
 	/*Set functions*/
 	public void setName(String name) {
 		this.name = name;
-		this.user.put("name", name);
+		this.user.put("username", name);
 	}
 	
 	public void setCurrentParking(ParkingSlot currentParking) {
@@ -84,7 +84,7 @@ public class User {
 	
 	public void setPassword(String password) {
 		this.password = password;
-		this.user.put("password", password);
+		this.user.put("userPass", password);
 	}
 	
 	public void setPhoneNumber(String phoneNumber) {
