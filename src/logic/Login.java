@@ -39,7 +39,8 @@ public class Login {
 		try {
 			int count = 0;
 			if (query.find() != null) {
-				for (@SuppressWarnings("unused") ParseObject ¢ : query.find())
+				for (@SuppressWarnings("unused")
+				ParseObject ¢ : query.find())
 					++count;
 				if (count > 0)
 					return "already exist";
@@ -47,9 +48,11 @@ public class Login {
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
-		return name.matches(".*\\d.*")? "user has integer"
+		return name.matches(".*\\d.*") ? "user has integer"
 				: phone.length() != 10 ? "phone need to be in size 10"
-						: car.length() != 7 ? "car need to be in size 7" : "Good Params";
+						: !phone.startsWith("05") ? "phone should start with 05"
+								: phone.matches(".*[a-zA-z].*") ? "phone contains only integers"
+										: car.length() == 7 ? "Good Params" : "car need to be in size 7";
 	}
 
 	public String userSignUp(String name, String pass, String phone, String car, StickersColor type) {

@@ -110,11 +110,26 @@ public class LoginTest {
 		Assert.assertEquals("phone need to be in size 10", uID);
 		// short car number
 		uID="";
-		uID = lg.userSignUp("Zahi Mizrahi", "Zahi123", "1234567890", "321549", StickersColor.GREEN);
+		uID = lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "321549", StickersColor.GREEN);
 		Assert.assertEquals("car need to be in size 7", uID);
 		// car number exist
 		uID="";
-		uID = lg.userSignUp("Zahi Mizrahi", "Zahi123", "123456790", "3209654", StickersColor.GREEN);
+		uID = lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567900", "3209654", StickersColor.GREEN);
 		Assert.assertEquals("already exist", uID);		
 	}
+	
+	
+	@Test
+	public void test7(){
+		Login lg = new Login();
+		// name contains integer
+		String uID = lg.userSignUp("Zahi Mizrahi", "Zahi123", "1234567890", "3216549", StickersColor.GREEN);
+		Assert.assertEquals("phone should start with 05", uID);
+		// short phone number
+		uID="";
+		uID = lg.userSignUp("Zahi Mizrahi", "Zahi123", "0501a23456", "3216549", StickersColor.GREEN);
+		Assert.assertEquals("phone contains only integers", uID);
+		// short car number
+	}
+	
 }

@@ -1,6 +1,5 @@
 package data.members;
 
-import org.parse4j.ParseObject;
 import org.parse4j.ParseUser;
 import org.parse4j.ParseException;
 import data.management.DBManager;
