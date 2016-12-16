@@ -1,6 +1,8 @@
 package gui.driver.shaharTesting;
 
 
+import java.util.ArrayList;
+
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,10 +15,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class GetPassByMail{
+public class GetPassByMail extends AbstractWindow{
 	static Stage window;
 	
-	public static void display(Stage primaryStage, WindowEnum prevWindow){
+	public void display(Stage primaryStage, WindowEnum prevWindow, ArrayList<AbstractWindow> prevWindows){
 		window = primaryStage;
 		window.setTitle("Get Password By Email");
 		GridPane grid = new GridPane();

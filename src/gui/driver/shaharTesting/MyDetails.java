@@ -13,11 +13,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class MyDetails {
+public class MyDetails extends AbstractWindow{
 	static Stage window;
 
-	public static void display(Stage primaryStage, WindowEnum prevWindow, final ArrayList<Label> newLabels,
-			final ArrayList<Label> newValues) {
+	public void display(Stage primaryStage, WindowEnum prevWindow, final ArrayList<Label> newLabels,
+			final ArrayList<Label> newValues, ArrayList<AbstractWindow> prevWindows) {
 		window = primaryStage;
 		window.setTitle("My Details");
 		GridPane grid = new GridPane();
@@ -68,7 +68,9 @@ public class MyDetails {
 		buttonIndex = i;
 		editDetailsButton.setOnAction(e -> {
 			// move to editing my details
-				MyDetailsEdit.display(primaryStage, prevWindow, labels, values);
+			MyDetailsEdit MDE = new MyDetailsEdit();
+			prevWindows.add(this);
+			MDE.display(primaryStage, prevWindow, labels, values, prevWindows);
 
 		});
 		

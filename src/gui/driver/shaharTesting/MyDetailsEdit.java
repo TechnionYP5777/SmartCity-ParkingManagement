@@ -14,12 +14,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class MyDetailsEdit {
+public class MyDetailsEdit extends AbstractWindow{
 
 static Stage window;
 	
-	public static void display(Stage primaryStage, WindowEnum prevWindow,
-			ArrayList<Label> labels, ArrayList<Label> values){
+	public void display(Stage primaryStage, WindowEnum prevWindow,
+			ArrayList<Label> labels, ArrayList<Label> values, ArrayList<AbstractWindow> prevWindows){
 		window = primaryStage;
 		window.setTitle("Edit My Details");
 		GridPane grid = new GridPane();
@@ -47,7 +47,10 @@ static Stage window;
 				for(int j = 0 ; j < newValues.size() ; j++){
 					correctedValues.add(new Label(newValues.get(j).getText()));
 				}
-				MyDetails.display(primaryStage, prevWindow, labels, correctedValues);
+				//You can only get here id the last prevWindows is 'MyDetails'!!
+				MyDetails MD = (MyDetails) prevWindows.get(prevWindows.size()-1);
+				prevWindows.remove(prevWindows.size()-1);
+				MD.display(primaryStage, prevWindow, labels, correctedValues, prevWindows);
 			}
 		});
 		
