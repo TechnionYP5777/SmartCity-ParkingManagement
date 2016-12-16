@@ -51,9 +51,9 @@ public class NavigationController {
 		return null;
 	}
 	
-	public void chooseParkingSlot(String name) {
-		if (name == null || !parkingAreas.containsKey(name)) showError("No such parking area exists.");
-		this.area = parkingAreas.get(name);
+	public void chooseParkingSlot(Integer parkId) {
+		if (parkId == null || !parkingAreas.containsKey(parkId)) showError("No such parking area exists.");
+		this.area = parkingAreas.get(parkId);
 	}
 	
 	public void chooseFaculty(String name) {
