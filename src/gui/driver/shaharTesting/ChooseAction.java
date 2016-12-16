@@ -42,7 +42,7 @@ static Stage window;
 		Button button3 = new Button("My Details");
 		button3.setOnAction(e-> {
 			window.close();
-			MyDetails.display(primaryStage, WindowEnum.CHOOSE_ACTION);
+			MyDetails.display(primaryStage, WindowEnum.CHOOSE_ACTION, null, null);
 			
 		});
 		GridPane.setConstraints(button3, 2, 1);
