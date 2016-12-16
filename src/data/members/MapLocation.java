@@ -1,11 +1,11 @@
 package data.members;
 
-public class ParkingSlotLocation {
+public class MapLocation {
 	
 	private double lat;
 	private double lon;
 
-	public ParkingSlotLocation(double latitude, double longitude){
+	public MapLocation(double latitude, double longitude){
 		this.lat = latitude;
 		this.lon = longitude;
 	}

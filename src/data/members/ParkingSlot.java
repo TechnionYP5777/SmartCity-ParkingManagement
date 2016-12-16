@@ -30,7 +30,7 @@ public class ParkingSlot {
 	private StickersColor color;
 
 	//	 The slot's location
-	private ParkingSlotLocation location;
+	private MapLocation location;
 
 	// The slot's area
 	private ParkingArea parkingArea;
@@ -42,7 +42,7 @@ public class ParkingSlot {
 	//	private User currentUser;
 
 	// Create a new parking slot. Will result in a new slot in the DB.
-	public ParkingSlot(String name, ParkingSlotStatus status, StickersColor color, ParkingSlotLocation location,
+	public ParkingSlot(String name, ParkingSlotStatus status, StickersColor color, MapLocation location,
 			ParkingArea parkingArea) throws ParseException{
 		DBManager.initialize();
 		this.slot = new ParseObject("ParkingSlot");
@@ -80,11 +80,11 @@ public class ParkingSlot {
 		this.slot.put("color", color);
 	}
 
-	public ParkingSlotLocation getLocation() {
+	public MapLocation getLocation() {
 		return location;
 	}
 
-	public void setLocation(ParkingSlotLocation location) {
+	public void setLocation(MapLocation location) {
 		this.location = location;
 		
 		// FIXME: fix this to use actual value!

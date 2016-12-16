@@ -100,8 +100,7 @@ public class Navigation {
         JSONObject duration = (JSONObject)element.get("duration");
         return (long) duration.get("value");
 	}
-	
-	
+		
 	public static int getClosestParkingArea(double currentLat, double currentLon, boolean walkingMode){
 		JSONParser parser = new JSONParser();
 		try{
