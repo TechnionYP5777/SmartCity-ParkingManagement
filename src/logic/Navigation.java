@@ -119,11 +119,11 @@ public class Navigation {
 		return -1; 
 	}
 
-	public ParkingSlot closestParkingSlot(User u,MapLocation currentLocation, ParkingAreas areas){
+	public ParkingSlot closestParkingSlot(User u,MapLocation currentLocation, ParkingAreas areas, Faculty f){
 
 		Set<ParkingArea> areasSet = areas.getParkingAreas();
 		ParkingSlot result = null;
-		long distance = Integer.MAX_VALUE;
+		long duration = Integer.MAX_VALUE;
 		
 		for (ParkingArea parkingArea : areasSet) {
 			if(!canPark(u, parkingArea)){
@@ -133,10 +133,12 @@ public class Navigation {
 			Set<ParkingSlot> freeSlots = parkingArea.getFreeSlots();
 			for(ParkingSlot parkingSlot : freeSlots){
 				
-				long d = getDistance(currentLocation, parkingSlot.getLocation(), false);
-				if(d < distance){
+				long durationToSlot = getDuration(currentLocation, parkingSlot.getLocation(), false);
+				long durationToFaculty = getDuration(parkingSlot.getLocation(), f.getEntrance(), true);
+				
+				if(durationToSlot + durationToFaculty < duration){
 					result = parkingSlot;
-					distance = d;
+					duration = durationToSlot + durationToFaculty;
 				}
 			}
 		}

@@ -1,8 +1,6 @@
 package database;
 
 import org.junit.Test;
-import org.parse4j.ParseGeoPoint;
-
 import data.management.DBManager;
 import data.members.ParkingArea;
 import data.members.ParkingSlot;
