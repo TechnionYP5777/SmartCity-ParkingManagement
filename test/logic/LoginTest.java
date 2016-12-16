@@ -94,4 +94,27 @@ public class LoginTest {
 			Assert.assertEquals(true, false);
 		}
 	}
+	
+	
+	@Test
+	public void test6(){
+		Login lg = new Login();
+		Assert.assertEquals("already exist",lg.UserValueCheck("David", "111", "1234567890", "3209654"));
+		
+		// name contains integer
+		String uID = lg.userSignUp("Zahi Mizrahi1", "Zahi123", "1234567890", "3216549", StickersColor.GREEN);
+		Assert.assertEquals("user has integer", uID);
+		// short phone number
+		uID="";
+		uID = lg.userSignUp("Zahi Mizrahi", "Zahi123", "0507777", "3216549", StickersColor.GREEN);
+		Assert.assertEquals("phone need to be in size 10", uID);
+		// short car number
+		uID="";
+		uID = lg.userSignUp("Zahi Mizrahi", "Zahi123", "1234567890", "321549", StickersColor.GREEN);
+		Assert.assertEquals("car need to be in size 7", uID);
+		// car number exist
+		uID="";
+		uID = lg.userSignUp("Zahi Mizrahi", "Zahi123", "123456790", "3209654", StickersColor.GREEN);
+		Assert.assertEquals("already exist", uID);		
+	}
 }

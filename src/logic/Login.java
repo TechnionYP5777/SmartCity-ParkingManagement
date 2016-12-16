@@ -16,7 +16,7 @@ import data.members.User;
 
 public class Login {
 	private User user;
-	
+
 	public Login() {
 		DBManager.initialize();
 	}
@@ -33,21 +33,42 @@ public class Login {
 		}
 	}
 
-
-	public String userSignUp(String name,String pass,String phone,String car,StickersColor type) {
-		user = null;
-		String str="";
+	public String UserValueCheck(String name, String pass, String phone, String car) {
+		ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("_User");
+		query.whereEqualTo("carNumber", car);
 		try {
-			user = new User(name,pass,phone,car,type,null);
-			str=user.getTableID();
+			int count = 0;
+			if (query.find() != null) {
+				for (@SuppressWarnings("unused") ParseObject ¢ : query.find())
+					++count;
+				if (count > 0)
+					return "already exist";
+			}
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		return name.matches(".*\\d.*")? "user has integer"
+				: phone.length() != 10 ? "phone need to be in size 10"
+						: car.length() != 7 ? "car need to be in size 7" : "Good Params";
+	}
+
+	public String userSignUp(String name, String pass, String phone, String car, StickersColor type) {
+		user = null;
+		String $ = UserValueCheck(name, pass, phone, car);
+		if (!"Good Params".equals($))
+			return $;
+
+		try {
+			user = new User(name, pass, phone, car, type, null);
+			$ = user.getTableID();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			str="";
+			$ = "";
 		}
-		return str;
+		return $;
 	}
-	
-	public void deleteUser() throws ParseException{
+
+	public void deleteUser() throws ParseException {
 		user.DeleteUser();
 	}
 }
