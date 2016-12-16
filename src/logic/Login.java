@@ -22,11 +22,11 @@ public class Login {
 	}
 
 	public boolean userLogin(String carNumber, String password) {
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
 		query.whereEqualTo("carNumber", carNumber);
 		try {
 			List<ParseObject> carList = query.find();
-			return carList != null && !carList.isEmpty() && password.equals(carList.get(0).getString("userPass"));
+			return carList != null && !carList.isEmpty() && password.equals(carList.get(0).getString("password"));
 		} catch (ParseException e) {
 			e.printStackTrace();
 			return false;
@@ -34,7 +34,7 @@ public class Login {
 	}
 
 	public String UserValueCheck(String name, String pass, String phone, String car) {
-		ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("_User");
+		ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("PMUser");
 		query.whereEqualTo("carNumber", car);
 		try {
 			int count = 0;
@@ -69,6 +69,24 @@ public class Login {
 			$ = "";
 		}
 		return $;
+	}
+
+	public boolean userUpdate(String carNumber, String name, String phoneNumber) {
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
+		query.whereEqualTo("carNumber", carNumber);
+		try {
+
+			List<ParseObject> userList = query.find();
+			if (userList != null && !userList.isEmpty()) {
+				userList.get(0).put("username", name);
+				userList.get(0).put("phoneNumber", phoneNumber);
+				userList.get(0).save();
+			}
+
+		} catch (ParseException e) {
+			return false;
+		}
+		return true;
 	}
 
 	public void deleteUser() throws ParseException {
