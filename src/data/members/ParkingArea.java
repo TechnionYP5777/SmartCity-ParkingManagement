@@ -141,6 +141,7 @@ public class ParkingArea {
 	 * change a specific parking slot status from taken to free
 	 */
 	public void changeTakenToFree(ParkingSlot s) {
+		//search if parking slot is exist
 		if (!this.getTakenSlots().contains(s))
 			return;
 
@@ -179,6 +180,7 @@ public class ParkingArea {
 	 * change a specific parking slot status from free to taken
 	 */
 	public void changeFreeToTaken(ParkingSlot s, User user) {
+		//search if parking slot and user are exist
 		if (!this.getFreeSlots().contains(s)) {
 			return;
 		}	
