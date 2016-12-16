@@ -1,9 +1,6 @@
 package logic;
 
-// DO NOT DELETE imports in the comments, they are needed for future use
-
 import data.members.*;
-//import java.time.*;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.io.FileNotFoundException;
@@ -13,23 +10,10 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-//import java.io.BufferedReader;
-//import java.io.FileNotFoundException;
-//import java.io.IOException;
-//import java.io.InputStreamReader;
 import java.net.URL;
-//import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
-//import java.io.IOException;
-//import java.net.URL;
- 
 import org.apache.commons.io.IOUtils;
-//import org.json.simple.*;
-//import org.json.simple.JSONArray;
-//import org.json.simple.JSONObject;
-//import org.json.simple.JSONValue;
-//import org.json.simple.parser.ParseException;
-
+import java.util.Set;
 
 
 public class Navigation {
@@ -67,10 +51,10 @@ public class Navigation {
 		return null;
 	}
 	
-	public static String createURL(double sourceLat, double sourceLon, double targetLat, double targetLon, boolean walkingMode){
+	public static String createURL(MapLocation source, MapLocation target, boolean walkingMode){
 		String url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=";
-		url += sourceLat + "," + sourceLon;
-		url += "&destinations="  + targetLat + "," + targetLon;
+		url += source.getLat() + "," + source.getLon();
+		url += "&destinations="  + target.getLat() + "," + target.getLon();
 		url += "&key=AIzaSyDw25loi0t1ms-bCuLPHS2Bm9aEIvyu9Wo";
 		
 		if(walkingMode == true)
@@ -79,9 +63,9 @@ public class Navigation {
 		return url;
 	}
 	// returns distance in meters
-	public static long getDistance(double sourceLat, double sourceLon, double targetLat, double targetLon, boolean walkingMode){
+	public static long getDistance(MapLocation source, MapLocation target, boolean walkingMode){
 
-		String url = createURL(sourceLat, sourceLon, targetLat, targetLon, walkingMode);
+		String url = createURL(source, target, walkingMode);
 		JSONObject element = getInnerJSON(url);
 		if (element == null)
 			return 0;
@@ -90,9 +74,9 @@ public class Navigation {
         return (long) distance.get("value");
 	}
 	// returns duration in seconds
-	public static long getDuration(double sourceLat, double sourceLon, double targetLat, double targetLon, boolean walkingMode){
+	public static long getDuration(MapLocation source, MapLocation target, boolean walkingMode){
 
-		String url = createURL(sourceLat, sourceLon, targetLat, targetLon, walkingMode);
+		String url = createURL(source, target, walkingMode);
 		JSONObject element = getInnerJSON(url);
 		if (element == null)
 			return 0;
@@ -101,13 +85,14 @@ public class Navigation {
         return (long) duration.get("value");
 	}
 		
-	public static int getClosestParkingArea(double currentLat, double currentLon, boolean walkingMode){
+	public static int getClosestParkingArea(MapLocation currentLocation, boolean walkingMode){
 		JSONParser parser = new JSONParser();
 		try{
 			JSONArray a = (JSONArray) parser.parse(new FileReader("./src/Logic/parkingAreas.json"));
-			
 			int minID = -1;
 			long dist = Integer.MAX_VALUE;
+			
+			
 			
 			for (Object o : a)
 			{
@@ -116,8 +101,9 @@ public class Navigation {
 				int id = Integer.parseInt((String) parkingArea.get("id"));
 				double targetLat = Double.parseDouble((String) parkingArea.get("locationX"));
 				double targetLon =  Double.parseDouble((String) parkingArea.get("locationY"));
+				MapLocation target = new MapLocation(targetLat, targetLon);
 				
-				long d = getDistance(currentLat, currentLon, targetLat, targetLon, walkingMode);
+				long d = getDistance(currentLocation, target, walkingMode);
 				if (d < dist){
 					minID = id;
 					dist = d;
@@ -134,5 +120,29 @@ public class Navigation {
         }
 		return -1; 
 	}
-	
+
+	public ParkingSlot closestParkingSlot(User u,MapLocation currentLocation, ParkingAreas areas){
+
+		Set<ParkingArea> areasSet = areas.getParkingAreas();
+		ParkingSlot result = null;
+		long distance = Integer.MAX_VALUE;
+		
+		for (ParkingArea parkingArea : areasSet) {
+			if(!canPark(u, parkingArea)){
+				continue;
+			}
+			
+			Set<ParkingSlot> freeSlots = parkingArea.getFreeSlots();
+			for(ParkingSlot parkingSlot : freeSlots){
+				
+				long d = getDistance(currentLocation, parkingSlot.getLocation(), false);
+				if(d < distance){
+					result = parkingSlot;
+					distance = d;
+				}
+			}
+		}
+		
+		return result;
+	}
 }
