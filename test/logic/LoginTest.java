@@ -1,6 +1,6 @@
 package logic;
 
-//import java.util.List;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -128,6 +128,33 @@ public class LoginTest {
 		uID = lg.userSignUp("Zahi Mizrahi", "Zahi123", "0501a23456", "3216549", StickersColor.GREEN);
 		Assert.assertEquals("phone contains only integers", uID);
 		// short car number
+	}
+	
+	@Test
+	public void test8(){
+		Login lg = new Login();		
+		Assert.assertTrue(lg.userUpdate("3209654", "David", "0501234567"));
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
+		query.whereEqualTo("carNumber", "3296054");
+		try {
+			List<ParseObject> userList = query.find();
+			if (userList != null && !userList.isEmpty()) {
+				Assert.assertEquals("David",userList.get(0).getString("username"));
+				Assert.assertEquals("0501234567",userList.get(0).getString("phoneNumber"));
+			}
+		} catch (ParseException e) {
+			Assert.assertEquals(true, false);
+		}
+		Assert.assertTrue(lg.userUpdate("3296054", "David Cohen", "0508937778"));
+		try {
+			List<ParseObject> userList = query.find();
+			if (userList != null && !userList.isEmpty()) {
+				Assert.assertEquals("David Cohen",userList.get(0).getString("username"));
+				Assert.assertEquals("0508937778",userList.get(0).getString("phoneNumber"));
+			}
+		} catch (ParseException e) {
+			Assert.assertEquals(true, false);
+		}
 	}
 
 }
