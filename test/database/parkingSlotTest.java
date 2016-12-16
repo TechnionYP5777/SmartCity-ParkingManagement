@@ -23,7 +23,7 @@ public class parkingSlotTest {
 			
 			ParkingSlot newSlot = new ParkingSlot("test slot", ParkingSlotStatus.FREE, StickersColor.RED, location, parkingArea);
 		} catch(Exception e){
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 }
