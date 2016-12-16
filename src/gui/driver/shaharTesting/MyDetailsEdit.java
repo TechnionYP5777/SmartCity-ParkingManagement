@@ -1,5 +1,7 @@
 package gui.driver.shaharTesting;
 
+import java.util.ArrayList;
+
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,41 +14,56 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class MyDetailsEdit {
+public class MyDetailsEdit extends AbstractWindow{
 
 static Stage window;
 	
-	public static void display(Stage primaryStage, WindowEnum prevWindow){
+	public void display(Stage primaryStage, WindowEnum prevWindow,
+			ArrayList<Label> labels, ArrayList<Label> values, ArrayList<AbstractWindow> prevWindows){
 		window = primaryStage;
-		window.setTitle("Get Password By Email");
+		window.setTitle("Edit My Details");
 		GridPane grid = new GridPane();
 		grid.setPadding(new Insets(20,20,20,20));
 		grid.setVgap(8);
 		grid.setHgap(10);
-		grid.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2,2,2,2))));
+		grid.setBackground(new Background(new BackgroundFill
+				(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2,2,2,2))));
 		
-		Label instruction = new Label("Username:");
-		GridPane.setConstraints(instruction, 0, 0);
+		ArrayList<TextField> newValues = new ArrayList<TextField>();
+		int i = 0;
+		for( ; i < labels.size() ; i++){
+			newValues.add(new TextField(values.get(i).getText()));
+			GridPane.setConstraints(labels.get(i), 0, i);
+			GridPane.setConstraints(newValues.get(i), 1, i);
+			grid.getChildren().addAll(labels.get(i), newValues.get(i));
+		}
 		
-		
-		TextField eMailInput = new TextField();
-		String defaultMail = "user@gmail.com";
-		eMailInput.setText(defaultMail);
-		GridPane.setConstraints(eMailInput, 1, 0);
-		
-		Button sendButton = new Button();
-		sendButton.setText("Send Mail");
-		
-		sendButton.setOnAction(e->{
-			//move to editing my details
-			
-			
+		Button doneButton = new Button();
+		doneButton.setText("Done");
+		doneButton.setOnAction(e->{
+			//Save edits
+			if(checkChangesLegality(newValues)){
+				ArrayList<Label> correctedValues = new ArrayList<Label>();
+				for(int j = 0 ; j < newValues.size() ; j++){
+					correctedValues.add(new Label(newValues.get(j).getText()));
+				}
+				//You can only get here id the last prevWindows is 'MyDetails'!!
+				MyDetails MD = (MyDetails) prevWindows.get(prevWindows.size()-1);
+				prevWindows.remove(prevWindows.size()-1);
+				MD.display(primaryStage, prevWindow, labels, correctedValues, prevWindows);
+			}
 		});
 		
-		grid.getChildren().addAll(instruction, eMailInput, sendButton);
-		Scene scene = new Scene(grid, 420,150);
+		GridPane.setConstraints(doneButton, 0, i);
+		
+		grid.getChildren().add(doneButton);
+		Scene scene = new Scene(grid, 300,150);
 		window.setScene(scene);
 		window.show();
 		
+	}
+	public static boolean checkChangesLegality(ArrayList<TextField> newValues){
+		
+		return true;
 	}
 }

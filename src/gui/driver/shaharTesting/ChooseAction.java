@@ -1,5 +1,7 @@
 package gui.driver.shaharTesting;
 
+import java.util.ArrayList;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,11 +11,11 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class ChooseAction {
+public class ChooseAction extends AbstractWindow {
 	
 static Stage window;
 	
-	public static void display(Stage primaryStage, WindowEnum prevWindow){
+	public void display(Stage primaryStage, WindowEnum prevWindow, ArrayList<AbstractWindow> prevWindows){
 		String title  = "Next Action";
 		String message = "Choose next action";
 		
@@ -34,7 +36,9 @@ static Stage window;
 		Button button1 = new Button("Get Password");
 		button1.setOnAction(e-> {
 			window.close();
-			GetPassByMail.display(primaryStage, WindowEnum.CHOOSE_ACTION);
+			GetPassByMail GPBM = new GetPassByMail();
+			prevWindows.add(this);
+			GPBM.display(primaryStage, WindowEnum.CHOOSE_ACTION, prevWindows);
 			
 		});
 		GridPane.setConstraints(button1, 0, 1);
@@ -42,7 +46,9 @@ static Stage window;
 		Button button3 = new Button("My Details");
 		button3.setOnAction(e-> {
 			window.close();
-			MyDetails.display(primaryStage, WindowEnum.CHOOSE_ACTION);
+			MyDetails MD = new MyDetails();
+			prevWindows.add(this);
+			MD.display(primaryStage, WindowEnum.CHOOSE_ACTION, null, null, prevWindows);
 			
 		});
 		GridPane.setConstraints(button3, 2, 1);

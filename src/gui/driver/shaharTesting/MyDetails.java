@@ -13,53 +13,74 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class MyDetails {
+public class MyDetails extends AbstractWindow{
 	static Stage window;
-	
-	public static void display(Stage primaryStage, WindowEnum prevWindow){
+
+	public void display(Stage primaryStage, WindowEnum prevWindow, final ArrayList<Label> newLabels,
+			final ArrayList<Label> newValues, ArrayList<AbstractWindow> prevWindows) {
 		window = primaryStage;
-		window.setTitle("Get Password By Email");
+		window.setTitle("My Details");
 		GridPane grid = new GridPane();
-		grid.setPadding(new Insets(20,20,20,20));
-		grid.setVgap(8);
+		grid.setPadding(new Insets(20, 20, 20, 20));
+		grid.setVgap(15);
 		grid.setHgap(10);
-		grid.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2,2,2,2))));
+		grid.setBackground(
+				new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2, 2, 2, 2))));
+
+		Button editDetailsButton = new Button();
+		editDetailsButton.setText("Edit");
+		int buttonIndex;
+		ArrayList<Label> labels;
+		ArrayList<Label> values;
 		
-		ArrayList<Label> labels = new ArrayList<Label>();
-		ArrayList<Label> values = new ArrayList<Label>();
-		
-		Label eMailLabel = new Label("eMail:");
-		Label eMail = new Label("user@gmail.com");
-		labels.add(eMailLabel);
-		values.add(eMail);
-		
-		Label UsernameLabel = new Label("Username:");
-		Label username = new Label("AwesomeUser");
-		labels.add(UsernameLabel);
-		values.add(username);
-		
-		Label carNumberLabel = new Label("Car Number:");
-		Label carNumber = new Label("123456789");
-		labels.add(carNumberLabel);
-		values.add(carNumber);
-		
-		Button changeDetailsButton = new Button();
-		changeDetailsButton.setText("Send Mail");
-		
-		changeDetailsButton.setOnAction(e->{
-			//move to editing my details
+		if (newLabels == null) {
+			labels  = new ArrayList<Label>();
+			values  = new ArrayList<Label>();
 			
-			
+			Label eMailLabel = new Label("eMail:");
+			Label eMail = new Label("user@gmail.com");
+			labels.add(eMailLabel);
+			values.add(eMail);
+
+			Label UsernameLabel = new Label("Username:");
+			Label username = new Label("AwesomeUser");
+			labels.add(UsernameLabel);
+			values.add(username);
+
+			Label carNumberLabel = new Label("Car Number:");
+			Label carNumber = new Label("123456789");
+			labels.add(carNumberLabel);
+			values.add(carNumber);
+
+		}
+		else{
+			labels = newLabels;
+			values = newValues;
+		}
+		
+		int i = 0;
+		for (; i < labels.size(); i++) {
+			GridPane.setConstraints(labels.get(i), 0, i);
+			GridPane.setConstraints(values.get(i), 1, i);
+			grid.getChildren().addAll(labels.get(i), values.get(i));
+		}
+		
+		buttonIndex = i;
+		editDetailsButton.setOnAction(e -> {
+			// move to editing my details
+			MyDetailsEdit MDE = new MyDetailsEdit();
+			prevWindows.add(this);
+			MDE.display(primaryStage, prevWindow, labels, values, prevWindows);
+
 		});
-		GridPane.setConstraints(changeDetailsButton, 0, 1);
 		
-		GridPane.setConstraints(eMailLabel, 0, 0);
-		GridPane.setConstraints(eMail, 1, 0);
-		grid.getChildren().addAll(eMailLabel, eMail, changeDetailsButton);
-		Scene scene = new Scene(grid, 420,150);
+		GridPane.setConstraints(editDetailsButton, 0, buttonIndex);
+
+		grid.getChildren().add(editDetailsButton);
+		Scene scene = new Scene(grid, 300, 150);
 		window.setScene(scene);
 		window.show();
-		
+
 	}
 
 }

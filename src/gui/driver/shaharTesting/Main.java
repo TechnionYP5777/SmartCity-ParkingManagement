@@ -1,5 +1,7 @@
 package gui.driver.shaharTesting;
 
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -16,7 +18,11 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		ChooseAction.display(primaryStage, WindowEnum.NONE);
+		ChooseAction chooseActionObject = new ChooseAction();
+		ArrayList<AbstractWindow> prevWindows = new ArrayList<AbstractWindow>();
+		prevWindows.add(chooseActionObject);
+		chooseActionObject.display(primaryStage, WindowEnum.NONE, prevWindows);
+		
 		
 //		if (!ConfirmBox.display("Choose Action", "would you like to get password?"))
 //			AlertBox.display("Goodbye!", "Hope you enjoyed!");
