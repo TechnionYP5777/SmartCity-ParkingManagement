@@ -50,7 +50,6 @@ public class example extends Application {
 		// Name Value
 		TextField nameInput = new TextField();
 		nameInput.setPromptText("name");
-		nameInput.setMinWidth(100);
 
 		// Price Value
 		TextField priceInput = new TextField();
@@ -62,7 +61,9 @@ public class example extends Application {
 
 		//Button
 		Button add = new Button("Add"); 
+		add.setOnAction(e-> addButtonClicked());
 		Button delete = new Button("Delete");
+		delete.setOnAction(e-> deleteButtonClicked());
 		
 		HBox hbox = new HBox();
 		hbox.setPadding(new Insets(10,10,10,10));
@@ -94,6 +95,19 @@ public class example extends Application {
 		products.add(new Product("Mouse", 20.00, 100));
 		products.add(new Product("Earphones", 5.00, 177));
 		return products;
+	}
+	
+	public void addButtonClicked () {
+		Product product = new Product(nameInput.getText(), Double.parseDouble(priceInput.getText()),
+				Integer.parseInt(quantityInput.getText())); 
+		table.getItems().add(product);
+		nameInput.clear();
+		priceInput.clear();
+		quantityInput.clear();
+	}
+	
+	public void deleteButtonClicked () {
+		table.getSelectionModel().getSelectedItems().forEach(table.getItems()::remove); 
 	}
 
 }
