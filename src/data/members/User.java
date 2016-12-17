@@ -1,7 +1,8 @@
 package data.members;
 
-import org.parse4j.ParseUser;
 import org.parse4j.ParseException;
+import org.parse4j.ParseObject;
+
 import data.management.DBManager;
 
 /**
@@ -29,19 +30,19 @@ public class User {
 	// saves the parking slot of a user if he parked
 	private ParkingSlot currentParking;
 
-	private ParseUser user;
+	private ParseObject user;
 
 	public User(String name, String password, String phoneNumber, String carNumber, StickersColor type,
 			ParkingSlot currentLocation) throws ParseException {
 		DBManager.initialize();
-		this.user = new ParseUser();
+		this.user = new ParseObject("PMUser");
 		this.setName(name);
 		this.setPassword(password);
 		this.setPhoneNumber(phoneNumber);
 		this.setCarName(carNumber);
 		this.setSticker(type);
 		this.setCurrentParking(currentLocation);
-		user.signUp();
+		user.save();
 	}
 
 	/* Get functions */
@@ -77,7 +78,7 @@ public class User {
 	/* Set functions */
 	public void setName(String name) {
 		this.name = name;
-		this.user.setUsername(name);
+		this.user.put("username",name);
 	}
 
 	public void setCurrentParking(ParkingSlot currentParking) {
@@ -87,8 +88,7 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-		this.user.put("userPass", password);
-		this.user.setPassword(password);
+		this.user.put("password", password);
 	}
 
 	public void setPhoneNumber(String phoneNumber) {

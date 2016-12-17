@@ -1,11 +1,12 @@
 package logic;
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
 import org.parse4j.ParseQuery;
-import org.parse4j.ParseUser;
 
 import data.management.DBManager;
 import data.members.StickersColor;
@@ -34,13 +35,12 @@ public class LoginTest {
 	@Test
 	public void test4() {
 		DBManager.initialize();
-		ParseUser testUserObject = new ParseUser();
-		testUserObject.setUsername("Shay");
-		testUserObject.setPassword("shayS");
-		testUserObject.put("userPass", "shayS");
+		ParseObject testUserObject = new ParseObject("PMUser");
+		testUserObject.put("username","Shay");
+		testUserObject.put("password","shayS");
 		testUserObject.put("carNumber", "1234567");
 		try {
-			testUserObject.signUp();
+			testUserObject.save();
 		} catch (ParseException e) {
 			Assert.assertEquals(true, false);
 		}
@@ -50,7 +50,7 @@ public class LoginTest {
 			e1.printStackTrace();
 		}
 		String id=testUserObject.getObjectId();
-		ParseQuery<ParseUser> query = ParseQuery.getQuery("_User");
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
 		ParseObject ret;
 		try {
 			ret = query.get(id);
@@ -59,7 +59,7 @@ public class LoginTest {
 			return;
 		}
 		Assert.assertEquals("Shay", ret.getString("username"));
-		Assert.assertEquals("shayS", ret.getString("userPass"));
+		Assert.assertEquals("shayS", ret.getString("password"));
 		Assert.assertEquals("1234567", ret.getString("carNumber"));
 		try {
 			testUserObject.delete();
@@ -75,7 +75,7 @@ public class LoginTest {
 		Login lg = new Login();
 		String uID = lg.userSignUp("Sefi Albo", "sefi987", "0507788999", "3216549", StickersColor.GREEN);
 		Assert.assertNotEquals("", uID);
-		ParseQuery<ParseUser> query = ParseQuery.getQuery("_User");
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
 		ParseObject user=null;
 		try {
 			user = query.get(uID);
@@ -84,7 +84,7 @@ public class LoginTest {
 			Assert.assertEquals(true, false);
 		}
 		Assert.assertEquals("Sefi Albo", user.getString("username"));
-		Assert.assertEquals("sefi987", user.getString("userPass"));
+		Assert.assertEquals("sefi987", user.getString("password"));
 		Assert.assertEquals("0507788999", user.getString("phoneNumber"));
 		Assert.assertEquals("3216549", user.getString("carNumber"));
 		Assert.assertEquals(StickersColor.GREEN.ordinal(), user.getInt("sticker"));
@@ -94,7 +94,6 @@ public class LoginTest {
 			Assert.assertEquals(true, false);
 		}
 	}
-	
 	
 	@Test
 	public void test6(){
@@ -118,7 +117,6 @@ public class LoginTest {
 		Assert.assertEquals("already exist", uID);		
 	}
 	
-	
 	@Test
 	public void test7(){
 		Login lg = new Login();
@@ -132,4 +130,31 @@ public class LoginTest {
 		// short car number
 	}
 	
+	@Test
+	public void test8(){
+		Login lg = new Login();		
+		Assert.assertTrue(lg.userUpdate("3209654", "David", "0501234567"));
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
+		query.whereEqualTo("carNumber", "3296054");
+		try {
+			List<ParseObject> userList = query.find();
+			if (userList != null && !userList.isEmpty()) {
+				Assert.assertEquals("David",userList.get(0).getString("username"));
+				Assert.assertEquals("0501234567",userList.get(0).getString("phoneNumber"));
+			}
+		} catch (ParseException e) {
+			Assert.assertEquals(true, false);
+		}
+		Assert.assertTrue(lg.userUpdate("3296054", "David Cohen", "0508937778"));
+		try {
+			List<ParseObject> userList = query.find();
+			if (userList != null && !userList.isEmpty()) {
+				Assert.assertEquals("David Cohen",userList.get(0).getString("username"));
+				Assert.assertEquals("0508937778",userList.get(0).getString("phoneNumber"));
+			}
+		} catch (ParseException e) {
+			Assert.assertEquals(true, false);
+		}
+	}
+
 }
