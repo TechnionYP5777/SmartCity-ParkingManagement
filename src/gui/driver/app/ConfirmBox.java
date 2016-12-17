@@ -8,27 +8,41 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class SaveDetailsButton {
-
-	public static void display(String title, String message) {
-		Stage window;
-		Button button = new Button();
-		window = new Stage();
+public class ConfirmBox{
+	
+	static boolean answer;
+	static Button yesButton,noButton;
+	
+	public static boolean display(String title, String message){
+		Stage window = new Stage();
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.setTitle(title);
 		window.setMinWidth(250);
-
+		
 		Label label = new Label();
 		label.setText(message);
-		button.setOnAction(e -> window.close());
-
+		
+		yesButton = new Button("Yes");
+		yesButton.setOnAction(e-> {
+			
+			answer = true;
+			window.close();
+		});
+		
+		noButton = new Button("No");
+		noButton.setOnAction(e-> {
+		answer = false;	
+		window.close();
+		});
+		
 		VBox layout = new VBox();
-		layout.getChildren().addAll(label, button);
+		layout.getChildren().addAll(label, noButton, yesButton);
 		layout.setAlignment(Pos.CENTER);
-
 		Scene scene = new Scene(layout);
 		window.setScene(scene);
 		window.showAndWait();
-
+		
+		return answer;
 	}
+
 }
