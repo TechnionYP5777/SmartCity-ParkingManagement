@@ -8,80 +8,63 @@ package gui.driver.zahiLearning;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
+//import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+//import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+//import javafx.scene.control.TableColumn;
+//import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+//import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 
 public class example extends Application {
 
 	Stage window;
-	TableView<Product> table;
+	BorderPane layout;
 	TextField nameInput, priceInput, quantityInput;
 
 	public static void main(String[] args) {
 		launch(args);
 	}
 
-	@SuppressWarnings("unchecked")
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
 		window.setTitle("Java Fx");
 
-		TableColumn<Product, String> nameCol = new TableColumn<>("Name");
-		nameCol.setMinWidth(200);
-		nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-		TableColumn<Product, Double> priceCol = new TableColumn<>("Price");
-		priceCol.setMinWidth(100);
-		priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
-
-		TableColumn<Product, Integer> quantityCol = new TableColumn<>("Quantity");
-		quantityCol.setMinWidth(100);
-		quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-
-		// Name Value
-		TextField nameInput = new TextField();
-		nameInput.setPromptText("name");
-
-		// Price Value
-		TextField priceInput = new TextField();
-		priceInput.setPromptText("price");
+		Menu mainFoodMenu = new Menu("Main Food");
 		
-		// Quantity Value
-		TextField quantityInput = new TextField();
-		quantityInput.setPromptText("quantity");
-
-		//Button
-		Button add = new Button("Add"); 
-		add.setOnAction(e-> addButtonClicked());
-		Button delete = new Button("Delete");
-		delete.setOnAction(e-> deleteButtonClicked());
+		//Menu Items
+		mainFoodMenu.getItems().add(new MenuItem("Sushi"));
+		mainFoodMenu.getItems().add(new MenuItem("Pizza"));
+		mainFoodMenu.getItems().add(new MenuItem("Burger"));
 		
-		HBox hbox = new HBox();
-		hbox.setPadding(new Insets(10,10,10,10));
-		hbox.setSpacing(10);
-		hbox.getChildren().addAll(nameInput,priceInput,quantityInput,add,delete);
-
-		table = new TableView<>();
-		table.setItems(getProducts());
-		table.getColumns().addAll(nameCol, priceCol, quantityCol);
-
-		VBox vbox = new VBox();
-		vbox.getChildren().addAll(table, hbox);
 		
+		Menu dessertMenu = new Menu("Desserts");
+		
+		//Menu Items
+		dessertMenu.getItems().add(new MenuItem("Chocolate Cake"));
+		dessertMenu.getItems().add(new MenuItem("Cheesecake"));
+		dessertMenu.getItems().add(new MenuItem("Ice Cream"));
+		dessertMenu.getItems().add(new MenuItem("Apple Pie"));
+		
+		//Menu Bar
+		MenuBar bar = new MenuBar(); 
+		bar.getMenus().addAll(mainFoodMenu, dessertMenu); 
 
-		Scene scene = new Scene(vbox);
+		BorderPane layout = new BorderPane();
+		layout.setTop(bar);
+		
+		Scene scene = new Scene(layout,400,250);
 		window.setScene(scene);
 		window.show();
 	}
+
 
 	/**
 	 * [[SuppressWarningsSpartan]]
@@ -95,19 +78,6 @@ public class example extends Application {
 		products.add(new Product("Mouse", 20.00, 100));
 		products.add(new Product("Earphones", 5.00, 177));
 		return products;
-	}
-	
-	public void addButtonClicked () {
-		Product product = new Product(nameInput.getText(), Double.parseDouble(priceInput.getText()),
-				Integer.parseInt(quantityInput.getText())); 
-		table.getItems().add(product);
-		nameInput.clear();
-		priceInput.clear();
-		quantityInput.clear();
-	}
-	
-	public void deleteButtonClicked () {
-		table.getSelectionModel().getSelectedItems().forEach(table.getItems()::remove); 
 	}
 
 }
