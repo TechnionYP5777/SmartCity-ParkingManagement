@@ -7,6 +7,8 @@ package gui.driver.app;
 
 
 
+import java.util.ArrayList;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -37,7 +39,7 @@ public class Login extends AbstractWindow {
 	}
 	
 	
-	public void display(Stage primaryStage, WindowEnum windowEnum) {
+	public void display(Stage primaryStage, WindowEnum windowEnum, ArrayList<AbstractWindow> prevWindows) {
 		window = primaryStage;
 		GridPane grid = new GridPane();
 		grid.setPadding(new Insets(20, 20, 20, 20));
@@ -77,7 +79,28 @@ public class Login extends AbstractWindow {
 		GridPane.setConstraints(forgotPass,3,3);
 
 		grid.getChildren().addAll(title,user, nameInput, pass, passInput, button,forgotPass); 
-		button.setOnAction( e-> displayMessage("Successful", "You have successfully logged in!"));
+		button.setOnAction( e-> {
+			Stage messageBox = new Stage();
+			messageBox.initModality(Modality.APPLICATION_MODAL);
+			messageBox.setTitle("Successful"); 
+			messageBox.setMinWidth(250);
+			messageBox.setMinHeight(50);
+			Label label = new Label ("You have successfuly logged in"); 
+			Button closeButton = new Button ("Close");
+			closeButton.setOnAction ( e1 -> {
+				this.window.close(); 
+				prevWindows.get(prevWindows.size()-1).window.show();
+				prevWindows.remove(prevWindows.size()-1);
+			});
+			messageBox.close();
+			VBox layout = new VBox (10); 
+			layout.getChildren().addAll(label, closeButton); 
+			layout.setAlignment(Pos.CENTER);
+			
+			Scene scene = new Scene(layout); 
+			messageBox.setScene(scene);
+			messageBox.showAndWait();
+		}); 
 		grid.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2,2,2,2))));
 		Scene scene = new Scene(grid);
 		window.setScene(scene);
@@ -85,24 +108,5 @@ public class Login extends AbstractWindow {
 		window.show();
 	}
 	
-	
-	public static void displayMessage (String title, String message) {
-		Stage messageBox = new Stage();
-		messageBox.initModality(Modality.APPLICATION_MODAL);
-		messageBox.setTitle(title); 
-		messageBox.setMinWidth(250);
-		messageBox.setMinHeight(50);
-		Label label = new Label (message); 
-		Button closeButton = new Button ("Close");
-		closeButton.setOnAction(e -> messageBox.close());
-		
-		VBox layout = new VBox (10); 
-		layout.getChildren().addAll(label, closeButton); 
-		layout.setAlignment(Pos.CENTER);
-		
-		Scene scene = new Scene(layout); 
-		messageBox.setScene(scene);
-		messageBox.showAndWait();
-	}
 
 }

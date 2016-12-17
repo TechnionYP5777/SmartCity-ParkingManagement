@@ -6,7 +6,11 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -64,10 +68,10 @@ public class ChooseAction extends AbstractWindow {
 			window.close(); 
 			Login login = new Login();
 			prevWindows.add(this);
-			login.display(primaryStage, WindowEnum.LOG_IN);
+			login.display(primaryStage, WindowEnum.LOG_IN, prevWindows);
 		});
 		GridPane.setConstraints(buttonLogin, 3, 1); 
-		
+		layout.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2,2,2,2))));
 		layout.getChildren().addAll(label, buttonLogin, buttonMyDetails, buttonGetPass, buttonClose);
 		layout.setAlignment(Pos.CENTER);
 		Scene scene = new Scene(layout);
