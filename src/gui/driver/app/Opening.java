@@ -1,5 +1,5 @@
 package gui.driver.app;
 
-public class Opening {
+public class Opening extends AbstractWindow {
 
 }

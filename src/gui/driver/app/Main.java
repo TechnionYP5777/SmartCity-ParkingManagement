@@ -20,6 +20,8 @@ public class Main extends Application {
 			return MyDetails.class;
 		case MY_DETAILS_EDIT:
 			return MyDetailsEdit.class;
+		case OPENING: 
+			return Opening.class; 
 		default:
 			return null;
 		}

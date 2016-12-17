@@ -7,7 +7,6 @@ package gui.driver.app;
 
 
 
-import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -28,17 +27,17 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class Login extends Application {
+public class Login extends AbstractWindow {
 
 	Stage window;
 	Scene scene;
 
-	public static void main(String[] args) {
-		launch(args);
+	public Login() {
+		windowEnum = WindowEnum.LOG_IN;
 	}
-
-	@Override
-	public void start(Stage primaryStage) throws Exception {
+	
+	
+	public void display(Stage primaryStage, WindowEnum windowEnum) {
 		window = primaryStage;
 		GridPane grid = new GridPane();
 		grid.setPadding(new Insets(20, 20, 20, 20));
@@ -78,7 +77,7 @@ public class Login extends Application {
 		GridPane.setConstraints(forgotPass,3,3);
 
 		grid.getChildren().addAll(title,user, nameInput, pass, passInput, button,forgotPass); 
-		button.setOnAction( e-> display("Successful", "You have successfully logged in!"));
+		button.setOnAction( e-> displayMessage("Successful", "You have successfully logged in!"));
 		grid.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2,2,2,2))));
 		Scene scene = new Scene(grid);
 		window.setScene(scene);
@@ -87,7 +86,7 @@ public class Login extends Application {
 	}
 	
 	
-	public static void display (String title, String message) {
+	public static void displayMessage (String title, String message) {
 		Stage messageBox = new Stage();
 		messageBox.initModality(Modality.APPLICATION_MODAL);
 		messageBox.setTitle(title); 
