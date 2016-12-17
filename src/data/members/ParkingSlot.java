@@ -2,10 +2,10 @@ package data.members;
 
 import java.util.List;
 
-import javax.tools.JavaFileManager.Location;
+//import javax.tools.JavaFileManager.Location;
 
 import org.parse4j.ParseException;
-import org.parse4j.ParseGeoPoint;
+//import org.parse4j.ParseGeoPoint;
 import org.parse4j.ParseObject;
 import org.parse4j.ParseQuery;
 //import org.parse4j.callback.FindCallback;

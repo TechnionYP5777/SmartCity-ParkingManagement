@@ -1,8 +1,9 @@
-package gui.driver.shaharTesting;
+package gui.driver.app;
 
 
 //An Enum used for returning to the previous window. still has no functionality.
 public enum WindowEnum {
+	OPENING 			,
 	CHOOSE_ACTION 		, 
 	GET_PASS_BY_MAIL	,
 	MY_DETAILS			,

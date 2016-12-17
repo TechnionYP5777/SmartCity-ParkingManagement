@@ -1,8 +1,6 @@
 package database;
 
 import org.junit.Test;
-import org.parse4j.ParseGeoPoint;
-
 import data.management.DBManager;
 import data.members.ParkingArea;
 import data.members.ParkingSlot;
@@ -23,7 +21,7 @@ public class parkingSlotTest {
 			
 			ParkingSlot newSlot = new ParkingSlot("test slot", ParkingSlotStatus.FREE, StickersColor.RED, location, parkingArea);
 		} catch(Exception e){
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 }

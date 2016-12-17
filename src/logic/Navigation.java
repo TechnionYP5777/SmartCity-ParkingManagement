@@ -1,8 +1,6 @@
 package logic;
 
 import data.members.*;
-import java.time.DayOfWeek;
-import java.time.LocalDateTime;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,12 +17,12 @@ import java.util.Set;
 public class Navigation {
 
 	// It should be ParkingArea instead of ParkingSlot. Will be updated when we implement ParkingArea	
-	public static boolean canPark(User u, ParkingArea pa){
+	public static boolean canPark(User user, ParkingArea parkingArea){
 		
-		if(pa.getNumOfFreeSlots() <= 0)
+		if(parkingArea.getNumOfFreeSlots() <= 0)
 			return false;
 		
-		return u.getSticker().ordinal() <= pa.getColor().ordinal();
+		return user.getSticker().ordinal() <= parkingArea.getColor().ordinal();
 	}
 	
 	private static JSONObject getInnerJSON(String url){
@@ -121,28 +119,51 @@ public class Navigation {
 		return -1; 
 	}
 
-	public ParkingSlot closestParkingSlot(User u,MapLocation currentLocation, ParkingAreas areas){
+	public static ParkingSlot closestParkingSlot(User user,MapLocation currentLocation, ParkingAreas areas, Faculty faculty){
 
 		Set<ParkingArea> areasSet = areas.getParkingAreas();
 		ParkingSlot result = null;
-		long distance = Integer.MAX_VALUE;
+		long duration = Integer.MAX_VALUE;
 		
 		for (ParkingArea parkingArea : areasSet) {
-			if(!canPark(u, parkingArea)){
+			if(!canPark(user, parkingArea)){
 				continue;
 			}
 			
 			Set<ParkingSlot> freeSlots = parkingArea.getFreeSlots();
 			for(ParkingSlot parkingSlot : freeSlots){
 				
-				long d = getDistance(currentLocation, parkingSlot.getLocation(), false);
-				if(d < distance){
+				long durationToSlot = getDuration(currentLocation, parkingSlot.getLocation(), false);
+				long durationToFaculty = getDuration(parkingSlot.getLocation(), faculty.getEntrance(), true);
+				
+				if(durationToSlot + durationToFaculty < duration){
 					result = parkingSlot;
-					distance = d;
+					duration = durationToSlot + durationToFaculty;
 				}
 			}
 		}
 		
+		return result;
+	}
+	
+	// returns the closest parking to the given faculty in the given parking area
+	public static ParkingSlot parkingSlotAtParkingArea(User user, ParkingArea parkingArea, Faculty faculty){
+		if(!canPark(user, parkingArea)){
+			return null;
+		}
+		
+		ParkingSlot result = null;
+		long duration = Integer.MAX_VALUE;
+		
+		
+		Set<ParkingSlot> freeSlots = parkingArea.getFreeSlots();
+		for(ParkingSlot parkingSlot : freeSlots){
+			long durationToFaculty = getDuration(parkingSlot.getLocation(), faculty.getEntrance() , true);
+			if(durationToFaculty < duration){
+				result = parkingSlot;
+				duration = durationToFaculty;
+			}
+		}
 		return result;
 	}
 }
