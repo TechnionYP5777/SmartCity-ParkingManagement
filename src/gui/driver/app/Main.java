@@ -10,6 +10,7 @@ public class Main extends Application {
 	static Scene scene;
 	Stage window;
 	
+	
 	public static Class<? extends AbstractWindow> getLastWindowClass(ArrayList<AbstractWindow> prevWindows){
 		switch (prevWindows.get(prevWindows.size() - 1).windowEnum) {
 		case CHOOSE_ACTION:

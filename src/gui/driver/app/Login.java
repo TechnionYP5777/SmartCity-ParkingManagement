@@ -19,6 +19,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -65,17 +66,30 @@ public class Login extends AbstractWindow {
 		passInput.setPromptText("password");
 		Label forgotPass = new Label("Forgot Password?");
 
-		Button button = new Button("Login");
+		Button loginButton = new Button("Login");
+		Button backButton = new Button("Back");
+		backButton.setOnAction(e -> {
+			// move to editing my details
+			this.window.close();
+			prevWindows.get(prevWindows.size()-1).window.show();
+			prevWindows.remove(prevWindows.size()-1);
+		});
+		
+		HBox hbox = new HBox();
+		
 		GridPane.setConstraints(title, 1, 0);
 		GridPane.setConstraints(user, 0, 1);
 		GridPane.setConstraints(nameInput, 1, 1);
 		GridPane.setConstraints(pass, 0, 2);
 		GridPane.setConstraints(passInput, 1, 2);
-		GridPane.setConstraints(button, 1, 3);
-		GridPane.setConstraints(forgotPass, 3, 3);
+//		GridPane.setConstraints(loginButton, 1, 3);
+//		GridPane.setConstraints(backButton,2,3);  
+		GridPane.setConstraints(hbox, 1, 3);
+		GridPane.setConstraints(forgotPass, 2, 4);
 
-		grid.getChildren().addAll(title, user, nameInput, pass, passInput, button, forgotPass);
-		button.setOnAction(e -> {
+		hbox.getChildren().addAll(loginButton, backButton);
+		grid.getChildren().addAll(title, user, nameInput, pass, passInput, hbox, forgotPass);
+		loginButton.setOnAction(e -> {
 			Stage messageBox = new Stage();
 			messageBox.initModality(Modality.APPLICATION_MODAL);
 			messageBox.setTitle("Successful");
