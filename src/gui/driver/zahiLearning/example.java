@@ -16,9 +16,11 @@ import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioMenuItem;
 //import javafx.scene.control.TableColumn;
 //import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 //import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 
@@ -65,12 +67,22 @@ public class example extends Application {
 		autoSave.setSelected(true);
 		helpMenu.getItems().addAll(showLines,autoSave);
 	
+		//Difficulty RadioMenuItem
+		Menu difficultyMenu = new Menu ("Difficulty");
+		ToggleGroup difficultyToggle = new ToggleGroup(); 
 		
+		RadioMenuItem easy = new RadioMenuItem("Easy"); 
+		RadioMenuItem medium = new RadioMenuItem("Medium"); 
+		RadioMenuItem hard = new RadioMenuItem("Hard"); 
 		
+		easy.setToggleGroup(difficultyToggle);
+		medium.setToggleGroup(difficultyToggle);
+		hard.setToggleGroup(difficultyToggle);
+		
+		difficultyMenu.getItems().addAll(easy,medium,hard);
 		//Menu Bar
 		MenuBar bar = new MenuBar(); 
-		bar.getMenus().addAll(mainFoodMenu, dessertMenu, helpMenu); 
-
+		bar.getMenus().addAll(mainFoodMenu, dessertMenu, helpMenu, difficultyMenu); 
 		BorderPane layout = new BorderPane();
 		layout.setTop(bar);
 		
