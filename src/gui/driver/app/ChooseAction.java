@@ -44,12 +44,15 @@ public class ChooseAction extends AbstractWindow {
 		});
 		GridPane.setConstraints(buttonGetPass, 0, 1);
 		
-		Button buttonClose = new Button("Close Program");
-		buttonClose.setOnAction(e-> {
-			if(prevWindow == WindowEnum.NONE && ConfirmBox.display("Confirmation", "Are you sure you want to exit?"))
-				window.close();	
+		Button buttonLogin = new Button ("Login");
+		buttonLogin.setOnAction( e -> {
+			window.close(); 
+			Login login = new Login();
+			prevWindows.add(this);
+			login.display(primaryStage, WindowEnum.LOG_IN, prevWindows);
 		});
-		GridPane.setConstraints(buttonClose, 1, 1);
+		GridPane.setConstraints(buttonLogin, 1, 1); 
+		
 		
 		Button buttonMyDetails = new Button("My Details");
 		buttonMyDetails.setOnAction(e-> {
@@ -62,15 +65,13 @@ public class ChooseAction extends AbstractWindow {
 		GridPane.setConstraints(buttonMyDetails, 2, 1);
 		
 		
-		
-		Button buttonLogin = new Button ("Login");
-		buttonLogin.setOnAction( e -> {
-			window.close(); 
-			Login login = new Login();
-			prevWindows.add(this);
-			login.display(primaryStage, WindowEnum.LOG_IN, prevWindows);
+		Button buttonClose = new Button("Close Program");
+		buttonClose.setOnAction(e-> {
+			if(prevWindow == WindowEnum.NONE && ConfirmBox.display("Confirmation", "Are you sure you want to exit?"))
+				window.close();	
 		});
-		GridPane.setConstraints(buttonLogin, 3, 1); 
+		GridPane.setConstraints(buttonClose, 3, 1);
+		
 		layout.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2,2,2,2))));
 		layout.getChildren().addAll(label, buttonLogin, buttonMyDetails, buttonGetPass, buttonClose);
 		layout.setAlignment(Pos.CENTER);
