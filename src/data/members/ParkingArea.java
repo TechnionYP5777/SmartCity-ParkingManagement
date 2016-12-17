@@ -194,7 +194,7 @@ public class ParkingArea {
 		}
 		
 		//search the given user
-		ParseQuery<ParseObject> query2 = ParseQuery.getQuery("User");
+		ParseQuery<ParseObject> query2 = ParseQuery.getQuery("PMUser");
 		query2.whereEqualTo("carNumber", u.getCarNumber());
 		try {
 			if (query2.find().size() != 1) {

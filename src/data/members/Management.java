@@ -91,7 +91,7 @@ public class Management {
 	// Return sticker type of a given user
 	public StickersColor getColorByUser(User u) {
 		// search the given user
-		ParseQuery<ParseObject> query2 = ParseQuery.getQuery("User");
+		ParseQuery<ParseObject> query2 = ParseQuery.getQuery("PMUser");
 		query2.whereEqualTo("carNumber", u.getCarNumber());
 		try {
 			if (query2.find().size() != 1) {
@@ -115,7 +115,7 @@ public class Management {
 	// Return parking slot id by a given user
 	public ParkingSlot getParkingslotByUser(User u) {
 		// search the given user
-		ParseQuery<ParseObject> query2 = ParseQuery.getQuery("User");
+		ParseQuery<ParseObject> query2 = ParseQuery.getQuery("PMUser");
 		query2.whereEqualTo("carNumber", u.getCarNumber());
 		try {
 			if (query2.find().size() != 1) {
