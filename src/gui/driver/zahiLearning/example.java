@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 //import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckMenuItem;
 //import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -53,9 +54,22 @@ public class example extends Application {
 		dessertMenu.getItems().add(new MenuItem("Ice Cream"));
 		dessertMenu.getItems().add(new MenuItem("Apple Pie"));
 		
+		
+		Menu helpMenu = new Menu ("Help"); 
+		CheckMenuItem showLines = new CheckMenuItem ("Show Line Numbers"); 
+		showLines.setOnAction(e -> {
+			System.out.println(
+					showLines.isSelected() ? "Program will now display numbers" : "Program won't display numbers");
+		});
+		CheckMenuItem autoSave = new CheckMenuItem ("Enable Autosave");
+		autoSave.setSelected(true);
+		helpMenu.getItems().addAll(showLines,autoSave);
+	
+		
+		
 		//Menu Bar
 		MenuBar bar = new MenuBar(); 
-		bar.getMenus().addAll(mainFoodMenu, dessertMenu); 
+		bar.getMenus().addAll(mainFoodMenu, dessertMenu, helpMenu); 
 
 		BorderPane layout = new BorderPane();
 		layout.setTop(bar);
