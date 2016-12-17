@@ -1,6 +1,5 @@
 package data.members;
 
-import java.util.List;
 import java.util.Set;
 
 import org.parse4j.ParseException;
@@ -70,9 +69,9 @@ public class ParkingArea {
 		return parkingSlots;
 	}
 
-	public void setParkingSlots(Set<ParkingSlot> parkingSlots) {
-		this.parkingSlots = parkingSlots;
-		this.area.put("parkingSlots", parkingSlots);
+	public void setParkingSlots(Set<ParkingSlot> ¢) {
+		this.parkingSlots = ¢;
+		this.area.put("parkingSlots", ¢);
 	}
 
 	public int getNumOfFreeSlots() {
@@ -115,9 +114,9 @@ public class ParkingArea {
 		return color;
 	}
 
-	public void setColor(StickersColor color) {
-		this.color = color;
-		this.area.put("color", color);
+	public void setColor(StickersColor ¢) {
+		this.color = ¢;
+		this.area.put("color", ¢);
 	}
 
 	/*
@@ -125,9 +124,9 @@ public class ParkingArea {
 	 * free slot, and therefore increase the amount of free slots in this area,
 	 * and the total count of parking
 	 */
-	public void addParkingSlot(ParkingSlot slot) {
-		this.getFreeSlots().add(slot);
-		this.getParkingSlots().add(slot);
+	public void addParkingSlot(ParkingSlot ¢) {
+		this.getFreeSlots().add(¢);
+		this.getParkingSlots().add(¢);
 		this.setNumOfFreeSlots(this.getNumOfFreeSlots() + 1);
 		this.setNumOfParkingSlots(this.getNumOfParkingSlots() + 1);
 
@@ -149,8 +148,7 @@ public class ParkingArea {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
 		query.whereEqualTo("name", s.getName());
 		try {
-			List<ParseObject> slotList = query.find();
-			if (slotList.size() != 1) {
+			if (query.find().size() != 1) {
 				System.out.format("Something went worng while searching for %d", s.getName());
 				return;
 			}
@@ -163,8 +161,6 @@ public class ParkingArea {
 		this.getTakenSlots().remove(s);
 		this.setNumOfTakenSlots(this.getNumOfTakenSlots() - 1);
 		s.setStatus(ParkingSlotStatus.FREE);
-		// FIXME: where will we save the current user of a given slot?
-		// s.setCurrentUser(null);
 		this.getFreeSlots().add(s);
 		this.setNumOfFreeSlots(this.getNumOfFreeSlots() + 1);
 
@@ -179,17 +175,15 @@ public class ParkingArea {
 	/*
 	 * change a specific parking slot status from free to taken
 	 */
-	public void changeFreeToTaken(ParkingSlot s, User user) {
+	public void changeFreeToTaken(ParkingSlot s, User u) {
 		//search if parking slot and user are exist
-		if (!this.getFreeSlots().contains(s)) {
-			return;
-		}	
+		if (!this.getFreeSlots().contains(s))
+			return;	
 		// search the parkingSlot objectId from parse
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
 		query.whereEqualTo("name", s.getName());
 		try {
-			List<ParseObject> slotList = query.find();
-			if (slotList.size() != 1) {
+			if (query.find().size() != 1) {
 				System.out.format("Something went worng while searching for %d", s.getName());
 				return;
 			}
@@ -201,11 +195,10 @@ public class ParkingArea {
 		
 		//search the given user
 		ParseQuery<ParseObject> query2 = ParseQuery.getQuery("User");
-		query2.whereEqualTo("carNumber", user.getCarNumber());
+		query2.whereEqualTo("carNumber", u.getCarNumber());
 		try {
-			List<ParseObject> usersList = query2.find();
-			if (usersList.size() != 1) {
-				System.out.format("Something went worng while searching for %d", user.getCarNumber());
+			if (query2.find().size() != 1) {
+				System.out.format("Something went worng while searching for %d", u.getCarNumber());
 				return;
 			}
 			
@@ -217,9 +210,7 @@ public class ParkingArea {
 		this.getFreeSlots().remove(s);
 		this.setNumOfFreeSlots(this.getNumOfFreeSlots() - 1);
 		s.setStatus(ParkingSlotStatus.TAKEN);
-		user.setCurrentParking(s);
-		// FIXME: where will we save the current user of a given slot?
-		// s.setCurrentUser(user);
+		u.setCurrentParking(s);
 		this.getTakenSlots().add(s);
 		this.setNumOfTakenSlots(this.getNumOfTakenSlots() + 1);
 		

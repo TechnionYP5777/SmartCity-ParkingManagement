@@ -110,6 +110,7 @@ public class ParkingAreas {
 		return count;
 	}
 
+
 	// Return parking slots per area
 	public int getNumOfSlotsByArea(ParkingArea area) {
 		if (!this.parkingAreas.contains(area)) {
@@ -124,6 +125,7 @@ public class ParkingAreas {
 		return count;
 	}
 
+	
 	// Return a free parking slot by a given area
 	public ParkingSlot getParkingslotByArea(ParkingArea area) {
 		ParkingSlot parkingSlot = null;

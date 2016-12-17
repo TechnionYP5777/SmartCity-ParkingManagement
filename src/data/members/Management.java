@@ -107,7 +107,7 @@ public class Management {
 		if (!this.users.contains(u))
 			return $;
 		for (User currentUser : this.users)
-			if (currentUser.equals(u))
+			if (currentUser.getCarNumber().equals(u.getCarNumber()))
 				$ = currentUser.getSticker();
 		return $;
 	}
@@ -131,7 +131,7 @@ public class Management {
 		if (!this.users.contains(u))
 			return $;
 		for (User currentUser : this.users)
-			if (currentUser.equals(u))
+			if (currentUser.getCarNumber().equals(u.getCarNumber()))
 				$ = currentUser.getCurrentParking();
 		return $;
 	}
@@ -152,12 +152,11 @@ public class Management {
 		}
 		User $ = null;
 		if (!this.parkingSlots.contains(parkinSlot))
-			return $;
-		for (ParkingSlot currentSlot : this.parkingSlots) {
-			if (currentSlot.equals(parkinSlot)) {
-				// user = currentSlot.getCurrentUser();
-			}
-		}
+			return null;
+		//search current user in parkingSlot
+		for (User ¢ : this.getUsers())
+			if (¢.getCurrentParking().getName().equals(parkinSlot.getName()))
+				return ¢;
 		return $;
 	}
 
