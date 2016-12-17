@@ -6,8 +6,8 @@ package Exceptions;
  */
 public class LoginException extends Exception{
 	private static final long serialVersionUID = 1L;
-	String exception;
-    LoginException(String str) {
+	public String exception;
+    public LoginException(String str) {
     	exception=str;
     }
     public String toString(){ 
