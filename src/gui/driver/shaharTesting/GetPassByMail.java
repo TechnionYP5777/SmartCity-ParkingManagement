@@ -16,7 +16,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class GetPassByMail extends AbstractWindow{
-	static Stage window;
+	
+	public GetPassByMail(){
+		windowEnum = WindowEnum.GET_PASS_BY_MAIL;
+	}
 	
 	public void display(Stage primaryStage, WindowEnum prevWindow, ArrayList<AbstractWindow> prevWindows){
 		window = primaryStage;

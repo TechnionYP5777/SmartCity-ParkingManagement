@@ -14,7 +14,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class MyDetails extends AbstractWindow{
-	static Stage window;
+	
+	
+	public MyDetails(){
+		windowEnum = WindowEnum.MY_DETAILS;
+	}
 
 	public void display(Stage primaryStage, WindowEnum prevWindow, final ArrayList<Label> newLabels,
 			final ArrayList<Label> newValues, ArrayList<AbstractWindow> prevWindows) {
@@ -33,29 +37,27 @@ public class MyDetails extends AbstractWindow{
 		ArrayList<Label> labels;
 		ArrayList<Label> values;
 		
-		if (newLabels == null) {
-			labels  = new ArrayList<Label>();
-			values  = new ArrayList<Label>();
+		if (newLabels != null) {
+			labels = newLabels;
+			values = newValues;
+		} else {
+			labels = new ArrayList<Label>();
+			values = new ArrayList<Label>();
 			
 			Label eMailLabel = new Label("eMail:");
 			Label eMail = new Label("user@gmail.com");
 			labels.add(eMailLabel);
 			values.add(eMail);
-
+			
 			Label UsernameLabel = new Label("Username:");
 			Label username = new Label("AwesomeUser");
 			labels.add(UsernameLabel);
 			values.add(username);
-
+			
 			Label carNumberLabel = new Label("Car Number:");
 			Label carNumber = new Label("123456789");
 			labels.add(carNumberLabel);
 			values.add(carNumber);
-
-		}
-		else{
-			labels = newLabels;
-			values = newValues;
 		}
 		
 		int i = 0;
@@ -74,9 +76,20 @@ public class MyDetails extends AbstractWindow{
 
 		});
 		
+		//TODO: finish it
+		Button backButton = new Button();
+		backButton.setText("Back");
+		backButton.setOnAction(e -> {
+			// move to editing my details
+			this.window.close();
+			prevWindows.get(prevWindows.size()-1).window.show();
+			prevWindows.remove(prevWindows.size()-1);
+		});
+		GridPane.setConstraints(backButton, 1, buttonIndex);
+		
 		GridPane.setConstraints(editDetailsButton, 0, buttonIndex);
 
-		grid.getChildren().add(editDetailsButton);
+		grid.getChildren().addAll(editDetailsButton, backButton);
 		Scene scene = new Scene(grid, 300, 150);
 		window.setScene(scene);
 		window.show();

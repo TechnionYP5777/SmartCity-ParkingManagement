@@ -10,6 +10,21 @@ import javafx.stage.Stage;
 public class Main extends Application {
 	static Scene scene;
 	Stage window;
+	
+	public static Class<? extends AbstractWindow> getLastWindowClass(ArrayList<AbstractWindow> prevWindows){
+		switch (prevWindows.get(prevWindows.size() - 1).windowEnum) {
+		case CHOOSE_ACTION:
+			return ChooseAction.class;
+		case GET_PASS_BY_MAIL:
+			return GetPassByMail.class;
+		case MY_DETAILS:
+			return MyDetails.class;
+		case MY_DETAILS_EDIT:
+			return MyDetailsEdit.class;
+		default:
+			return null;
+		}
+	}
 
 	public static void main(String[] args) {
 		launch(args);

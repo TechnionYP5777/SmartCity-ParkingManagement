@@ -5,6 +5,8 @@ package gui.driver.shaharTesting;
 public enum WindowEnum {
 	CHOOSE_ACTION 		, 
 	GET_PASS_BY_MAIL	,
+	MY_DETAILS			,
+	MY_DETAILS_EDIT		,
 	MAIN				,
 	SIGN_UP				,
 	LOG_IN 				,

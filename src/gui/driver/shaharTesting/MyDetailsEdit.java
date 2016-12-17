@@ -14,56 +14,60 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class MyDetailsEdit extends AbstractWindow{
+public class MyDetailsEdit extends AbstractWindow {
 
-static Stage window;
-	
-	public void display(Stage primaryStage, WindowEnum prevWindow,
-			ArrayList<Label> labels, ArrayList<Label> values, ArrayList<AbstractWindow> prevWindows){
+	public MyDetailsEdit() {
+		windowEnum = WindowEnum.MY_DETAILS_EDIT;
+	}
+
+	public void display(Stage primaryStage, WindowEnum prevWindow, ArrayList<Label> labels, ArrayList<Label> values,
+			ArrayList<AbstractWindow> prevWindows) {
 		window = primaryStage;
 		window.setTitle("Edit My Details");
 		GridPane grid = new GridPane();
-		grid.setPadding(new Insets(20,20,20,20));
+		grid.setPadding(new Insets(20, 20, 20, 20));
 		grid.setVgap(8);
 		grid.setHgap(10);
-		grid.setBackground(new Background(new BackgroundFill
-				(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2,2,2,2))));
-		
+		grid.setBackground(
+				new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2, 2, 2, 2))));
+
 		ArrayList<TextField> newValues = new ArrayList<TextField>();
 		int i = 0;
-		for( ; i < labels.size() ; i++){
+		for (; i < labels.size(); i++) {
 			newValues.add(new TextField(values.get(i).getText()));
 			GridPane.setConstraints(labels.get(i), 0, i);
 			GridPane.setConstraints(newValues.get(i), 1, i);
 			grid.getChildren().addAll(labels.get(i), newValues.get(i));
 		}
-		
+
 		Button doneButton = new Button();
 		doneButton.setText("Done");
-		doneButton.setOnAction(e->{
-			//Save edits
-			if(checkChangesLegality(newValues)){
+		doneButton.setOnAction(e -> {
+			// Save edits
+			if (checkChangesLegality(newValues)) {
 				ArrayList<Label> correctedValues = new ArrayList<Label>();
-				for(int j = 0 ; j < newValues.size() ; j++){
+				for (int j = 0; j < newValues.size(); j++) {
 					correctedValues.add(new Label(newValues.get(j).getText()));
 				}
-				//You can only get here id the last prevWindows is 'MyDetails'!!
-				MyDetails MD = (MyDetails) prevWindows.get(prevWindows.size()-1);
-				prevWindows.remove(prevWindows.size()-1);
+				// You can only get here id the last prevWindows is
+				// 'MyDetails'!!
+				MyDetails MD = (MyDetails) prevWindows.get(prevWindows.size() - 1);
+				prevWindows.remove(prevWindows.size() - 1);
 				MD.display(primaryStage, prevWindow, labels, correctedValues, prevWindows);
 			}
 		});
-		
+
 		GridPane.setConstraints(doneButton, 0, i);
-		
+
 		grid.getChildren().add(doneButton);
-		Scene scene = new Scene(grid, 300,150);
+		Scene scene = new Scene(grid, 300, 150);
 		window.setScene(scene);
 		window.show();
-		
+
 	}
-	public static boolean checkChangesLegality(ArrayList<TextField> newValues){
-		
+
+	public static boolean checkChangesLegality(ArrayList<TextField> newValues) {
+
 		return true;
 	}
 }

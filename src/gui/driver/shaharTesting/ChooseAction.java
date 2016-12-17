@@ -13,8 +13,6 @@ import javafx.stage.Stage;
 
 public class ChooseAction extends AbstractWindow {
 	
-static Stage window;
-	
 	public void display(Stage primaryStage, WindowEnum prevWindow, ArrayList<AbstractWindow> prevWindows){
 		String title  = "Next Action";
 		String message = "Choose next action";
