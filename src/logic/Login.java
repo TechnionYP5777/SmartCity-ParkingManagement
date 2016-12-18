@@ -22,15 +22,14 @@ public class Login {
 		DBManager.initialize();
 	}
 
-	public boolean userLogin(String carNumber, String password) {
+	public boolean userLogin(String carNumber, String password) throws LoginException {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
 		query.whereEqualTo("carNumber", carNumber);
 		try {
 			List<ParseObject> carList = query.find();
 			return carList != null && !carList.isEmpty() && password.equals(carList.get(0).getString("password"));
 		} catch (ParseException e) {
-			e.printStackTrace();
-			return false;
+			throw new LoginException("something went wrong");
 		}
 	}
 
@@ -72,7 +71,7 @@ public class Login {
 		return $;
 	}
 
-	public boolean userUpdate(String carNumber, String name, String phoneNumber) {
+	public boolean userUpdate(String carNumber, String name, String phoneNumber) throws LoginException {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
 		query.whereEqualTo("carNumber", carNumber);
 		try {
@@ -85,7 +84,7 @@ public class Login {
 			}
 
 		} catch (ParseException e) {
-			return false;
+			throw new LoginException("something went wrong looking for carNumber: " + carNumber);
 		}
 		return true;
 	}

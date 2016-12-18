@@ -20,17 +20,32 @@ public class LoginTest {
 
 	@Test
 	public void test1() {
-		Assert.assertTrue((new Login()).userLogin("3209654", "David123"));
+		try {
+			Assert.assertTrue((new Login()).userLogin("3209654", "David123"));
+		} catch (LoginException e) {
+			System.out.println(e + " test1");
+			Assert.assertEquals(true, false);
+		}
 	}
 
 	@Test
 	public void test2() {
-		Assert.assertFalse((new Login()).userLogin("3209654", "David1"));
+		try {
+			Assert.assertFalse((new Login()).userLogin("3209654", "David1"));
+		} catch (LoginException e) {
+			System.out.println(e + " test2");
+			Assert.assertEquals(true, false);
+		}
 	}
 
 	@Test
 	public void test3() {
-		Assert.assertFalse((new Login()).userLogin("1111111", "David1"));
+		try {
+			Assert.assertFalse((new Login()).userLogin("1111111", "David1"));
+		} catch (LoginException e) {
+			System.out.println(e + " test3");
+			Assert.assertEquals(true, false);
+		}
 	}
 
 	@Test
@@ -158,7 +173,11 @@ public class LoginTest {
 	@Test
 	public void test8() {
 		Login lg = new Login();
-		Assert.assertTrue(lg.userUpdate("3209654", "David", "0501234567"));
+		try {
+			Assert.assertTrue(lg.userUpdate("3209654", "David", "0501234567"));
+		} catch (LoginException e1) {
+			Assert.assertEquals(true, false);
+		}
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
 		query.whereEqualTo("carNumber", "3296054");
 		try {
@@ -170,7 +189,11 @@ public class LoginTest {
 		} catch (ParseException e) {
 			Assert.assertEquals(true, false);
 		}
-		Assert.assertTrue(lg.userUpdate("3296054", "David Cohen", "0508937778"));
+		try {
+			Assert.assertTrue(lg.userUpdate("3296054", "David Cohen", "0508937778"));
+		} catch (LoginException e1) {
+			Assert.assertEquals(true, false);
+		}
 		try {
 			List<ParseObject> userList = query.find();
 			if (userList != null && !userList.isEmpty()) {
