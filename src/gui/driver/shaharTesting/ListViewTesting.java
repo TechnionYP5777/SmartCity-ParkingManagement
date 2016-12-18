@@ -1,7 +1,5 @@
 package gui.driver.shaharTesting;
-
-import javax.security.auth.callback.Callback;
-
+/*
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -11,13 +9,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
+*/
 public class ListViewTesting {
-	
+	/*
 	public static final ObservableList<String> names = 
 	        FXCollections.observableArrayList();
 	    public static final ObservableList<String> data = 
@@ -54,7 +51,7 @@ public class ListViewTesting {
         //root.getChildren().add(list);
         window.setScene(new Scene(root, 200, 250));
         window.show();			
-	}
+	}*/
 }
 
 
