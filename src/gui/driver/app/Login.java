@@ -90,26 +90,10 @@ public class Login extends AbstractWindow {
 		hbox.getChildren().addAll(loginButton, backButton);
 		grid.getChildren().addAll(title, user, nameInput, pass, passInput, hbox, forgotPass);
 		loginButton.setOnAction(e -> {
-			Stage messageBox = new Stage();
-			messageBox.initModality(Modality.APPLICATION_MODAL);
-			messageBox.setTitle("Successful");
-			messageBox.setMinWidth(250);
-			messageBox.setMinHeight(50);
-			Label label = new Label("You have successfuly logged in");
-			Button closeButton = new Button("Close");
-			closeButton.setOnAction(e1 -> {
-				this.window.close();
-				prevWindows.get(prevWindows.size() - 1).window.show();
-				prevWindows.remove(prevWindows.size() - 1);
-			});
-			messageBox.close();
-			VBox layout = new VBox(10);
-			layout.getChildren().addAll(label, closeButton);
-			layout.setAlignment(Pos.CENTER);
-
-			Scene scene = new Scene(layout);
-			messageBox.setScene(scene);
-			messageBox.showAndWait();
+			AlertBox.display("Successful", "You have successfuly logged in");
+			this.window.close();
+			prevWindows.get(prevWindows.size() - 1).window.show();
+			prevWindows.remove(prevWindows.size() - 1);
 		});
 		grid.setBackground(
 				new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2, 2, 2, 2))));
