@@ -1,6 +1,7 @@
 package gui.driver.app;
 import java.util.ArrayList;
 
+import gui.driver.shaharTesting.ListViewTesting;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -35,10 +36,12 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		ChooseAction chooseActionObject = new ChooseAction();
+		ListViewTesting.display("listy", "hello");
+		
+		/*ChooseAction chooseActionObject = new ChooseAction();
 		ArrayList<AbstractWindow> prevWindows = new ArrayList<AbstractWindow>();
 		prevWindows.add(chooseActionObject);
-		chooseActionObject.display(primaryStage, WindowEnum.NONE, prevWindows);
+		chooseActionObject.display(primaryStage, WindowEnum.NONE, prevWindows);*/
 		
 		
 //		if (!ConfirmBox.display("Choose Action", "would you like to get password?"))
