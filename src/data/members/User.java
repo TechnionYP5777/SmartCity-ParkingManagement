@@ -24,6 +24,10 @@ public class User {
 	// the serial number of the users car will use to identify the user
 	private String carNumber;
 
+	// the email of the users, will use to communicate with the user
+	private String email;
+
+	
 	// the type of sticker of the user, will determine where can he park
 	private StickersColor sticker;
 
@@ -32,7 +36,7 @@ public class User {
 
 	private ParseObject user;
 
-	public User(String name, String password, String phoneNumber, String carNumber, StickersColor type,
+	public User(String name, String password, String phoneNumber, String carNumber, String email, StickersColor type,
 			ParkingSlot currentLocation) throws ParseException {
 		DBManager.initialize();
 		this.user = new ParseObject("PMUser");
@@ -41,6 +45,7 @@ public class User {
 		this.setPhoneNumber(phoneNumber);
 		this.setCarName(carNumber);
 		this.setSticker(type);
+		this.setEmail(email);
 		this.setCurrentParking(currentLocation);
 		user.save();
 	}
@@ -71,6 +76,10 @@ public class User {
 		return sticker;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+	
 	public void DeleteUser() throws ParseException {
 		this.user.delete();
 	}
@@ -104,6 +113,11 @@ public class User {
 	public void setCarName(String carNum) {
 		this.carNumber = carNum;
 		this.user.put("carNumber", carNum);
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
+		this.user.put("email", email);
 	}
 
 	/**

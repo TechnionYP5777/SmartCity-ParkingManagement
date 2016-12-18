@@ -91,7 +91,7 @@ public class LoginTest {
 		Login lg = new Login();
 		String uID = "";
 		try {
-			uID = lg.userSignUp("Sefi Albo", "sefi987", "0507788999", "3216549", StickersColor.GREEN);
+			uID = lg.userSignUp("Sefi Albo", "sefi987", "0507788999", "3216549", "sefi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException e2) {
 			Assert.assertEquals(true, false);
 		}
@@ -123,7 +123,7 @@ public class LoginTest {
 
 		// name contains integer
 		try {
-			lg.userSignUp("Zahi Mizrahi1", "Zahi123", "1234567890", "3216549", StickersColor.GREEN);
+			lg.userSignUp("Zahi Mizrahi1", "Zahi123", "1234567890", "3216549", "zahi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException e) {
 			// TODO Auto-generated catch block
 			Assert.assertEquals("user has integer", (e + ""));
@@ -131,20 +131,20 @@ public class LoginTest {
 
 		// short phone number
 		try {
-			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0507777", "3216549", StickersColor.GREEN);
+			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0507777", "3216549", "zahi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException e) {
 			Assert.assertEquals("phone need to be in size 10", (e + ""));
 		}
 		// short car number
 		try {
-			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "321549", StickersColor.GREEN);
+			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "321549", "zahi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException e) {
 			Assert.assertEquals("car need to be in size 7", (e + ""));
 		}
 
 		// car number exist
 		try {
-			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567900", "3209654", StickersColor.GREEN);
+			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567900", "3209654", "zahi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException e) {
 			Assert.assertEquals("already exist", (e + ""));
 		}
@@ -156,14 +156,14 @@ public class LoginTest {
 		Login lg = new Login();
 		// name contains integer
 		try {
-			lg.userSignUp("Zahi Mizrahi", "Zahi123", "1234567890", "3216549", StickersColor.GREEN);
+			lg.userSignUp("Zahi Mizrahi", "Zahi123", "1234567890", "3216549", "zahi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException e) {
 			Assert.assertEquals("phone should start with 05", (e + ""));
 		}
 
 		// short phone number
 		try {
-			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0501a23456", "3216549", StickersColor.GREEN);
+			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0501a23456", "3216549", "zahi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException e) {
 			Assert.assertEquals("phone contains only integers", (e + ""));
 		}

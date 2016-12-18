@@ -55,14 +55,14 @@ public class Login {
 										: car.length() == 7 ? "Good Params" : "car need to be in size 7";
 	}
 
-	public String userSignUp(String name, String pass, String phone, String car, StickersColor type)
+	public String userSignUp(String name, String pass, String phone, String car, String email, StickersColor type)
 			throws LoginException {
 		user = null;
 		String $ = UserValueCheck(name, pass, phone, car);
 		if (!"Good Params".equals($))
 			throw new LoginException($);
 		try {
-			user = new User(name, pass, phone, car, type, null);
+			user = new User(name, pass, phone, car, email, type, null);
 			$ = user.getTableID();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
