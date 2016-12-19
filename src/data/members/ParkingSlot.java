@@ -1,5 +1,6 @@
 package data.members;
 
+import java.util.Date;
 import java.util.List;
 
 //import javax.tools.JavaFileManager.Location;
@@ -35,6 +36,30 @@ public class ParkingSlot {
 	// The slot's area
 	private ParkingArea parkingArea;
 	
+	//The slot's default color
+	private StickersColor defaultColor;
+	
+	// The slot's endTime. if null the color permanent, else temporary
+	private Date endTime;
+	
+	public StickersColor getDefaultColor() {
+		return defaultColor;
+	}
+
+	public void setDefaultColor(StickersColor defaultColor) {
+		this.defaultColor = defaultColor;
+		this.slot.put("defaultColor", defaultColor);
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+		this.slot.put("endTime", endTime);
+	}
+
 	private ParseObject slot;
 
 	// FIXME: at this point, it is difficult to have a double pointer relation in the DB
@@ -43,7 +68,7 @@ public class ParkingSlot {
 
 	// Create a new parking slot. Will result in a new slot in the DB.
 	public ParkingSlot(String name, ParkingSlotStatus status, StickersColor color, MapLocation location,
-			ParkingArea parkingArea) throws ParseException{
+			ParkingArea parkingArea, StickersColor defaultColor, Date endTime) throws ParseException{
 		DBManager.initialize();
 		this.slot = new ParseObject("ParkingSlot");
 		this.setName(name);
@@ -51,6 +76,8 @@ public class ParkingSlot {
 		this.setColor(color);
 		this.setLocation(location);
 		this.setParkingArea(parkingArea);
+		this.setDefaultColor(defaultColor);
+		this.setEndTime(endTime);
 		slot.save();
 	}
 	

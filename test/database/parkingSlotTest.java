@@ -19,7 +19,7 @@ public class parkingSlotTest {
 		try{
 			MapLocation location = new MapLocation(32.778153, 35.021855);
 			
-			ParkingSlot newSlot = new ParkingSlot("test slot", ParkingSlotStatus.FREE, StickersColor.RED, location, parkingArea);
+			ParkingSlot newSlot = new ParkingSlot("test slot", ParkingSlotStatus.FREE, StickersColor.RED, location, parkingArea,StickersColor.RED, null);
 		} catch(Exception e){
 			//e.printStackTrace();
 		}
