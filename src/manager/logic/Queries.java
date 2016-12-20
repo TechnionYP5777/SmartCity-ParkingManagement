@@ -131,12 +131,6 @@ public class Queries {
 		return currentSlot == null ? null : currentSlot.getColor();
 	}
 	
-	//Return parking slot's area according to given location
-	public ParkingArea returnParkingSlotArea(Location l){
-		ParkingSlot currentSlot = this.returnParkingSlot(l);
-		return currentSlot == null ? null : currentSlot.getParkingArea();
-	}
-	
 	//Return parking slot's current user according to given location
 	public User returnParkingSlotCurrentUser(Location l){
 		ParkingSlot currentSlot=this.returnParkingSlot(l);
