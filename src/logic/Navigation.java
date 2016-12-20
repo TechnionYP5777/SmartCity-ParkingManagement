@@ -60,7 +60,6 @@ public class Navigation {
 		return url;
 	}
 	
-	
 	public static long getDistance(MapLocation source, MapLocation target, boolean walkingMode){
 		// returns distance in meters
 		String url = createURL(source, target, walkingMode);
@@ -87,11 +86,12 @@ public class Navigation {
 		
 		JSONParser parser = new JSONParser();
 		try{
-			JSONArray a = (JSONArray) parser.parse(new FileReader("./src/Logic/parkingAreas.json"));
+			JSONArray a = (JSONArray) parser.parse(new FileReader("./src/logic/parkingAreas.json"));
 			int minID = -1;
 			long dist = Integer.MAX_VALUE;
 			for (Object o : a)
 			{
+				
 				JSONObject parkingArea = (JSONObject) o;
 				int id = Integer.parseInt((String) parkingArea.get("id"));
 				double targetLat = Double.parseDouble((String) parkingArea.get("locationX"));
@@ -167,7 +167,7 @@ public class Navigation {
 	public void parkAtArea(User user, ParkingArea parkingArea, Faculty faculty){
 		ParkingSlot parkingSlot = parkingSlotAtParkingArea(user, parkingArea, faculty);
 		if(parkingSlot == null){
-			// error
+			// TODO: throw exception
 		}
 		parkingArea.changeFreeToTaken(parkingSlot, user);
 	}

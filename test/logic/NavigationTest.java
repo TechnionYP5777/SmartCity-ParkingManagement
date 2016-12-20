@@ -1,20 +1,42 @@
 package logic;
-//import org.junit.Assert;
+import data.members.*;
+import org.junit.Assert;
 import org.junit.Test;
+
 
 public class NavigationTest {
 
 	@Test
 	public void test1() {
-		// Might fail while there is traffic in the technion.
-		//Assert.assertEquals(317, Navigation.getDistance(32.777400, 35.020178, 32.777544, 35.020092, false));
+		MapLocation location = new MapLocation(32.778884, 35.016872);
+		Assert.assertEquals(5, Navigation.getClosestParkingArea(location, false));
 	}
 	@Test
 	public void test2() {
-		//Assert.assertEquals(0, Navigation.getClosestParkingArea(32.777297, 35.019971, false));
+		MapLocation location = new MapLocation(32.776395, 35.020756);
+		Assert.assertEquals(4, Navigation.getClosestParkingArea(location, false));
 	}
 	@Test
 	public void test3() {
-		//Assert.assertEquals(1, Navigation.getClosestParkingArea(32.778848, 35.017095, false));
+		
+		MapLocation location = new MapLocation(32.778857, 35.018535);
+		Assert.assertEquals(1, Navigation.getClosestParkingArea(location, false));
 	}
+	@Test
+	public void test4() {
+		
+		MapLocation location = new MapLocation(32.780571, 35.023073);
+		Assert.assertEquals(3, Navigation.getClosestParkingArea(location, false));
+	}
+	@Test
+	public void test5() {
+		
+		MapLocation source = new MapLocation(32.778938, 35.019168);
+		MapLocation target = new MapLocation(32.778758, 35.016368);
+		Assert.assertEquals(265, Navigation.getDistance(source, target, false));
+	}
+	
+	
+	
+	
 }
