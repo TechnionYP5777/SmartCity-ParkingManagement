@@ -30,5 +30,21 @@
 		"locationY":"35.022526",
 		"stickerType":"0",
 		"freeSlots":"1"
+	},
+	{
+		"id":"4",
+		"name":"Senat Dorms",
+		"locationX":"32.776075",
+		"locationY":"32.776075",
+		"stickerType":"0",
+		"freeSlots":"1"	
+	},
+	{
+		"id":"5",
+		"name":"Neve-America Dorms",
+		"locationX":"32.776972",
+		"locationY":"35.015080",
+		"stickerType":"0",
+		"freeSlots":"1"	
 	}
 ]
