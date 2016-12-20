@@ -15,8 +15,7 @@ import java.util.Set;
 
 
 public class Navigation {
-
-	// It should be ParkingArea instead of ParkingSlot. Will be updated when we implement ParkingArea	
+	
 	public static boolean canPark(User user, ParkingArea parkingArea){
 		
 		if(parkingArea.getNumOfFreeSlots() <= 0)
@@ -60,9 +59,10 @@ public class Navigation {
 		
 		return url;
 	}
-	// returns distance in meters
+	
+	
 	public static long getDistance(MapLocation source, MapLocation target, boolean walkingMode){
-
+		// returns distance in meters
 		String url = createURL(source, target, walkingMode);
 		JSONObject element = getInnerJSON(url);
 		if (element == null)
@@ -71,9 +71,9 @@ public class Navigation {
         JSONObject distance = (JSONObject)element.get("distance");
         return (long) distance.get("value");
 	}
-	// returns duration in seconds
+	
 	public static long getDuration(MapLocation source, MapLocation target, boolean walkingMode){
-
+		// returns duration in seconds
 		String url = createURL(source, target, walkingMode);
 		JSONObject element = getInnerJSON(url);
 		if (element == null)
@@ -84,23 +84,19 @@ public class Navigation {
 	}
 		
 	public static int getClosestParkingArea(MapLocation currentLocation, boolean walkingMode){
+		
 		JSONParser parser = new JSONParser();
 		try{
 			JSONArray a = (JSONArray) parser.parse(new FileReader("./src/Logic/parkingAreas.json"));
 			int minID = -1;
 			long dist = Integer.MAX_VALUE;
-			
-			
-			
 			for (Object o : a)
 			{
 				JSONObject parkingArea = (JSONObject) o;
-				
 				int id = Integer.parseInt((String) parkingArea.get("id"));
 				double targetLat = Double.parseDouble((String) parkingArea.get("locationX"));
 				double targetLon =  Double.parseDouble((String) parkingArea.get("locationY"));
 				MapLocation target = new MapLocation(targetLat, targetLon);
-				
 				long d = getDistance(currentLocation, target, walkingMode);
 				if (d < dist){
 					minID = id;
@@ -166,4 +162,17 @@ public class Navigation {
 		}
 		return result;
 	}
+	
+	
+	public void parkAtArea(User user, ParkingArea parkingArea, Faculty faculty){
+		ParkingSlot parkingSlot = parkingSlotAtParkingArea(user, parkingArea, faculty);
+		if(parkingSlot == null){
+			// error
+		}
+		parkingArea.changeFreeToTaken(parkingSlot, user);
+	}
 }
+
+
+
+
