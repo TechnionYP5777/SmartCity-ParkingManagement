@@ -14,5 +14,5 @@ public class DBManager {
 		Parse.initialize(appId, restKey, serverUrl);
 	}
 	
-	// TODO : add queries on DB on existing data
+	// TODO : add queries on DB on existing data	
 }
