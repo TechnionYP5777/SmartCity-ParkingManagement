@@ -9,7 +9,7 @@ package manager.logic;
 
 import java.util.Date;
 
-import data.members.ChangeDuration;
+import data.members.DurationType;
 import data.members.ParkingArea;
 import data.members.StickersColor;
 
@@ -17,7 +17,7 @@ public class ManualUpdate {
 	private Queries queries;
 	
 	public void updateArea(int areaId, int slotsAmount, StickersColor demandColor, 
-			ChangeDuration d, Date untilDate){
+			DurationType d, Date untilDate){
 
 		//check if the area is exist
 		ParkingArea givenArea = this.queries.returnArea(areaId);

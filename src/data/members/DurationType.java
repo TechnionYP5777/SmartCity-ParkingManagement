@@ -1,5 +1,5 @@
 package data.members;
 
-public enum ChangeDuration {
+public enum DurationType {
 	PERMANENTLY, TEMPORARY;
 }

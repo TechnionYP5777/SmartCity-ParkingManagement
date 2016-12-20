@@ -14,18 +14,18 @@ import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
 import org.parse4j.ParseQuery;
 
-import data.members.ChangeDuration;
+import data.members.DurationType;
 import data.members.StickersColor;
 
 public class ManualUpdateArea {
 	private int areaId;
 	private int slotsAmount;
 	private StickersColor demandColor;
-	private ChangeDuration duration;
+	private DurationType duration;
 	private Date endDate;
 	
 	public ManualUpdateArea(int areaId, int slotsAmount, StickersColor demandColor, 
-			ChangeDuration duration, Date untilDate){
+			DurationType duration, Date untilDate){
 		this.areaId=areaId;
 		this.demandColor=demandColor;
 		this.duration=duration;
@@ -50,10 +50,10 @@ public class ManualUpdateArea {
 	public void setDemandColor(StickersColor demandColor) {
 		this.demandColor = demandColor;
 	}
-	public ChangeDuration getDuration() {
+	public DurationType getDuration() {
 		return duration;
 	}
-	public void setDuration(ChangeDuration ¢) {
+	public void setDuration(DurationType ¢) {
 		this.duration = ¢;
 	}
 	public Date getUntilDate() {
@@ -78,7 +78,7 @@ public class ManualUpdateArea {
 					//note- its promise that there are at least slotsAmount of free parkingSlots
 					areaList.get(¢).put("color", this.demandColor);
 					//check if the duration is permanent or temporary
-					if (!this.duration.equals(ChangeDuration.PERMANENTLY))
+					if (!this.duration.equals(DurationType.PERMANENTLY))
 						//if temporary - insert the given endDate, change color
 						areaList.get(¢).put("endDate", this.endDate);
 					else {
