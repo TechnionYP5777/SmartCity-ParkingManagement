@@ -27,6 +27,15 @@ public class CreatingABasicWindow extends Application implements EventHandler<Ac
 		window=mainStage;
 		window.setTitle("Yearly Project is awesome");
 		
+		//input text field
+		TextField getInput = new TextField();
+		getInput.setPromptText("Input HERE!");
+		getInput.setMaxWidth(340);
+		
+		Button inputHandler = new Button();
+		inputHandler.setText("Now do something with that input");
+		inputHandler.setOnAction(e -> isInt(getInput,getInput.getText()));
+		
 		myButton = new Button();
 		myButton.setText("Click Here");
 		myButton.setOnAction(this);
@@ -46,7 +55,7 @@ public class CreatingABasicWindow extends Application implements EventHandler<Ac
 		
 		//Layouts
 		VBox layout = new VBox(10);
-		layout.getChildren().addAll(myButton,switchToScene2, alertBoxBtn);
+		layout.getChildren().addAll(getInput, inputHandler, myButton,switchToScene2, alertBoxBtn);
 		layout.setAlignment(Pos.CENTER);
 		scene1 = new Scene(layout, 500, 500);
 		
@@ -84,6 +93,19 @@ public class CreatingABasicWindow extends Application implements EventHandler<Ac
 		
 		window.setScene(scene1);
 		window.show();
+	}
+	
+	private boolean isInt(TextField field, String value) {
+		try {
+			int number = Integer.parseInt(value);
+			System.out.println(number);
+			return true;
+		}
+		catch (NumberFormatException e) {
+			System.out.println("Hi there, but " + value + " is not a number!");
+			return false;
+			
+		}
 	}
 	
 	@Override
