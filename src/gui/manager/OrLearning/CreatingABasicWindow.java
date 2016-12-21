@@ -95,7 +95,7 @@ public class CreatingABasicWindow extends Application implements EventHandler<Ac
 		window.show();
 	}
 	
-	private boolean isInt(TextField field, String value) {
+	private boolean isInt(TextField f, String value) {
 		try {
 			int number = Integer.parseInt(value);
 			System.out.println(number);
