@@ -36,13 +36,12 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		//ListViewTesting.display("listy", "hello");
-		Opening opening = new Opening(); 
-	//	ChooseAction chooseActionObject = new ChooseAction();
-	//	ArrayList<AbstractWindow> prevWindows = new ArrayList<AbstractWindow>();
-	//	prevWindows.add(chooseActionObject);
-	//	chooseActionObject.display(primaryStage, WindowEnum.NONE, prevWindows);
-		opening.start(primaryStage);
+		(new Opening()).start(primaryStage);
+		
+		//	ChooseAction chooseActionObject = new ChooseAction();
+		//	ArrayList<AbstractWindow> prevWindows = new ArrayList<AbstractWindow>();
+		//	prevWindows.add(chooseActionObject);
+		//	chooseActionObject.display(primaryStage, WindowEnum.NONE, prevWindows);
 		
 //		if (!ConfirmBox.display("Choose Action", "would you like to get password?"))
 //			AlertBox.display("Goodbye!", "Hope you enjoyed!");
