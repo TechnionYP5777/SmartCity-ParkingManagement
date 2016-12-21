@@ -22,8 +22,8 @@ public class Main extends Application {
 			return MyDetails.class;
 		case MY_DETAILS_EDIT:
 			return MyDetailsEdit.class;
-		case OPENING: 
-			return Opening.class; 
+	//	case OPENING: 
+	//		return Opening.class; 
 		default:
 			return null;
 		}
@@ -37,12 +37,12 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		
 		//ListViewTesting.display("listy", "hello");
-		
-		ChooseAction chooseActionObject = new ChooseAction();
-		ArrayList<AbstractWindow> prevWindows = new ArrayList<AbstractWindow>();
-		prevWindows.add(chooseActionObject);
-		chooseActionObject.display(primaryStage, WindowEnum.NONE, prevWindows);
-		
+		Opening opening = new Opening(); 
+	//	ChooseAction chooseActionObject = new ChooseAction();
+	//	ArrayList<AbstractWindow> prevWindows = new ArrayList<AbstractWindow>();
+	//	prevWindows.add(chooseActionObject);
+	//	chooseActionObject.display(primaryStage, WindowEnum.NONE, prevWindows);
+		opening.start(primaryStage);
 		
 //		if (!ConfirmBox.display("Choose Action", "would you like to get password?"))
 //			AlertBox.display("Goodbye!", "Hope you enjoyed!");

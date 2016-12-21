@@ -34,7 +34,7 @@ public class Login extends AbstractWindow {
 		windowEnum = WindowEnum.LOG_IN;
 	}
 
-	public void display(Stage primaryStage, WindowEnum windowEnum, ArrayList<AbstractWindow> prevWindows) {
+	public void display(Stage primaryStage, WindowEnum __, ArrayList<AbstractWindow> prevWindows) {
 		window = primaryStage;
 		GridPane grid = new GridPane();
 		grid.setPadding(new Insets(20, 20, 20, 20));
