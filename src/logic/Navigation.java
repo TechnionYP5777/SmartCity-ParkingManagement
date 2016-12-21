@@ -80,8 +80,7 @@ public class Navigation {
 		
         JSONObject duration = (JSONObject)element.get("duration");
         return (long) duration.get("value");
-	}
-		
+	}	
 	public static int getClosestParkingArea(MapLocation currentLocation, boolean walkingMode){
 		
 		JSONParser parser = new JSONParser();
@@ -96,13 +95,16 @@ public class Navigation {
 				int id = Integer.parseInt((String) parkingArea.get("id"));
 				double targetLat = Double.parseDouble((String) parkingArea.get("locationX"));
 				double targetLon =  Double.parseDouble((String) parkingArea.get("locationY"));
+				String name = (String) parkingArea.get("name");
 				MapLocation target = new MapLocation(targetLat, targetLon);
 				long d = getDistance(currentLocation, target, walkingMode);
+				System.out.println("Distance to " + name + " from current location is: " + d + " meters.");
 				if (d < dist){
 					minID = id;
 					dist = d;
 				}
 			}
+			System.out.println(minID);
 			return minID;
 			
 		}catch (FileNotFoundException e) {
@@ -170,6 +172,12 @@ public class Navigation {
 			// TODO: throw exception
 		}
 		parkingArea.changeFreeToTaken(parkingSlot, user);
+	}
+	public void parkAtClosestSlot(User user, MapLocation currentLocation, ParkingAreas areas, Faculty faculty){
+		ParkingSlot parkingSlot = closestParkingSlot(user, currentLocation, areas, faculty);
+		if(parkingSlot == null){
+			// TODO: throw exception
+		}
 	}
 }
 
