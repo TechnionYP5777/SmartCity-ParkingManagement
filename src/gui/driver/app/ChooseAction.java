@@ -16,6 +16,12 @@ import javafx.stage.Stage;
 
 public class ChooseAction extends AbstractWindow {
 	
+	public ChooseAction () {
+		windowEnum = WindowEnum.CHOOSE_ACTION;
+		window = new Stage(); 
+		window.initModality(Modality.APPLICATION_MODAL);
+	}
+	
 	public void display(Stage primaryStage, WindowEnum prevWindow, ArrayList<AbstractWindow> prevWindows){
 		String title  = "Next Action";
 		String message = "What Would you like to do?";
@@ -25,8 +31,8 @@ public class ChooseAction extends AbstractWindow {
 		layout.setVgap(10);
 		layout.setPadding(new Insets(10,10,10,10));
 		
-		window = new Stage();
-		window.initModality(Modality.APPLICATION_MODAL);
+		//window = new Stage(); 
+		//window.initModality(Modality.APPLICATION_MODAL);
 		window.setTitle(title);
 		window.setMinWidth(250);
 		

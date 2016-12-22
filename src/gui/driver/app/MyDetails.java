@@ -61,7 +61,7 @@ public class MyDetails extends AbstractWindow{
 		}
 		
 		int i = 0;
-		for (; i < labels.size(); i++) {
+		for (; i < labels.size(); ++i) {
 			GridPane.setConstraints(labels.get(i), 0, i);
 			GridPane.setConstraints(values.get(i), 1, i);
 			grid.getChildren().addAll(labels.get(i), values.get(i));

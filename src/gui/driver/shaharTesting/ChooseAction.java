@@ -54,10 +54,8 @@ public class ChooseAction extends AbstractWindow {
 		
 		Button button2 = new Button("Close Program");
 		button2.setOnAction(e-> {
-			if(prevWindow == WindowEnum.NONE){
-				if(ConfirmBox.display("Confirmation", "Are you sure you want to exit?"))
-					window.close();
-			}	
+			if(prevWindow == WindowEnum.NONE && ConfirmBox.display("Confirmation", "Are you sure you want to exit?"))
+				window.close();	
 		});
 		GridPane.setConstraints(button2, 1, 1);
 		

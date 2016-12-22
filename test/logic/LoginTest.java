@@ -119,7 +119,7 @@ public class LoginTest {
 	@Test
 	public void test6() {
 		Login lg = new Login();
-		Assert.assertEquals("already exist", lg.UserValueCheck("David", "111", "1234567890", "3209654"));
+		Assert.assertEquals("already exist", lg.UserValueCheck("David", "111", "1234567890", "3209654","david@gmail.com"));
 
 		// name contains integer
 		try {
@@ -202,6 +202,29 @@ public class LoginTest {
 			}
 		} catch (ParseException e) {
 			Assert.assertEquals(true, false);
+		}
+	}
+	
+	
+	@Test
+	public void test9() {
+		Login lg = new Login();
+		try {
+			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "3216549", "zahi@gmaifl.com", StickersColor.GREEN);
+		} catch (LoginException e) {
+			Assert.assertEquals("invalid email address", (e + ""));
+		}
+		
+		try {
+			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "3216549", "zahi@gmail.com", StickersColor.GREEN);
+		} catch (LoginException e) {
+			Assert.assertEquals(true,false);
+		}
+		
+		try {
+			lg.deleteUser();
+		} catch (ParseException e) {
+			Assert.assertEquals(true,false);
 		}
 	}
 

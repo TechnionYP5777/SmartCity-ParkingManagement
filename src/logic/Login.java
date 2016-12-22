@@ -33,7 +33,7 @@ public class Login {
 		}
 	}
 
-	public String UserValueCheck(String name, String pass, String phone, String car) {
+	public String UserValueCheck(String name, String pass, String phone, String car,String email) {
 		ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("PMUser");
 		query.whereEqualTo("carNumber", car);
 		try {
@@ -52,13 +52,14 @@ public class Login {
 				: phone.length() != 10 ? "phone need to be in size 10"
 						: !phone.startsWith("05") ? "phone should start with 05"
 								: phone.matches(".*[a-zA-z].*") ? "phone contains only integers"
+										:(!email.matches("[\\d\\w\\.]+@(campus|gmail|walla|hotmail|t2)(\\.(technion.ac.il|net|com))")) ?"invalid email address"
 										: car.length() == 7 ? "Good Params" : "car need to be in size 7";
 	}
 
 	public String userSignUp(String name, String pass, String phone, String car, String email, StickersColor type)
 			throws LoginException {
 		user = null;
-		String $ = UserValueCheck(name, pass, phone, car);
+		String $ = UserValueCheck(name, pass, phone, car,email);
 		if (!"Good Params".equals($))
 			throw new LoginException($);
 		try {

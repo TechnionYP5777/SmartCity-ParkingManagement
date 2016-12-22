@@ -1,13 +1,17 @@
+/**
+ * 
+ * @author Shahar-Y
+ */
 package gui.driver.app;
 import java.util.ArrayList;
 
 //import gui.driver.shaharTesting.ListViewTesting;
-import javafx.application.Application;
+//import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-public class Main extends Application {
+public class Main {
 	static Scene scene;
 	Stage window;
 	
@@ -22,27 +26,26 @@ public class Main extends Application {
 			return MyDetails.class;
 		case MY_DETAILS_EDIT:
 			return MyDetailsEdit.class;
-		case OPENING: 
-			return Opening.class; 
+	//	case OPENING: 
+	//		return Opening.class; 
 		default:
 			return null;
 		}
 	}
 
-	public static void main(String[] args) {
-		launch(args);
-	}
+//	public static void main(String[] args) {
+//		launch(args);
+//	}
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		
-		//ListViewTesting.display("listy", "hello");
-		
-		ChooseAction chooseActionObject = new ChooseAction();
-		ArrayList<AbstractWindow> prevWindows = new ArrayList<AbstractWindow>();
-		prevWindows.add(chooseActionObject);
-		chooseActionObject.display(primaryStage, WindowEnum.NONE, prevWindows);
-		
+//	@Override
+//	public void start(Stage primaryStage) throws Exception {
+//		
+//		(new Opening()).start(primaryStage);
+//		
+		//	ChooseAction chooseActionObject = new ChooseAction();
+		//	ArrayList<AbstractWindow> prevWindows = new ArrayList<AbstractWindow>();
+		//	prevWindows.add(chooseActionObject);
+		//	chooseActionObject.display(primaryStage, WindowEnum.NONE, prevWindows);
 		
 //		if (!ConfirmBox.display("Choose Action", "would you like to get password?"))
 //			AlertBox.display("Goodbye!", "Hope you enjoyed!");
@@ -55,4 +58,4 @@ public class Main extends Application {
 		//VHBoxesExperiment.display(primaryStage);
 	}
 
-}
+//}

@@ -7,6 +7,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -27,6 +28,15 @@ public class CreatingABasicWindow extends Application implements EventHandler<Ac
 		window=mainStage;
 		window.setTitle("Yearly Project is awesome");
 		
+		//input text field
+		TextField getInput = new TextField();
+		getInput.setPromptText("Input HERE!");
+		getInput.setMaxWidth(340);
+		
+		Button inputHandler = new Button();
+		inputHandler.setText("Now do something with that input");
+		inputHandler.setOnAction(e -> isInt(getInput.getText()));
+		
 		myButton = new Button();
 		myButton.setText("Click Here");
 		myButton.setOnAction(this);
@@ -46,11 +56,11 @@ public class CreatingABasicWindow extends Application implements EventHandler<Ac
 		
 		//Layouts
 		VBox layout = new VBox(10);
-		layout.getChildren().addAll(myButton,switchToScene2, alertBoxBtn);
+		layout.getChildren().addAll(getInput, inputHandler, myButton,switchToScene2, alertBoxBtn);
 		layout.setAlignment(Pos.CENTER);
 		scene1 = new Scene(layout, 500, 500);
 		
-		//GridPane form
+		//GridPane form - for screen 2
 		GridPane gridLayout = new GridPane();
 		gridLayout.setPadding(new Insets(15,15,15,15));
 		gridLayout.setVgap(10);
@@ -71,19 +81,42 @@ public class CreatingABasicWindow extends Application implements EventHandler<Ac
 		passInput.setPromptText("password");
 		GridPane.setConstraints(passInput, 1, 1);
 		
+		ChoiceBox<String> cb = new ChoiceBox<String>();
+		GridPane.setConstraints(cb, 0, 2);
+		cb.getItems().addAll("red","blue","yellow");
+		cb.setValue("red");
+		
+		//ChoiceBox listener
+		cb.getSelectionModel().selectedItemProperty().addListener( (v,prev,next) -> {
+			System.out.println(next);
+		});
+		
 		//Login button
 		Button loginBtn = new Button("Login");
-		GridPane.setConstraints(loginBtn, 0, 2);
+		GridPane.setConstraints(loginBtn, 0, 3);
 		
 		//Taking care of switchToScene1 button from before
-		GridPane.setConstraints(switchToScene1, 0, 3);
+		GridPane.setConstraints(switchToScene1, 0, 4);
 
 		
-		gridLayout.getChildren().addAll(switchToScene1, usernameLabel, usernameInput, passLabel, passInput, loginBtn);
+		gridLayout.getChildren().addAll(switchToScene1, usernameLabel, usernameInput, passLabel, passInput, loginBtn,cb);
 		scene2 = new Scene(gridLayout, 500, 500);
 		
 		window.setScene(scene1);
 		window.show();
+	}
+	
+	private boolean isInt(String value) {
+		try {
+			int number = Integer.parseInt(value);
+			System.out.println(number);
+			return true;
+		}
+		catch (NumberFormatException e) {
+			System.out.println("Hi there, but " + value + " is not a number!");
+			return false;
+			
+		}
 	}
 	
 	@Override
