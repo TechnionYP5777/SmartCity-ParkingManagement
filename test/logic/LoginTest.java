@@ -119,7 +119,8 @@ public class LoginTest {
 	@Test
 	public void test6() {
 		Login lg = new Login();
-		Assert.assertEquals("already exist", lg.UserValueCheck("David", "111", "1234567890", "3209654","david@gmail.com"));
+		Assert.assertEquals("already exist",
+				lg.UserValueCheck("David", "1234567890", "david@gmail.com","3209654"));
 
 		// name contains integer
 		try {
@@ -174,7 +175,7 @@ public class LoginTest {
 	public void test8() {
 		Login lg = new Login();
 		try {
-			Assert.assertTrue(lg.userUpdate("3209654", "David", "0501234567"));
+			Assert.assertTrue(lg.userUpdate("3209654", "David", "0501234567","david@gmail.com", "2222222"));
 		} catch (LoginException e1) {
 			Assert.assertEquals(true, false);
 		}
@@ -190,7 +191,7 @@ public class LoginTest {
 			Assert.assertEquals(true, false);
 		}
 		try {
-			Assert.assertTrue(lg.userUpdate("3296054", "David Cohen", "0508937778"));
+			Assert.assertTrue(lg.userUpdate("2222222", "David Cohen", "0508937778", "david.5581@hotmail.com", "3296054"));
 		} catch (LoginException e1) {
 			Assert.assertEquals(true, false);
 		}
@@ -204,8 +205,7 @@ public class LoginTest {
 			Assert.assertEquals(true, false);
 		}
 	}
-	
-	
+
 	@Test
 	public void test9() {
 		Login lg = new Login();
@@ -214,17 +214,37 @@ public class LoginTest {
 		} catch (LoginException e) {
 			Assert.assertEquals("invalid email address", (e + ""));
 		}
-		
+
 		try {
-			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "3216549", "zahi@gmail.com", StickersColor.GREEN);
+			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "3216549", "zahi@cs.technion.ac.il",
+					StickersColor.GREEN);
 		} catch (LoginException e) {
-			Assert.assertEquals(true,false);
+			Assert.assertEquals("invalid email address", (e + ""));
 		}
-		
+
+		try {
+			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "3216549", "zahi@campus.technion.ac.il",
+					StickersColor.GREEN);
+		} catch (LoginException e) {
+			Assert.assertEquals(true, false);
+		}
+
 		try {
 			lg.deleteUser();
 		} catch (ParseException e) {
-			Assert.assertEquals(true,false);
+			Assert.assertEquals(true, false);
+		}
+
+		try {
+			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "3216549", "zahi@gmail.com", StickersColor.GREEN);
+		} catch (LoginException e) {
+			Assert.assertEquals(true, false);
+		}
+
+		try {
+			lg.deleteUser();
+		} catch (ParseException e) {
+			Assert.assertEquals(true, false);
 		}
 	}
 

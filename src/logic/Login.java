@@ -33,7 +33,7 @@ public class Login {
 		}
 	}
 
-	public String UserValueCheck(String name, String pass, String phone, String car,String email) {
+	public String UserValueCheck(String name, String phone, String email, String car) {
 		ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("PMUser");
 		query.whereEqualTo("carNumber", car);
 		try {
@@ -52,35 +52,43 @@ public class Login {
 				: phone.length() != 10 ? "phone need to be in size 10"
 						: !phone.startsWith("05") ? "phone should start with 05"
 								: phone.matches(".*[a-zA-z].*") ? "phone contains only integers"
-										:(!email.matches("[\\d\\w\\.]+@(campus|gmail|walla|hotmail|t2)(\\.(technion.ac.il|net|com))")) ?"invalid email address"
-										: car.length() == 7 ? "Good Params" : "car need to be in size 7";
+										: (!email.matches(
+												"[\\d\\w\\.]+@(campus.technion.ac.il|gmail.com|walla.com|hotmail.com|t2.technion.ac.il)"))
+														? "invalid email address"
+														: car.length() == 7 ? "Good Params"
+																: "car need to be in size 7";
 	}
 
 	public String userSignUp(String name, String pass, String phone, String car, String email, StickersColor type)
 			throws LoginException {
 		user = null;
-		String $ = UserValueCheck(name, pass, phone, car,email);
+		String $ = UserValueCheck(name, phone, email, car);
 		if (!"Good Params".equals($))
 			throw new LoginException($);
 		try {
 			user = new User(name, pass, phone, car, email, type, null);
 			$ = user.getTableID();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			$ = "";
 		}
 		return $;
 	}
 
-	public boolean userUpdate(String carNumber, String name, String phoneNumber) throws LoginException {
+	public boolean userUpdate(String carNumber, String name, String phoneNumber, String email, String newCar)
+			throws LoginException {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
 		query.whereEqualTo("carNumber", carNumber);
 		try {
 
 			List<ParseObject> userList = query.find();
 			if (userList != null && !userList.isEmpty()) {
+				String s = UserValueCheck(name, phoneNumber, email, newCar);
+				if (!"Good Params".equals(s))
+					throw new LoginException(s);
 				userList.get(0).put("username", name);
 				userList.get(0).put("phoneNumber", phoneNumber);
+				userList.get(0).put("email", email);
+				userList.get(0).put("carNumber", newCar);
 				userList.get(0).save();
 			}
 
