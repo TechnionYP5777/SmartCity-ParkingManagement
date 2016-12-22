@@ -22,6 +22,15 @@ public class Login {
 		DBManager.initialize();
 	}
 
+	/***
+	 * userLogin uses the car number and password of the user.
+	 * 
+	 * @param carNumber
+	 * @param password
+	 * @return true if it found a match in the DB, else false.
+	 * @throws LoginException
+	 *             is thrown if there is a problem
+	 */
 	public boolean userLogin(String carNumber, String password) throws LoginException {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
 		query.whereEqualTo("carNumber", carNumber);
@@ -59,6 +68,26 @@ public class Login {
 																: "car need to be in size 7";
 	}
 
+	/***
+	 * 
+	 * @param name
+	 *            shouldn't have integer in the name
+	 * @param pass
+	 * @param phone
+	 *            need to be in size of 10, start with 05 and contain only
+	 *            integers
+	 * @param car
+	 *            need to be in size of 7
+	 * @param email
+	 *            should be a valid email address
+	 * @param type
+	 *            should be one of the enum types
+	 * 
+	 * @return the id of the user in the DB
+	 * @throws LoginException
+	 *             is thrown if there is a problem with the user value according
+	 *             to the UserValueCheck function
+	 */
 	public String userSignUp(String name, String pass, String phone, String car, String email, StickersColor type)
 			throws LoginException {
 		user = null;
@@ -74,6 +103,24 @@ public class Login {
 		return $;
 	}
 
+	/***
+	 * Update the user that has the carNumber and update his row for the
+	 * following values if they are correct
+	 * 
+	 * @param carNumber
+	 * @param name
+	 *            new name of the user
+	 * @param phoneNumber
+	 *            new phone number
+	 * @param email
+	 *            new email address
+	 * @param newCar
+	 *            new car number(in case of a switch) shouldn't be in the system
+	 * @return true if everything is correct
+	 * @throws LoginException
+	 *             is thrown if there is a problem with the user value according
+	 *             to the UserValueCheck function
+	 */
 	public boolean userUpdate(String carNumber, String name, String phoneNumber, String email, String newCar)
 			throws LoginException {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");

@@ -191,7 +191,7 @@ public class LoginTest {
 			Assert.assertEquals(true, false);
 		}
 		try {
-			Assert.assertTrue(lg.userUpdate("2222222", "David Cohen", "0508937778", "david.5581@hotmail.com", "3296054"));
+			Assert.assertTrue(lg.userUpdate("2222222", "David Cohen", "0508937778", "david.5581@hotmail.com", "3209654"));
 		} catch (LoginException e1) {
 			Assert.assertEquals(true, false);
 		}
