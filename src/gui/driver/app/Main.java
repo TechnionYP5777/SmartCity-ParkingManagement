@@ -1,13 +1,17 @@
+/**
+ * 
+ * @author Shahar-Y
+ */
 package gui.driver.app;
 import java.util.ArrayList;
 
 //import gui.driver.shaharTesting.ListViewTesting;
-import javafx.application.Application;
+//import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-public class Main extends Application {
+public class Main {
 	static Scene scene;
 	Stage window;
 	
@@ -29,15 +33,15 @@ public class Main extends Application {
 		}
 	}
 
-	public static void main(String[] args) {
-		launch(args);
-	}
+//	public static void main(String[] args) {
+//		launch(args);
+//	}
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		
-		(new Opening()).start(primaryStage);
-		
+//	@Override
+//	public void start(Stage primaryStage) throws Exception {
+//		
+//		(new Opening()).start(primaryStage);
+//		
 		//	ChooseAction chooseActionObject = new ChooseAction();
 		//	ArrayList<AbstractWindow> prevWindows = new ArrayList<AbstractWindow>();
 		//	prevWindows.add(chooseActionObject);
@@ -54,4 +58,4 @@ public class Main extends Application {
 		//VHBoxesExperiment.display(primaryStage);
 	}
 
-}
+//}

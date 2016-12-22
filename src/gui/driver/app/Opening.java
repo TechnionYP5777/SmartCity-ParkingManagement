@@ -81,6 +81,7 @@ public class Opening extends Application {
 		ChooseAction chooseActionObject = new ChooseAction();
 		ArrayList<AbstractWindow> prevWindows = new ArrayList<AbstractWindow>();
 		prevWindows.add(chooseActionObject);
+		primaryStage = new Stage(); 
 		chooseActionObject.display(primaryStage, WindowEnum.NONE, prevWindows);
 	}
 
