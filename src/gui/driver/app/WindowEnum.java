@@ -3,18 +3,22 @@ package gui.driver.app;
 
 //An Enum used for returning to the previous window. still has no functionality.
 public enum WindowEnum {
-	OPENING 			,
-	CHOOSE_ACTION 		, 
-	GET_PASS_BY_MAIL	,
-	MY_DETAILS			,
-	MY_DETAILS_EDIT		,
-	MAIN				,
-	SIGN_UP				,
-	LOG_IN 				,
-	CHOOSE_DESTINATION	,
-	NONE				;
-}
+	OPENING 			(0),
+	CHOOSE_ACTION 		(1), 
+	GET_PASS_BY_MAIL	(2),
+	MY_DETAILS			(3),
+	MY_DETAILS_EDIT		(4),
+	MAIN				(5),
+	SIGN_UP				(6),
+	LOG_IN 				(7),
+	CHOOSE_DESTINATION	(8),
+	NONE				(9);
 
+
+	private WindowEnum(int __){
+	
+	}
+}
 
 //A small experiment that didn't help. saving it for later use perhaps:
 //public enum WindowEnum {

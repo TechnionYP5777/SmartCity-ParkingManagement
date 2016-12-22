@@ -18,6 +18,7 @@ public class MyDetails extends AbstractWindow{
 	
 	public MyDetails(){
 		windowEnum = WindowEnum.MY_DETAILS;
+		window = new Stage();
 	}
 
 	public void display(Stage primaryStage, WindowEnum prevWindow, final ArrayList<Label> newLabels,
@@ -57,7 +58,7 @@ public class MyDetails extends AbstractWindow{
 			Label carNumberLabel = new Label("Car Number:");
 			Label carNumber = new Label("123456789");
 			labels.add(carNumberLabel);
-			values.add(carNumber);
+			values.add(carNumber);	
 		}
 		
 		int i = 0;
@@ -72,6 +73,7 @@ public class MyDetails extends AbstractWindow{
 			// move to editing my details
 			MyDetailsEdit MDE = new MyDetailsEdit();
 			prevWindows.add(this);
+			System.out.println(prevWindows);
 			MDE.display(primaryStage, prevWindow, labels, values, prevWindows);
 
 		});
@@ -84,6 +86,7 @@ public class MyDetails extends AbstractWindow{
 			this.window.close();
 			prevWindows.get(prevWindows.size()-1).window.show();
 			prevWindows.remove(prevWindows.size()-1);
+			System.out.println(prevWindows+"			");
 		});
 		GridPane.setConstraints(backButton, 1, buttonIndex);
 		

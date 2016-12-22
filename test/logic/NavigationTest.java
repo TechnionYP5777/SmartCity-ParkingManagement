@@ -8,7 +8,7 @@ public class NavigationTest {
 
 	@Test
 	public void test1() {
-		MapLocation location = new MapLocation(32.774586, 35.027397);
+		MapLocation location = new MapLocation(32.775041, 35.027084);
 		Assert.assertEquals(2, Navigation.getClosestParkingArea(location, false));
 	}
 	/*

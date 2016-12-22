@@ -20,6 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.*;
 import javafx.util.Duration;
 
+
 public class Opening extends Application {
 	public static final String SPLASH_IMAGE = "https://s23.postimg.org/ecvvaduyz/smart_parking.png";
 
@@ -30,8 +31,13 @@ public class Opening extends Application {
 	private static final int SPLASH_WIDTH = 274;
 	private static final int SPLASH_HEIGHT = 266;
 	
+	public static ArrayList<AbstractWindow> globalWindows;
+	
 	
 	public static void main(String[] args) throws Exception {
+		/*globalWindows = new ArrayList<>();
+		globalWindows.set(1, new ChooseAction());*/
+		
 		launch(args);
 	}
 
@@ -80,7 +86,6 @@ public class Opening extends Application {
 	private void showMainMenu(ReadOnlyObjectProperty<ObservableList<String>> friends) {
 		ChooseAction chooseActionObject = new ChooseAction();
 		ArrayList<AbstractWindow> prevWindows = new ArrayList<AbstractWindow>();
-		prevWindows.add(chooseActionObject);
 		primaryStage = new Stage(); 
 		chooseActionObject.display(primaryStage, WindowEnum.NONE, prevWindows);
 	}

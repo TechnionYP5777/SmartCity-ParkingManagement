@@ -16,8 +16,8 @@ public class Main {
 	Stage window;
 	
 	
-	public static Class<? extends AbstractWindow> getLastWindowClass(ArrayList<AbstractWindow> prevWindows){
-		switch (prevWindows.get(prevWindows.size() - 1).windowEnum) {
+	public static Class<? extends AbstractWindow> getWindowClass(WindowEnum ¢){
+		switch (¢) {
 		case CHOOSE_ACTION:
 			return ChooseAction.class;
 		case GET_PASS_BY_MAIL:

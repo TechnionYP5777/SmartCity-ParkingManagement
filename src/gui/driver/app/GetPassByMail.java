@@ -54,13 +54,26 @@ public class GetPassByMail extends AbstractWindow{
 				} catch (Exception eMailException) {
 					System.out.println(e);
 				}
+				this.window.close();
+				prevWindows.get(prevWindows.size()-1).window.show();
+				prevWindows.remove(prevWindows.size()-1);
 				AlertBox.display("Password Sent", "The password was sent to your eMail account");
 			}
 			
 		});
 		GridPane.setConstraints(sendButton, 0,2);
 		
-		grid.getChildren().addAll(instruction, eMailInput, sendButton);
+		Button backButton = new Button();
+		backButton.setText("Back");
+		backButton.setOnAction(e -> {
+			// move to editing my details
+			this.window.close();
+			prevWindows.get(prevWindows.size()-1).window.show();
+			prevWindows.remove(prevWindows.size()-1);
+		});
+		GridPane.setConstraints(backButton, 1, 2);
+		
+		grid.getChildren().addAll(instruction, eMailInput, sendButton, backButton);
 		Scene scene = new Scene(grid, 420,150);
 		window.setScene(scene);
 		window.show();
