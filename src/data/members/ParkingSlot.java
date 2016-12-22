@@ -107,5 +107,9 @@ public class ParkingSlot {
 		this.endTime = endTime;
 		this.slot.put("endTime", endTime);
 	}
+	
+	public void changeStatus(ParkingSlotStatus newStatus){
+		this.setStatus(newStatus);
+	};
 
 }

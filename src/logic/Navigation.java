@@ -16,27 +16,17 @@ import java.util.Set;
 
 public class Navigation {
 	
-	public static boolean canPark(User user, ParkingArea parkingArea){
-		
-		if(parkingArea.getNumOfFreeSlots() <= 0)
-			return false;
-		
-		return user.getSticker().ordinal() <= parkingArea.getColor().ordinal();
+	public static boolean canPark(User u, ParkingArea a){
+		return a.getNumOfFreeSlots() > 0 && u.getSticker().ordinal() <= a.getColor().ordinal();
 	}
 	
 	private static JSONObject getInnerJSON(String url){
 		JSONParser parser = new JSONParser();
 		try{
 			
-		 	URL u = new URL(url);
-		    String jsonString = IOUtils.toString(u, StandardCharsets.UTF_8);
-		    
-	        JSONObject theJSON = (JSONObject)  parser.parse(jsonString);
-	        JSONArray rows = (JSONArray) theJSON.get("rows"); 
-	        JSONObject elements = (JSONObject)rows.get(0);
-	        JSONArray innerElements = (JSONArray) elements.get("elements");
-	        JSONObject firstElement = (JSONObject)innerElements.get(0);
-	        return firstElement;
+		 	return (JSONObject) ((JSONArray) ((JSONObject) ((JSONArray) ((JSONObject) parser
+					.parse(IOUtils.toString((new URL(url)), StandardCharsets.UTF_8))).get("rows")).get(0))
+							.get("elements")).get(0);
             
 		}catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -49,37 +39,25 @@ public class Navigation {
 	}
 	
 	public static String createURL(MapLocation source, MapLocation target, boolean walkingMode){
-		String url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=";
-		url += source.getLat() + "," + source.getLon();
-		url += "&destinations="  + target.getLat() + "," + target.getLon();
-		url += "&key=AIzaSyDw25loi0t1ms-bCuLPHS2Bm9aEIvyu9Wo";
+		String $ = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins="
+				+ (source.getLat() + "," + source.getLon()) + "&destinations=" + target.getLat() + "," + target.getLon()
+				+ "&key=AIzaSyDw25loi0t1ms-bCuLPHS2Bm9aEIvyu9Wo";
+		if(walkingMode)
+			$ += "&mode=walking";
 		
-		if(walkingMode == true)
-			url += "&mode=walking";
-		
-		return url;
+		return $;
 	}
 	
 	public static long getDistance(MapLocation source, MapLocation target, boolean walkingMode){
-		// returns distance in meters
 		String url = createURL(source, target, walkingMode);
 		JSONObject element = getInnerJSON(url);
-		if (element == null)
-			return 0;
-		
-        JSONObject distance = (JSONObject)element.get("distance");
-        return (long) distance.get("value");
+		return element == null ? 0 : (long) ((JSONObject) element.get("distance")).get("value");
 	}
 	
 	public static long getDuration(MapLocation source, MapLocation target, boolean walkingMode){
-		// returns duration in seconds
 		String url = createURL(source, target, walkingMode);
 		JSONObject element = getInnerJSON(url);
-		if (element == null)
-			return 0;
-		
-        JSONObject duration = (JSONObject)element.get("duration");
-        return (long) duration.get("value");
+		return element == null ? 0 : (long) ((JSONObject) element.get("duration")).get("value");
 	}
 		
 	public static int getClosestParkingArea(MapLocation currentLocation, boolean walkingMode){
@@ -87,7 +65,7 @@ public class Navigation {
 		JSONParser parser = new JSONParser();
 		try{
 			JSONArray a = (JSONArray) parser.parse(new FileReader("./src/logic/parkingAreas.json"));
-			int minID = -1;
+			int $ = -1;
 			long dist = Integer.MAX_VALUE;
 			for (Object o : a)
 			{
@@ -99,11 +77,11 @@ public class Navigation {
 				MapLocation target = new MapLocation(targetLat, targetLon);
 				long d = getDistance(currentLocation, target, walkingMode);
 				if (d < dist){
-					minID = id;
+					$ = id;
 					dist = d;
 				}
 			}
-			return minID;
+			return $;
 			
 		}catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -115,61 +93,54 @@ public class Navigation {
 		return -1; 
 	}
 
-	public static ParkingSlot closestParkingSlot(User user,MapLocation currentLocation, ParkingAreas areas, Faculty faculty){
+	public static ParkingSlot closestParkingSlot(User u,MapLocation currentLocation, ParkingAreas a, Faculty f){
 
-		Set<ParkingArea> areasSet = areas.getParkingAreas();
-		ParkingSlot result = null;
+		Set<ParkingArea> areasSet = a.getParkingAreas();
+		ParkingSlot $ = null;
 		long duration = Integer.MAX_VALUE;
 		
 		for (ParkingArea parkingArea : areasSet) {
-			if(!canPark(user, parkingArea)){
+			if(!canPark(u, parkingArea))
 				continue;
-			}
 			
-			Set<ParkingSlot> freeSlots = parkingArea.getFreeSlots();
-			for(ParkingSlot parkingSlot : freeSlots){
-				
+			for (ParkingSlot parkingSlot : parkingArea.getFreeSlots()) {
 				long durationToSlot = getDuration(currentLocation, parkingSlot.getLocation(), false);
-				long durationToFaculty = getDuration(parkingSlot.getLocation(), faculty.getEntrance(), true);
-				
-				if(durationToSlot + durationToFaculty < duration){
-					result = parkingSlot;
+				long durationToFaculty = getDuration(parkingSlot.getLocation(), f.getEntrance(), true);
+				if (durationToSlot + durationToFaculty < duration) {
+					$ = parkingSlot;
 					duration = durationToSlot + durationToFaculty;
 				}
 			}
 		}
 		
-		return result;
+		return $;
 	}
 	
 	// returns the closest parking to the given faculty in the given parking area
-	public static ParkingSlot parkingSlotAtParkingArea(User user, ParkingArea parkingArea, Faculty faculty){
-		if(!canPark(user, parkingArea)){
+	public static ParkingSlot parkingSlotAtParkingArea(User u, ParkingArea a, Faculty f){
+		if(!canPark(u, a))
 			return null;
-		}
 		
-		ParkingSlot result = null;
+		ParkingSlot $ = null;
 		long duration = Integer.MAX_VALUE;
 		
 		
-		Set<ParkingSlot> freeSlots = parkingArea.getFreeSlots();
+		Set<ParkingSlot> freeSlots = a.getFreeSlots();
 		for(ParkingSlot parkingSlot : freeSlots){
-			long durationToFaculty = getDuration(parkingSlot.getLocation(), faculty.getEntrance() , true);
+			long durationToFaculty = getDuration(parkingSlot.getLocation(), f.getEntrance() , true);
 			if(durationToFaculty < duration){
-				result = parkingSlot;
+				$ = parkingSlot;
 				duration = durationToFaculty;
 			}
 		}
-		return result;
+		return $;
 	}
 	
-	
-	public void parkAtArea(User user, ParkingArea parkingArea, Faculty faculty){
-		ParkingSlot parkingSlot = parkingSlotAtParkingArea(user, parkingArea, faculty);
-		if(parkingSlot == null){
-			// TODO: throw exception
-		}
-		parkingArea.changeFreeToTaken(parkingSlot, user);
+	public boolean parkAtSlot(ParkingSlot s){
+		if (s.getStatus() != ParkingSlotStatus.FREE)
+			return false;
+		s.changeStatus(ParkingSlotStatus.TAKEN);
+		return true;
 	}
 }
 
