@@ -10,11 +10,15 @@ import com.lynden.gmapsfx.javascript.object.InfoWindow;
 import com.lynden.gmapsfx.javascript.object.InfoWindowOptions;
 import com.lynden.gmapsfx.javascript.object.LatLong;
 import com.lynden.gmapsfx.javascript.object.LatLongBounds;
+import com.lynden.gmapsfx.javascript.object.MVCArray;
 import com.lynden.gmapsfx.javascript.object.MapOptions;
 import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
 import com.lynden.gmapsfx.javascript.object.Marker;
 import com.lynden.gmapsfx.javascript.object.MarkerOptions;
 import com.lynden.gmapsfx.service.directions.DirectionsRenderer;
+import com.lynden.gmapsfx.shapes.Polyline;
+import com.lynden.gmapsfx.shapes.PolylineOptions;
+
 import java.util.Locale;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
@@ -45,7 +49,8 @@ public class PmMap extends Application implements MapComponentInitializedListene
 	private Marker myMarker2;
 	private Button btnHideMarker;
 	private Button btnDeleteMarker;
-
+	private Button btnReturn;
+	private Scene scene;
         
     @Override
     public void start(final Stage s) throws Exception {
@@ -74,16 +79,17 @@ public class PmMap extends Application implements MapComponentInitializedListene
 		btnDeleteMarker = new Button("Delete Marker");
 		btnDeleteMarker.setOnAction(e -> {deleteMarker();});
 		
+		btnReturn = new Button("return");
+		btnReturn.setOnAction(e->{s.close();});
         tb.getItems().addAll(new Label("MapType: "),mapTypeCombo,
                 new Label("Coordinates: "), lblCenter,
                 new Label("Click: "), lblClick,
-				btnHideMarker, btnDeleteMarker);
+				btnHideMarker, btnDeleteMarker,btnReturn);
 
         bp.setTop(tb);
         
         bp.setCenter(mapComponent);
-
-        Scene scene = new Scene(bp);
+        scene = new Scene(bp);
         s.setScene(scene);
         s.show();
     }
@@ -98,7 +104,7 @@ public class PmMap extends Application implements MapComponentInitializedListene
             // This call will fail unless the map is completely ready.
             checkCenter(center);
         });
-        
+        lblClick.setText((center + ""));
         MapOptions options = new MapOptions();
         options.center(center)
         		.zoom(2)
@@ -158,6 +164,17 @@ public class PmMap extends Application implements MapComponentInitializedListene
         mapTypeCombo.setDisable(false);
         
         mapTypeCombo.getItems().addAll( MapTypeIdEnum.ALL );
+        LatLong[] ary = new LatLong[]{markerLatLong, markerLatLong2};
+        MVCArray mvc = new MVCArray(ary);
+
+        PolylineOptions polyOpts = new PolylineOptions()
+                .path(mvc)
+                .strokeColor("red")
+                .strokeWeight(2);
+
+        Polyline poly = new Polyline(polyOpts);
+        map.addMapShape(poly);
+        scene.getWindow().sizeToScene();
     }
 	
 	
