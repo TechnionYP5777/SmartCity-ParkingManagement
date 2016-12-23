@@ -2,7 +2,6 @@ package manager.logic;
 
 import javax.tools.JavaFileManager.Location;
 
-import data.members.Management;
 import data.members.ParkingArea;
 import data.members.ParkingSlot;
 import data.members.StickersColor;

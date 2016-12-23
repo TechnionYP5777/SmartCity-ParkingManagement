@@ -1,6 +1,7 @@
 package data.members;
 
 import java.util.HashSet;
+
 import java.util.Set;
 
 import org.parse4j.ParseException;
@@ -59,8 +60,9 @@ public class ParkingArea {
 		//this.area.put("parkingSlots", slots);
 	}
 
-	public int getNumOfFreeSlots() {
+	public int getNumOfFreeSlots(){
 		// TODO: add a query from DB that returns only the free slots
+		
 		return 0;
 	}
 

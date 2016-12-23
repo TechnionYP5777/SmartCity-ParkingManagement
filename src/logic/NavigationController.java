@@ -7,9 +7,9 @@ import java.util.Map;
 import data.members.Faculty;
 import data.members.MapLocation;
 import data.members.ParkingArea;
-import data.members.ParkingAreas;
 import data.members.ParkingSlot;
 import data.members.User;
+import manager.logic.ParkingAreas;
 
 /**
  * @Author sefialbo

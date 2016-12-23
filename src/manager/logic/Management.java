@@ -1,13 +1,17 @@
-package data.members;
+package manager.logic;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import data.members.ParkingArea;
+import data.members.ParkingSlot;
 import data.members.StickersColor;
+import data.members.User;
+
 import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
 import org.parse4j.ParseQuery;
 
-import data.management.DBManager;
 
 /**
  * @author Inbal Matityahu
@@ -23,7 +27,7 @@ public class Management {
 	private Set<ParkingSlot> parkingSlots;
 	// all parking areas
 	private ParkingAreas parkingAreas;
-	private ParseObject management;
+	
 
 	public Management() {
 		this.users = new HashSet<User>();
@@ -31,13 +35,10 @@ public class Management {
 	}
 
 	public Management(Set<User> users, Set<ParkingSlot> parkingSlots, ParkingAreas parkingAreas) throws ParseException {
-		// will populate private fields according to the data stored in the DB
-		DBManager.initialize();
-		this.management = new ParseObject("Management");
+		
 		this.parkingAreas = parkingAreas;
 		this.parkingSlots = parkingSlots;
 		this.users = users;
-		management.save();
 	}
 
 	public ParkingAreas getParkingAreas() {
@@ -46,7 +47,6 @@ public class Management {
 
 	public void setParkingAreas(ParkingAreas ¢) {
 		this.parkingAreas = ¢;
-		this.management.put("parkingAreas", this.getParkingAreas());
 	}
 
 	public Set<User> getUsers() {
@@ -55,7 +55,7 @@ public class Management {
 
 	public void setUsers(Set<User> ¢) {
 		this.users = ¢;
-		this.management.put("Users", this.getUsers());
+		
 	}
 
 	public Set<ParkingSlot> getParkingSlots() {
@@ -64,28 +64,28 @@ public class Management {
 
 	public void setParkingSlots(Set<ParkingSlot> ¢) {
 		this.parkingSlots = ¢;
-		this.management.put("parkingSlots", this.getParkingSlots());
+		
 	}
 
 	public void addUser(User newUser) {
 		this.users.add(newUser);
-		this.management.put("Users", this.getUsers());
+		
 
 	}
 
 	public void addParkingSlot(ParkingSlot newParkingSlot) {
 		this.parkingSlots.add(newParkingSlot);
-		this.management.put("parkingSlots", this.getParkingSlots());
+		
 	}
 
 	public void removeUser(User userToRemove) {
 		this.users.remove(userToRemove);
-		this.management.put("Users", this.getUsers());
+		
 	}
 
 	public void removeParkingSlot(ParkingSlot slotToRemove) {
 		this.parkingSlots.remove(slotToRemove);
-		this.management.put("parkingSlots", this.getParkingSlots());
+		
 	}
 
 	// Return sticker type of a given user
