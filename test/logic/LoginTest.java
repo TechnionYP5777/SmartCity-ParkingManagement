@@ -120,7 +120,7 @@ public class LoginTest {
 	public void test6() {
 		Login lg = new Login();
 		Assert.assertEquals("already exist",
-				lg.UserValueCheck("David", "1234567890", "david@gmail.com","3209654"));
+				lg.userValueCheck("David", "1234567890", "david@gmail.com","3209654"));
 
 		// name contains integer
 		try {

@@ -29,9 +29,11 @@ public class Login extends AbstractWindow {
 
 	Stage window;
 	Scene scene;
+	logic.Login login;
 
 	public Login() {
 		windowEnum = WindowEnum.LOG_IN;
+		login = new logic.Login();
 	}
 
 	public void display(Stage primaryStage, WindowEnum __, ArrayList<AbstractWindow> prevWindows) {
@@ -87,10 +89,14 @@ public class Login extends AbstractWindow {
 		hbox.getChildren().addAll(loginButton, backButton);
 		grid.getChildren().addAll(title, user, nameInput, pass, passInput, hbox, forgotPass);
 		loginButton.setOnAction(e -> {
-			AlertBox.display("Successful", "You have successfuly logged in");
-			this.window.close();
-			prevWindows.get(prevWindows.size() - 1).window.show();
-			prevWindows.remove(prevWindows.size() - 1);
+			if (!isUserExist((nameInput.getCharacters() + ""), (passInput.getCharacters() + "")))
+				AlertBox.display("Login failed", "Car Number or password is incorrect");
+			else {
+				AlertBox.display("Successful", "You have successfuly logged in");
+				this.window.close();
+				prevWindows.get(prevWindows.size() - 1).window.show();
+				prevWindows.remove(prevWindows.size() - 1);
+			}
 		});
 		grid.setBackground(
 				new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2, 2, 2, 2))));
@@ -99,5 +105,12 @@ public class Login extends AbstractWindow {
 		window.setTitle("Login");
 		window.show();
 	}
-
+	
+	private boolean isUserExist(String carNumber, String password) {
+		//For testing, carNumber: 1234, password: 1234 will work(for now).
+		try {
+			return this.login.userLogin(carNumber, password);
+		} catch(Exception e) {}
+		return false;
+	}
 }

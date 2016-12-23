@@ -42,7 +42,7 @@ public class Login {
 		}
 	}
 
-	public String UserValueCheck(String name, String phone, String email, String car) {
+	public String userValueCheck(String name, String phone, String email, String car) {
 		ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("PMUser");
 		query.whereEqualTo("carNumber", car);
 		try {
@@ -91,7 +91,7 @@ public class Login {
 	public String userSignUp(String name, String pass, String phone, String car, String email, StickersColor type)
 			throws LoginException {
 		user = null;
-		String $ = UserValueCheck(name, phone, email, car);
+		String $ = userValueCheck(name, phone, email, car);
 		if (!"Good Params".equals($))
 			throw new LoginException($);
 		try {
@@ -129,7 +129,7 @@ public class Login {
 
 			List<ParseObject> userList = query.find();
 			if (userList != null && !userList.isEmpty()) {
-				String s = UserValueCheck(name, phoneNumber, email, newCar);
+				String s = userValueCheck(name, phoneNumber, email, newCar);
 				if (!"Good Params".equals(s))
 					throw new LoginException(s);
 				userList.get(0).put("username", name);
