@@ -3,8 +3,6 @@ package gui.map;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
-import com.lynden.gmapsfx.javascript.object.Animation;
-import com.lynden.gmapsfx.javascript.object.DirectionsPane;
 import com.lynden.gmapsfx.javascript.object.GoogleMap;
 import com.lynden.gmapsfx.javascript.object.InfoWindow;
 import com.lynden.gmapsfx.javascript.object.InfoWindowOptions;
@@ -15,13 +13,12 @@ import com.lynden.gmapsfx.javascript.object.MapOptions;
 import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
 import com.lynden.gmapsfx.javascript.object.Marker;
 import com.lynden.gmapsfx.javascript.object.MarkerOptions;
-import com.lynden.gmapsfx.service.directions.DirectionsRenderer;
 import com.lynden.gmapsfx.shapes.Polyline;
 import com.lynden.gmapsfx.shapes.PolylineOptions;
-
 import java.util.Locale;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -29,6 +26,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
 /*
@@ -39,26 +41,24 @@ public class PmMap extends Application implements MapComponentInitializedListene
 
     protected GoogleMapView mapComponent;
     protected GoogleMap map;
-    protected DirectionsPane directions;
+   
     private Label lblCenter;
     private Label lblClick;
     private ComboBox<MapTypeIdEnum> mapTypeCombo;
-	
-	private MarkerOptions markerOptions2;
 	private Marker myMarker;
 	private Marker myMarker2;
 	private Button btnHideMarker;
 	private Button btnDeleteMarker;
 	private Button btnReturn;
 	private Scene scene;
-        
+    private VBox vbox;  
     @Override
     public void start(final Stage s) throws Exception {
         mapComponent = new GoogleMapView(Locale.getDefault().getLanguage(), null);
-        mapComponent.addMapInializedListener(this);
-                
+        mapComponent.addMapInializedListener(this);        
         BorderPane bp = new BorderPane();
         ToolBar tb = new ToolBar();
+        
         lblCenter = new Label();
         lblClick = new Label();
         
@@ -85,17 +85,14 @@ public class PmMap extends Application implements MapComponentInitializedListene
                 new Label("Coordinates: "), lblCenter,
                 new Label("Click: "), lblClick,
 				btnHideMarker, btnDeleteMarker,btnReturn);
-
+        vbox = addVBox();
         bp.setTop(tb);
-        
+        bp.setLeft(vbox);
         bp.setCenter(mapComponent);
         scene = new Scene(bp);
         s.setScene(scene);
         s.show();
-    }
-
-    DirectionsRenderer renderer;
-    
+    }    
     @Override
     public void mapInitialized() {
         //Once the map has been loaded by the Webview, initialize the map details.
@@ -115,27 +112,12 @@ public class PmMap extends Application implements MapComponentInitializedListene
                 .streetViewControl(true)
                 .zoomControl(true)
                 .mapType(MapTypeIdEnum.HYBRID);
-        map = mapComponent.createMap(options,false);
-        directions = mapComponent.getDirec();        
+        map = mapComponent.createMap(options,false);      
         map.setHeading(123.2);
-
-        MarkerOptions markerOptions = new MarkerOptions();
         LatLong markerLatLong = new LatLong(32.777157, 35.023131);//Ulman
-        markerOptions.position(markerLatLong)
-                .title("The Technion")
-                .animation(Animation.DROP)
-                .visible(true);
-
-        myMarker = new Marker(markerOptions);
-
-        markerOptions2 = new MarkerOptions();
+        myMarker=createMarker(markerLatLong,"Ulman");
         LatLong markerLatLong2 = new LatLong(32.778032, 35.023663);//TAUB
-        markerOptions2.position(markerLatLong2)
-                .title("My new Marker")
-                .visible(true);
-
-        myMarker2 = new Marker(markerOptions2);
-
+        myMarker2 = createMarker(markerLatLong2, "Taub");
         map.addMarker(myMarker);
         map.addMarker(myMarker2);
 
@@ -159,7 +141,9 @@ public class PmMap extends Application implements MapComponentInitializedListene
             lblCenter.setText((n + ""));
         });
         map.addUIEventHandler(UIEventType.click, (JSObject obj) -> {
-            lblClick.setText((new LatLong((JSObject) obj.getMember("latLng")) + ""));
+        	LatLong newLat = new LatLong((JSObject) obj.getMember("latLng"));
+            lblClick.setText((newLat + ""));
+            	map.addMarker(createMarker(newLat,"marker at "+newLat));
         });
         mapTypeCombo.setDisable(false);
         
@@ -170,14 +154,37 @@ public class PmMap extends Application implements MapComponentInitializedListene
         PolylineOptions polyOpts = new PolylineOptions()
                 .path(mvc)
                 .strokeColor("red")
-                .strokeWeight(2);
-
+                .strokeWeight(3);
         Polyline poly = new Polyline(polyOpts);
         map.addMapShape(poly);
         scene.getWindow().sizeToScene();
+        
     }
 	
-	
+	private Marker createMarker(LatLong lat,String title){
+		MarkerOptions options = new MarkerOptions();
+        options.position(lat)
+                .title(title)
+                .visible(true);
+        Marker $ = new Marker(options);
+        HBox hbox = new HBox();
+        hbox.setPadding(new Insets(8, 5, 8, 5));
+        hbox.setSpacing(8);
+        
+        
+        
+        Label l = new Label(title);
+        Button btn = new Button("remove");
+        btn.setOnAction(e -> {
+        	map.removeMarker($);
+        	vbox.getChildren().remove(hbox);
+        });
+        hbox.getChildren().addAll(l,btn);
+        VBox.setMargin(hbox, new Insets(0, 0, 0, 8));
+        vbox.getChildren().add(hbox);
+        return $;
+        
+	}
 	private void hideMarker() {
 		myMarker.setVisible(!myMarker2.getVisible());
 		myMarker2.setVisible(!myMarker2.getVisible());
@@ -187,7 +194,6 @@ public class PmMap extends Application implements MapComponentInitializedListene
 		map.removeMarker(myMarker);
 		map.removeMarker(myMarker2);
 	}
-	
     private void checkCenter(LatLong center) {
         System.out.println("Testing fromLatLngToPoint using: " + center);
         Point2D p = map.fromLatLngToPoint(center);
@@ -198,4 +204,15 @@ public class PmMap extends Application implements MapComponentInitializedListene
         System.setProperty("java.net.useSystemProxies", "true");
         launch(args);
     }
+    public VBox addVBox(){
+        VBox $ = new VBox();
+        $.setPadding(new Insets(10,50,10,10));
+        $.setSpacing(8);
+
+        Text title = new Text("markers");
+        title.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        $.getChildren().add(title);
+        return $;
+    }    
+    
 }
