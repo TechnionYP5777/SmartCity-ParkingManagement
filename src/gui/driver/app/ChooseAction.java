@@ -1,4 +1,5 @@
 package gui.driver.app;
+
 import java.util.ArrayList;
 
 import javafx.geometry.Insets;
@@ -15,76 +16,76 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ChooseAction extends AbstractWindow {
-	
-	public ChooseAction () {
+
+	public ChooseAction() {
 		windowEnum = WindowEnum.CHOOSE_ACTION;
-		window = new Stage(); 
+		window = new Stage();
 		window.initModality(Modality.APPLICATION_MODAL);
 	}
-	
-	public void display(Stage primaryStage, WindowEnum prevWindow, ArrayList<AbstractWindow> prevWindows){
-		String title  = "Next Action";
+
+	public void display(Stage primaryStage, WindowEnum prevWindow, ArrayList<AbstractWindow> prevWindows) {
+		String title = "Next Action";
 		String message = "What Would you like to do?";
-		
+
 		GridPane layout = new GridPane();
 		layout.setHgap(10);
-		layout.setVgap(10);
-		layout.setPadding(new Insets(10,10,10,10));
-		
-		//window = new Stage(); 
-		//window.initModality(Modality.APPLICATION_MODAL);
+		layout.setVgap(100);
+		layout.setPadding(new Insets(10, 10, 10, 10));
+
+		// window = new Stage();
+		// window.initModality(Modality.APPLICATION_MODAL);
 		window.setTitle(title);
 		window.setMinWidth(250);
-		
+
 		Label label = new Label();
 		label.setText(message);
 		GridPane.setConstraints(label, 0, 0);
-		
-		Button buttonGetPass = new Button("Get Password");
-		buttonGetPass.setOnAction(e-> {
+
+		// Button buttonGetPass = new Button("Get Password");
+		// buttonGetPass.setOnAction(e-> {
+		// window.close();
+		// GetPassByMail GPBM = new GetPassByMail();
+		// prevWindows.add(this);
+		// GPBM.display(primaryStage, WindowEnum.CHOOSE_ACTION, prevWindows);
+		//
+		// });
+		// GridPane.setConstraints(buttonGetPass, 0, 1);
+		Button buttonNavigate = new Button ("Choose Destination");
+		GridPane.setConstraints(buttonNavigate, 0, 1); 
+
+		Button buttonLogin = new Button("Login");
+		buttonLogin.setOnAction(e -> {
 			window.close();
-			GetPassByMail GPBM = new GetPassByMail();
-			prevWindows.add(this);
-			GPBM.display(primaryStage, WindowEnum.CHOOSE_ACTION, prevWindows);
-			
-		});
-		GridPane.setConstraints(buttonGetPass, 0, 1);
-		
-		Button buttonLogin = new Button ("Login");
-		buttonLogin.setOnAction( e -> {
-			window.close(); 
 			Login login = new Login();
 			prevWindows.add(this);
 			login.display(primaryStage, WindowEnum.LOG_IN, prevWindows);
 		});
-		GridPane.setConstraints(buttonLogin, 1, 1); 
-		
-		
+		GridPane.setConstraints(buttonLogin, 1, 1);
+
 		Button buttonMyDetails = new Button("My Details");
-		buttonMyDetails.setOnAction(e-> {
+		buttonMyDetails.setOnAction(e -> {
 			window.close();
 			MyDetails MD = new MyDetails();
 			prevWindows.add(this);
 			MD.display(primaryStage, WindowEnum.CHOOSE_ACTION, null, null, prevWindows);
-			
+
 		});
 		GridPane.setConstraints(buttonMyDetails, 2, 1);
-		
-		
+
 		Button buttonClose = new Button("Close Program");
-		buttonClose.setOnAction(e-> {
-			if(prevWindow == WindowEnum.NONE && ConfirmBox.display("Confirmation", "Are you sure you want to exit?"))
-				window.close();	
+		buttonClose.setOnAction(e -> {
+			if (prevWindow == WindowEnum.NONE && ConfirmBox.display("Confirmation", "Are you sure you want to exit?"))
+				window.close();
 		});
 		GridPane.setConstraints(buttonClose, 3, 1);
-		
-		layout.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2,2,2,2))));
-		layout.getChildren().addAll(label, buttonLogin, buttonMyDetails, buttonGetPass, buttonClose);
+
+		layout.setBackground(
+				new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2, 2, 2, 2))));
+		layout.getChildren().addAll(label, buttonNavigate, buttonLogin, buttonMyDetails, buttonClose);
 		layout.setAlignment(Pos.CENTER);
-		Scene scene = new Scene(layout);
+		Scene scene = new Scene(layout, 450, 300);
 		window.setScene(scene);
 		window.showAndWait();
 	}
-	
 
 }

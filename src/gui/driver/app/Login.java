@@ -107,7 +107,7 @@ public class Login extends AbstractWindow {
 		});
 		grid.setBackground(
 				new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2, 2, 2, 2))));
-		Scene scene = new Scene(grid);
+		Scene scene = new Scene(grid, 400, 250);
 		window.setScene(scene);
 		window.setTitle("Login");
 		window.show();
