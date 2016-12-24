@@ -11,7 +11,7 @@ import Exceptions.LoginException;
  */
 
 public class LoginManager {
-	
+
 	private User user;
 
 	public LoginManager() {
@@ -31,7 +31,8 @@ public class LoginManager {
 	public boolean userLogin(String carNumber, String password) {
 		try {
 			User tmp = new User(carNumber);
-			if (tmp.getPassword().equals(password)) this.user = tmp;
+			if (tmp.getPassword().equals(password))
+				this.user = tmp;
 			return user.getPassword().equals(password);
 		} catch (Exception e) {
 			return false;
@@ -40,17 +41,20 @@ public class LoginManager {
 
 	public String userValueCheck(String name, String phone, String email, String car) {
 		try {
-			new User(car);
-			return "already exist";
-		} catch (Exception e) {}
-		return name.matches(".*\\d.*") ? "user has integer"
-				: phone.length() != 10 ? "phone need to be in size 10"
-						: !phone.startsWith("05") ? "phone should start with 05"
-								: phone.matches(".*[a-zA-z].*") ? "phone contains only integers"
-										: (!email.matches(
+			if (car != null) {
+				new User(car);
+				return "already exist";
+			}
+		} catch (Exception e) {
+		}
+		return name != null && name.matches(".*\\d.*") ? "user has integer"
+				: phone != null && phone.length() != 10 ? "phone need to be in size 10"
+						: phone != null && !phone.startsWith("05") ? "phone should start with 05"
+								: phone != null && phone.matches(".*[a-zA-z].*") ? "phone contains only integers"
+										: (email != null && !email.matches(
 												"[\\d\\w\\.]+@(campus.technion.ac.il|gmail.com|walla.com|hotmail.com|t2.technion.ac.il)"))
 														? "invalid email address"
-														: car.length() == 7 ? "Good Params"
+														: car == null || car.length() == 7 ? "Good Params"
 																: "car need to be in size 7";
 	}
 
@@ -110,13 +114,17 @@ public class LoginManager {
 	public boolean userUpdate(String carNumber, String name, String phoneNumber, String email, String newCar)
 			throws LoginException {
 		try {
-     			String s = userValueCheck(name, phoneNumber, email, newCar);
-				if (!"Good Params".equals(s))
-					throw new LoginException(s);
-				if (name != null) this.user.setName(name);
-				if (phoneNumber != null) this.user.setPhoneNumber(phoneNumber);
-				if (email != null) this.user.setEmail(email);
-				if (newCar != null) this.user.setCarName(newCar);
+			String s = userValueCheck(name, phoneNumber, email, newCar.equals(carNumber) ? null : newCar);
+			if (!"Good Params".equals(s))
+				throw new LoginException(s);
+			if (name != null)
+				this.user.setName(name);
+			if (phoneNumber != null)
+				this.user.setPhoneNumber(phoneNumber);
+			if (email != null)
+				this.user.setEmail(email);
+			if (newCar != null)
+				this.user.setCarName(newCar);
 		} catch (ParseException e) {
 			throw new LoginException("connection problem with DB");
 		}
@@ -126,13 +134,15 @@ public class LoginManager {
 	public String getEmail() {
 		return this.user.getEmail();
 	}
+
 	public String getUserName() {
 		return this.user.getName();
 	}
+
 	public String getCarNumber() {
 		return this.user.getCarNumber();
 	}
-	
+
 	public void deleteUser() throws ParseException {
 		user.DeleteUser();
 	}

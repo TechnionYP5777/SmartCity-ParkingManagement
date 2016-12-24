@@ -1,6 +1,8 @@
 package gui.driver.app;
+
 import java.util.ArrayList;
 
+import Exceptions.LoginException;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -50,6 +52,15 @@ public class MyDetailsEdit extends AbstractWindow {
 				for (int j = 0; j < newValues.size(); j++) {
 					correctedValues.add(new Label(newValues.get(j).getText()));
 				}
+				
+				/*David Edit*/
+				try {
+					login.userUpdate(login.getCarNumber(), newValues.get(1).getText(), null, newValues.get(0).getText(), newValues.get(2).getText());
+				} catch (LoginException e1) {
+					// TODO check what to do in case of error
+				}
+				/*Done*/
+				
 				// You can only get here if the last prevWindows is
 				// 'MyDetails'!!
 				MyDetails MD = (MyDetails) prevWindows.get(prevWindows.size() - 1);
@@ -58,22 +69,21 @@ public class MyDetailsEdit extends AbstractWindow {
 			}
 		});
 		GridPane.setConstraints(doneButton, 0, i);
-		
+
 		Button backButton = new Button();
 		backButton.setText("Back");
 		backButton.setOnAction(e -> {
 			// move to editing my details
 			System.out.println("MDE back begin. prevWindows:			" + prevWindows);
 			this.window.close();
-			System.out.println(prevWindows.get(prevWindows.size()-1));
-			MyDetails MD = (MyDetails) prevWindows.get(prevWindows.size()-1);
-			prevWindows.remove(prevWindows.size()-1);
+			System.out.println(prevWindows.get(prevWindows.size() - 1));
+			MyDetails MD = (MyDetails) prevWindows.get(prevWindows.size() - 1);
+			prevWindows.remove(prevWindows.size() - 1);
 			MD.window.show();
 			System.out.println("MDE back end. prevWindows:			" + prevWindows);
-			
+
 		});
 		GridPane.setConstraints(backButton, 1, 3);
-
 
 		grid.getChildren().addAll(doneButton, backButton);
 		Scene scene = new Scene(grid, 300, 150);
