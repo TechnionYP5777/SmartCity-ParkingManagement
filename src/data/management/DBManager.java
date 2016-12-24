@@ -1,9 +1,9 @@
 package data.management;
 
 import org.parse4j.Parse;
-//import org.parse4j.ParseException;
-//import org.parse4j.ParseGeoPoint;
-//import org.parse4j.ParseObject;
+import org.parse4j.ParseObject;
+
+import data.members.dbMember;
 
 public class DBManager {
 	private static final String appId = "parkingmanagment";
@@ -14,5 +14,7 @@ public class DBManager {
 		Parse.initialize(appId, restKey, serverUrl);
 	}
 	
-	// TODO : add queries on DB on existing data	
+	public static ParseObject getParseObject(dbMember member){
+		return member.getParseObject();			
+	}
 }

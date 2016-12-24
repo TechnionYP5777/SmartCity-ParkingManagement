@@ -19,8 +19,8 @@ public class parkingSlotTest {
 		// Create a new parking slot in the DB
 		// Please note that EVERY activation of this test will result in a new testSlot row in the DB
 		try{
-			ParkingSlot newSlot = new ParkingSlot("testSlot", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED, new MapLocation(32.778153, 35.021855), new Date());
-			Assert.assertNotNull(newSlot);
+			Assert.assertNotNull((new ParkingSlot("testSlot", ParkingSlotStatus.FREE, StickersColor.RED,
+					StickersColor.RED, new MapLocation(32.778153, 35.021855), new Date())));
 		} catch(Exception e){
 			e.printStackTrace();
 			Assert.fail();

@@ -1,7 +1,8 @@
 package data.members;
 
+import java.util.ArrayList;
 import java.util.HashSet;
-
+import java.util.List;
 import java.util.Set;
 
 import org.parse4j.ParseException;
@@ -12,29 +13,29 @@ import data.management.DBManager;
 /** 
  * @author Inbal Matityahu
  * @since 12.11.16This class represent a parking area inside the Technion
- * [[SuppressWarningsSpartan]]
  */
 
-public class ParkingArea {
+public class ParkingArea extends dbMember {
 
 	private StickersColor color;
 	private int areaId;
 	private Set<ParkingSlot> parkingSlots;
-
-	private ParseObject area;
 	
-	public ParkingArea(){
-		
+	// Retrieve an exiting are from DB by the areaId
+	public ParkingArea(int areaId){
+		// TODO : How to create a query based on this ?
 	}
 
-	public ParkingArea(StickersColor color, int areaId, int free, int taken, int total, Set<ParkingSlot> parkingSlots,
-			Set<ParkingSlot> freeSlots, Set<ParkingSlot> takenSlots) throws ParseException {
+	// Create a new parking area
+	public ParkingArea(int areaId, Set<ParkingSlot> parkingSlots, StickersColor defaultColor ) throws ParseException {
 		DBManager.initialize();
-		this.area = new ParseObject("ParkingArea");
+		this.parseObject = new ParseObject("ParkingArea");
 		this.setAreaId(areaId);
-		this.setColor(color);
+		this.setColor(defaultColor);
 		this.setParkingSlots(parkingSlots);
-		area.save();
+		
+		this.parseObject.save();
+		this.objectId = this.parseObject.getObjectId();
 	}
 
 	public int getAreaId() {
@@ -43,7 +44,7 @@ public class ParkingArea {
 
 	public void setAreaId(int areaId) {
 		this.areaId = areaId;
-		this.area.put("areaId", areaId);
+		this.parseObject.put("areaId", areaId);
 	}
 
 	public int getNumOfParkingSlots() {
@@ -54,10 +55,9 @@ public class ParkingArea {
 		return parkingSlots;
 	}
 
-	public void setParkingSlots(Set<ParkingSlot> slots) {
-		this.parkingSlots = slots;
-				
-		//this.area.put("parkingSlots", slots);
+	public void setParkingSlots(Set<ParkingSlot> ss) throws ParseException {
+		this.parkingSlots = ss;
+		updateSlotsArray();
 	}
 
 	public int getNumOfFreeSlots(){
@@ -85,9 +85,9 @@ public class ParkingArea {
 		return color;
 	}
 
-	public void setColor(StickersColor color) {
-		this.color = color;
-		this.area.put("color", color.ordinal());
+	public void setColor(StickersColor c) {
+		this.color = c;
+		this.parseObject.put("color", c.ordinal());
 	}
 
 	/*
@@ -95,10 +95,10 @@ public class ParkingArea {
 	 * free slot, and therefore increase the amount of free slots in this area,
 	 * and the total count of parking
 	 */
-	public void addParkingSlot(ParkingSlot parkingSlot) {
-		this.parkingSlots.add(parkingSlot);
-
-		// TODO: add to the array of slots
+	public void addParkingSlot(ParkingSlot s) throws ParseException {
+		this.parkingSlots.add(s);
+		
+		updateSlotsArray();
 	}
 	
 	/*
@@ -106,9 +106,18 @@ public class ParkingArea {
 	 * free slot, and therefore increase the amount of free slots in this area,
 	 * and the total count of parking
 	 */
-	public void removeParkingSlot(ParkingSlot parkingSlot) {
-		this.parkingSlots.remove(parkingSlot);
+	public void removeParkingSlot(ParkingSlot s) throws ParseException {
+		this.parkingSlots.remove(s);
+		s.removeParkingSlot();
+		updateSlotsArray();
+	}
 
-		// TODO: remove from the array of slots
+	// Update the slots array in the DB according to the last update
+	private void updateSlotsArray() throws ParseException {
+		List<ParseObject> slots = new ArrayList<ParseObject>();
+		for (ParkingSlot parkingSlot : this.parkingSlots)
+			slots.add(DBManager.getParseObject(parkingSlot));
+		this.parseObject.put("parkingSlots", slots);
+		this.parseObject.save();
 	}
 }
