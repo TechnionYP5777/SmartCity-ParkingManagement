@@ -2,7 +2,7 @@ package logic;
 
 import data.members.*;
 import manager.logic.ParkingAreas;
-
+import Exceptions.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,8 +19,7 @@ import org.apache.commons.io.IOUtils;
 public class Navigation {
 	
 	public static boolean canPark(User user, ParkingSlot parkingSlot){
-		return parkingSlot.getStatus() == ParkingSlotStatus.FREE 
-				&& user.getSticker().ordinal() <= parkingSlot.getColor().ordinal();
+		return user.getSticker().ordinal() <= parkingSlot.getColor().ordinal();
 	}
 	
 	private static JSONObject getInnerJSON(String url){
@@ -163,22 +162,27 @@ public class Navigation {
 	}
 	
 	
-	public void parkAtSlot(ParkingSlot parkingSlot){
+	public static void parkAtSlot(User user, ParkingSlot parkingSlot) throws NoSlotAvailable{
 		if(parkingSlot == null){
-			// TODO: throw exception
+			throw new NoSlotAvailable("No Slot Available");
 		}
-		if(parkingSlot.getStatus() != ParkingSlotStatus.FREE){
-			// TODO: can't park here
+		try {
+			user.setCurrentParking(parkingSlot);
+			parkingSlot.changeStatus(ParkingSlotStatus.TAKEN);
+		} catch(Exception e){
+			// change to ParseException when Tom changes a field type in db
+			// TODO: how to handle db exception?
 		}
-		parkingSlot.changeStatus(ParkingSlotStatus.TAKEN);
 	}
 	
-	public void parkAtClosestSlot(User user, MapLocation currentLocation, ParkingAreas areas, Destination destination){
+	public static void parkAtClosestSlot(User user, MapLocation currentLocation, ParkingAreas areas, Destination destination) throws NoSlotAvailable{
 		ParkingSlot parkingSlot = closestParkingSlot(user, currentLocation, areas, destination);
-		if(parkingSlot == null){
-			// TODO: throw exception
-		}
-		
-		
+		parkAtSlot(user, parkingSlot);
+			
 	}
+	public static void parkAtArea(User user, ParkingArea parkingArea, Destination destination) throws NoSlotAvailable{
+		ParkingSlot parkingSlot = parkingSlotAtParkingArea(user, parkingArea, destination);
+		parkAtSlot(user, parkingSlot);
+	}
+		
 }
