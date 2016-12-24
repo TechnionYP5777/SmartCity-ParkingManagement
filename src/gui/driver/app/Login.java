@@ -24,16 +24,16 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import logic.LoginManager;
 
 public class Login extends AbstractWindow {
 
 	Stage window;
 	Scene scene;
-	logic.Login login;
 
 	public Login() {
 		windowEnum = WindowEnum.LOG_IN;
-		login = new logic.Login();
+		login = new logic.LoginManager();
 	}
 
 	public void display(Stage primaryStage, WindowEnum __, ArrayList<AbstractWindow> prevWindows) {
@@ -89,8 +89,8 @@ public class Login extends AbstractWindow {
 		hbox.getChildren().addAll(loginButton, backButton);
 		grid.getChildren().addAll(title, user, nameInput, pass, passInput, hbox, forgotPass);
 		loginButton.setOnAction(e -> {
-			if (!isUserExist((nameInput.getCharacters() + ""), (passInput.getCharacters() + "")))
-				AlertBox.display("Login failed", "Car Number or password is incorrect");
+			if (!login.userLogin(nameInput.getText(), passInput.getText()))
+				AlertBox.display("Login failed", "Car Number/Password is incorrect.");
 			else {
 				AlertBox.display("Successful", "You have successfuly logged in");
 				this.window.close();
@@ -104,13 +104,5 @@ public class Login extends AbstractWindow {
 		window.setScene(scene);
 		window.setTitle("Login");
 		window.show();
-	}
-	
-	private boolean isUserExist(String carNumber, String password) {
-		//For testing, carNumber: 1234, password: 1234 will work(for now).
-		try {
-			return this.login.userLogin(carNumber, password);
-		} catch(Exception e) {}
-		return false;
 	}
 }

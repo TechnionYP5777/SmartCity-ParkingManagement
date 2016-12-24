@@ -20,32 +20,17 @@ public class LoginTest {
 
 	@Test
 	public void test1() {
-		try {
-			Assert.assertTrue((new Login()).userLogin("3209654", "David123"));
-		} catch (LoginException e) {
-			System.out.println(e + " test1");
-			Assert.assertEquals(true, false);
-		}
+		Assert.assertTrue((new LoginManager()).userLogin("3209654", "David123"));
 	}
 
 	@Test
 	public void test2() {
-		try {
-			Assert.assertFalse((new Login()).userLogin("3209654", "David1"));
-		} catch (LoginException e) {
-			System.out.println(e + " test2");
-			Assert.assertEquals(true, false);
-		}
+		Assert.assertFalse((new LoginManager()).userLogin("3209654", "David1"));
 	}
 
 	@Test
 	public void test3() {
-		try {
-			Assert.assertFalse((new Login()).userLogin("1111111", "David1"));
-		} catch (LoginException e) {
-			System.out.println(e + " test3");
-			Assert.assertEquals(true, false);
-		}
+		Assert.assertFalse((new LoginManager()).userLogin("1111111", "David1"));
 	}
 
 	@Test
@@ -88,7 +73,7 @@ public class LoginTest {
 
 	@Test
 	public void test5() {
-		Login lg = new Login();
+		LoginManager lg = new LoginManager();
 		String uID = "";
 		try {
 			uID = lg.userSignUp("Sefi Albo", "sefi987", "0507788999", "3216549", "sefi@gmail.com", StickersColor.GREEN);
@@ -118,7 +103,7 @@ public class LoginTest {
 
 	@Test
 	public void test6() {
-		Login lg = new Login();
+		LoginManager lg = new LoginManager();
 		Assert.assertEquals("already exist",
 				lg.userValueCheck("David", "1234567890", "david@gmail.com","3209654"));
 
@@ -154,7 +139,7 @@ public class LoginTest {
 
 	@Test
 	public void test7() {
-		Login lg = new Login();
+		LoginManager lg = new LoginManager();
 		// name contains integer
 		try {
 			lg.userSignUp("Zahi Mizrahi", "Zahi123", "1234567890", "3216549", "zahi@gmail.com", StickersColor.GREEN);
@@ -173,8 +158,9 @@ public class LoginTest {
 
 	@Test
 	public void test8() {
-		Login lg = new Login();
+		LoginManager lg = new LoginManager();
 		try {
+			Assert.assertTrue(lg.userLogin("3209654", "David123"));
 			Assert.assertTrue(lg.userUpdate("3209654", "David", "0501234567","david@gmail.com", "2222222"));
 		} catch (LoginException e1) {
 			Assert.assertEquals(true, false);
@@ -208,7 +194,7 @@ public class LoginTest {
 
 	@Test
 	public void test9() {
-		Login lg = new Login();
+		LoginManager lg = new LoginManager();
 		try {
 			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "3216549", "zahi@gmaifl.com", StickersColor.GREEN);
 		} catch (LoginException e) {

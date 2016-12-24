@@ -1,11 +1,6 @@
 package logic;
 
-import java.util.List;
-
 import org.parse4j.ParseException;
-import org.parse4j.ParseObject;
-import org.parse4j.ParseQuery;
-
 import data.management.DBManager;
 import data.members.StickersColor;
 import data.members.User;
@@ -15,11 +10,13 @@ import Exceptions.LoginException;
  * @Author DavidCohen55
  */
 
-public class Login {
+public class LoginManager {
+	
 	private User user;
 
-	public Login() {
+	public LoginManager() {
 		DBManager.initialize();
+		user = null;
 	}
 
 	/***
@@ -31,32 +28,21 @@ public class Login {
 	 * @throws LoginException
 	 *             is thrown if there is a problem
 	 */
-	public boolean userLogin(String carNumber, String password) throws LoginException {
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
-		query.whereEqualTo("carNumber", carNumber);
+	public boolean userLogin(String carNumber, String password) {
 		try {
-			List<ParseObject> carList = query.find();
-			return carList != null && !carList.isEmpty() && password.equals(carList.get(0).getString("password"));
-		} catch (ParseException e) {
-			throw new LoginException("something went wrong");
+			User tmp = new User(carNumber);
+			if (tmp.getPassword().equals(password)) this.user = tmp;
+			return user.getPassword().equals(password);
+		} catch (Exception e) {
+			return false;
 		}
 	}
 
 	public String userValueCheck(String name, String phone, String email, String car) {
-		ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("PMUser");
-		query.whereEqualTo("carNumber", car);
 		try {
-			int count = 0;
-			if (query.find() != null) {
-				for (@SuppressWarnings("unused")
-				ParseObject ¢ : query.find())
-					++count;
-				if (count > 0)
-					return "already exist";
-			}
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-		}
+			new User(car);
+			return "already exist";
+		} catch (Exception e) {}
 		return name.matches(".*\\d.*") ? "user has integer"
 				: phone.length() != 10 ? "phone need to be in size 10"
 						: !phone.startsWith("05") ? "phone should start with 05"
@@ -90,14 +76,14 @@ public class Login {
 	 */
 	public String userSignUp(String name, String pass, String phone, String car, String email, StickersColor type)
 			throws LoginException {
-		user = null;
+		this.user = null;
 		String $ = userValueCheck(name, phone, email, car);
 		if (!"Good Params".equals($))
 			throw new LoginException($);
 		try {
-			user = new User(name, pass, phone, car, email, type, null);
-			$ = user.getTableID();
-		} catch (ParseException e) {
+			this.user = new User(name, pass, phone, car, email, type, null);
+			$ = this.user.getTableID();
+		} catch (Exception e) {
 			$ = "";
 		}
 		return $;
@@ -123,28 +109,30 @@ public class Login {
 	 */
 	public boolean userUpdate(String carNumber, String name, String phoneNumber, String email, String newCar)
 			throws LoginException {
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
-		query.whereEqualTo("carNumber", carNumber);
 		try {
-
-			List<ParseObject> userList = query.find();
-			if (userList != null && !userList.isEmpty()) {
-				String s = userValueCheck(name, phoneNumber, email, newCar);
+     			String s = userValueCheck(name, phoneNumber, email, newCar);
 				if (!"Good Params".equals(s))
 					throw new LoginException(s);
-				userList.get(0).put("username", name);
-				userList.get(0).put("phoneNumber", phoneNumber);
-				userList.get(0).put("email", email);
-				userList.get(0).put("carNumber", newCar);
-				userList.get(0).save();
-			}
-
+				if (name != null) this.user.setName(name);
+				if (phoneNumber != null) this.user.setPhoneNumber(phoneNumber);
+				if (email != null) this.user.setEmail(email);
+				if (newCar != null) this.user.setCarName(newCar);
 		} catch (ParseException e) {
-			throw new LoginException("something went wrong looking for carNumber: " + carNumber);
+			throw new LoginException("connection problem with DB");
 		}
 		return true;
 	}
 
+	public String getEmail() {
+		return this.user.getEmail();
+	}
+	public String getUserName() {
+		return this.user.getName();
+	}
+	public String getCarNumber() {
+		return this.user.getCarNumber();
+	}
+	
 	public void deleteUser() throws ParseException {
 		user.DeleteUser();
 	}

@@ -46,17 +46,17 @@ public class MyDetails extends AbstractWindow{
 			values = new ArrayList<Label>();
 			
 			Label eMailLabel = new Label("eMail:");
-			Label eMail = new Label("user@gmail.com");
+			Label eMail = new Label(login.getEmail());
 			labels.add(eMailLabel);
 			values.add(eMail);
 			
 			Label UsernameLabel = new Label("Username:");
-			Label username = new Label("AwesomeUser");
+			Label username = new Label(login.getUserName());
 			labels.add(UsernameLabel);
 			values.add(username);
 			
 			Label carNumberLabel = new Label("Car Number:");
-			Label carNumber = new Label("123456789");
+			Label carNumber = new Label(login.getCarNumber());
 			labels.add(carNumberLabel);
 			values.add(carNumber);	
 		}
