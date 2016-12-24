@@ -19,7 +19,8 @@ import org.apache.commons.io.IOUtils;
 public class Navigation {
 	
 	public static boolean canPark(User user, ParkingSlot parkingSlot){
-		return user.getSticker().ordinal() <= parkingSlot.getColor().ordinal();
+		return parkingSlot.getStatus() == ParkingSlotStatus.FREE 
+				&& user.getSticker().ordinal() <= parkingSlot.getColor().ordinal();
 	}
 	
 	private static JSONObject getInnerJSON(String url){
@@ -177,5 +178,7 @@ public class Navigation {
 		if(parkingSlot == null){
 			// TODO: throw exception
 		}
+		
+		
 	}
 }
