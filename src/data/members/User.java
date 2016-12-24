@@ -8,7 +8,6 @@ import org.parse4j.ParseQuery;
 
 import Exceptions.LoginException;
 import data.management.DBManager;
-import logic.DbUser;
 
 /**
  * @Author DavidCohen55

@@ -24,7 +24,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import logic.LoginManager;
 
 public class Login extends AbstractWindow {
 
