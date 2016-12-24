@@ -33,8 +33,8 @@ public class Faculty {
 		this.entrance = new MapLocation(latitude, longitude);
 	}
 
-	public void setEntrance(MapLocation location) {
-		this.entrance = location;
+	public void setEntrance(MapLocation ¢) {
+		this.entrance = ¢;
 	}
 
 }
