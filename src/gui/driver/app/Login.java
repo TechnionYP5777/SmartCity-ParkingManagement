@@ -6,10 +6,10 @@
 package gui.driver.app;
 
 import java.util.ArrayList;
-
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -62,7 +62,15 @@ public class Login extends AbstractWindow {
 		Label pass = new Label("Password");
 		PasswordField passInput = new PasswordField();
 		passInput.setPromptText("password");
-		Label forgotPass = new Label("Forgot Password?");
+		Hyperlink forgotPass = new Hyperlink(); 
+		
+		forgotPass.setText("Forgot Password?");
+		forgotPass.setOnAction(e -> {
+			window.close(); 
+			GetPassByMail GPBM = new GetPassByMail();
+			prevWindows.add(this);
+			GPBM.display(primaryStage, WindowEnum.LOG_IN, prevWindows);
+		});
 
 		Button loginButton = new Button("Login");
 		Button backButton = new Button("Back");

@@ -1,6 +1,5 @@
 package gui.driver.shaharTesting;
 
-
 //An Enum used for returning to the previous window. still has no functionality.
 public enum WindowEnum {
 	CHOOSE_ACTION 		, 
