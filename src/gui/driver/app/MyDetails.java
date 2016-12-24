@@ -22,7 +22,7 @@ public class MyDetails extends AbstractWindow{
 	}
 
 	public void display(Stage primaryStage, WindowEnum prevWindow, final ArrayList<Label> newLabels,
-			final ArrayList<Label> newValues, ArrayList<AbstractWindow> prevWindows) {
+			final ArrayList<Label> newValues) {
 		window = primaryStage;
 		window.setTitle("My Details");
 		GridPane grid = new GridPane();
@@ -72,9 +72,9 @@ public class MyDetails extends AbstractWindow{
 		editDetailsButton.setOnAction(e -> {
 			// move to editing my details
 			MyDetailsEdit MDE = new MyDetailsEdit();
-			prevWindows.add(this);
-			System.out.println(prevWindows);
-			MDE.display(primaryStage, prevWindow, labels, values, prevWindows);
+			AbstractWindow.prevWindows.add(this);
+			System.out.println(AbstractWindow.prevWindows);
+			MDE.display(primaryStage, prevWindow, labels, values);
 
 		});
 		
@@ -84,9 +84,9 @@ public class MyDetails extends AbstractWindow{
 		backButton.setOnAction(e -> {
 			// move to editing my details
 			this.window.close();
-			prevWindows.get(prevWindows.size()-1).window.show();
-			prevWindows.remove(prevWindows.size()-1);
-			System.out.println(prevWindows+"			");
+			AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size()-1).window.show();
+			AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size()-1);
+			System.out.println(AbstractWindow.prevWindows+"			");
 		});
 		GridPane.setConstraints(backButton, 1, buttonIndex);
 		

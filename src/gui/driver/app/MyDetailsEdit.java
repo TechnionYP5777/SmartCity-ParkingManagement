@@ -22,8 +22,7 @@ public class MyDetailsEdit extends AbstractWindow {
 		window = new Stage();
 	}
 
-	public void display(Stage primaryStage, WindowEnum prevWindow, ArrayList<Label> labels, ArrayList<Label> values,
-			ArrayList<AbstractWindow> prevWindows) {
+	public void display(Stage primaryStage, WindowEnum prevWindow, ArrayList<Label> labels, ArrayList<Label> values) {
 		window = primaryStage;
 		window.setTitle("Edit My Details");
 		GridPane grid = new GridPane();
@@ -63,9 +62,9 @@ public class MyDetailsEdit extends AbstractWindow {
 				
 				// You can only get here if the last prevWindows is
 				// 'MyDetails'!!
-				MyDetails MD = (MyDetails) prevWindows.get(prevWindows.size() - 1);
-				prevWindows.remove(prevWindows.size() - 1);
-				MD.display(primaryStage, prevWindow, labels, correctedValues, prevWindows);
+				MyDetails MD = (MyDetails) AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1);
+				AbstractWindow.prevWindows.remove(prevWindows.size() - 1);
+				MD.display(primaryStage, prevWindow, labels, correctedValues);
 			}
 		});
 		GridPane.setConstraints(doneButton, 0, i);
@@ -74,13 +73,13 @@ public class MyDetailsEdit extends AbstractWindow {
 		backButton.setText("Back");
 		backButton.setOnAction(e -> {
 			// move to editing my details
-			System.out.println("MDE back begin. prevWindows:			" + prevWindows);
+			System.out.println("MDE back begin. prevWindows:			" + AbstractWindow.prevWindows);
 			this.window.close();
-			System.out.println(prevWindows.get(prevWindows.size() - 1));
-			MyDetails MD = (MyDetails) prevWindows.get(prevWindows.size() - 1);
-			prevWindows.remove(prevWindows.size() - 1);
+			System.out.println(AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1));
+			MyDetails MD = (MyDetails) AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1);
+			AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size() - 1);
 			MD.window.show();
-			System.out.println("MDE back end. prevWindows:			" + prevWindows);
+			System.out.println("MDE back end. prevWindows:			" + AbstractWindow.prevWindows);
 
 		});
 		GridPane.setConstraints(backButton, 1, 3);

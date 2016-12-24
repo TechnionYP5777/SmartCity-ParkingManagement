@@ -1,7 +1,7 @@
 package gui.driver.app;
 
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -15,13 +15,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class GetPassByMail extends AbstractWindow{
+public class GetPassByMail extends AbstractWindow {
 	
 	public GetPassByMail(){
 		windowEnum = WindowEnum.GET_PASS_BY_MAIL;
 	}
 	
-	public void display(Stage primaryStage, WindowEnum prevWindow, ArrayList<AbstractWindow> prevWindows){
+	public void display(Stage primaryStage, WindowEnum prevWindow){
 		window = primaryStage;
 		window.setTitle("Get Password By Email");
 		GridPane grid = new GridPane();
@@ -55,8 +55,8 @@ public class GetPassByMail extends AbstractWindow{
 					System.out.println(e);
 				}
 				this.window.close();
-				prevWindows.get(prevWindows.size()-1).window.show();
-				prevWindows.remove(prevWindows.size()-1);
+				AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size()-1).window.show();
+				AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size()-1);
 				AlertBox.display("Password Sent", "The password was sent to your eMail account");
 			}
 			
@@ -65,11 +65,10 @@ public class GetPassByMail extends AbstractWindow{
 		
 		Button backButton = new Button();
 		backButton.setText("Back");
-		backButton.setOnAction(e -> {
+		backButton.setOnAction( (e) -> {
 			// move to editing my details
 			this.window.close();
-			prevWindows.get(prevWindows.size()-1).window.show();
-			prevWindows.remove(prevWindows.size()-1);
+			handleBack(); 
 		});
 		GridPane.setConstraints(backButton, 1, 2);
 		
@@ -88,6 +87,11 @@ public class GetPassByMail extends AbstractWindow{
 	public static void sendPassword(TextField eMailInput){
 		//Send password to the mail entered, display error message if there is a problem.
 		
+	}
+	
+	public void handleBack() {
+		AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size()-1).window.show();
+		AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size()-1);
 	}
 
 }

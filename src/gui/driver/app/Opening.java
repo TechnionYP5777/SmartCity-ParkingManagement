@@ -31,7 +31,7 @@ public class Opening extends Application {
 	private static final int SPLASH_WIDTH = 274;
 	private static final int SPLASH_HEIGHT = 266;
 	
-	public static ArrayList<AbstractWindow> globalWindows;
+	//public static ArrayList<AbstractWindow> prevWindows;
 	
 	
 	public static void main(String[] args) throws Exception {
@@ -85,9 +85,9 @@ public class Opening extends Application {
 
 	private void showMainMenu(ReadOnlyObjectProperty<ObservableList<String>> friends) {
 		ChooseAction chooseActionObject = new ChooseAction();
-		ArrayList<AbstractWindow> prevWindows = new ArrayList<AbstractWindow>();
+		AbstractWindow.prevWindows = new ArrayList<AbstractWindow>(); 
 		primaryStage = new Stage(); 
-		chooseActionObject.display(primaryStage, WindowEnum.NONE, prevWindows);
+		chooseActionObject.display(primaryStage, WindowEnum.NONE);
 	}
 
 	private void showSplash(final Stage initStage, Task<?> t, InitCompletionHandler h) {

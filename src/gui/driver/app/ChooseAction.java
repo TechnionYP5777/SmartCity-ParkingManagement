@@ -1,6 +1,5 @@
 package gui.driver.app;
 
-import java.util.ArrayList;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -23,7 +22,7 @@ public class ChooseAction extends AbstractWindow {
 		window.initModality(Modality.APPLICATION_MODAL);
 	}
 
-	public void display(Stage primaryStage, WindowEnum prevWindow, ArrayList<AbstractWindow> prevWindows) {
+	public void display(Stage primaryStage, WindowEnum prevWindow) {
 		String title = "Next Action";
 		String message = "What Would you like to do?";
 
@@ -57,8 +56,8 @@ public class ChooseAction extends AbstractWindow {
 		buttonLogin.setOnAction(e -> {
 			window.close();
 			Login login = new Login();
-			prevWindows.add(this);
-			login.display(primaryStage, WindowEnum.LOG_IN, prevWindows);
+			ChooseAction.prevWindows.add(this);
+			login.display(primaryStage, WindowEnum.LOG_IN);
 		});
 		GridPane.setConstraints(buttonLogin, 1, 1);
 
@@ -66,8 +65,8 @@ public class ChooseAction extends AbstractWindow {
 		buttonMyDetails.setOnAction(e -> {
 			window.close();
 			MyDetails MD = new MyDetails();
-			prevWindows.add(this);
-			MD.display(primaryStage, WindowEnum.CHOOSE_ACTION, null, null, prevWindows);
+			ChooseAction.prevWindows.add(this);
+			MD.display(primaryStage, WindowEnum.CHOOSE_ACTION, null, null);
 
 		});
 		GridPane.setConstraints(buttonMyDetails, 2, 1);

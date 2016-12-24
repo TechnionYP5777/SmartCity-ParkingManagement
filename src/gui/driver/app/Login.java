@@ -5,7 +5,6 @@
  */
 package gui.driver.app;
 
-import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -27,15 +26,14 @@ import javafx.stage.Stage;
 
 public class Login extends AbstractWindow {
 
-	Stage window;
-	Scene scene;
 
 	public Login() {
 		windowEnum = WindowEnum.LOG_IN;
+		window = new Stage(); 
 		login = new logic.LoginManager();
 	}
 
-	public void display(Stage primaryStage, WindowEnum __, ArrayList<AbstractWindow> prevWindows) {
+	public void display(Stage primaryStage, WindowEnum __) {
 		window = primaryStage;
 		GridPane grid = new GridPane();
 		grid.setPadding(new Insets(20, 20, 20, 20));
@@ -66,10 +64,9 @@ public class Login extends AbstractWindow {
 		
 		forgotPass.setText("Forgot Password?");
 		forgotPass.setOnAction(e -> {
+			AbstractWindow.prevWindows.add(this); 
 			window.close(); 
-			GetPassByMail GPBM = new GetPassByMail();
-			prevWindows.add(this);
-			GPBM.display(primaryStage, WindowEnum.LOG_IN, prevWindows);
+			(new GetPassByMail()).display(primaryStage, WindowEnum.LOG_IN);
 		});
 
 		Button loginButton = new Button("Login");
@@ -77,10 +74,9 @@ public class Login extends AbstractWindow {
 		backButton.setOnAction(e -> {
 			// move to editing my details
 			this.window.close();
-			prevWindows.get(prevWindows.size()-1).window.show();
-			prevWindows.remove(prevWindows.size()-1);
+			AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size()-1).window.show();
+			AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size()-1);
 		});
-		
 		HBox hbox = new HBox();
 		
 		GridPane.setConstraints(title, 1, 0);
@@ -101,8 +97,8 @@ public class Login extends AbstractWindow {
 			else {
 				AlertBox.display("Successful", "You have successfuly logged in");
 				this.window.close();
-				prevWindows.get(prevWindows.size() - 1).window.show();
-				prevWindows.remove(prevWindows.size() - 1);
+				AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1).window.show();
+				AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size() - 1);
 			}
 		});
 		grid.setBackground(
