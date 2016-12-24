@@ -113,7 +113,7 @@ public class Navigation {
 		return -1; 
 	}
 
-	public static ParkingSlot closestParkingSlot(User user,MapLocation currentLocation, ParkingAreas areas, Faculty faculty){
+	public static ParkingSlot closestParkingSlot(User user,MapLocation currentLocation, ParkingAreas areas, Destination destination){
 
 		ParkingSlot result = null;
 		long minDuration = Integer.MAX_VALUE;
@@ -128,7 +128,7 @@ public class Navigation {
 				if(!(canPark(user, parkingSlot))) 
 					continue;
 				
-				long duration = getDuration(parkingSlot.getLocation(), faculty.getEntrance(), true);
+				long duration = getDuration(parkingSlot.getLocation(), destination.getEntrance(), true);
 				if(duration < minDuration){
 					result = parkingSlot;
 					minDuration = duration;
@@ -139,7 +139,7 @@ public class Navigation {
 	}
 	
 	// returns the closest parking to the given faculty in the given parking area
-	public static ParkingSlot parkingSlotAtParkingArea(User user, ParkingArea parkingArea, Faculty faculty){
+	public static ParkingSlot parkingSlotAtParkingArea(User user, ParkingArea parkingArea, Destination destination){
 		
 		if(parkingArea.getNumOfFreeSlots() <= 0)
 			return null;
@@ -152,7 +152,7 @@ public class Navigation {
 			if(!(canPark(user, parkingSlot))) 
 				continue;
 			
-			long duration = getDuration(parkingSlot.getLocation(), faculty.getEntrance() , true);
+			long duration = getDuration(parkingSlot.getLocation(), destination.getEntrance() , true);
 			if(duration < minDuration){
 				result = parkingSlot;
 				minDuration = duration;
@@ -172,8 +172,8 @@ public class Navigation {
 		parkingSlot.changeStatus(ParkingSlotStatus.TAKEN);
 	}
 	
-	public void parkAtClosestSlot(User user, MapLocation currentLocation, ParkingAreas areas, Faculty faculty){
-		ParkingSlot parkingSlot = closestParkingSlot(user, currentLocation, areas, faculty);
+	public void parkAtClosestSlot(User user, MapLocation currentLocation, ParkingAreas areas, Destination destination){
+		ParkingSlot parkingSlot = closestParkingSlot(user, currentLocation, areas, destination);
 		if(parkingSlot == null){
 			// TODO: throw exception
 		}

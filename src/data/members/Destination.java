@@ -3,30 +3,30 @@ package data.members;
 /**
  * @Author DavidCohen55
  */
-public class Faculty {
+public class Destination {
 	private MapLocation entrance;
-	private String facultyName;
+	private String name;
 
-	public Faculty(String name, double latitude, double longitude) {
+	public Destination(String name, double latitude, double longitude) {
 		this.entrance = new MapLocation(latitude, longitude);
-		this.facultyName = name;
+		this.name = name;
 	}
 
-	public Faculty(String name, MapLocation location) {
+	public Destination(String name, MapLocation location) {
 		this.entrance = location;
-		this.facultyName = name;
+		this.name = name;
 	}
 
-	public String getFacultyName() {
-		return this.facultyName;
+	public String getDestinationName() {
+		return this.name;
 	}
 
 	public MapLocation getEntrance() {
 		return this.entrance;
 	}
 
-	public void setFacultyName(String name) {
-		this.facultyName = name;
+	public void setDestinationName(String name) {
+		this.name = name;
 	}
 
 	public void setEntrance(double latitude, double longitude) {
