@@ -57,9 +57,17 @@ public class ChooseAction extends AbstractWindow {
 			window.close();
 			Login login = new Login();
 			ChooseAction.prevWindows.add(this);
-			login.display(primaryStage, WindowEnum.LOG_IN);
+			login.display(primaryStage, WindowEnum.CHOOSE_ACTION);
 		});
 		GridPane.setConstraints(buttonLogin, 1, 1);
+		
+		Button buttonRegister = new Button("Register");
+		buttonRegister.setOnAction(e -> {
+			window.close();
+			ChooseAction.prevWindows.add(this);
+			(new Register()).display(primaryStage, WindowEnum.CHOOSE_ACTION);
+		});
+		GridPane.setConstraints(buttonRegister, 2, 1);
 
 		Button buttonMyDetails = new Button("My Details");
 		buttonMyDetails.setOnAction(e -> {
@@ -69,20 +77,20 @@ public class ChooseAction extends AbstractWindow {
 			MD.display(primaryStage, WindowEnum.CHOOSE_ACTION, null, null);
 
 		});
-		GridPane.setConstraints(buttonMyDetails, 2, 1);
+		GridPane.setConstraints(buttonMyDetails,3, 1);
 
 		Button buttonClose = new Button("Close Program");
 		buttonClose.setOnAction(e -> {
 			if (prevWindow == WindowEnum.NONE && ConfirmBox.display("Confirmation", "Are you sure you want to exit?"))
 				window.close();
 		});
-		GridPane.setConstraints(buttonClose, 3, 1);
+		GridPane.setConstraints(buttonClose, 4, 1);
 
 		layout.setBackground(
 				new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2, 2, 2, 2))));
-		layout.getChildren().addAll(label, buttonNavigate, buttonLogin, buttonMyDetails, buttonClose);
+		layout.getChildren().addAll(label, buttonNavigate, buttonLogin, buttonRegister, buttonMyDetails, buttonClose);
 		layout.setAlignment(Pos.CENTER);
-		Scene scene = new Scene(layout, 450, 300);
+		Scene scene = new Scene(layout, 500, 300);
 		window.setScene(scene);
 		window.showAndWait();
 	}
