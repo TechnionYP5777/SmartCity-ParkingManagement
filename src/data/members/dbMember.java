@@ -1,5 +1,6 @@
 package data.members;
 
+import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
 
 public abstract class dbMember {
@@ -20,5 +21,9 @@ public abstract class dbMember {
 
 	public void setObjectId() {
 		objectId = parseObject.getObjectId();
+	}
+	
+	public void deleteParseObject() throws ParseException{
+		parseObject.delete();
 	}
 }

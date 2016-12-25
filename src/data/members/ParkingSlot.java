@@ -40,21 +40,22 @@ public class ParkingSlot extends dbMember {
 		// TODO: Check for NULL values !
 
 		DBManager.initialize();
-		this.parseObject = new ParseObject("ParkingSlot");
+		this.setParseObject("ParkingSlot");
 		this.setName(name);
 		this.setStatus(status);
 		this.setColor(color);
 		this.setLocation(location);
 		this.setDefaultColor(defaultColor);
 		this.setEndTime(endTime);
-
-		this.parseObject.save();
-		this.objectId = this.parseObject.getObjectId();
+		this.setObjectId();
+		// this.parseObject = new ParseObject("ParkingSlot");
+		// this.parseObject.save();
+		// this.objectId = this.parseObject.getObjectId();
 	}
 
 	/***
-	 * @author David
-	 * the constructor gets an ParseObject and return a new ParkingSlot class according to it
+	 * @author David the constructor gets an ParseObject and return a new
+	 *         ParkingSlot class according to it
 	 * @param obj
 	 */
 	public ParkingSlot(ParseObject obj) {
@@ -74,59 +75,68 @@ public class ParkingSlot extends dbMember {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(String name) throws ParseException {
 		this.name = name;
 		this.parseObject.put("name", name);
+		this.parseObject.save();
 	}
 
 	public ParkingSlotStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(ParkingSlotStatus s) {
-		this.status = s;
-		this.parseObject.put("status", s.ordinal());
+	public void setStatus(ParkingSlotStatus ¢) throws ParseException {
+		this.status = ¢;
+		this.parseObject.put("status", ¢.ordinal());
+		this.parseObject.save();
 	}
 
 	public StickersColor getColor() {
 		return color;
 	}
 
-	public void setColor(StickersColor c) {
-		this.color = c;
-		this.parseObject.put("color", c.ordinal());
+	public void setColor(StickersColor ¢) throws ParseException {
+		this.color = ¢;
+		this.parseObject.put("color", ¢.ordinal());
+		this.parseObject.save();
 	}
 
 	public MapLocation getLocation() {
 		return location;
 	}
 
-	public void setLocation(MapLocation l) {
-		this.location = l;
-
-		this.parseObject.put("location", (new ParseGeoPoint(l.getLat(), l.getLon())));
+	public void setLocation(MapLocation ¢) throws ParseException {
+		this.location = ¢;
+		this.parseObject.put("location", (new ParseGeoPoint(¢.getLat(), ¢.getLon())));
+		this.parseObject.save();
 	}
 
 	public StickersColor getDefaultColor() {
 		return defaultColor;
 	}
 
-	public void setDefaultColor(StickersColor defaultColor) {
+	public void setDefaultColor(StickersColor defaultColor) throws ParseException {
 		this.defaultColor = defaultColor;
 		this.parseObject.put("defaultColor", defaultColor.ordinal());
+		this.parseObject.save();
 	}
 
 	public Date getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Date endTime) {
+	public void setEndTime(Date endTime) throws ParseException {
 		this.endTime = endTime;
 		this.parseObject.put("endTime", endTime);
+		this.parseObject.save();
 	}
 
 	public void changeStatus(ParkingSlotStatus newStatus) {
-		this.setStatus(newStatus);
+		try {
+			this.setStatus(newStatus);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+		}
 	};
 
 	public void removeParkingSlot() throws ParseException {

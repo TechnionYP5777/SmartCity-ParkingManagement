@@ -256,6 +256,35 @@ public class LoginTest {
 		}
 
 		Assert.assertEquals(user.getCurrentParking().getName(), "DavidSlot");
+		try {
+			user.getCurrentParking().setColor(StickersColor.BORDEAUX);
+		} catch (ParseException e) {
+			Assert.fail();
+		}
+
+		Assert.assertEquals(new ParkingSlot(user.getCurrentParking().getParseObject()).getColor(),
+				StickersColor.BORDEAUX);
+
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
+		ParseObject park = null;
+		try {
+			park = query.get((user.getCurrentParking().getParseObject()).getObjectId());
+		} catch (ParseException e1) {
+			Assert.fail();
+		}
+
+		Assert.assertEquals(StickersColor.values()[park.getInt("color")], StickersColor.BORDEAUX);
+		try {
+			user.setCurrentParking(null);
+		} catch (ParseException e) {
+			Assert.fail();
+		}
+		
+		try {
+			park.delete();
+		} catch (ParseException e) {
+			Assert.fail();
+		}
 	}
 
 }

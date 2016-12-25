@@ -144,6 +144,6 @@ public class LoginManager {
 	}
 
 	public void deleteUser() throws ParseException {
-		user.DeleteUser();
+		user.deleteParseObject();
 	}
 }

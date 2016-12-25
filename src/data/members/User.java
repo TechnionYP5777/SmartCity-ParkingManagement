@@ -122,10 +122,6 @@ public class User extends dbMember {
 		return email;
 	}
 
-	public void DeleteUser() throws ParseException {
-		this.parseObject.delete();
-	}
-
 	/* Set functions */
 	public void setName(String name) throws ParseException {
 		this.name = name;
@@ -133,26 +129,28 @@ public class User extends dbMember {
 		this.parseObject.save();
 	}
 
-	
 	/***
 	 * 
-	 * @param currentParking, object from ParkingSlot class
+	 * @param currentParking,
+	 *            object from ParkingSlot class
 	 * @throws ParseException
 	 */
 	public void setCurrentParking(ParkingSlot currentParking) throws ParseException {
 		this.currentParking = currentParking;
 		if (currentParking == null)
-			return;
-		this.parseObject.put(PARKING, currentParking.getParseObject());
+			this.parseObject.remove(PARKING);
+		else
+			this.parseObject.put(PARKING, currentParking.getParseObject());
 		this.parseObject.save();
 	}
 
 	/***
 	 * 
-	 * @param currentParking, object from Parse server
+	 * @param currentParking,
+	 *            object from Parse server
 	 * @throws ParseException
 	 */
-	public void setCurrentParking(ParseObject currentParking) throws ParseException {
+	public void setParseCurrentParking(ParseObject currentParking) throws ParseException {
 		if (currentParking == null)
 			return;
 		this.currentParking = new ParkingSlot(currentParking);
@@ -210,10 +208,6 @@ public class User extends dbMember {
 		this.password = newPassword;
 		this.parseObject.put(PASSWORD, password);
 		this.parseObject.save();
-	}
-
-	public String getTableID() {
-		return this.parseObject.getObjectId();
 	}
 
 }
