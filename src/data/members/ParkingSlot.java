@@ -6,12 +6,12 @@ import org.parse4j.ParseException;
 import org.parse4j.ParseGeoPoint;
 import org.parse4j.ParseObject;
 
+import Exceptions.LoginException;
 import data.management.DBManager;
 
 /**
  * @author Toma
- * @since 12.11.16
- * This class represent a parking slot
+ * @since 12.11.16 This class represent a parking slot
  */
 public class ParkingSlot extends dbMember {
 
@@ -47,8 +47,26 @@ public class ParkingSlot extends dbMember {
 		this.setLocation(location);
 		this.setDefaultColor(defaultColor);
 		this.setEndTime(endTime);
-		
+
 		this.parseObject.save();
+		this.objectId = this.parseObject.getObjectId();
+	}
+
+	/***
+	 * @author David
+	 * the constructor gets an ParseObject and return a new ParkingSlot class according to it
+	 * @param obj
+	 */
+	public ParkingSlot(ParseObject obj) {
+		DBManager.initialize();
+		this.parseObject = obj;
+		this.name = this.parseObject.getString("name");
+		this.status = ParkingSlotStatus.values()[this.parseObject.getInt("status")];
+		this.color = StickersColor.values()[this.parseObject.getInt("color")];
+		ParseGeoPoint geo = this.parseObject.getParseGeoPoint("location");
+		this.location = new MapLocation(geo.getLatitude(), geo.getLongitude());
+		this.defaultColor = StickersColor.values()[this.parseObject.getInt("defaultColor")];
+		this.endTime = this.parseObject.getDate("endTime");
 		this.objectId = this.parseObject.getObjectId();
 	}
 
@@ -106,12 +124,12 @@ public class ParkingSlot extends dbMember {
 		this.endTime = endTime;
 		this.parseObject.put("endTime", endTime);
 	}
-	
-	public void changeStatus(ParkingSlotStatus newStatus){
+
+	public void changeStatus(ParkingSlotStatus newStatus) {
 		this.setStatus(newStatus);
 	};
-	
-	public void removeParkingSlot() throws ParseException{
+
+	public void removeParkingSlot() throws ParseException {
 		this.parseObject.delete();
 		this.objectId = "";
 	}

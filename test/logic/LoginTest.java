@@ -48,7 +48,7 @@ public class LoginTest {
 		try {
 			testUserObject.save();
 		} catch (ParseException e) {
-	Assert.fail();
+			Assert.fail();
 		}
 		try {
 			Thread.sleep(100);
@@ -61,7 +61,7 @@ public class LoginTest {
 		try {
 			ret = query.get(id);
 		} catch (ParseException e) {
-	Assert.fail();
+			Assert.fail();
 			return;
 		}
 		Assert.assertEquals("Shay", ret.getString("username"));
@@ -72,7 +72,7 @@ public class LoginTest {
 			ret = query.get(id);
 			Assert.assertEquals(ret, null);
 		} catch (ParseException e) {
-	Assert.fail();
+			Assert.fail();
 		}
 	}
 
@@ -83,7 +83,7 @@ public class LoginTest {
 		try {
 			uID = lg.userSignUp("Sefi Albo", "sefi987", "0507788999", "3216549", "sefi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException e2) {
-	Assert.fail();
+			Assert.fail();
 		}
 		Assert.assertNotEquals("", uID);
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
@@ -92,7 +92,7 @@ public class LoginTest {
 			user = query.get(uID);
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
-	Assert.fail();
+			Assert.fail();
 		}
 		Assert.assertEquals("Sefi Albo", user.getString("username"));
 		Assert.assertEquals("sefi987", user.getString("password"));
@@ -102,7 +102,7 @@ public class LoginTest {
 		try {
 			lg.deleteUser();
 		} catch (ParseException e) {
-	Assert.fail();
+			Assert.fail();
 		}
 	}
 
@@ -167,7 +167,7 @@ public class LoginTest {
 			Assert.assertTrue(lg.userLogin("3209654", "David123"));
 			Assert.assertTrue(lg.userUpdate("3209654", "David", "0501234567", "david@gmail.com", "2222222"));
 		} catch (LoginException e1) {
-	Assert.fail();
+			Assert.fail();
 		}
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
 		query.whereEqualTo("carNumber", "3296054");
@@ -178,13 +178,13 @@ public class LoginTest {
 				Assert.assertEquals("0501234567", userList.get(0).getString("phoneNumber"));
 			}
 		} catch (ParseException e) {
-	Assert.fail();
+			Assert.fail();
 		}
 		try {
 			Assert.assertTrue(
 					lg.userUpdate("2222222", "David Cohen", "0508937778", "david.5581@hotmail.com", "3209654"));
 		} catch (LoginException e1) {
-	Assert.fail();
+			Assert.fail();
 		}
 		try {
 			List<ParseObject> userList = query.find();
@@ -193,7 +193,7 @@ public class LoginTest {
 				Assert.assertEquals("0508937778", userList.get(0).getString("phoneNumber"));
 			}
 		} catch (ParseException e) {
-	Assert.fail();
+			Assert.fail();
 		}
 	}
 
@@ -223,13 +223,13 @@ public class LoginTest {
 		try {
 			lg.deleteUser();
 		} catch (ParseException e) {
-	Assert.fail();
+			Assert.fail();
 		}
 
 		try {
 			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "3216549", "zahi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException e) {
-	Assert.fail();
+			Assert.fail();
 		}
 
 		try {
@@ -255,6 +255,7 @@ public class LoginTest {
 			Assert.fail();
 		}
 
+		Assert.assertEquals(user.getCurrentParking().getName(), "DavidSlot");
 	}
 
 }

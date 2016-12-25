@@ -46,13 +46,9 @@ public class User extends dbMember {
 	private static final String PARKING = "currentParking";
 	private static final String TABLE_NAME = "PMUser";
 
-	// private ParseObject user;
-
 	public User(String name, String password, String phoneNumber, String carNumber, String email, StickersColor type,
 			ParkingSlot currentLocation) throws ParseException {
 		DBManager.initialize();
-		// this.user = new ParseObject(TABLE_NAME);
-		// this.parseObject = new ParseObject(TABLE_NAME);
 		this.setParseObject(TABLE_NAME);
 		this.setName(name);
 		this.setPassword(password);
@@ -62,7 +58,6 @@ public class User extends dbMember {
 		this.setEmail(email);
 		this.setCurrentParking(currentLocation);
 		this.setObjectId();
-		// this.objectId = this.parseObject.getObjectId();
 	}
 
 	public User(String carNumber) throws LoginException {
@@ -77,7 +72,13 @@ public class User extends dbMember {
 		this.sticker = StickersColor.values()[this.parseObject.getInt(STICKER)];
 		this.email = this.parseObject.getString(EMAIL);
 		this.objectId = this.parseObject.getObjectId();
-		// this.currentParking = useObj.getString(PARKING);
+		if (this.parseObject.getParseObject(PARKING) == null)
+			return;
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
+		try {
+			this.currentParking = new ParkingSlot(query.get(this.parseObject.getParseObject(PARKING).getObjectId()));
+		} catch (ParseException e) {
+		}
 	}
 
 	private static ParseObject getDbUserObject(String carNumber) {
@@ -132,11 +133,29 @@ public class User extends dbMember {
 		this.parseObject.save();
 	}
 
+	
+	/***
+	 * 
+	 * @param currentParking, object from ParkingSlot class
+	 * @throws ParseException
+	 */
 	public void setCurrentParking(ParkingSlot currentParking) throws ParseException {
 		this.currentParking = currentParking;
 		if (currentParking == null)
 			return;
 		this.parseObject.put(PARKING, currentParking.getParseObject());
+		this.parseObject.save();
+	}
+
+	/***
+	 * 
+	 * @param currentParking, object from Parse server
+	 * @throws ParseException
+	 */
+	public void setCurrentParking(ParseObject currentParking) throws ParseException {
+		if (currentParking == null)
+			return;
+		this.currentParking = new ParkingSlot(currentParking);
 		this.parseObject.save();
 	}
 
