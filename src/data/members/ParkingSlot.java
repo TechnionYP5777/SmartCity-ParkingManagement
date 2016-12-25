@@ -1,10 +1,13 @@
 package data.members;
 
 import java.util.Date;
+import java.util.List;
 
 import org.parse4j.ParseException;
 import org.parse4j.ParseGeoPoint;
 import org.parse4j.ParseObject;
+import org.parse4j.ParseQuery;
+
 import data.management.DBManager;
 
 /**
@@ -140,6 +143,25 @@ public class ParkingSlot extends dbMember {
 	public void removeParkingSlot() throws ParseException {
 		this.parseObject.delete();
 		this.objectId = "";
+	}
+
+	/***
+	 * for now only delete from the DB the current parking
+	 */
+	@Override
+	public void deleteParseObject() throws ParseException {
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
+		query.whereEqualTo("currentParking", this.getParseObject());
+		try {
+			List<ParseObject> users = query.find();
+			if (users != null) {
+				users.get(0).remove("currentParking");
+				users.get(0).save();
+			}
+		} catch (Exception e) {
+			return;
+		}
+		parseObject.delete();
 	}
 
 }

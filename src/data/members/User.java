@@ -95,7 +95,19 @@ public class User extends dbMember {
 	/* Get functions */
 
 	public ParkingSlot getCurrentParking() {
-		return currentParking;
+		ParseObject o = null;
+		ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("ParkingSlot");
+		if (currentParking != null)
+			try {
+				o = query.get(currentParking.getobjectId());
+			} catch (ParseException e) {
+				System.out.println("could'nt find");
+				return null;
+			}
+		if (o != null)
+			return currentParking;
+		this.currentParking = null;
+		return null;
 	}
 
 	public String getName() {
