@@ -5,8 +5,6 @@ import java.util.Date;
 import org.parse4j.ParseException;
 import org.parse4j.ParseGeoPoint;
 import org.parse4j.ParseObject;
-
-import Exceptions.LoginException;
 import data.management.DBManager;
 
 /**
