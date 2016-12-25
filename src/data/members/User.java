@@ -31,13 +31,12 @@ public class User extends dbMember {
 	// the email of the users, will use to communicate with the user
 	private String email;
 
-	
 	// the type of sticker of the user, will determine where can he park
 	private StickersColor sticker;
 
 	// saves the parking slot of a user if he parked
 	private ParkingSlot currentParking;
-	
+
 	private static final String USER_NAME = "username";
 	private static final String PASSWORD = "password";
 	private static final String PHONE_NUMBER = "phoneNumber";
@@ -46,14 +45,15 @@ public class User extends dbMember {
 	private static final String EMAIL = "email";
 	private static final String PARKING = "currentParking";
 	private static final String TABLE_NAME = "PMUser";
-	
-	//private ParseObject user;
 
-	public User(String name, String password, String phoneNumber, String carNumber,
-			String email, StickersColor type, ParkingSlot currentLocation) throws ParseException {
+	// private ParseObject user;
+
+	public User(String name, String password, String phoneNumber, String carNumber, String email, StickersColor type,
+			ParkingSlot currentLocation) throws ParseException {
 		DBManager.initialize();
-		//this.user = new ParseObject(TABLE_NAME);
-		this.parseObject = new ParseObject(TABLE_NAME);
+		// this.user = new ParseObject(TABLE_NAME);
+		// this.parseObject = new ParseObject(TABLE_NAME);
+		this.setParseObject(TABLE_NAME);
 		this.setName(name);
 		this.setPassword(password);
 		this.setPhoneNumber(phoneNumber);
@@ -61,19 +61,23 @@ public class User extends dbMember {
 		this.setSticker(type);
 		this.setEmail(email);
 		this.setCurrentParking(currentLocation);
+		this.setObjectId();
+		// this.objectId = this.parseObject.getObjectId();
 	}
-	
+
 	public User(String carNumber) throws LoginException {
 		DBManager.initialize();
 		this.parseObject = getDbUserObject(carNumber);
-		if (this.parseObject == null) throw new LoginException("user doesn't exist");
+		if (this.parseObject == null)
+			throw new LoginException("user doesn't exist");
 		this.name = this.parseObject.getString(USER_NAME);
 		this.password = this.parseObject.getString(PASSWORD);
 		this.phoneNumber = this.parseObject.getString(PHONE_NUMBER);
 		this.carNumber = this.parseObject.getString(CAR_NUMBER);
 		this.sticker = StickersColor.values()[this.parseObject.getInt(STICKER)];
 		this.email = this.parseObject.getString(EMAIL);
-		//this.currentParking = useObj.getString(PARKING);
+		this.objectId = this.parseObject.getObjectId();
+		// this.currentParking = useObj.getString(PARKING);
 	}
 
 	private static ParseObject getDbUserObject(String carNumber) {
@@ -86,7 +90,7 @@ public class User extends dbMember {
 			return null;
 		}
 	}
-	
+
 	/* Get functions */
 
 	public ParkingSlot getCurrentParking() {
@@ -116,7 +120,7 @@ public class User extends dbMember {
 	public String getEmail() {
 		return email;
 	}
-	
+
 	public void DeleteUser() throws ParseException {
 		this.parseObject.delete();
 	}
@@ -130,7 +134,9 @@ public class User extends dbMember {
 
 	public void setCurrentParking(ParkingSlot currentParking) throws ParseException {
 		this.currentParking = currentParking;
-		//this.parseObject.put(PARKING, currentParking.getName());
+		if (currentParking == null)
+			return;
+		this.parseObject.put(PARKING, currentParking.getParseObject());
 		this.parseObject.save();
 	}
 
@@ -157,7 +163,7 @@ public class User extends dbMember {
 		this.parseObject.put(CAR_NUMBER, carNum);
 		this.parseObject.save();
 	}
-	
+
 	public void setEmail(String email) throws ParseException {
 		this.email = email;
 		this.parseObject.put(EMAIL, email);

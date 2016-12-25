@@ -1,5 +1,6 @@
 package logic;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Assert;
@@ -10,7 +11,11 @@ import org.parse4j.ParseQuery;
 
 import Exceptions.LoginException;
 import data.management.DBManager;
+import data.members.MapLocation;
+import data.members.ParkingSlot;
+import data.members.ParkingSlotStatus;
 import data.members.StickersColor;
+import data.members.User;
 
 /**
  * @Author DavidCohen55
@@ -19,22 +24,22 @@ import data.members.StickersColor;
 public class LoginTest {
 
 	@Test
-	public void test1() {
+	public void test01() {
 		Assert.assertTrue((new LoginManager()).userLogin("3209654", "David123"));
 	}
 
 	@Test
-	public void test2() {
+	public void test02() {
 		Assert.assertFalse((new LoginManager()).userLogin("3209654", "David1"));
 	}
 
 	@Test
-	public void test3() {
+	public void test03() {
 		Assert.assertFalse((new LoginManager()).userLogin("1111111", "David1"));
 	}
 
 	@Test
-	public void test4() {
+	public void test04() {
 		DBManager.initialize();
 		ParseObject testUserObject = new ParseObject("PMUser");
 		testUserObject.put("username", "Shay");
@@ -43,7 +48,7 @@ public class LoginTest {
 		try {
 			testUserObject.save();
 		} catch (ParseException e) {
-			Assert.assertEquals(true, false);
+	Assert.fail();
 		}
 		try {
 			Thread.sleep(100);
@@ -56,7 +61,7 @@ public class LoginTest {
 		try {
 			ret = query.get(id);
 		} catch (ParseException e) {
-			Assert.assertEquals(true, false);
+	Assert.fail();
 			return;
 		}
 		Assert.assertEquals("Shay", ret.getString("username"));
@@ -67,18 +72,18 @@ public class LoginTest {
 			ret = query.get(id);
 			Assert.assertEquals(ret, null);
 		} catch (ParseException e) {
-			Assert.assertEquals(true, false);
+	Assert.fail();
 		}
 	}
 
 	@Test
-	public void test5() {
+	public void test05() {
 		LoginManager lg = new LoginManager();
 		String uID = "";
 		try {
 			uID = lg.userSignUp("Sefi Albo", "sefi987", "0507788999", "3216549", "sefi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException e2) {
-			Assert.assertEquals(true, false);
+	Assert.fail();
 		}
 		Assert.assertNotEquals("", uID);
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
@@ -87,7 +92,7 @@ public class LoginTest {
 			user = query.get(uID);
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
-			Assert.assertEquals(true, false);
+	Assert.fail();
 		}
 		Assert.assertEquals("Sefi Albo", user.getString("username"));
 		Assert.assertEquals("sefi987", user.getString("password"));
@@ -97,19 +102,18 @@ public class LoginTest {
 		try {
 			lg.deleteUser();
 		} catch (ParseException e) {
-			Assert.assertEquals(true, false);
+	Assert.fail();
 		}
 	}
 
 	@Test
-	public void test6() {
+	public void test06() {
 		LoginManager lg = new LoginManager();
-		Assert.assertEquals("already exist",
-				lg.userValueCheck("David", "1234567890", "david@gmail.com","3209654"));
+		Assert.assertEquals("already exist", lg.userValueCheck("David", "1234567890", "david@gmail.com", "3209654"));
 
 		// name contains integer
 		try {
-			lg.userSignUp("Zahi Mizrahi1", "Zahi123", "1234567890", "3216549", "zahi@gmail.com", StickersColor.GREEN);
+			lg.userSignUp("Zahi Mizrahi1", "Zahi123", "1234567890", "3226549", "zahi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException e) {
 			// TODO Auto-generated catch block
 			Assert.assertEquals("user has integer", (e + ""));
@@ -117,7 +121,7 @@ public class LoginTest {
 
 		// short phone number
 		try {
-			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0507777", "3216549", "zahi@gmail.com", StickersColor.GREEN);
+			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0507777", "3276549", "zahi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException e) {
 			Assert.assertEquals("phone need to be in size 10", (e + ""));
 		}
@@ -138,18 +142,18 @@ public class LoginTest {
 	}
 
 	@Test
-	public void test7() {
+	public void test07() {
 		LoginManager lg = new LoginManager();
 		// name contains integer
 		try {
-			lg.userSignUp("Zahi Mizrahi", "Zahi123", "1234567890", "3216549", "zahi@gmail.com", StickersColor.GREEN);
+			lg.userSignUp("Zahi Mizrahi", "Zahi123", "1234567890", "3236549", "zahi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException e) {
 			Assert.assertEquals("phone should start with 05", (e + ""));
 		}
 
 		// short phone number
 		try {
-			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0501a23456", "3216549", "zahi@gmail.com", StickersColor.GREEN);
+			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0501a23456", "3266549", "zahi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException e) {
 			Assert.assertEquals("phone contains only integers", (e + ""));
 		}
@@ -157,13 +161,13 @@ public class LoginTest {
 	}
 
 	@Test
-	public void test8() {
+	public void test08() {
 		LoginManager lg = new LoginManager();
 		try {
 			Assert.assertTrue(lg.userLogin("3209654", "David123"));
-			Assert.assertTrue(lg.userUpdate("3209654", "David", "0501234567","david@gmail.com", "2222222"));
+			Assert.assertTrue(lg.userUpdate("3209654", "David", "0501234567", "david@gmail.com", "2222222"));
 		} catch (LoginException e1) {
-			Assert.assertEquals(true, false);
+	Assert.fail();
 		}
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
 		query.whereEqualTo("carNumber", "3296054");
@@ -174,12 +178,13 @@ public class LoginTest {
 				Assert.assertEquals("0501234567", userList.get(0).getString("phoneNumber"));
 			}
 		} catch (ParseException e) {
-			Assert.assertEquals(true, false);
+	Assert.fail();
 		}
 		try {
-			Assert.assertTrue(lg.userUpdate("2222222", "David Cohen", "0508937778", "david.5581@hotmail.com", "3209654"));
+			Assert.assertTrue(
+					lg.userUpdate("2222222", "David Cohen", "0508937778", "david.5581@hotmail.com", "3209654"));
 		} catch (LoginException e1) {
-			Assert.assertEquals(true, false);
+	Assert.fail();
 		}
 		try {
 			List<ParseObject> userList = query.find();
@@ -188,50 +193,68 @@ public class LoginTest {
 				Assert.assertEquals("0508937778", userList.get(0).getString("phoneNumber"));
 			}
 		} catch (ParseException e) {
-			Assert.assertEquals(true, false);
+	Assert.fail();
 		}
 	}
 
 	@Test
-	public void test9() {
+	public void test09() {
 		LoginManager lg = new LoginManager();
 		try {
-			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "3216549", "zahi@gmaifl.com", StickersColor.GREEN);
+			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "3416549", "zahi@gmaifl.com", StickersColor.GREEN);
 		} catch (LoginException e) {
 			Assert.assertEquals("invalid email address", (e + ""));
 		}
 
 		try {
-			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "3216549", "zahi@cs.technion.ac.il",
+			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "3246549", "zahi@cs.technion.ac.il",
 					StickersColor.GREEN);
 		} catch (LoginException e) {
 			Assert.assertEquals("invalid email address", (e + ""));
 		}
 
 		try {
-			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "3216549", "zahi@campus.technion.ac.il",
+			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "3256549", "zahi@campus.technion.ac.il",
 					StickersColor.GREEN);
 		} catch (LoginException e) {
-			Assert.assertEquals(true, false);
+			Assert.fail();
 		}
 
 		try {
 			lg.deleteUser();
 		} catch (ParseException e) {
-			Assert.assertEquals(true, false);
+	Assert.fail();
 		}
 
 		try {
 			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "3216549", "zahi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException e) {
-			Assert.assertEquals(true, false);
+	Assert.fail();
 		}
 
 		try {
 			lg.deleteUser();
 		} catch (ParseException e) {
-			Assert.assertEquals(true, false);
+			Assert.fail();
 		}
+	}
+
+	@Test
+	public void test10() {
+		User user = null;
+		try {
+			user = new User("3209654");
+		} catch (LoginException e) {
+			Assert.fail();
+		}
+		try {
+			if (user != null)
+				user.setCurrentParking(new ParkingSlot("DavidSlot", ParkingSlotStatus.FREE, StickersColor.RED,
+						StickersColor.RED, new MapLocation(32.778153, 35.021855), new Date()));
+		} catch (ParseException e) {
+			Assert.fail();
+		}
+
 	}
 
 }
