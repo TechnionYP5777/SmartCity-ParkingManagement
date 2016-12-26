@@ -13,7 +13,6 @@ import org.json.simple.parser.ParseException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import org.apache.commons.io.IOUtils;
-//import java.util.Set;
 
 
 public class Navigation {
@@ -162,17 +161,13 @@ public class Navigation {
 	}
 	
 	
-	public static void parkAtSlot(User user, ParkingSlot parkingSlot) throws NoSlotAvailable{
+	public static void parkAtSlot(User user, ParkingSlot parkingSlot) throws NoSlotAvailable, org.parse4j.ParseException{
 		if(parkingSlot == null){
 			throw new NoSlotAvailable("No Slot Available");
 		}
-		try {
-			user.setCurrentParking(parkingSlot);
-			parkingSlot.changeStatus(ParkingSlotStatus.TAKEN);
-		} catch(Exception e){
-			// change to ParseException when Tom changes a field type in db
-			// TODO: how to handle db exception?
-		}
+		user.setCurrentParking(parkingSlot);
+		parkingSlot.changeStatus(ParkingSlotStatus.TAKEN);
+
 	}
 	
 	public static void parkAtClosestSlot(User user, MapLocation currentLocation, ParkingAreas areas, Destination destination) throws NoSlotAvailable, org.parse4j.ParseException{

@@ -29,38 +29,38 @@ public class NavigationTest {
 		
 		try{
 			MapLocation location = new MapLocation(32.777408, 35.020332); // farest
-			ParkingSlot slot1 = new ParkingSlot("upperTaub-slot1", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED, location, new Date());
+			ParkingSlot taubSlot1 = new ParkingSlot("upperTaub-slot1", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED, location, new Date());
 			location = new MapLocation(32.777223, 35.020890); // middle
-			ParkingSlot slot2 = new ParkingSlot("upperTaub-slot2", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED, location, new Date());
+			ParkingSlot taubSlot2 = new ParkingSlot("upperTaub-slot2", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED, location, new Date());
 			location = new MapLocation(32.777195, 35.021281); // closest
-			ParkingSlot slot3 = new ParkingSlot("upperTaub-slot3", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED, location, new Date());
+			ParkingSlot taubSlot3 = new ParkingSlot("upperTaub-slot3", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED, location, new Date());
 			
-			Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
-			slots.add(slot1);
-			slots.add(slot2);
-			slots.add(slot3);
+			Set<ParkingSlot> taubSlots = new HashSet<ParkingSlot>();
+			taubSlots.add(taubSlot1);
+			taubSlots.add(taubSlot2);
+			taubSlots.add(taubSlot3);
 			
 			location = new MapLocation(32.777466, 35.021094);
 			Destination destination = new Destination("Taub", location);
 			
-			ParkingArea area = new ParkingArea(100,slots, StickersColor.RED);
+			ParkingArea upperTaubArea = new ParkingArea(100,taubSlots, StickersColor.RED);
 			try {
 				
 				User user = new User("3209654"); 
-				ParkingSlot result = Navigation.parkingSlotAtParkingArea(user, area, destination);
-				Assert.assertEquals(slot3.getName(), result.getName());
+				ParkingSlot result = Navigation.parkingSlotAtParkingArea(user, upperTaubArea, destination);
+				Assert.assertEquals(taubSlot3.getName(), result.getName());
 				
-				slot3.changeStatus(ParkingSlotStatus.TAKEN);
+				taubSlot3.changeStatus(ParkingSlotStatus.TAKEN);
 				
 				// now result 2 is the closest
 			
-				result = Navigation.parkingSlotAtParkingArea(user, area, destination);
-				Assert.assertEquals(slot2.getName(), result.getName());
+				result = Navigation.parkingSlotAtParkingArea(user, upperTaubArea, destination);
+				Assert.assertEquals(taubSlot2.getName(), result.getName());
 				
-				area.deleteParseObject();
-				slot1.deleteParseObject();
-				slot2.deleteParseObject();
-				slot3.deleteParseObject();
+				upperTaubArea.deleteParseObject();
+				taubSlot1.deleteParseObject();
+				taubSlot2.deleteParseObject();
+				taubSlot3.deleteParseObject();
 				
 			} catch(LoginException e){
 				System.out.println("login exception");
@@ -97,6 +97,7 @@ public class NavigationTest {
 			
 			location = new MapLocation(32.774596, 35.029031);
 			ParkingSlot nesherSlot1 = new ParkingSlot("nesher-slot1", ParkingSlotStatus.FREE, StickersColor.WHITE, StickersColor.WHITE, location, new Date());
+			
 			Set<ParkingSlot> nesherSlots = new HashSet<ParkingSlot>();
 			nesherSlots.add(nesherSlot1);
 			
@@ -163,31 +164,45 @@ public class NavigationTest {
 		
 	}
 	
+	// the parkAtClosestSlot test is similar so I'll check only one parkAtArea
 	@Test
-	public void test8() {
-		MapLocation location = new MapLocation(32.775041, 35.027084);
-		Assert.assertEquals(2, Navigation.getClosestParkingArea(location, false));
+	public void parkAtAreaTest(){
+		boolean gotNoSlotAvailableException = false;
+		try{
+				
+			MapLocation location = new MapLocation(32.777408, 35.020332); 
+			ParkingSlot taubSlot1 = new ParkingSlot("upperTaub-slot1", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED, location, new Date());
+			
+			Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
+			slots.add(taubSlot1);
+			
+			ParkingArea upperTaubArea = new ParkingArea(100,slots, StickersColor.RED);
+			
+			location = new MapLocation(32.777466, 35.021094);
+			Destination destination = new Destination("Taub", location);
+			
+			try {
+				
+				User user = new User("3209654");
+				ParkingSlot result = Navigation.parkingSlotAtParkingArea(user, upperTaubArea, destination);
+				Navigation.parkAtArea(user, upperTaubArea, destination);
+				Assert.assertEquals(result.getStatus().ordinal(), ParkingSlotStatus.TAKEN.ordinal());
+				
+				// the NoSlotAvailable exception should be thrown
+				Navigation.parkAtArea(user, upperTaubArea, destination);
+				
+			} catch(LoginException e){
+				System.out.println("login exception");
+				
+			} catch(NoSlotAvailable e){
+				gotNoSlotAvailableException = true;
+				upperTaubArea.deleteParseObject();
+				taubSlot1.deleteParseObject();
+			}		
+			
+		} catch(ParseException e){
+			System.out.print("parse exception");
+		}
+		Assert.assertEquals(gotNoSlotAvailableException, true);
 	}
-	@Test
-	public void test9() {
-		MapLocation location = new MapLocation(32.776395, 35.020756);
-		Assert.assertEquals(4, Navigation.getClosestParkingArea(location, false));
-	}
-	@Test
-	public void test10() {
-		
-		MapLocation location = new MapLocation(32.778857, 35.018535);
-		Assert.assertEquals(1, Navigation.getClosestParkingArea(location, false));
-	}
-	@Test
-	public void test11() {
-		
-		MapLocation location = new MapLocation(32.780571, 35.023073);
-		Assert.assertEquals(3, Navigation.getClosestParkingArea(location, false));
-	}
-	
-	
-	
-	
-	
 }
