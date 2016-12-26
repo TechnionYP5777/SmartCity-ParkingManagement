@@ -41,12 +41,11 @@ public class UserTest {
 			Assert.fail();
 		}
 
-		Assert.assertEquals(new ParkingSlot(user.getCurrentParking().getParseObject()).getColor(),
-				StickersColor.BORDEAUX);
-
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
 		ParseObject park = null;
 		try {
+			Assert.assertEquals(new ParkingSlot(user.getCurrentParking().getParseObject()).getColor(),
+					StickersColor.BORDEAUX);
 			park = query.get((user.getCurrentParking().getParseObject()).getObjectId());
 		} catch (ParseException e1) {
 			Assert.fail();
@@ -144,8 +143,8 @@ public class UserTest {
 
 		Assert.assertEquals(user.getCurrentParking().getName(), "DavidSlot4");
 
-		Assert.assertEquals(new ParkingSlot(user.getCurrentParking().getParseObject()).getName(), "DavidSlot4");
 		try {
+			Assert.assertEquals(new ParkingSlot(user.getCurrentParking().getParseObject()).getName(), "DavidSlot4");
 			user.setCurrentParking(null);
 			park.delete();
 		} catch (ParseException e) {

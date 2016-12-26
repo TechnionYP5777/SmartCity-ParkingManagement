@@ -59,29 +59,32 @@ public class ParkingSlot extends dbMember {
 	 *         ParkingSlot class according to it
 	 * @param obj
 	 */
-//	public ParkingSlot(ParseObject obj) {
-//		DBManager.initialize();
-//		this.parseObject = obj;
-//		this.name = this.parseObject.getString("name");
-//		this.status = ParkingSlotStatus.values()[this.parseObject.getInt("status")];
-//		this.color = StickersColor.values()[this.parseObject.getInt("color")];
-//		ParseGeoPoint geo = this.parseObject.getParseGeoPoint("location");
-//		this.location = new MapLocation(geo.getLatitude(), geo.getLongitude());
-//		this.defaultColor = StickersColor.values()[this.parseObject.getInt("defaultColor")];
-//		this.endTime = this.parseObject.getDate("endTime");
-//		this.objectId = this.parseObject.getObjectId();
-//	}
+	// public ParkingSlot(ParseObject obj) {
+	// DBManager.initialize();
+	// this.parseObject = obj;
+	// this.name = this.parseObject.getString("name");
+	// this.status =
+	// ParkingSlotStatus.values()[this.parseObject.getInt("status")];
+	// this.color = StickersColor.values()[this.parseObject.getInt("color")];
+	// ParseGeoPoint geo = this.parseObject.getParseGeoPoint("location");
+	// this.location = new MapLocation(geo.getLatitude(), geo.getLongitude());
+	// this.defaultColor =
+	// StickersColor.values()[this.parseObject.getInt("defaultColor")];
+	// this.endTime = this.parseObject.getDate("endTime");
+	// this.objectId = this.parseObject.getObjectId();
+	// }
 
 	public ParkingSlot(ParseObject parseObject) throws ParseException {
 		this.parseObject = parseObject;
-		this.setName((String)parseObject.get("name"));
-		//replace all sets with parseObject.get
-		this.setStatus(ParkingSlotStatus.values()[(Integer)parseObject.get("status")]);
-		this.setColor(StickersColor.values()[(Integer)parseObject.get("color")]);
-		this.setLocation((MapLocation)parseObject.get("location"));
-		this.setDefaultColor(StickersColor.values()[(Integer)parseObject.get("defaultColor")]);
-		this.setEndTime(((Date)parseObject.get("endTime")));
-		this.objectId = this.parseObject.getObjectId();
+		this.setName((String) parseObject.get("name"));
+		// replace all sets with parseObject.get
+		this.setStatus(ParkingSlotStatus.values()[(Integer) parseObject.get("status")]);
+		this.setColor(StickersColor.values()[(Integer) parseObject.get("color")]);
+		ParseGeoPoint geo = this.parseObject.getParseGeoPoint("location");
+		this.setLocation(new MapLocation(geo.getLatitude(), geo.getLongitude()));
+		this.setDefaultColor(StickersColor.values()[(Integer) parseObject.get("defaultColor")]);
+		this.setEndTime(((Date) parseObject.get("endTime")));
+		this.setObjectId();
 	}
 
 	public String getName() {
