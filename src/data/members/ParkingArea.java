@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 
 import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
+import org.parse4j.ParseQuery;
 
 import data.management.DBManager;
 
@@ -55,39 +58,64 @@ public class ParkingArea extends dbMember {
 		return parkingSlots;
 	}
 
-	public void setParkingSlots(Set<ParkingSlot> ss) throws ParseException {
-		this.parkingSlots = ss;
+	public void setParkingSlots(Set<ParkingSlot> ¢) throws ParseException {
+		this.parkingSlots = ¢;
 		updateSlotsArray();
 	}
 
 	public int getNumOfFreeSlots(){
-		// TODO: add a query from DB that returns only the free slots
-		
-		return 0;
+		List<ParseObject> spots = getSpots(ParkingSlotStatus.FREE);
+		return spots == null ? 0 : spots.size();
+	}
+
+	private List<ParseObject> getSpots(ParkingSlotStatus s) {
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
+		query.whereEqualTo("areaId", this.areaId);
+		try {
+			List<ParseObject> areaList = query.find();
+			if (areaList == null || areaList.isEmpty())
+				throw new RuntimeException("There should be an area with areaId="+ this.areaId);
+			List<ParseObject> pList = areaList.get(0).getList("parkingSlots");
+			List<Object> ids = pList.stream().map(p -> p.getObjectId()).collect(Collectors.toList());
+			ParseQuery<ParseObject> slotQuery = ParseQuery.getQuery("ParkingSlot");
+			slotQuery.whereContainedIn("objectId", ids);
+			slotQuery.whereEqualTo("status", s.ordinal());
+			
+			return slotQuery.find();
+		} catch (ParseException e) {
+			throw new RuntimeException("Problem getting number of taken slots!", e);
+		}
 	}
 
 	public int getNumOfTakenSlots() {
-		// TODO: add a query from DB that returns only the taken slots
-		return 0;
+		List<ParseObject> spots = getSpots(ParkingSlotStatus.TAKEN);
+		return spots == null ? 0 : spots.size();
+
 	}
 
-	public Set<ParkingSlot> getFreeSlots() {
-		// TODO: add a query from DB that returns only the free slots
-		return new HashSet<ParkingSlot>();
+	public Set<ParkingSlot> getFreeSlots() throws ParseException {
+		List<ParseObject> spots = getSpots(ParkingSlotStatus.FREE);
+		List<ParkingSlot> freeSlots= new ArrayList<ParkingSlot>();
+		for (ParseObject ¢: spots)
+			freeSlots.add(new ParkingSlot(¢));
+		return new HashSet<ParkingSlot>(freeSlots);
 	}
 
-	public Set<ParkingSlot> getTakenSlots() {
-		// TODO: add a query from DB that returns only the taken slots
-		return new HashSet<ParkingSlot>();
+	public Set<ParkingSlot> getTakenSlots() throws ParseException {
+		List<ParseObject> spots = getSpots(ParkingSlotStatus.TAKEN);
+		List<ParkingSlot> takenSlots= new ArrayList<ParkingSlot>();
+		for (ParseObject ¢: spots)
+			takenSlots.add(new ParkingSlot(¢));
+		return new HashSet<ParkingSlot>(takenSlots);
 	}
 
 	public StickersColor getColor() {
 		return color;
 	}
 
-	public void setColor(StickersColor c) {
-		this.color = c;
-		this.parseObject.put("color", c.ordinal());
+	public void setColor(StickersColor ¢) {
+		this.color = ¢;
+		this.parseObject.put("color", ¢.ordinal());
 	}
 
 	/*
@@ -95,8 +123,8 @@ public class ParkingArea extends dbMember {
 	 * free slot, and therefore increase the amount of free slots in this area,
 	 * and the total count of parking
 	 */
-	public void addParkingSlot(ParkingSlot s) throws ParseException {
-		this.parkingSlots.add(s);
+	public void addParkingSlot(ParkingSlot ¢) throws ParseException {
+		this.parkingSlots.add(¢);
 		
 		updateSlotsArray();
 	}
@@ -106,17 +134,17 @@ public class ParkingArea extends dbMember {
 	 * free slot, and therefore increase the amount of free slots in this area,
 	 * and the total count of parking
 	 */
-	public void removeParkingSlot(ParkingSlot s) throws ParseException {
-		this.parkingSlots.remove(s);
-		s.removeParkingSlot();
+	public void removeParkingSlot(ParkingSlot ¢) throws ParseException {
+		this.parkingSlots.remove(¢);
+		¢.removeParkingSlot();
 		updateSlotsArray();
 	}
 
 	// Update the slots array in the DB according to the last update
 	private void updateSlotsArray() throws ParseException {
 		List<ParseObject> slots = new ArrayList<ParseObject>();
-		for (ParkingSlot parkingSlot : this.parkingSlots)
-			slots.add(DBManager.getParseObject(parkingSlot));
+		for (ParkingSlot ¢ : this.parkingSlots)
+			slots.add(DBManager.getParseObject(¢));
 		this.parseObject.put("parkingSlots", slots);
 		this.parseObject.save();
 	}

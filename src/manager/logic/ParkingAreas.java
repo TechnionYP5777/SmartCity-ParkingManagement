@@ -40,6 +40,8 @@ public class ParkingAreas {
 
 	public void addParkingArea(ParkingArea newParkingArea) {
 		this.parkingAreas.add(newParkingArea);
+		
+		//TODO: add newParking to DB
 	}
 
 	public void removeParkingArea(ParkingArea a) {
@@ -51,6 +53,7 @@ public class ParkingAreas {
 			if (query.find().size() != 1) {
 				System.out.format("Something went worng while searching for %d", a.getAreaId());
 				return;
+			//TODO: remove a from DB
 			}
 
 		} catch (ParseException e) {
@@ -80,7 +83,7 @@ public class ParkingAreas {
 		int $ = 0;
 		for (ParkingArea currentArea : this.parkingAreas)
 			if (currentArea.equals(a))
-				$ = 0;//currentArea.getNumOfFreeSlots();
+				$ = currentArea.getNumOfFreeSlots();
 		////TODO: rewrite this function
 		return $;
 	}
@@ -88,20 +91,20 @@ public class ParkingAreas {
 	// Return num of free parking slots
 	public int getNumOfFreeSlots() {
 		int $ = 0;
-		//for (ParkingArea currentArea : this.parkingAreas) {
+		for (ParkingArea currentArea : this.parkingAreas) {
 			//TODO: rewrite this function
-			//count += currentArea.getNumOfFreeSlots();
-		//}
+			$ += currentArea.getNumOfFreeSlots();
+		}
 		return $;
 	}
 
 	// Return num of taken parking slots
 	public int getNumOfTakenSlots() {
 		int $ = 0;
-		//for (ParkingArea currentArea : this.parkingAreas) {
+		for (ParkingArea currentArea : this.parkingAreas) {
 			//TODO: rewrite this function
-			//count += currentArea.getNumOfTakenSlots();
-		//}
+			$ += currentArea.getNumOfTakenSlots();
+		}
 		return $;
 	}
 
@@ -119,7 +122,7 @@ public class ParkingAreas {
 
 	
 	// Return a free parking slot by a given area
-	public ParkingSlot getParkingslotByArea(ParkingArea a) {
+	public ParkingSlot getParkingslotByArea(ParkingArea a) throws ParseException {
 		ParkingSlot $ = null;
 		if (!this.parkingAreas.contains(a))
 			return $;

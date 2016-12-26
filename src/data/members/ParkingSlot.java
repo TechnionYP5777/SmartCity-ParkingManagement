@@ -52,6 +52,18 @@ public class ParkingSlot extends dbMember {
 		this.objectId = this.parseObject.getObjectId();
 	}
 
+	public ParkingSlot(ParseObject parseObject) throws ParseException {
+		this.parseObject = parseObject;
+		this.setName((String)parseObject.get("name"));
+		//replace all sets with parseObject.get
+		this.setStatus(ParkingSlotStatus.values()[(Integer)parseObject.get("status")]);
+		this.setColor(StickersColor.values()[(Integer)parseObject.get("color")]);
+		this.setLocation((MapLocation)parseObject.get("location"));
+		this.setDefaultColor(StickersColor.values()[(Integer)parseObject.get("defaultColor")]);
+		this.setEndTime(((Date)parseObject.get("endTime")));
+		this.objectId = this.parseObject.getObjectId();
+	}
+
 	public String getName() {
 		return name;
 	}

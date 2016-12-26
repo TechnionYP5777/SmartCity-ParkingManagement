@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.parse4j.ParseException;
+
 import data.members.Destination;
 import data.members.MapLocation;
 import data.members.ParkingArea;
@@ -44,7 +46,7 @@ public class NavigationController {
 		for (ParkingArea ¢ : areas.getParkingAreas()) this.parkingAreas.put(¢.getAreaId(), ¢);
 	}
 	
-	public ParkingSlot getClosetParkingSlot() {
+	public ParkingSlot getClosetParkingSlot() throws ParseException {
 		ParkingSlot result = area != null ? Navigation.parkingSlotAtParkingArea(user, area, destination)
 				: Navigation.closestParkingSlot(user, currentLocation, allAreas, destination);
 		if (result == null) showError("No free parking slots, try later.");

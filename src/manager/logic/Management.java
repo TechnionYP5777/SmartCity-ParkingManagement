@@ -186,7 +186,7 @@ public class Management {
 	}
 
 	// Return a free parking slot by a given area
-	public ParkingSlot getParkingslotByArea(ParkingArea ¢) {
+	public ParkingSlot getParkingslotByArea(ParkingArea ¢) throws ParseException {
 		return this.parkingAreas.getParkingslotByArea(¢);
 	}
 

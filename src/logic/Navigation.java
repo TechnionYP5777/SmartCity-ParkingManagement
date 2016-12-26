@@ -113,7 +113,7 @@ public class Navigation {
 		return -1; 
 	}
 
-	public static ParkingSlot closestParkingSlot(User user,MapLocation currentLocation, ParkingAreas areas, Destination destination){
+	public static ParkingSlot closestParkingSlot(User user,MapLocation currentLocation, ParkingAreas areas, Destination destination) throws org.parse4j.ParseException{
 
 		ParkingSlot result = null;
 		long minDuration = Integer.MAX_VALUE;
@@ -139,7 +139,7 @@ public class Navigation {
 	}
 	
 	// returns the closest parking to the given faculty in the given parking area
-	public static ParkingSlot parkingSlotAtParkingArea(User user, ParkingArea parkingArea, Destination destination){
+	public static ParkingSlot parkingSlotAtParkingArea(User user, ParkingArea parkingArea, Destination destination) throws org.parse4j.ParseException{
 		
 		if(parkingArea.getNumOfFreeSlots() <= 0)
 			return null;
@@ -175,12 +175,12 @@ public class Navigation {
 		}
 	}
 	
-	public static void parkAtClosestSlot(User user, MapLocation currentLocation, ParkingAreas areas, Destination destination) throws NoSlotAvailable{
+	public static void parkAtClosestSlot(User user, MapLocation currentLocation, ParkingAreas areas, Destination destination) throws NoSlotAvailable, org.parse4j.ParseException{
 		ParkingSlot parkingSlot = closestParkingSlot(user, currentLocation, areas, destination);
 		parkAtSlot(user, parkingSlot);
 			
 	}
-	public static void parkAtArea(User user, ParkingArea parkingArea, Destination destination) throws NoSlotAvailable{
+	public static void parkAtArea(User user, ParkingArea parkingArea, Destination destination) throws NoSlotAvailable, org.parse4j.ParseException{
 		ParkingSlot parkingSlot = parkingSlotAtParkingArea(user, parkingArea, destination);
 		parkAtSlot(user, parkingSlot);
 	}

@@ -1,7 +1,8 @@
 package manager.logic;
 
-import javax.tools.JavaFileManager.Location;
+import org.parse4j.ParseException;
 
+import data.members.MapLocation;
 import data.members.ParkingArea;
 import data.members.ParkingSlot;
 import data.members.StickersColor;
@@ -68,7 +69,7 @@ public class Queries {
 	}
 
 	// Return a free parking slot by a given area
-	public ParkingSlot getParkingslotByArea(ParkingArea ¢) {
+	public ParkingSlot getParkingslotByArea(ParkingArea ¢) throws ParseException {
 		return this.managment.getParkingslotByArea(¢);
 	}
 	
@@ -111,7 +112,7 @@ public class Queries {
 	}
 
 	//Return parking slot according to given location
-	public ParkingSlot returnParkingSlot(Location ¢){
+	public ParkingSlot returnParkingSlot(MapLocation ¢){
 		for (ParkingSlot $ : this.managment.getParkingSlots())
 			if ($.getLocation().equals(¢))
 				return $;
@@ -119,19 +120,19 @@ public class Queries {
 	}
 	
 	//Return parking slot's status according to given location
-	public ParkingSlotStatus returnParkingSlotStatus(Location l){
+	public ParkingSlotStatus returnParkingSlotStatus(MapLocation l){
 		ParkingSlot currentSlot = this.returnParkingSlot(l);
 		return currentSlot == null ? null : currentSlot.getStatus();
 	}
 	
 	//Return parking slot's color according to given location
-	public StickersColor returnParkingSlotColor(Location l){
+	public StickersColor returnParkingSlotColor(MapLocation l){
 		ParkingSlot currentSlot = this.returnParkingSlot(l);
 		return currentSlot == null ? null : currentSlot.getColor();
 	}
 	
 	//Return parking slot's current user according to given location
-	public User returnParkingSlotCurrentUser(Location l){
+	public User returnParkingSlotCurrentUser(MapLocation l){
 		ParkingSlot currentSlot=this.returnParkingSlot(l);
 		for (User $ : this.managment.getUsers())
 			if ($.getCurrentParking().getName().equals(currentSlot.getName()))
