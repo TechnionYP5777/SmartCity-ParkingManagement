@@ -18,7 +18,7 @@ import org.apache.commons.io.IOUtils;
 
 public class Navigation {
 	
-	public static boolean canPark(User user, ParkingSlot parkingSlot){
+	private static boolean canPark(User user, ParkingSlot parkingSlot){
 		return user.getSticker().ordinal() <= parkingSlot.getColor().ordinal();
 	}
 	
@@ -46,7 +46,7 @@ public class Navigation {
 		return null;
 	}
 	
-	public static String createURL(MapLocation source, MapLocation target, boolean walkingMode){
+	private static String createURL(MapLocation source, MapLocation target, boolean walkingMode){
 		String url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=";
 		url += source.getLat() + "," + source.getLon();
 		url += "&destinations="  + target.getLat() + "," + target.getLon();
