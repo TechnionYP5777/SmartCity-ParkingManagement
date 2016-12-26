@@ -98,8 +98,12 @@ public class ParkingSlot extends dbMember {
 	}
 
 	public ParkingSlotStatus getStatus() {
+		ParseObject o = null;
 		try {
-			setStatus(ParkingSlotStatus.values()[this.parseObject.getInt("status")]);
+			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("ParkingSlot");
+			o = query.get(this.getobjectId());
+			this.parseObject = o;
+			this.setStatus(ParkingSlotStatus.values()[o.getInt("status")]);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 		}
