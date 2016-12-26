@@ -104,10 +104,13 @@ public class User extends dbMember {
 				System.out.println("could'nt find");
 				return null;
 			}
-		if (o != null)
-			return currentParking;
-		this.currentParking = null;
-		return null;
+		try {
+			this.setParseCurrentParking(o);
+		} catch (ParseException e) {
+			System.out.println("error");
+			return null;
+		}
+		return currentParking;
 	}
 
 	public String getName() {
@@ -163,8 +166,10 @@ public class User extends dbMember {
 	 * @throws ParseException
 	 */
 	public void setParseCurrentParking(ParseObject currentParking) throws ParseException {
-		if (currentParking == null)
+		if (currentParking == null) {
+			this.setCurrentParking(null);
 			return;
+		}
 		this.currentParking = new ParkingSlot(currentParking);
 		this.parseObject.save();
 	}
