@@ -59,18 +59,18 @@ public class ParkingSlot extends dbMember {
 	 *         ParkingSlot class according to it
 	 * @param obj
 	 */
-	public ParkingSlot(ParseObject obj) {
-		DBManager.initialize();
-		this.parseObject = obj;
-		this.name = this.parseObject.getString("name");
-		this.status = ParkingSlotStatus.values()[this.parseObject.getInt("status")];
-		this.color = StickersColor.values()[this.parseObject.getInt("color")];
-		ParseGeoPoint geo = this.parseObject.getParseGeoPoint("location");
-		this.location = new MapLocation(geo.getLatitude(), geo.getLongitude());
-		this.defaultColor = StickersColor.values()[this.parseObject.getInt("defaultColor")];
-		this.endTime = this.parseObject.getDate("endTime");
-		this.objectId = this.parseObject.getObjectId();
-	}
+//	public ParkingSlot(ParseObject obj) {
+//		DBManager.initialize();
+//		this.parseObject = obj;
+//		this.name = this.parseObject.getString("name");
+//		this.status = ParkingSlotStatus.values()[this.parseObject.getInt("status")];
+//		this.color = StickersColor.values()[this.parseObject.getInt("color")];
+//		ParseGeoPoint geo = this.parseObject.getParseGeoPoint("location");
+//		this.location = new MapLocation(geo.getLatitude(), geo.getLongitude());
+//		this.defaultColor = StickersColor.values()[this.parseObject.getInt("defaultColor")];
+//		this.endTime = this.parseObject.getDate("endTime");
+//		this.objectId = this.parseObject.getObjectId();
+//	}
 
 	public ParkingSlot(ParseObject parseObject) throws ParseException {
 		this.parseObject = parseObject;
