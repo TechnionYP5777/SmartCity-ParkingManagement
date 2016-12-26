@@ -14,15 +14,13 @@ public class NavigationTest {
 
 	@Test
 	public void getDistanceTest() {
-		MapLocation source = new MapLocation(32.777552, 35.020578);
-		MapLocation target = new MapLocation(32.778761, 35.016469);
-		Assert.assertEquals(532, Navigation.getDistance(source, target, false));
+		Assert.assertEquals(532, Navigation.getDistance((new MapLocation(32.777552, 35.020578)),
+				(new MapLocation(32.778761, 35.016469)), false));
 	}
 	@Test
 	public void getDurationTest() {
-		MapLocation source = new MapLocation(32.777552, 35.020578);
-		MapLocation target = new MapLocation(32.778761, 35.016469);
-		Assert.assertEquals(82, Navigation.getDuration(source, target, false));
+		Assert.assertEquals(82, Navigation.getDuration((new MapLocation(32.777552, 35.020578)),
+				(new MapLocation(32.778761, 35.016469)), false));
 	}
 	@Test
 	public void  parkingSlotAtParkingAreaTest(){
@@ -186,7 +184,9 @@ public class NavigationTest {
 				User user = new User("3209654");
 				ParkingSlot result = Navigation.parkingSlotAtParkingArea(user, upperTaubArea, destination);
 				Navigation.parkAtArea(user, upperTaubArea, destination);
-				Assert.assertEquals(result.getStatus().ordinal(), ParkingSlotStatus.TAKEN.ordinal());
+				// TODO : david cohen
+				//Assert.assertEquals(user.getCurrentParking().getName(), result.getName());
+				user.setCurrentParking(null);
 				
 				// the NoSlotAvailable exception should be thrown
 				Navigation.parkAtArea(user, upperTaubArea, destination);

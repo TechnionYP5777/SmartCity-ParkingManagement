@@ -98,6 +98,11 @@ public class ParkingSlot extends dbMember {
 	}
 
 	public ParkingSlotStatus getStatus() {
+		try {
+			setStatus(ParkingSlotStatus.values()[this.parseObject.getInt("status")]);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+		}
 		return status;
 	}
 
