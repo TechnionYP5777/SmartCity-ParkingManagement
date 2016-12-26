@@ -9,6 +9,7 @@ package gui.driver.app;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -56,9 +57,16 @@ public class Register extends AbstractWindow {
 		passInput.setPromptText("password");
 
 		// phone number
+		HBox hboxPhone = new HBox();
 		Label phoneNumber = new Label("Phone Number");
+		ChoiceBox<String> prefixNumber = new ChoiceBox<> (); 
+		prefixNumber.getItems().addAll("050","052","053","054", "057");
+		prefixNumber.setValue("050"); 
 		TextField phoneNumberInput = new TextField();
+		phoneNumberInput.setMaxWidth(95);
+		//phoneNumberInput.setMaxWidth(50);
 		passInput.setPromptText("phone number");
+		hboxPhone.getChildren().addAll(prefixNumber,phoneNumberInput);
 		
 		// car number
 		Label carNumber = new Label("Car Number");
@@ -82,7 +90,7 @@ public class Register extends AbstractWindow {
 			(new Login()).display(primaryStage, WindowEnum.SIGN_UP);
 		});
 
-		Button loginButton = new Button("Register");
+		Button registerButton = new Button("Register");
 		Button backButton = new Button("Back");
 		backButton.setOnAction(e -> {
 			// move to editing my details
@@ -98,8 +106,12 @@ public class Register extends AbstractWindow {
 		GridPane.setConstraints(nameInput, 1, 1);
 		GridPane.setConstraints(pass, 0, 2);
 		GridPane.setConstraints(passInput, 1, 2);
+		GridPane.setConstraints(hboxPhone, 0, 3); 
 		GridPane.setConstraints(phoneNumber, 0, 3);
-		GridPane.setConstraints(phoneNumberInput, 1, 3);
+		GridPane.setConstraints(hboxPhone, 1, 3); 
+		GridPane.setColumnSpan(hboxPhone, 2);
+//		GridPane.setConstraints(prefixNumber, 1, 3);
+//		GridPane.setConstraints(phoneNumberInput, 2, 3);
 		GridPane.setConstraints(carNumber, 0, 4);
 		GridPane.setConstraints(carNumberInput, 1, 4);
 		GridPane.setConstraints(mail, 0, 5);
@@ -110,20 +122,15 @@ public class Register extends AbstractWindow {
 		GridPane.setConstraints(wantLogin, 1, 7);
 		GridPane.setColumnSpan(wantLogin, 2);
 
-		hbox.getChildren().addAll(loginButton, backButton);
+		hbox.getChildren().addAll(registerButton, backButton);
 		grid.getChildren().addAll(title, user, nameInput, pass, passInput,
-		phoneNumber, phoneNumberInput, carNumber, carNumberInput, mail, mailInput, 
+		phoneNumber, hboxPhone, carNumber, carNumberInput, mail, mailInput, 
 		hbox, wantLogin);
-		loginButton.setOnAction(e -> {
-			if (!login.userLogin(nameInput.getText(), passInput.getText()))
-				AlertBox.display("Login failed", "Car Number/Password is incorrect.");
-			else {
-				AlertBox.display("Successful", "You have successfuly logged in");
-				this.window.close();
-				AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1).window.show();
-				AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size() - 1);
-			}
-		});
+		registerButton.setOnAction(e -> {
+			AlertBox.display("Sign Up", "You Successfully Signed Up!");
+			AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1).window.show();
+			AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size() - 1);
+			});
 		grid.setBackground(
 				new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2, 2, 2, 2))));
 		Scene scene = new Scene(grid, 400, 350);

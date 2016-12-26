@@ -86,7 +86,7 @@ public class LoginManager {
 			throw new LoginException($);
 		try {
 			this.user = new User(name, pass, phone, car, email, type, null);
-			$ = this.user.getTableID();
+			$ = this.user.getobjectId();
 		} catch (Exception e) {
 			$ = "";
 		}
@@ -144,6 +144,6 @@ public class LoginManager {
 	}
 
 	public void deleteUser() throws ParseException {
-		user.DeleteUser();
+		user.deleteParseObject();
 	}
 }
