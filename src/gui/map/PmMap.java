@@ -15,7 +15,6 @@ import com.lynden.gmapsfx.javascript.object.Marker;
 import com.lynden.gmapsfx.javascript.object.MarkerOptions;
 import com.lynden.gmapsfx.shapes.Polyline;
 import com.lynden.gmapsfx.shapes.PolylineOptions;
-
 import java.util.ArrayList;
 import java.util.Locale;
 import javafx.application.Application;
@@ -26,6 +25,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -54,11 +54,14 @@ public class PmMap extends Application implements MapComponentInitializedListene
 	private Button btnReturn;
 	private Button btnShowMarkers;
 	private Scene scene;
-    private VBox vbox;
-    ArrayList<Button> btns = new ArrayList<Button>();
-    ArrayList<Marker> markers = new ArrayList<Marker>();
+    private VBox markerVbox;
+    private ScrollPane sp;
+    ArrayList<Button> btns;
+    ArrayList<Marker> markers;
     @Override
     public void start(final Stage s) throws Exception {
+    	btns = new ArrayList<Button>();
+        markers = new ArrayList<Marker>();
         mapComponent = new GoogleMapView(Locale.getDefault().getLanguage(), null);
         mapComponent.addMapInializedListener(this);        
         BorderPane bp = new BorderPane();
@@ -88,14 +91,17 @@ public class PmMap extends Application implements MapComponentInitializedListene
 		btnReturn.setOnAction(e->{s.close();});
 		btnShowMarkers = new Button("show/hide markers info");
 		btnShowMarkers.setOnAction(e->{
-			bp.setLeft(bp.getLeft() == null ? vbox : null);
+			bp.setLeft(bp.getLeft() == null ? sp : null);
 		});
         tb.getItems().addAll(new Label("MapType: "),mapTypeCombo,
                 new Label("Coordinates: "), lblCenter,
                 new Label("Click: "), lblClick,
 				btnHideMarker, btnDeleteMarker,btnShowMarkers,btnReturn);
-        vbox = addVBox();
-        vbox.setVisible(true);
+        markerVbox = addVBox();
+        markerVbox.setVisible(true);
+        sp = new ScrollPane();
+        sp.setContent(markerVbox);
+        
         bp.setTop(tb);
         bp.setCenter(mapComponent);
         scene = new Scene(bp);
@@ -178,18 +184,19 @@ public class PmMap extends Application implements MapComponentInitializedListene
         Marker $ = new Marker(options);
         markers.add($);
         HBox hbox = new HBox();
+        
         hbox.setPadding(new Insets(8, 5, 8, 5));
         hbox.setSpacing(8);
         Label l = new Label(title);
         Button btn = new Button("remove");
         btn.setOnAction(e -> {
         	map.removeMarker($);
-        	vbox.getChildren().remove(hbox);
+        	markerVbox.getChildren().remove(hbox);
         });
         btns.add(btn);
         hbox.getChildren().addAll(l,btn);
         VBox.setMargin(hbox, new Insets(0, 0, 0, 8));
-        vbox.getChildren().add(hbox);
+        markerVbox.getChildren().add(hbox);
         return $;
         
 	}
