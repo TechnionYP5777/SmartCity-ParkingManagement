@@ -15,7 +15,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ChooseAction extends AbstractWindow {
-
+	Button buttonLogin;
+	Button buttonMyDetails;
 	public ChooseAction() {
 		windowEnum = WindowEnum.CHOOSE_ACTION;
 		window = new Stage();
@@ -52,7 +53,7 @@ public class ChooseAction extends AbstractWindow {
 		Button buttonNavigate = new Button ("Choose Destination");
 		GridPane.setConstraints(buttonNavigate, 0, 1); 
 
-		Button buttonLogin = new Button("Login");
+		buttonLogin = new Button("Login");
 		buttonLogin.setOnAction(e -> {
 			window.close();
 			Login login = new Login();
@@ -69,7 +70,7 @@ public class ChooseAction extends AbstractWindow {
 		});
 		GridPane.setConstraints(buttonRegister, 2, 1);
 
-		Button buttonMyDetails = new Button("My Details");
+		buttonMyDetails = new Button("My Details");
 		buttonMyDetails.setOnAction(e -> {
 			window.close();
 			MyDetails MD = new MyDetails();
@@ -78,7 +79,8 @@ public class ChooseAction extends AbstractWindow {
 
 		});
 		GridPane.setConstraints(buttonMyDetails,3, 1);
-
+		buttonMyDetails.setDisable(true);
+		
 		Button buttonClose = new Button("Close Program");
 		buttonClose.setOnAction(e -> {
 			if (prevWindow == WindowEnum.NONE && ConfirmBox.display("Confirmation", "Are you sure you want to exit?"))

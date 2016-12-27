@@ -59,6 +59,12 @@ public class MyDetails extends AbstractWindow{
 			Label carNumber = new Label(login.getCarNumber());
 			labels.add(carNumberLabel);
 			values.add(carNumber);	
+			
+			Label phoneNumberLabel = new Label("Phone Number:");
+			Label phoneNumber = new Label(login.getPhoneNumber());
+			labels.add(phoneNumberLabel);
+			values.add(phoneNumber);
+			
 		}
 		
 		int i = 0;
@@ -93,7 +99,7 @@ public class MyDetails extends AbstractWindow{
 		GridPane.setConstraints(editDetailsButton, 0, buttonIndex);
 
 		grid.getChildren().addAll(editDetailsButton, backButton);
-		Scene scene = new Scene(grid, 300, 150);
+		Scene scene = new Scene(grid, 300, 250);
 		window.setScene(scene);
 		window.show();
 

@@ -97,6 +97,8 @@ public class Login extends AbstractWindow {
 			else {
 				AlertBox.display("Successful", "You have successfuly logged in");
 				this.window.close();
+				Opening.getCAObject(prevWindows).buttonLogin.setDisable(true);
+				Opening.getCAObject(prevWindows).buttonMyDetails.setDisable(false);
 				AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1).window.show();
 				AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size() - 1);
 			}

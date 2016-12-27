@@ -5,6 +5,7 @@ package gui.driver.app;
  */
 
 import java.util.ArrayList;
+//import java.util.Iterator;
 
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
@@ -117,8 +118,45 @@ public class Opening extends Application {
 		initStage.setAlwaysOnTop(true);
 		initStage.show();
 	}
+	
+	public static ChooseAction getCAObject(ArrayList<AbstractWindow> windows){
+//		Iterator<AbstractWindow> iterator = windows.iterator();
+//		while(iterator.hasNext()){
+//			if(iterator.getClass().equals(ChooseAction.class)){
+//				System.out.print("found CA object: "+);
+//			}
+//		}
+		for(AbstractWindow tmp : windows){
+			if(tmp.getClass().equals(ChooseAction.class)){
+				System.out.print("found CA object: "+tmp);
+				return (ChooseAction)tmp;
+			}
+		}
+
+		return null;
+	}
+	public static MyDetails getMDObject(ArrayList<AbstractWindow> windows){	
+		for(AbstractWindow tmp : windows){
+			if(tmp.getClass().equals(MyDetails.class)){
+				System.out.print("found CA object: "+tmp);
+				return (MyDetails)tmp;
+			}
+		}
+		return null;
+	}
+	public static MyDetailsEdit getMDEObject(ArrayList<AbstractWindow> windows){	
+		for(AbstractWindow tmp : windows){
+			if(tmp.getClass().equals(MyDetailsEdit.class)){
+				System.out.print("found CA object: "+tmp);
+				return (MyDetailsEdit)tmp;
+			}
+		}
+		return null;
+	}
 
 	public interface InitCompletionHandler {
 		void complete();
 	}
+	
+	
 }

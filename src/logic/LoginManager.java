@@ -146,4 +146,8 @@ public class LoginManager {
 	public void deleteUser() throws ParseException {
 		user.deleteParseObject();
 	}
+	
+	public String getPhoneNumber() {
+		return this.user.getPhoneNumber();
+	}
 }
