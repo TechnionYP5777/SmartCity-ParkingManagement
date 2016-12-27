@@ -23,7 +23,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
@@ -87,9 +86,8 @@ public class Register extends AbstractWindow {
 		
 		Hyperlink wantLogin = new Hyperlink();
 		wantLogin.setText("Are you a registered member? Sign In!");
-		wantLogin.setStyle("-fx-color: white");
 		wantLogin.setOnAction(e -> {
-			AbstractWindow.prevWindows.add(this);
+			//AbstractWindow.prevWindows.add(this); --> will return to login instead of mainMenu
 			window.close();
 			(new Login()).display(primaryStage, WindowEnum.SIGN_UP);
 		});
