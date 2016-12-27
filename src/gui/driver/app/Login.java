@@ -64,7 +64,7 @@ public class Login extends AbstractWindow {
 		
 		forgotPass.setText("Forgot Password?");
 		forgotPass.setOnAction(e -> {
-			AbstractWindow.prevWindows.add(this); 
+			//AbstractWindow.prevWindows.add(this); 
 			window.close(); 
 			(new GetPassByMail()).display(primaryStage, WindowEnum.LOG_IN);
 		});

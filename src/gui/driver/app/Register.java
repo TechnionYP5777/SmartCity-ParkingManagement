@@ -23,6 +23,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
@@ -78,12 +79,15 @@ public class Register extends AbstractWindow {
 		TextField mailInput = new TextField();
 		passInput.setPromptText("e-mail");
 		
-		
-		
+		Label sticker = new Label ("Sticker Color"); 
+		ChoiceBox<String> stickerColor = new ChoiceBox<>();
+		stickerColor.getItems().addAll("Blue", "Green", "White", "Red", "Bordeaux", "Yellow");
+		stickerColor.setValue("Blue");
 		
 		
 		Hyperlink wantLogin = new Hyperlink();
 		wantLogin.setText("Are you a registered member? Sign In!");
+		wantLogin.setStyle("-fx-color: white");
 		wantLogin.setOnAction(e -> {
 			AbstractWindow.prevWindows.add(this);
 			window.close();
@@ -110,21 +114,19 @@ public class Register extends AbstractWindow {
 		GridPane.setConstraints(phoneNumber, 0, 3);
 		GridPane.setConstraints(hboxPhone, 1, 3); 
 		GridPane.setColumnSpan(hboxPhone, 2);
-//		GridPane.setConstraints(prefixNumber, 1, 3);
-//		GridPane.setConstraints(phoneNumberInput, 2, 3);
 		GridPane.setConstraints(carNumber, 0, 4);
 		GridPane.setConstraints(carNumberInput, 1, 4);
 		GridPane.setConstraints(mail, 0, 5);
 		GridPane.setConstraints(mailInput, 1, 5);
-		// GridPane.setConstraints(loginButton, 1, 3);
-		// GridPane.setConstraints(backButton,2,3);
-		GridPane.setConstraints(hbox, 1, 6);
-		GridPane.setConstraints(wantLogin, 1, 7);
+		GridPane.setConstraints(sticker, 0, 6);
+		GridPane.setConstraints(stickerColor, 1,6); 
+		GridPane.setConstraints(hbox, 1, 7);
+		GridPane.setConstraints(wantLogin, 1, 8);
 		GridPane.setColumnSpan(wantLogin, 2);
 
 		hbox.getChildren().addAll(registerButton, backButton);
 		grid.getChildren().addAll(title, user, nameInput, pass, passInput,
-		phoneNumber, hboxPhone, carNumber, carNumberInput, mail, mailInput, 
+		phoneNumber, hboxPhone, carNumber, carNumberInput, mail, mailInput, sticker, stickerColor, 
 		hbox, wantLogin);
 		registerButton.setOnAction(e -> {
 			AlertBox.display("Sign Up", "You Successfully Signed Up!");
