@@ -4,6 +4,9 @@ import com.lynden.gmapsfx.javascript.object.LatLong;
 import com.lynden.gmapsfx.javascript.object.Marker;
 import com.lynden.gmapsfx.javascript.object.MarkerOptions;
 
+/*
+ * @Autor Shay Segal
+ */
 public class MyMarker extends Marker{
 	public LatLong lat;
 	private String myTitle;
@@ -17,10 +20,7 @@ public class MyMarker extends Marker{
 		this.lat=lat;
 	}
 	public boolean isTitle(String title){
-		if(myTitle.equals(title)){
-			return true;
-		}
-		return false;
+		return myTitle.equals(title);
 	}
 	
 
