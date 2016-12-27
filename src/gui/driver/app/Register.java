@@ -62,6 +62,11 @@ public class Register extends AbstractWindow {
 		ChoiceBox<String> prefixNumber = new ChoiceBox<> (); 
 		prefixNumber.getItems().addAll("050","052","053","054", "057");
 		prefixNumber.setValue("050"); 
+		prefixNumber.getSelectionModel().selectedItemProperty().addListener( (v,oldVal, newVal) -> {
+			//TODO: David, here you write your code. I put printing for now. 
+			System.out.println(newVal);
+		});
+		
 		TextField phoneNumberInput = new TextField();
 		phoneNumberInput.setMaxWidth(95);
 		//phoneNumberInput.setMaxWidth(50);
@@ -82,7 +87,10 @@ public class Register extends AbstractWindow {
 		ChoiceBox<String> stickerColor = new ChoiceBox<>();
 		stickerColor.getItems().addAll("Blue", "Green", "White", "Red", "Bordeaux", "Yellow");
 		stickerColor.setValue("Blue");
-		
+		stickerColor.getSelectionModel().selectedItemProperty().addListener( (v,oldVal, newVal) -> {
+			//TODO: David, here you write your code. I put printing for now. 
+			System.out.println(newVal);
+		});
 		
 		Hyperlink wantLogin = new Hyperlink();
 		wantLogin.setText("Are you a registered member? Sign In!");
