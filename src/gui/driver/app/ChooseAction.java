@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 public class ChooseAction extends AbstractWindow {
 	Button buttonLogin;
 	Button buttonMyDetails;
+	Button buttonRegister;
 	public ChooseAction() {
 		windowEnum = WindowEnum.CHOOSE_ACTION;
 		window = new Stage();
@@ -29,7 +30,7 @@ public class ChooseAction extends AbstractWindow {
 
 		GridPane layout = new GridPane();
 		layout.setHgap(10);
-		layout.setVgap(100);
+		layout.setVgap(20);
 		layout.setPadding(new Insets(10, 10, 10, 10));
 
 		// window = new Stage();
@@ -62,7 +63,7 @@ public class ChooseAction extends AbstractWindow {
 		});
 		GridPane.setConstraints(buttonLogin, 1, 1);
 		
-		Button buttonRegister = new Button("Register");
+		buttonRegister = new Button("Register");
 		buttonRegister.setOnAction(e -> {
 			window.close();
 			ChooseAction.prevWindows.add(this);
@@ -92,7 +93,7 @@ public class ChooseAction extends AbstractWindow {
 				new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2, 2, 2, 2))));
 		layout.getChildren().addAll(label, buttonNavigate, buttonLogin, buttonRegister, buttonMyDetails, buttonClose);
 		layout.setAlignment(Pos.CENTER);
-		Scene scene = new Scene(layout, 500, 300);
+		Scene scene = new Scene(layout, 500, 100);
 		window.setScene(scene);
 		window.showAndWait();
 	}
