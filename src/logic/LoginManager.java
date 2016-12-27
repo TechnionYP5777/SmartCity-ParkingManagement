@@ -150,4 +150,8 @@ public class LoginManager {
 	public String getPhoneNumber() {
 		return this.user.getPhoneNumber();
 	}
+	
+	public StickersColor getSticker() {
+		return this.user.getSticker();
+	}
 }

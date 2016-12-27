@@ -65,6 +65,11 @@ public class MyDetails extends AbstractWindow{
 			labels.add(phoneNumberLabel);
 			values.add(phoneNumber);
 			
+			Label stickerLabel = new Label("Sticker Color:");
+			Label sticker = new Label(StaticMethods.getStickerClolorFromEnum(login.getSticker()));
+			labels.add(stickerLabel);
+			values.add(sticker);
+			
 		}
 		
 		int i = 0;
