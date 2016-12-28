@@ -43,19 +43,19 @@ public class LoginManager {
 		try {
 			if (car != null) {
 				new User(car);
-				return "already exist";
+				return "User already exist";
 			}
 		} catch (Exception e) {
 		}
-		return name != null && name.matches(".*\\d.*") ? "user has integer"
-				: phone != null && phone.length() != 10 ? "phone need to be in size 10"
-						: phone != null && !phone.startsWith("05") ? "phone should start with 05"
-								: phone != null && phone.matches(".*[a-zA-z].*") ? "phone contains only integers"
+		return name != null && name.matches(".*\\d.*") ? "User has integer"
+				: phone != null && phone.length() != 10 ? "Phone need to be in size 10"
+						: phone != null && !phone.startsWith("05") ? "Phone should start with 05"
+								: phone != null && phone.matches(".*[a-zA-z].*") ? "Phone contains only integers"
 										: (email != null && !email.matches(
 												"[\\d\\w\\.]+@(campus.technion.ac.il|gmail.com|walla.com|hotmail.com|t2.technion.ac.il)"))
-														? "invalid email address"
+														? "Invalid email address"
 														: car == null || car.length() == 7 ? "Good Params"
-																: "car need to be in size 7";
+																: "Car need to be in size 7";
 	}
 
 	/***

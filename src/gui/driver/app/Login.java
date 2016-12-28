@@ -30,7 +30,6 @@ public class Login extends AbstractWindow {
 	public Login() {
 		windowEnum = WindowEnum.LOG_IN;
 		window = new Stage(); 
-		login = new logic.LoginManager();
 	}
 
 	public void display(Stage primaryStage, WindowEnum __) {

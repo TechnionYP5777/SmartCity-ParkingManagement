@@ -2,10 +2,13 @@
 /*
  * 
  * @author zahimizrahi
+ * @author DavidCohen55
  * 
  */
 package gui.driver.app;
 
+import Exceptions.LoginException;
+import data.members.StickersColor;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -59,43 +62,36 @@ public class Register extends AbstractWindow {
 		// phone number
 		HBox hboxPhone = new HBox();
 		Label phoneNumber = new Label("Phone Number");
-		ChoiceBox<String> prefixNumber = new ChoiceBox<> (); 
-		prefixNumber.getItems().addAll("050","052","053","054", "057");
-		prefixNumber.setValue("050"); 
-		prefixNumber.getSelectionModel().selectedItemProperty().addListener( (v,oldVal, newVal) -> {
-			//TODO: David, here you write your code. I put printing for now. 
-			System.out.println(newVal);
-		});
-		
+		ChoiceBox<String> prefixNumber = new ChoiceBox<>();
+		prefixNumber.getItems().addAll("050", "052", "053", "054", "057");
+		prefixNumber.setValue("050");
+
 		TextField phoneNumberInput = new TextField();
 		phoneNumberInput.setMaxWidth(95);
-		//phoneNumberInput.setMaxWidth(50);
-		passInput.setPromptText("phone number");
-		hboxPhone.getChildren().addAll(prefixNumber,phoneNumberInput);
-		
+		// phoneNumberInput.setMaxWidth(50);
+		phoneNumberInput.setPromptText("phone number");
+		hboxPhone.getChildren().addAll(prefixNumber, phoneNumberInput);
+
 		// car number
 		Label carNumber = new Label("Car Number");
 		TextField carNumberInput = new TextField();
-		passInput.setPromptText("car number");
+		carNumberInput.setPromptText("car number");
 
-		//email
+		// email
 		Label mail = new Label("E-Mail");
 		TextField mailInput = new TextField();
-		passInput.setPromptText("e-mail");
-		
-		Label sticker = new Label ("Sticker Color"); 
+		mailInput.setPromptText("e-mail");
+
+		Label sticker = new Label("Sticker Color");
 		ChoiceBox<String> stickerColor = new ChoiceBox<>();
 		stickerColor.getItems().addAll("Blue", "Green", "White", "Red", "Bordeaux", "Yellow");
 		stickerColor.setValue("Blue");
-		stickerColor.getSelectionModel().selectedItemProperty().addListener( (v,oldVal, newVal) -> {
-			//TODO: David, here you write your code. I put printing for now. 
-			System.out.println(newVal);
-		});
-		
+
 		Hyperlink wantLogin = new Hyperlink();
 		wantLogin.setText("Are you a registered member? Sign In!");
 		wantLogin.setOnAction(e -> {
-			//AbstractWindow.prevWindows.add(this); --> will return to login instead of mainMenu
+			// AbstractWindow.prevWindows.add(this); --> will return to login
+			// instead of mainMenu
 			window.close();
 			(new Login()).display(primaryStage, WindowEnum.SIGN_UP);
 		});
@@ -116,29 +112,45 @@ public class Register extends AbstractWindow {
 		GridPane.setConstraints(nameInput, 1, 1);
 		GridPane.setConstraints(pass, 0, 2);
 		GridPane.setConstraints(passInput, 1, 2);
-		GridPane.setConstraints(hboxPhone, 0, 3); 
+		GridPane.setConstraints(hboxPhone, 0, 3);
 		GridPane.setConstraints(phoneNumber, 0, 3);
-		GridPane.setConstraints(hboxPhone, 1, 3); 
+		GridPane.setConstraints(hboxPhone, 1, 3);
 		GridPane.setColumnSpan(hboxPhone, 2);
 		GridPane.setConstraints(carNumber, 0, 4);
 		GridPane.setConstraints(carNumberInput, 1, 4);
 		GridPane.setConstraints(mail, 0, 5);
 		GridPane.setConstraints(mailInput, 1, 5);
 		GridPane.setConstraints(sticker, 0, 6);
-		GridPane.setConstraints(stickerColor, 1,6); 
+		GridPane.setConstraints(stickerColor, 1, 6);
 		GridPane.setConstraints(hbox, 1, 7);
 		GridPane.setConstraints(wantLogin, 1, 8);
 		GridPane.setColumnSpan(wantLogin, 2);
 
 		hbox.getChildren().addAll(registerButton, backButton);
-		grid.getChildren().addAll(title, user, nameInput, pass, passInput,
-		phoneNumber, hboxPhone, carNumber, carNumberInput, mail, mailInput, sticker, stickerColor, 
-		hbox, wantLogin);
+		grid.getChildren().addAll(title, user, nameInput, pass, passInput, phoneNumber, hboxPhone, carNumber,
+				carNumberInput, mail, mailInput, sticker, stickerColor, hbox, wantLogin);
 		registerButton.setOnAction(e -> {
-			AlertBox.display("Sign Up", "You Successfully Signed Up!");
-			AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1).window.show();
-			AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size() - 1);
-			});
+			try {
+				String name = nameInput.getText();
+				String password = passInput.getText();
+				String startPhone = prefixNumber.getSelectionModel().getSelectedItem();
+				String endPhone = phoneNumberInput.getText();
+				String phone = startPhone + endPhone;
+				String car = carNumberInput.getText();
+				String eMail = mailInput.getText();
+				StickersColor type = StickersColor
+						.valueOf(stickerColor.getSelectionModel().getSelectedItem().toUpperCase());
+				if ("".equals(name) || "".equals(password) || phone.length() == 3 || "".equals(car) || "".equals(eMail))
+					throw new LoginException("All of the fields should be full");
+				login.userSignUp(name, password, phone, car, eMail, type);
+				AlertBox.display("Sign Up", "You Successfully Signed Up!");
+				this.window.close();
+				AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1).window.show();
+				AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size() - 1);
+			} catch (LoginException e1) {
+				AlertBox.display("Sign Up", (e1 + ""));
+			}
+		});
 		grid.setBackground(
 				new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2, 2, 2, 2))));
 		Scene scene = new Scene(grid, 400, 350);
