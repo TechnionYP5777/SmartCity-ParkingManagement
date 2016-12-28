@@ -102,34 +102,34 @@ public class LoginTest {
 	@Test
 	public void test06() {
 		LoginManager lg = new LoginManager();
-		Assert.assertEquals("already exist", lg.userValueCheck("David", "1234567890", "david@gmail.com", "3209654"));
+		Assert.assertEquals("User already exist", lg.userValueCheck("David", "1234567890", "david@gmail.com", "3209654"));
 
 		// name contains integer
 		try {
 			lg.userSignUp("Zahi Mizrahi1", "Zahi123", "1234567890", "3226549", "zahi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException e) {
 			// TODO Auto-generated catch block
-			Assert.assertEquals("user has integer", (e + ""));
+			Assert.assertEquals("User has integer", (e + ""));
 		}
 
 		// short phone number
 		try {
 			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0507777", "3276549", "zahi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException e) {
-			Assert.assertEquals("phone need to be in size 10", (e + ""));
+			Assert.assertEquals("Phone need to be in size 10", (e + ""));
 		}
 		// short car number
 		try {
 			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "321549", "zahi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException e) {
-			Assert.assertEquals("car need to be in size 7", (e + ""));
+			Assert.assertEquals("Car need to be in size 7", (e + ""));
 		}
 
 		// car number exist
 		try {
 			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567900", "3209654", "zahi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException e) {
-			Assert.assertEquals("already exist", (e + ""));
+			Assert.assertEquals("User already exist", (e + ""));
 		}
 
 	}
@@ -141,14 +141,14 @@ public class LoginTest {
 		try {
 			lg.userSignUp("Zahi Mizrahi", "Zahi123", "1234567890", "3236549", "zahi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException e) {
-			Assert.assertEquals("phone should start with 05", (e + ""));
+			Assert.assertEquals("Phone should start with 05", (e + ""));
 		}
 
 		// short phone number
 		try {
 			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0501a23456", "3266549", "zahi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException e) {
-			Assert.assertEquals("phone contains only integers", (e + ""));
+			Assert.assertEquals("Phone contains only integers", (e + ""));
 		}
 		// short car number
 	}
@@ -162,7 +162,7 @@ public class LoginTest {
 		} catch (LoginException e1) {
 			Assert.fail();
 		}
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
 		query.whereEqualTo("carNumber", "3296054");
 		try {
 			List<ParseObject> userList = query.find();
@@ -196,14 +196,14 @@ public class LoginTest {
 		try {
 			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "3416549", "zahi@gmaifl.com", StickersColor.GREEN);
 		} catch (LoginException e) {
-			Assert.assertEquals("invalid email address", (e + ""));
+			Assert.assertEquals("Invalid email address", (e + ""));
 		}
 
 		try {
 			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "3246549", "zahi@cs.technion.ac.il",
 					StickersColor.GREEN);
 		} catch (LoginException e) {
-			Assert.assertEquals("invalid email address", (e + ""));
+			Assert.assertEquals("Invalid email address", (e + ""));
 		}
 
 		try {
