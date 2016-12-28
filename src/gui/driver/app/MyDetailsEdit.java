@@ -6,6 +6,7 @@ import Exceptions.LoginException;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
@@ -35,13 +36,27 @@ public class MyDetailsEdit extends AbstractWindow {
 
 		ArrayList<TextField> newValues = new ArrayList<TextField>();
 		int i = 0;
+		int stickerIdx=0;
 		for (; i < labels.size(); i++) {
-			newValues.add(new TextField(values.get(i).getText()));
-			GridPane.setConstraints(labels.get(i), 0, i);
-			GridPane.setConstraints(newValues.get(i), 1, i);
-			grid.getChildren().addAll(labels.get(i), newValues.get(i));
+			if(!labels.get(i).getText().equals("Sticker Color:")){
+				newValues.add(new TextField(values.get(i).getText()));
+				GridPane.setConstraints(labels.get(i), 0, i);
+				GridPane.setConstraints(newValues.get(i), 1, i);
+				grid.getChildren().addAll(labels.get(i), newValues.get(i));
+			}
+			else stickerIdx = i;
 		}
-
+		
+		Label sticker = new Label("Sticker Color:");
+		ChoiceBox<String> stickerColor = new ChoiceBox<>();
+		stickerColor.getItems().addAll("Blue", "Green", "White", "Red", "Bordeaux", "Yellow");
+		stickerColor.setValue("Blue");
+		stickerColor.getValue();
+		GridPane.setConstraints(stickerColor, 1, stickerIdx);
+		GridPane.setConstraints(sticker, 0, stickerIdx);
+		grid.getChildren().add(sticker);
+		grid.getChildren().add(stickerColor);
+		
 		Button doneButton = new Button();
 		doneButton.setText("Done");
 		doneButton.setOnAction(e -> {
@@ -51,6 +66,7 @@ public class MyDetailsEdit extends AbstractWindow {
 				for (int j = 0; j < newValues.size(); j++) {
 					correctedValues.add(new Label(newValues.get(j).getText()));
 				}
+				correctedValues.add(4, new Label(stickerColor.getValue()));
 				
 				/*David Edit*/
 				try {
