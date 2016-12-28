@@ -102,7 +102,8 @@ public class LoginTest {
 	@Test
 	public void test06() {
 		LoginManager lg = new LoginManager();
-		Assert.assertEquals("User already exist", lg.userValueCheck("David", "1234567890", "david@gmail.com", "3209654"));
+		Assert.assertEquals("User already exist",
+				lg.userValueCheck("David", "1234567890", "david@gmail.com", "3209654"));
 
 		// name contains integer
 		try {
@@ -158,7 +159,7 @@ public class LoginTest {
 		LoginManager lg = new LoginManager();
 		try {
 			Assert.assertTrue(lg.userLogin("3209654", "David123"));
-			Assert.assertTrue(lg.userUpdate("3209654", "David", "0501234567", "david@gmail.com", "2222222"));
+			Assert.assertTrue(lg.userUpdate("3209654", "David", "0501234567", "david@gmail.com", "2222222", null));
 		} catch (LoginException e1) {
 			Assert.fail();
 		}
@@ -175,7 +176,7 @@ public class LoginTest {
 		}
 		try {
 			Assert.assertTrue(
-					lg.userUpdate("2222222", "David Cohen", "0508937778", "david.5581@hotmail.com", "3209654"));
+					lg.userUpdate("2222222", "David Cohen", "0508937778", "david.5581@hotmail.com", "3209654", null));
 		} catch (LoginException e1) {
 			Assert.fail();
 		}

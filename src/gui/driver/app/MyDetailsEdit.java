@@ -3,6 +3,7 @@ package gui.driver.app;
 import java.util.ArrayList;
 
 import Exceptions.LoginException;
+import data.members.StickersColor;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -23,7 +24,8 @@ public class MyDetailsEdit extends AbstractWindow {
 		window = new Stage();
 	}
 
-	public void display(Stage primaryStage, WindowEnum prevWindow, final ArrayList<Label> labels, final ArrayList<Label> values) {
+	public void display(Stage primaryStage, WindowEnum prevWindow, final ArrayList<Label> labels,
+			final ArrayList<Label> values) {
 		window = primaryStage;
 		window.setTitle("Edit My Details");
 		GridPane grid = new GridPane();
@@ -36,17 +38,17 @@ public class MyDetailsEdit extends AbstractWindow {
 
 		ArrayList<TextField> newValues = new ArrayList<TextField>();
 		int i = 0;
-		int stickerIdx=0;
+		int stickerIdx = 0;
 		for (; i < labels.size(); i++) {
-			if(!labels.get(i).getText().equals("Sticker Color:")){
+			if (!labels.get(i).getText().equals("Sticker Color:")) {
 				newValues.add(new TextField(values.get(i).getText()));
 				GridPane.setConstraints(labels.get(i), 0, i);
 				GridPane.setConstraints(newValues.get(i), 1, i);
 				grid.getChildren().addAll(labels.get(i), newValues.get(i));
-			}
-			else stickerIdx = i;
+			} else
+				stickerIdx = i;
 		}
-		
+
 		Label sticker = new Label("Sticker Color:");
 		ChoiceBox<String> stickerColor = new ChoiceBox<>();
 		stickerColor.getItems().addAll("Blue", "Green", "White", "Red", "Bordeaux", "Yellow");
@@ -56,7 +58,7 @@ public class MyDetailsEdit extends AbstractWindow {
 		GridPane.setConstraints(sticker, 0, stickerIdx);
 		grid.getChildren().add(sticker);
 		grid.getChildren().add(stickerColor);
-		
+
 		Button doneButton = new Button();
 		doneButton.setText("Done");
 		doneButton.setOnAction(e -> {
@@ -67,20 +69,22 @@ public class MyDetailsEdit extends AbstractWindow {
 					correctedValues.add(new Label(newValues.get(j).getText()));
 				}
 				correctedValues.add(4, new Label(stickerColor.getValue()));
-				
-				/*David Edit*/
+
+				/* David Edit */
 				try {
-					login.userUpdate(login.getCarNumber(), newValues.get(1).getText(), null, newValues.get(0).getText(), newValues.get(2).getText());
+					StickersColor type = StickersColor
+							.valueOf(stickerColor.getSelectionModel().getSelectedItem().toUpperCase());
+					login.userUpdate(login.getCarNumber(), newValues.get(1).getText(), newValues.get(3).getText(),
+							newValues.get(0).getText(), newValues.get(2).getText(), type);
+					// You can only get here if the last prevWindows is
+					// 'MyDetails'!!
+					MyDetails MD = (MyDetails) AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1);
+					AbstractWindow.prevWindows.remove(prevWindows.size() - 1);
+					MD.display(primaryStage, prevWindow, labels, correctedValues);
 				} catch (LoginException e1) {
-					// TODO check what to do in case of error
+					AlertBox.display("Sign Up", (e1 + ""));
 				}
-				/*Done*/
-				
-				// You can only get here if the last prevWindows is
-				// 'MyDetails'!!
-				MyDetails MD = (MyDetails) AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1);
-				AbstractWindow.prevWindows.remove(prevWindows.size() - 1);
-				MD.display(primaryStage, prevWindow, labels, correctedValues);
+				/* Done */
 			}
 		});
 		GridPane.setConstraints(doneButton, 0, i);
@@ -95,7 +99,8 @@ public class MyDetailsEdit extends AbstractWindow {
 			MyDetails MD = (MyDetails) AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1);
 			AbstractWindow.prevWindows.remove(prevWindows.size() - 1);
 			MD.display(primaryStage, prevWindow, labels, values);
-			//System.out.println("MDE back end. prevWindows:			" + AbstractWindow.prevWindows);
+			// System.out.println("MDE back end. prevWindows: " +
+			// AbstractWindow.prevWindows);
 
 		});
 		GridPane.setConstraints(backButton, 1, i);

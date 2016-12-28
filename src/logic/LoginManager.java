@@ -111,7 +111,7 @@ public class LoginManager {
 	 *             is thrown if there is a problem with the user value according
 	 *             to the UserValueCheck function
 	 */
-	public boolean userUpdate(String carNumber, String name, String phoneNumber, String email, String newCar)
+	public boolean userUpdate(String carNumber, String name, String phoneNumber, String email, String newCar, StickersColor type)
 			throws LoginException {
 		try {
 			String s = userValueCheck(name, phoneNumber, email, newCar.equals(carNumber) ? null : newCar);
@@ -125,6 +125,8 @@ public class LoginManager {
 				this.user.setEmail(email);
 			if (newCar != null)
 				this.user.setCarName(newCar);
+			if (type != null)
+				this.user.setSticker(type);
 		} catch (ParseException e) {
 			throw new LoginException("connection problem with DB");
 		}
