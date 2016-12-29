@@ -91,7 +91,7 @@ public class ChooseAction extends AbstractWindow {
 
 		});
 		GridPane.setConstraints(buttonChooseDestination,buttonIdx++, 1);
-		buttonChooseDestination.setDisable(true);
+		//buttonChooseDestination.setDisable(true);
 		
 		Button buttonClose = new Button("Close Program");
 		buttonClose.setOnAction(e -> {
