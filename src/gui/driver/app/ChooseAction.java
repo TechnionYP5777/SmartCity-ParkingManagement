@@ -104,7 +104,8 @@ public class ChooseAction extends AbstractWindow {
 				new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2, 2, 2, 2))));
 		layout.getChildren().addAll( buttonChooseDestination, buttonLogin, buttonRegister, buttonMyDetails, buttonClose);
 		layout.setAlignment(Pos.CENTER);
-		Scene scene = new Scene(layout, 500, 100);
+		Scene scene = new Scene(layout, 600, 100);
+		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());
 		window.setScene(scene);
 		window.showAndWait();
 	}

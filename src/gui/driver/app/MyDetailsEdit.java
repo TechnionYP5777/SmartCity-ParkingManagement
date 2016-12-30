@@ -92,7 +92,8 @@ public class MyDetailsEdit extends AbstractWindow {
 					correctedValues.add(new Label(newValues.get(j).getText()));
 				}
 				correctedValues.add(4, new Label(stickerColor.getValue()));
-				correctedValues.add(3, new Label(hboxPhone.getAccessibleText()));
+				//TODO: @Shahar-Y! there is a bug in travis because of getAccessibleText 
+				//correctedValues.add(3, new Label(hboxPhone.getAccessibleText()));
 				/* David Edit */
 				try {
 					StickersColor type = StickersColor
