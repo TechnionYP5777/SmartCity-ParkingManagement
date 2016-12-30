@@ -79,9 +79,8 @@ public class ChooseDestination extends AbstractWindow{
 		buttonGO.setOnAction(e -> {
 			//************Add navigation functionality************//
 			window.close();
-			ChooseAction CA = new ChooseAction();
-			ChooseAction.prevWindows.add(this);
-			CA.display(primaryStage, WindowEnum.CHOOSE_ACTION);
+			AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size()-1).window.show();
+			AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size()-1);
 
 		});
 		GridPane.setConstraints(buttonGO, 1, currIdx++);

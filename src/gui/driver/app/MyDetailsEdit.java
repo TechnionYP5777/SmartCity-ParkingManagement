@@ -52,7 +52,7 @@ public class MyDetailsEdit extends AbstractWindow {
 		Label sticker = new Label("Sticker Color:");
 		ChoiceBox<String> stickerColor = new ChoiceBox<>();
 		stickerColor.getItems().addAll("Blue", "Green", "White", "Red", "Bordeaux", "Yellow");
-		stickerColor.setValue("Blue");
+		stickerColor.setValue(StaticMethods.getStickerClolorFromEnum(login.getSticker()));
 		stickerColor.getValue();
 		GridPane.setConstraints(stickerColor, 1, stickerIdx);
 		GridPane.setConstraints(sticker, 0, stickerIdx);

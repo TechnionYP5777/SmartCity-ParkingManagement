@@ -94,6 +94,7 @@ public class Login extends AbstractWindow {
 			if (!login.userLogin(nameInput.getText(), passInput.getText()))
 				AlertBox.display("Login failed", "Car Number/Password is incorrect.");
 			else {
+				System.out.println("SS");
 				AlertBox.display("Successful", "You have successfuly logged in");
 				this.window.close();
 				Opening.getCAObject(prevWindows).buttonLogin.setDisable(true);
