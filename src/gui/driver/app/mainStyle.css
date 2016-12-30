@@ -1,0 +1,44 @@
+
+.root {
+	
+	-fx-background-color: #458AE5; 
+	-fx-font-size: 11pt; 
+}
+
+.label {
+	-fx-text-fill: #ffffff; 
+	-fx-text-weight: bold;
+}
+
+
+.label-bold {
+	-fx-text-fill: #ffffff; 
+	-fx-text-weight: bold;
+}
+
+.label-title {
+	-fx-text-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, white 0%, grey 80%);
+	-fx-text-weight: bold;
+	-fx-font-size: 48pt; 
+	-fx-font-family: arial; 
+}
+
+.button {
+	-fx-background-color: linear-gradient(#3333ff, #000066); 
+	-fx-text-fill: #ffffff;
+	-fx-background-radius:10; 
+}
+
+.button-go {
+	-fx-background-color: #3c7fb1, linear-gradient(#fafdfe, #e8f5fc), 
+				 linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);
+	-fx-background-insets: 0,1,2; 
+	-fx-background-radius: 3,2,1;
+ 	-fx-padding: 3 30 3 30; 
+	-fx-text-fill: black;
+}
+
+
+.cb  .label {
+	-fx-text-fill:  black; 
+}
