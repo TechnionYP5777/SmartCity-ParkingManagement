@@ -13,12 +13,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import gui.map.PmMap;  
 
 public class ChooseAction extends AbstractWindow {
 	Button buttonLogin;
 	Button buttonMyDetails;
 	Button buttonRegister;
 	Button buttonChooseDestination;
+	Button buttonMap;
 	public ChooseAction() {
 		windowEnum = WindowEnum.CHOOSE_ACTION;
 		window = new Stage();
@@ -71,6 +73,16 @@ public class ChooseAction extends AbstractWindow {
 		});
 		GridPane.setConstraints(buttonRegister, buttonIdx++, 1);
 
+		
+		buttonMap = new Button("View Map");
+		buttonMap.setOnAction(e -> {
+			window.close();
+			ChooseAction.prevWindows.add(this);
+			(new PmMap()).display(primaryStage);
+		});
+		GridPane.setConstraints(buttonMap, buttonIdx++, 1);
+		
+		
 		buttonMyDetails = new Button("My Details");
 		buttonMyDetails.setOnAction(e -> {
 			window.close();
@@ -102,7 +114,7 @@ public class ChooseAction extends AbstractWindow {
 
 		layout.setBackground(
 				new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2, 2, 2, 2))));
-		layout.getChildren().addAll( buttonChooseDestination, buttonLogin, buttonRegister, buttonMyDetails, buttonClose);
+		layout.getChildren().addAll( buttonChooseDestination, buttonLogin, buttonRegister, buttonMap, buttonMyDetails, buttonClose);
 		layout.setAlignment(Pos.CENTER);
 		Scene scene = new Scene(layout);
 		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());

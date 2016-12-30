@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 
-import javafx.application.Application;
+//import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
@@ -41,7 +41,8 @@ import netscape.javascript.JSObject;
 /*
  * @Autor Shay Segal
  */
-public class PmMap extends Application implements MapComponentInitializedListener {
+public class PmMap implements MapComponentInitializedListener {
+//extends Application
 
 	protected GoogleMapView mapComponent;
 	protected GoogleMap map;
@@ -66,8 +67,9 @@ public class PmMap extends Application implements MapComponentInitializedListene
 	private VBox routeVbox;
 	Polyline poly;
 
-	@Override
-	public void start(final Stage s) throws Exception {
+	//@Override
+	//public void start(final Stage s) throws Exception {
+	public void display( Stage s) {
 		btns = new ArrayList<Button>();
 		markers = new ArrayList<Marker>();
 		mapComponent = new GoogleMapView(Locale.getDefault().getLanguage(), null);
@@ -232,10 +234,10 @@ public class PmMap extends Application implements MapComponentInitializedListene
 				+ mapComponent.getHeight() / 2);
 	}
 
-	public static void main(String[] args) {
-		System.setProperty("java.net.useSystemProxies", "true");
-		launch(args);
-	}
+//	public static void main(String[] args) {
+//		System.setProperty("java.net.useSystemProxies", "true");
+//		launch(args);
+//	}
 
 	public VBox addVBox(String head) {
 		VBox $ = new VBox();
