@@ -48,6 +48,7 @@ public class Register extends AbstractWindow {
 		title.setTextAlignment(TextAlignment.CENTER);
 		title.setText("Register");
 		title.setFont(Font.font(null, FontWeight.BOLD, 48));
+		title.getStyleClass().add("label-title");
 
 		// user
 		Label user = new Label("Username");
@@ -65,7 +66,7 @@ public class Register extends AbstractWindow {
 		ChoiceBox<String> prefixNumber = new ChoiceBox<>();
 		prefixNumber.getItems().addAll("050", "052", "053", "054", "057");
 		prefixNumber.setValue("050");
-
+		prefixNumber.getStyleClass().add("cb");
 		TextField phoneNumberInput = new TextField();
 		phoneNumberInput.setMaxWidth(95);
 		// phoneNumberInput.setMaxWidth(50);
@@ -86,7 +87,7 @@ public class Register extends AbstractWindow {
 		ChoiceBox<String> stickerColor = new ChoiceBox<>();
 		stickerColor.getItems().addAll("Blue", "Green", "White", "Red", "Bordeaux", "Yellow");
 		stickerColor.setValue("Blue");
-
+		stickerColor.getStyleClass().add("cb");
 		Hyperlink wantLogin = new Hyperlink();
 		wantLogin.setText("Are you a registered member? Sign In!");
 		wantLogin.setOnAction(e -> {
@@ -153,7 +154,8 @@ public class Register extends AbstractWindow {
 		});
 		grid.setBackground(
 				new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2, 2, 2, 2))));
-		Scene scene = new Scene(grid, 400, 350);
+		Scene scene = new Scene(grid, 600, 450);
+		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());
 		window.setScene(scene);
 		window.setTitle("Register");
 		window.show();
