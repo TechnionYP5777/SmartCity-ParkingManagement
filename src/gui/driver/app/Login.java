@@ -76,9 +76,9 @@ public class Login extends AbstractWindow {
 			AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size()-1).window.show();
 			AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size()-1);
 		});
-		HBox hbox = new HBox();
-		hbox.setPadding( new Insets(4,4,4,4));
-		GridPane.setConstraints(title, 1, 0);
+		HBox hbox = new HBox(20);
+		hbox.setPadding( new Insets(10,10,10,10));
+		GridPane.setConstraints(title, 1,0);
 		GridPane.setConstraints(user, 0, 1);
 		GridPane.setConstraints(nameInput, 1, 1);
 		GridPane.setConstraints(pass, 0, 2);

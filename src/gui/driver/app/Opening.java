@@ -46,7 +46,7 @@ public class Opening extends Application {
 	public void init() {
 		ImageView logo = new ImageView(new Image(SPLASH_IMAGE));
 		loadProgress = new ProgressBar();
-		loadProgress.setPrefWidth(SPLASH_WIDTH - 20);
+		loadProgress.setPrefWidth(SPLASH_WIDTH);
 		
 		progressText = new Label("Opening the system . . .");
 		progressText.setAlignment(Pos.CENTER);
