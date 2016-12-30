@@ -49,7 +49,7 @@ public class Login extends AbstractWindow {
 		title.setTextAlignment(TextAlignment.CENTER);
 		title.setText("Login");
 		title.setFont(Font.font(null, FontWeight.BOLD, 48));
-
+		title.getStyleClass().add("label-title");
 		// user
 		Label user = new Label("Car Number");
 		TextField nameInput = new TextField();
@@ -77,7 +77,7 @@ public class Login extends AbstractWindow {
 			AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size()-1);
 		});
 		HBox hbox = new HBox();
-		
+		hbox.setPadding( new Insets(4,4,4,4));
 		GridPane.setConstraints(title, 1, 0);
 		GridPane.setConstraints(user, 0, 1);
 		GridPane.setConstraints(nameInput, 1, 1);
@@ -107,7 +107,8 @@ public class Login extends AbstractWindow {
 		});
 		grid.setBackground(
 				new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2, 2, 2, 2))));
-		Scene scene = new Scene(grid, 400, 250);
+		Scene scene = new Scene(grid, 600, 250);
+		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());
 		window.setScene(scene);
 		window.setTitle("Login");
 		window.show();
