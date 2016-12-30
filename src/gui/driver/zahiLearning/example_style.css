@@ -2,18 +2,12 @@
 	
 	-fx-background-color: #ccef; 
 	-fx-font-size: 8pt; 
-	-fx-vertical: 400;
-	-fx-horizontal: 300; 
 }
 
 .label {
 	-fx-text-fill: #ffffff; 
 }
 
-.label-bold {
-	-fx-text-fill: #ffffff; 
-	-fx-text-weight: bold;
-}
 .button {
 	-fx-background-color: linear-gradient(#dc9659, #ab4626); 
 	-fx-text-fill: #ffffff;
