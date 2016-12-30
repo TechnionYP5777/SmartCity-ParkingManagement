@@ -83,7 +83,7 @@ public class ChooseDestination extends AbstractWindow{
 		//buttonBack.setDisable(true);
 		
 		Button buttonGO = new Button("GO!");
-		buttonGO.setPrefSize(100, 100);
+		//buttonGO.setPrefSize(100, 100);
 		//buttonGO.setStyle("-fx-background-color: green; -fx-text-fill: black;");
 		
 		buttonGO.getStyleClass().add("button-go");
@@ -100,7 +100,7 @@ public class ChooseDestination extends AbstractWindow{
 		
 		grid.getChildren().addAll(title, from, fromValue, to, toValue, buttonBack, buttonGO);
 		
-		Scene scene = new Scene(grid, 400, 250);
+		Scene scene = new Scene(grid);
 		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());
 		window.setScene(scene);
 		window.show();

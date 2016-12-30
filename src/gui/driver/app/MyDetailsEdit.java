@@ -132,7 +132,7 @@ public class MyDetailsEdit extends AbstractWindow {
 		GridPane.setConstraints(backButton, 1, i);
 
 		grid.getChildren().addAll(doneButton, backButton, hboxPhone, phoneNumber);
-		Scene scene = new Scene(grid, 400, 250);
+		Scene scene = new Scene(grid);
 		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());
 		window.setScene(scene);
 		window.show();

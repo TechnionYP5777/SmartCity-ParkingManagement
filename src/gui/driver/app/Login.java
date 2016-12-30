@@ -107,7 +107,7 @@ public class Login extends AbstractWindow {
 		});
 		grid.setBackground(
 				new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2, 2, 2, 2))));
-		Scene scene = new Scene(grid, 600, 250);
+		Scene scene = new Scene(grid);
 		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());
 		window.setScene(scene);
 		window.setTitle("Login");
