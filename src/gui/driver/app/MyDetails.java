@@ -106,6 +106,7 @@ public class MyDetails extends AbstractWindow{
 		grid.getChildren().addAll(editDetailsButton, backButton);
 		Scene scene = new Scene(grid, 300, 250);
 		window.setScene(scene);
+		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());
 		window.show();
 
 	}

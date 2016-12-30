@@ -59,6 +59,7 @@ public class MyDetailsEdit extends AbstractWindow {
 		ChoiceBox<String> prefixNumber = new ChoiceBox<>();
 		prefixNumber.getItems().addAll("050", "052", "053", "054", "057");
 		prefixNumber.setValue(prePN);
+		prefixNumber.getStyleClass().add("cb");
 		TextField phoneNumberInput = new TextField();
 		phoneNumberInput.setMaxWidth(95);
 		// phoneNumberInput.setMaxWidth(50);
@@ -75,6 +76,7 @@ public class MyDetailsEdit extends AbstractWindow {
 		stickerColor.getItems().addAll("Blue", "Green", "White", "Red", "Bordeaux", "Yellow");
 		stickerColor.setValue(StaticMethods.getStickerClolorFromEnum(login.getSticker()));
 		stickerColor.getValue();
+		stickerColor.getStyleClass().add("cb");
 		GridPane.setConstraints(stickerColor, 1, stickerIdx);
 		GridPane.setConstraints(sticker, 0, stickerIdx);
 		grid.getChildren().add(sticker);
@@ -130,7 +132,8 @@ public class MyDetailsEdit extends AbstractWindow {
 		GridPane.setConstraints(backButton, 1, i);
 
 		grid.getChildren().addAll(doneButton, backButton, hboxPhone, phoneNumber);
-		Scene scene = new Scene(grid, 300, 250);
+		Scene scene = new Scene(grid, 400, 250);
+		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());
 		window.setScene(scene);
 		window.show();
 
