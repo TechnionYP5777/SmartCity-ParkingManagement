@@ -7,18 +7,15 @@
 
 .label {
 	-fx-text-fill: #ffffff; 
-	-fx-text-weight: bold;
 }
 
 
 .label-bold {
 	-fx-text-fill: #ffffff; 
-	-fx-text-weight: bold;
 }
 
 .label-title {
-	-fx-text-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, white 0%, grey 80%);
-	-fx-text-weight: bold;
+	-fx-text-fill: linear-gradient(lightblue, cyan); 
 	-fx-font-size: 48pt; 
 	-fx-font-family: arial; 
 }
