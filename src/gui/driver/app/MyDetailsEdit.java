@@ -14,6 +14,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -40,7 +41,7 @@ public class MyDetailsEdit extends AbstractWindow {
 		int i = 0;
 		int stickerIdx = 0;
 		for (; i < labels.size(); i++) {
-			if (!labels.get(i).getText().equals("Sticker Color:")) {
+			if (!labels.get(i).getText().equals("Sticker Color:") && i!=3) {
 				newValues.add(new TextField(values.get(i).getText()));
 				GridPane.setConstraints(labels.get(i), 0, i);
 				GridPane.setConstraints(newValues.get(i), 1, i);
@@ -48,7 +49,27 @@ public class MyDetailsEdit extends AbstractWindow {
 			} else
 				stickerIdx = i;
 		}
-
+		
+		
+		String prePN = login.getPhoneNumber().substring(0, 3);
+		String endPN = login.getPhoneNumber().substring(3, 9);
+		System.out.println(prePN + " - " + endPN);
+		HBox hboxPhone = new HBox();
+		Label phoneNumber = new Label("Phone Number:");
+		ChoiceBox<String> prefixNumber = new ChoiceBox<>();
+		prefixNumber.getItems().addAll("050", "052", "053", "054", "057");
+		prefixNumber.setValue(prePN);
+		TextField phoneNumberInput = new TextField();
+		phoneNumberInput.setMaxWidth(95);
+		// phoneNumberInput.setMaxWidth(50);
+		phoneNumberInput.setText(endPN);
+		hboxPhone.getChildren().addAll(prefixNumber, phoneNumberInput);
+		GridPane.setConstraints(hboxPhone, 1, 3);
+		//GridPane.setConstraints(phoneNumberInput, 1, 3);
+		GridPane.setColumnSpan(hboxPhone, 2);
+		GridPane.setConstraints(phoneNumber, 0, 3);
+		
+		
 		Label sticker = new Label("Sticker Color:");
 		ChoiceBox<String> stickerColor = new ChoiceBox<>();
 		stickerColor.getItems().addAll("Blue", "Green", "White", "Red", "Bordeaux", "Yellow");
@@ -58,7 +79,9 @@ public class MyDetailsEdit extends AbstractWindow {
 		GridPane.setConstraints(sticker, 0, stickerIdx);
 		grid.getChildren().add(sticker);
 		grid.getChildren().add(stickerColor);
-
+		
+		
+		
 		Button doneButton = new Button();
 		doneButton.setText("Done");
 		doneButton.setOnAction(e -> {
@@ -69,7 +92,7 @@ public class MyDetailsEdit extends AbstractWindow {
 					correctedValues.add(new Label(newValues.get(j).getText()));
 				}
 				correctedValues.add(4, new Label(stickerColor.getValue()));
-
+				correctedValues.add(3, new Label(hboxPhone.getAccessibleText()));
 				/* David Edit */
 				try {
 					StickersColor type = StickersColor
@@ -105,7 +128,7 @@ public class MyDetailsEdit extends AbstractWindow {
 		});
 		GridPane.setConstraints(backButton, 1, i);
 
-		grid.getChildren().addAll(doneButton, backButton);
+		grid.getChildren().addAll(doneButton, backButton, hboxPhone, phoneNumber);
 		Scene scene = new Scene(grid, 300, 250);
 		window.setScene(scene);
 		window.show();
