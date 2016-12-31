@@ -1,0 +1,33 @@
+
+.root {
+	
+	-fx-background-color: #458AE5; 
+	-fx-font-size: 11pt; 
+}
+
+.label {
+	-fx-text-fill: #000000; 
+}
+
+.label-title {
+	-fx-text-fill: linear-gradient(lightblue, cyan); 
+	-fx-font-size: 48pt; 
+	-fx-font-family: arial; 
+}
+
+
+.button {
+	-fx-background-color: linear-gradient(#3333ff, #000066); 
+	-fx-text-fill: #ffffff;
+	-fx-background-radius:10; 
+}
+
+.button:hover {
+    -fx-background-color: #000033; /* Green */
+    -fx-color: white;
+   -fx-effect: dropshadow( gaussian , rgba(0, 0, 148, 0.8) , 10,0,0,1 ); 
+}
+
+.cb  .label {
+	-fx-text-fill:  black; 
+}
