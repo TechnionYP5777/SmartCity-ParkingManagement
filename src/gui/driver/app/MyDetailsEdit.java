@@ -36,7 +36,8 @@ public class MyDetailsEdit extends AbstractWindow {
 		grid.setHgap(10);
 		grid.setBackground(
 				new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2, 2, 2, 2))));
-
+		window.setWidth(350);
+		window.setHeight(300);
 		ArrayList<TextField> newValues = new ArrayList<TextField>();
 		int i = 0;
 		int stickerIdx = 0;
@@ -109,7 +110,7 @@ public class MyDetailsEdit extends AbstractWindow {
 					AbstractWindow.prevWindows.remove(prevWindows.size() - 1);
 					MD.display(primaryStage, prevWindow, labels, correctedValues);
 				} catch (LoginException e1) {
-					AlertBox.display("Sign Up", (e1 + ""));
+					(new AlertBox()).display("Sign Up", (e1 + ""));
 				}
 				/* Done */
 			}

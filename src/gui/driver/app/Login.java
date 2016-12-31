@@ -38,6 +38,8 @@ public class Login extends AbstractWindow {
 		grid.setPadding(new Insets(20, 20, 20, 20));
 		grid.setVgap(8);
 		grid.setHgap(10);
+		window.setWidth(465);
+		window.setHeight(310);
 		//window.setMinWidth(700);
 
 		// title
@@ -65,7 +67,7 @@ public class Login extends AbstractWindow {
 		forgotPass.setText("Forgot Password?");
 		forgotPass.setOnAction(e -> {
 			//AbstractWindow.prevWindows.add(this); 
-			window.close(); 
+			//window.close(); 
 			(new GetPassByMail()).display(primaryStage, WindowEnum.LOG_IN);
 		});
 
@@ -93,10 +95,10 @@ public class Login extends AbstractWindow {
 		grid.getChildren().addAll(title, user, nameInput, pass, passInput, hbox, forgotPass);
 		loginButton.setOnAction(e -> {
 			if (!login.userLogin(nameInput.getText(), passInput.getText()))
-				AlertBox.display("Login failed", "Car Number/Password is incorrect.");
+				(new AlertBox()).display("Login failed", "Car Number/Password is incorrect.");
 			else {
 				System.out.println("SS");
-				AlertBox.display("Successful", "You have successfuly logged in");
+				(new AlertBox()).display("Successful", "You have successfuly logged in");
 				this.window.close();
 				Opening.getCAObject(prevWindows).buttonLogin.setDisable(true);
 				Opening.getCAObject(prevWindows).buttonRegister.setDisable(true);

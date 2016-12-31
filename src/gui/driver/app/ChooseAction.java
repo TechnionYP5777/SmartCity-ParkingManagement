@@ -124,14 +124,14 @@ public class ChooseAction extends AbstractWindow {
 		
 		Button buttonClose = new Button("Close Program");
 		buttonClose.setOnAction(e -> {
-			if (prevWindow == WindowEnum.NONE && ConfirmBox.display("Confirmation", "Are you sure you want to exit?"))
+			if (prevWindow == WindowEnum.NONE && (new ConfirmBox()).display("Confirmation", "Are you sure you want to exit?"))
 				window.close();
 		});
 		GridPane.setConstraints(buttonClose, buttonIdx++, 1);
 
 		buttonLogOut = new Button("Log Out");
 		buttonLogOut.setOnAction(e -> {
-			if (prevWindow == WindowEnum.NONE && ConfirmBox.display("Confirmation", "Are you sure you want to log out?"))
+			if (prevWindow == WindowEnum.NONE && (new ConfirmBox()).display("Confirmation", "Are you sure you want to log out?"))
 			{
 				welcomeLabel.setText("Welcome. You are not logged in");
 				login = new LoginManager();

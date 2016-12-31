@@ -37,6 +37,8 @@ public class Register extends AbstractWindow {
 		grid.setPadding(new Insets(20, 20, 20, 20));
 		grid.setVgap(8);
 		grid.setHgap(10);
+		window.setWidth(450);
+		window.setHeight(480);
 
 		// title
 		DropShadow shadow = new DropShadow();
@@ -143,12 +145,12 @@ public class Register extends AbstractWindow {
 				if ("".equals(name) || "".equals(password) || phone.length() == 3 || "".equals(car) || "".equals(eMail))
 					throw new LoginException("All of the fields should be full");
 				login.userSignUp(name, password, phone, car, eMail, type);
-				AlertBox.display("Sign Up", "You Successfully Signed Up!");
+				(new AlertBox()).display("Sign Up", "You Successfully Signed Up!");
 				this.window.close();
 				AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1).window.show();
 				AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size() - 1);
 			} catch (LoginException e1) {
-				AlertBox.display("Sign Up", (e1 + ""));
+				(new AlertBox()).display("Sign Up", (e1 + ""));
 			}
 		});
 		grid.setBackground(
