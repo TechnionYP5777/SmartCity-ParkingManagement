@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 //import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -23,6 +24,7 @@ public class ChooseAction extends AbstractWindow {
 	Button buttonChooseDestination;
 	Button buttonMap;
 	Button buttonLogOut;
+	Label welcomeLabel;
 	public ChooseAction() {
 		windowEnum = WindowEnum.CHOOSE_ACTION;
 		window = new Stage();
@@ -41,7 +43,7 @@ public class ChooseAction extends AbstractWindow {
 		// window = new Stage();
 		// window.initModality(Modality.APPLICATION_MODAL);
 		window.setTitle(title);
-		window.setMinWidth(250);
+		window.setMinWidth(750);
 		
 		
 		//Label label = new Label();
@@ -57,6 +59,18 @@ public class ChooseAction extends AbstractWindow {
 		//
 		// });
 		// GridPane.setConstraints(buttonGetPass, 0, 1);
+		
+		//TODO: get a better way to check logged in
+		welcomeLabel = new Label();
+		try{
+			welcomeLabel.setText("Welcome " + login.getUserName());
+		}
+		catch(Exception e){
+			welcomeLabel.setText("Welcome. You are not logged in");
+		}
+		
+		GridPane.setConstraints(welcomeLabel, 0, 0);
+		
 		int buttonIdx = 0;
 		buttonLogin = new Button("Login");
 		buttonLogin.setOnAction(e -> {
@@ -118,6 +132,7 @@ public class ChooseAction extends AbstractWindow {
 		buttonLogOut.setOnAction(e -> {
 			if (prevWindow == WindowEnum.NONE && ConfirmBox.display("Confirmation", "Are you sure you want to log out?"))
 			{
+				welcomeLabel.setText("Welcome. You are not logged in");
 				login = new LoginManager();
 				setButtonsDefaultValues();
 				//window.close();
@@ -128,7 +143,8 @@ public class ChooseAction extends AbstractWindow {
 		
 		layout.setBackground(
 				new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2, 2, 2, 2))));
-		layout.getChildren().addAll( buttonChooseDestination, buttonLogin, buttonRegister, buttonMap, buttonMyDetails, buttonClose, buttonLogOut);
+		layout.getChildren().addAll( buttonChooseDestination, buttonLogin, buttonRegister, buttonMap,
+				buttonMyDetails, buttonClose, buttonLogOut, welcomeLabel);
 		layout.setAlignment(Pos.CENTER);
 		Scene scene = new Scene(layout);
 		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());

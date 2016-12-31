@@ -38,6 +38,7 @@ public class Login extends AbstractWindow {
 		grid.setPadding(new Insets(20, 20, 20, 20));
 		grid.setVgap(8);
 		grid.setHgap(10);
+		window.setMinWidth(700);
 
 		// title
 		DropShadow shadow = new DropShadow();
@@ -102,6 +103,7 @@ public class Login extends AbstractWindow {
 				Opening.getCAObject(prevWindows).buttonChooseDestination.setDisable(false);
 				Opening.getCAObject(prevWindows).buttonMyDetails.setDisable(false);
 				Opening.getCAObject(prevWindows).buttonLogOut.setDisable(false);
+				Opening.getCAObject(prevWindows).welcomeLabel.setText("Welcome " + login.getUserName());
 				AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1).window.show();
 				AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size() - 1);
 			}
