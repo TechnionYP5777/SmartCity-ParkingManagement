@@ -8,8 +8,8 @@ import logic.LoginManager;
 //Currently NOT in use, might use it in the future. 
 public abstract class AbstractWindow {
 	WindowEnum windowEnum;
-	Stage window;
+	public Stage window;
 	protected static LoginManager login = new logic.LoginManager();
-	static ArrayList<AbstractWindow> prevWindows;
+	protected static ArrayList<AbstractWindow> prevWindows;
 
 }

@@ -15,6 +15,9 @@ import com.lynden.gmapsfx.javascript.object.Marker;
 import com.lynden.gmapsfx.javascript.object.MarkerOptions;
 import com.lynden.gmapsfx.shapes.Polyline;
 import com.lynden.gmapsfx.shapes.PolylineOptions;
+
+import gui.driver.app.AbstractWindow;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -41,7 +44,7 @@ import netscape.javascript.JSObject;
 /*
  * @Autor Shay Segal
  */
-public class PmMap implements MapComponentInitializedListener {
+public class PmMap extends  AbstractWindow implements MapComponentInitializedListener {
 //extends Application
 
 	protected GoogleMapView mapComponent;
@@ -66,6 +69,7 @@ public class PmMap implements MapComponentInitializedListener {
 	ArrayList<Marker> markers;
 	private VBox routeVbox;
 	Polyline poly;
+	
 
 	//@Override
 	//public void start(final Stage s) throws Exception {
@@ -101,17 +105,19 @@ public class PmMap implements MapComponentInitializedListener {
 			deleteMarker();
 		});
 
-		btnReturn = new Button("return");
+		btnReturn = new Button("Back");
 		btnReturn.setOnAction(e -> {
 			s.close();
+			AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size()-1).window.show();
+			AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size()-1);
 		});
-		btnShowMarkers = new Button("show/hide markers info");
+		btnShowMarkers = new Button("Show/Hide markers");
 		btnShowMarkers.setOnAction(e -> {
 			if(bp.getRight()!=null)
 				btnSelectRoute.fire();
 			bp.setLeft(bp.getLeft() == null ? sp : null);
 		});
-		btnSelectRoute = new Button("select route");
+		btnSelectRoute = new Button("Select Route");
 		btnSelectRoute.setOnAction(e -> {
 			if(bp.getLeft()!=null)
 				btnShowMarkers.fire();
@@ -128,6 +134,7 @@ public class PmMap implements MapComponentInitializedListener {
 		bp.setTop(tb);
 		bp.setCenter(mapComponent);
 		scene = new Scene(bp);
+		scene.getStylesheets().add(getClass().getResource("mapStyle.css").toExternalForm());
 		s.setScene(scene);
 		s.show();
 	}
