@@ -52,7 +52,7 @@ public class MyDetailsEdit extends AbstractWindow {
 		
 		
 		String prePN = login.getPhoneNumber().substring(0, 3);
-		String endPN = login.getPhoneNumber().substring(3, 9);
+		String endPN = login.getPhoneNumber().substring(3, 10);
 		System.out.println(prePN + " - " + endPN);
 		HBox hboxPhone = new HBox();
 		Label phoneNumber = new Label("Phone Number:");
@@ -93,15 +93,16 @@ public class MyDetailsEdit extends AbstractWindow {
 				for (int j = 0; j < newValues.size(); j++) {
 					correctedValues.add(new Label(newValues.get(j).getText()));
 				}
+				correctedValues.add(3, new Label(prefixNumber.getValue() + phoneNumberInput.getText()));
 				correctedValues.add(4, new Label(stickerColor.getValue()));
-				//TODO: @Shahar-Y! there is a bug in travis because of getAccessibleText 
-				//correctedValues.add(3, new Label(hboxPhone.getAccessibleText()));
-				/* David Edit */
+				
+				printCorrectedValues(correctedValues);
+
 				try {
-					StickersColor type = StickersColor
-							.valueOf(stickerColor.getSelectionModel().getSelectedItem().toUpperCase());
-					login.userUpdate(login.getCarNumber(), newValues.get(1).getText(), newValues.get(3).getText(),
-							newValues.get(0).getText(), newValues.get(2).getText(), type);
+					StickersColor type = StickersColor.valueOf(correctedValues.get(4).getText().toUpperCase());
+					//String carNumber, String name, String phoneNumber, String email, String newCar, StickersColor type
+					login.userUpdate(login.getCarNumber(), correctedValues.get(1).getText(), correctedValues.get(3).getText(),
+							correctedValues.get(0).getText(), correctedValues.get(2).getText(), type);
 					// You can only get here if the last prevWindows is
 					// 'MyDetails'!!
 					MyDetails MD = (MyDetails) AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1);
@@ -119,7 +120,7 @@ public class MyDetailsEdit extends AbstractWindow {
 		backButton.setText("Back");
 		backButton.setOnAction(e -> {
 			// move to editing my details
-			System.out.println("MDE back begin. prevWindows:			" + AbstractWindow.prevWindows);
+			//System.out.println("MDE back begin. prevWindows:			" + AbstractWindow.prevWindows);
 			this.window.close();
 			System.out.println(AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1));
 			MyDetails MD = (MyDetails) AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1);
@@ -138,7 +139,16 @@ public class MyDetailsEdit extends AbstractWindow {
 		window.show();
 
 	}
-
+	
+	private void printCorrectedValues(ArrayList<Label> correctedValues){
+		System.out.println("The correctedValues are: ");
+		System.out.println("0: " + correctedValues.get(0).getText());
+		System.out.println("1: " + correctedValues.get(1).getText());
+		System.out.println("2: " + correctedValues.get(2).getText());
+		System.out.println("3: " + correctedValues.get(3).getText());
+		System.out.println("4: " + correctedValues.get(4).getText());
+	}
+	
 	public static boolean checkChangesLegality(ArrayList<TextField> newValues) {
 
 		return true;
