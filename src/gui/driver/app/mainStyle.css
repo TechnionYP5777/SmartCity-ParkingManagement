@@ -9,11 +9,6 @@
 	-fx-text-fill: #ffffff; 
 }
 
-
-.label-bold {
-	-fx-text-fill: #ffffff; 
-}
-
 .label-title {
 	-fx-text-fill: linear-gradient(lightblue, cyan); 
 	-fx-font-size: 48pt; 
@@ -30,6 +25,7 @@
 .button:hover {
     -fx-background-color: #000033; /* Green */
     -fx-color: white;
+   -fx-effect: dropshadow( gaussian , rgba(0, 0, 148, 0.8) , 10,0,0,1 ); 
 }
 
 .button-go {
@@ -43,6 +39,12 @@
 .button-go:hover {
 	-fx-background-color: #00FF80; /* Green */
     -fx-color: black; 
+    -fx-effect: dropshadow( gaussian , rgba(0, 0, 148, 0.8) , 10,0,0,1 ); 
+}
+
+.disabled {
+    -fx-opacity: 0.6;
+    -fx-cursor: not-allowed;
 }
 
 .cb  .label {
