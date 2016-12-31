@@ -101,6 +101,7 @@ public class Login extends AbstractWindow {
 				Opening.getCAObject(prevWindows).buttonRegister.setDisable(true);
 				Opening.getCAObject(prevWindows).buttonChooseDestination.setDisable(false);
 				Opening.getCAObject(prevWindows).buttonMyDetails.setDisable(false);
+				Opening.getCAObject(prevWindows).buttonLogOut.setDisable(false);
 				AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1).window.show();
 				AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size() - 1);
 			}

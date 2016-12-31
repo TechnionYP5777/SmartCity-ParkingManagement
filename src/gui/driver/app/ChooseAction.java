@@ -13,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import logic.LoginManager;
 import gui.map.PmMap;  
 
 public class ChooseAction extends AbstractWindow {
@@ -21,6 +22,7 @@ public class ChooseAction extends AbstractWindow {
 	Button buttonRegister;
 	Button buttonChooseDestination;
 	Button buttonMap;
+	Button buttonLogOut;
 	public ChooseAction() {
 		windowEnum = WindowEnum.CHOOSE_ACTION;
 		window = new Stage();
@@ -112,14 +114,35 @@ public class ChooseAction extends AbstractWindow {
 		});
 		GridPane.setConstraints(buttonClose, buttonIdx++, 1);
 
+		buttonLogOut = new Button("Log Out");
+		buttonLogOut.setOnAction(e -> {
+			if (prevWindow == WindowEnum.NONE && ConfirmBox.display("Confirmation", "Are you sure you want to log out?"))
+			{
+				login = new LoginManager();
+				setButtonsDefaultValues();
+				//window.close();
+			}
+		});
+		GridPane.setConstraints(buttonLogOut, buttonIdx++, 1);
+		buttonLogOut.setDisable(true);
+		
 		layout.setBackground(
 				new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2, 2, 2, 2))));
-		layout.getChildren().addAll( buttonChooseDestination, buttonLogin, buttonRegister, buttonMap, buttonMyDetails, buttonClose);
+		layout.getChildren().addAll( buttonChooseDestination, buttonLogin, buttonRegister, buttonMap, buttonMyDetails, buttonClose, buttonLogOut);
 		layout.setAlignment(Pos.CENTER);
 		Scene scene = new Scene(layout);
 		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());
 		window.setScene(scene);
 		window.showAndWait();
+	}
+	
+	public void setButtonsDefaultValues(){
+		buttonLogin.setDisable(false);
+		buttonMyDetails.setDisable(true);
+		buttonRegister.setDisable(false);
+		buttonChooseDestination.setDisable(true);
+		buttonMap.setDisable(false);
+		buttonLogOut.setDisable(true);
 	}
 
 }
