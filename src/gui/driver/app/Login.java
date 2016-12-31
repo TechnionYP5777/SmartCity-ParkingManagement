@@ -23,6 +23,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import logic.NavigationController;
 
 public class Login extends AbstractWindow {
 
@@ -97,6 +98,7 @@ public class Login extends AbstractWindow {
 			else {
 				System.out.println("SS");
 				AlertBox.display("Successful", "You have successfuly logged in");
+				navigate = new NavigationController(login.getUser());
 				this.window.close();
 				Opening.getCAObject(prevWindows).buttonLogin.setDisable(true);
 				Opening.getCAObject(prevWindows).buttonRegister.setDisable(true);

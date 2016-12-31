@@ -156,4 +156,8 @@ public class LoginManager {
 	public StickersColor getSticker() {
 		return this.user.getSticker();
 	}
+	
+	public User getUser() {
+		return this.user;
+	}
 }

@@ -1,6 +1,8 @@
 package data.members;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.parse4j.ParseException;
 import org.parse4j.ParseGeoPoint;
@@ -40,9 +42,22 @@ public class Destination extends dbMember {
 		}
 	}
 	
+	public static Map<String,Destination> getDestinations() {
+		ParseQuery<ParseObject> query = ParseQuery.getQuery(TABLE_NAME);
+		Map<String,Destination> $ = new HashMap<String,Destination>(); 
+		try {
+			List<ParseObject> result = query.find();
+			if (result == null) return $;
+			for (ParseObject dest : result) {
+				String destName = dest.getString(NAME);
+				$.put(destName, new Destination(destName));
+			}
+		} catch (Exception e) {}
+		return $;
+	}
+	
 	public static boolean destinationExists(String name){
-		ParseObject obj = getDbDestinationObject(name);
-		return obj != null;
+		return getDbDestinationObject(name) != null;
 	}
 	
 	public Destination(String name, MapLocation location) throws ParseException, AlreadyExists {
@@ -72,10 +87,7 @@ public class Destination extends dbMember {
 	public Destination(String name) throws ParseException, NotExists {
 		DBManager.initialize();
 		this.parseObject = getDbDestinationObject(name);
-		
-		if (this.parseObject == null)
-			throw new NotExists("not exists");
-		
+		if (this.parseObject == null) throw new NotExists("not exists");
 		this.name = this.parseObject.getString(NAME);
 		ParseGeoPoint geo = this.parseObject.getParseGeoPoint(ENTRANCE);
 		this.entrance = new MapLocation(geo.getLatitude(), geo.getLongitude());		
