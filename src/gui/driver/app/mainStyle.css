@@ -20,10 +20,16 @@
 	-fx-font-family: arial; 
 }
 
+
 .button {
 	-fx-background-color: linear-gradient(#3333ff, #000066); 
 	-fx-text-fill: #ffffff;
 	-fx-background-radius:10; 
+}
+
+.button:hover {
+    -fx-background-color: #000033; /* Green */
+    -fx-color: white;
 }
 
 .button-go {
@@ -34,6 +40,10 @@
 	-fx-text-fill: black;
 }
 
+.button-go:hover {
+	-fx-background-color: #00FF80; /* Green */
+    -fx-color: black; 
+}
 
 .cb  .label {
 	-fx-text-fill:  black; 

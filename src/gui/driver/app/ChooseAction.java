@@ -43,7 +43,7 @@ public class ChooseAction extends AbstractWindow {
 		// window = new Stage();
 		// window.initModality(Modality.APPLICATION_MODAL);
 		window.setTitle(title);
-		window.setMinWidth(750);
+		//window.setMinWidth(750);
 		
 		
 		//Label label = new Label();
@@ -63,13 +63,14 @@ public class ChooseAction extends AbstractWindow {
 		//TODO: get a better way to check logged in
 		welcomeLabel = new Label();
 		try{
-			welcomeLabel.setText("Welcome " + login.getUserName());
+			welcomeLabel.setText("Welcome " + login.getUserName() + "!");
 		}
 		catch(Exception e){
-			welcomeLabel.setText("Welcome. You are not logged in");
+			welcomeLabel.setText("Welcome! You are not logged in");
 		}
 		
 		GridPane.setConstraints(welcomeLabel, 0, 0);
+		GridPane.setColumnSpan(welcomeLabel, 4);
 		
 		int buttonIdx = 0;
 		buttonLogin = new Button("Login");
