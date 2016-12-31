@@ -19,17 +19,20 @@ public class GetPassByMail extends AbstractWindow {
 	
 	public GetPassByMail(){
 		windowEnum = WindowEnum.GET_PASS_BY_MAIL;
+		//window.initModality(Modality.APPLICATION_MODAL);
 	}
 	
 	public void display(Stage primaryStage, WindowEnum prevWindow){
 		window = primaryStage;
 		window.setTitle("Get Password By Email");
+		//window.initModality(Modality.APPLICATION_MODAL);
 		GridPane grid = new GridPane();
 		grid.setPadding(new Insets(20,20,20,20));
 		grid.setVgap(8);
 		grid.setHgap(10);
 		grid.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2,2,2,2))));
-		
+		window.setWidth(550);
+		window.setHeight(180);
 		
 		Label instruction = new Label("Please enter your eMail address in order to get your password");
 		GridPane.setConstraints(instruction, 0, 0);
@@ -45,9 +48,9 @@ public class GetPassByMail extends AbstractWindow {
 		
 		sendButton.setOnAction(e->{
 			if(eMailInput.getText().equals(defaultMail))
-				AlertBox.display("Bad Input", "The mail you entered is the default! " + "\nPlease try again.");
+				(new AlertBox()).display("Bad Input", "The mail you entered is the default! " + "\nPlease try again.");
 			else if (!isValidMailAddress(eMailInput))
-				AlertBox.display("Bad Input", "Illegal address entered! " + "\nPlease try again.");
+				(new AlertBox()).display("Bad Input", "Illegal address entered! " + "\nPlease try again.");
 			else {
 				try {
 					sendPassword(eMailInput);
@@ -57,7 +60,7 @@ public class GetPassByMail extends AbstractWindow {
 				this.window.close();
 				AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size()-1).window.show();
 				AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size()-1);
-				AlertBox.display("Password Sent", "The password was sent to your eMail account");
+				(new AlertBox()).display("Password Sent", "The password was sent to your eMail account");
 			}
 			
 		});
@@ -74,6 +77,7 @@ public class GetPassByMail extends AbstractWindow {
 		
 		grid.getChildren().addAll(instruction, eMailInput, sendButton, backButton);
 		Scene scene = new Scene(grid, 420,150);
+		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());
 		window.setScene(scene);
 		window.show();
 		

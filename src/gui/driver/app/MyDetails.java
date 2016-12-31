@@ -25,7 +25,7 @@ public class MyDetails extends AbstractWindow{
 			final ArrayList<Label> newValues) {
 		window = primaryStage;
 		window.setTitle("My Details");
-		window.setWidth(400);
+		window.setWidth(350);
 		window.setHeight(300);
 		GridPane grid = new GridPane();
 		grid.setPadding(new Insets(20, 20, 20, 20));

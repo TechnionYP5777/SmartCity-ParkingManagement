@@ -13,11 +13,12 @@ public class ConfirmBox{
 	static boolean answer;
 	static Button yesButton,noButton;
 	
-	public static boolean display(String title, String message){
+	public boolean display(String title, String message){
 		Stage window = new Stage();
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.setTitle(title);
 		window.setMinWidth(250);
+		window.setMinHeight(150);
 		
 		Label label = new Label();
 		label.setText(message);
@@ -39,6 +40,7 @@ public class ConfirmBox{
 		layout.getChildren().addAll(label, noButton, yesButton);
 		layout.setAlignment(Pos.CENTER);
 		Scene scene = new Scene(layout);
+		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());
 		window.setScene(scene);
 		window.showAndWait();
 		
