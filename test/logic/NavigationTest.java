@@ -45,7 +45,15 @@ public class NavigationTest {
 			taubSlots.add(taubSlot3);
 
 			location = new MapLocation(32.777466, 35.021094);
-			Destination destination = new Destination("Taub", location);
+			Destination destination = null;
+			try{
+				destination = new Destination("Taub-NavigationTest", location);
+			} catch (AlreadyExists e){
+				// shouldn't happen
+				System.out.println("Taub-NavigationTest already exists");
+				Assert.assertEquals(true, false);
+				
+			}
 
 			ParkingArea upperTaubArea = new ParkingArea(100, taubSlots, StickersColor.RED);
 			try {
@@ -65,6 +73,7 @@ public class NavigationTest {
 				taubSlot1.deleteParseObject();
 				taubSlot2.deleteParseObject();
 				taubSlot3.deleteParseObject();
+				destination.deleteParseObject();
 
 			} catch (LoginException e) {
 				System.out.println("login exception");
@@ -133,7 +142,14 @@ public class NavigationTest {
 			ParkingAreas parkingAreas = new ParkingAreas(areas);
 
 			location = new MapLocation(32.777466, 35.021094);
-			Destination destination = new Destination("Taub", location);
+			Destination destination = null;
+			try{
+				destination = new Destination("Taub-NavigationTest", location);
+			} catch (AlreadyExists e){
+				// shouldn't happen
+				System.out.println("Taub-NavigationTest already exists");
+				Assert.assertEquals(true, false);
+			}
 
 			try {
 
@@ -161,6 +177,8 @@ public class NavigationTest {
 				poolArea.deleteParseObject();
 				poolSlot1.deleteParseObject();
 				poolSlot2.deleteParseObject();
+				
+				destination.deleteParseObject();
 
 			} catch (LoginException e) {
 				System.out.println("login exception");
@@ -188,7 +206,14 @@ public class NavigationTest {
 			ParkingArea upperTaubArea = new ParkingArea(100, slots, StickersColor.RED);
 
 			location = new MapLocation(32.777466, 35.021094);
-			Destination destination = new Destination("Taub", location);
+			Destination destination = null;
+			try{
+				destination = new Destination("Taub-NavigationTest", location);
+			} catch (AlreadyExists e){
+				// shouldn't happen
+				System.out.println("Taub-NavigationTest already exists");
+				Assert.assertEquals(true, false);
+			}
 			User user = null;
 			try {
 				user = new User("3209654");
@@ -208,6 +233,7 @@ public class NavigationTest {
 				gotNoSlotAvailableException = true;
 				upperTaubArea.deleteParseObject();
 				taubSlot1.deleteParseObject();
+				destination.deleteParseObject();
 			}
 
 		} catch (ParseException e) {
