@@ -5,7 +5,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.parse4j.ParseException;
 import Exceptions.*;
-import manager.logic.*;
 
 public class DestinationTest {
 	

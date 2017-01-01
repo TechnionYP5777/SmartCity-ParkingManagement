@@ -1,7 +1,7 @@
 package gui.driver.app;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Set;
+
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -44,14 +44,11 @@ public class ChooseDestination extends AbstractWindow{
 		grid.setBackground(
 				new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY,
 						new Insets(2, 2, 2, 2))));
-
-	//	List list = new List();
 	
-		ArrayList<String> locationsList = new ArrayList<String>(Arrays.asList(
-				"Shaar Nesher", "Shaar Nosh", "Taub", "Fishbah",
-				"Rifkin Dorms", "Canada Dorms"));
+		Set<String> locationsList = navigate.getLocations();
 		
-		GridPane.setConstraints(title, 1, 0); 
+		GridPane.setConstraints(title, 0, 0);
+		GridPane.setColumnSpan(title, 2);
 		int currIdx = 1; 
 		Label from = new Label("From:");
 		ChoiceBox<String> fromValue = new ChoiceBox<>();

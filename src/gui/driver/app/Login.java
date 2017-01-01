@@ -23,6 +23,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import logic.NavigationController;
 
 public class Login extends AbstractWindow {
 
@@ -38,6 +39,8 @@ public class Login extends AbstractWindow {
 		grid.setPadding(new Insets(20, 20, 20, 20));
 		grid.setVgap(8);
 		grid.setHgap(10);
+		window.setWidth(465);
+		window.setHeight(310);
 		//window.setMinWidth(700);
 
 		// title
@@ -65,7 +68,7 @@ public class Login extends AbstractWindow {
 		forgotPass.setText("Forgot Password?");
 		forgotPass.setOnAction(e -> {
 			//AbstractWindow.prevWindows.add(this); 
-			window.close(); 
+			//window.close(); 
 			(new GetPassByMail()).display(primaryStage, WindowEnum.LOG_IN);
 		});
 
@@ -79,7 +82,8 @@ public class Login extends AbstractWindow {
 		});
 		HBox hbox = new HBox(20);
 		hbox.setPadding( new Insets(10,10,10,10));
-		GridPane.setConstraints(title, 1,0);
+		GridPane.setConstraints(title, 0, 0);
+		GridPane.setColumnSpan(title, 2);
 		GridPane.setConstraints(user, 0, 1);
 		GridPane.setConstraints(nameInput, 1, 1);
 		GridPane.setConstraints(pass, 0, 2);
@@ -93,10 +97,11 @@ public class Login extends AbstractWindow {
 		grid.getChildren().addAll(title, user, nameInput, pass, passInput, hbox, forgotPass);
 		loginButton.setOnAction(e -> {
 			if (!login.userLogin(nameInput.getText(), passInput.getText()))
-				AlertBox.display("Login failed", "Car Number/Password is incorrect.");
+				(new AlertBox()).display("Login failed", "Car Number/Password is incorrect.");
 			else {
 				System.out.println("SS");
-				AlertBox.display("Successful", "You have successfuly logged in");
+				(new AlertBox()).display("Successful", "You have successfuly logged in");
+				navigate = new NavigationController(login.getUser());
 				this.window.close();
 				Opening.getCAObject(prevWindows).buttonLogin.setDisable(true);
 				Opening.getCAObject(prevWindows).buttonRegister.setDisable(true);

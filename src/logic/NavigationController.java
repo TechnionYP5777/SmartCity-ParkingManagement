@@ -3,6 +3,7 @@ package logic;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.parse4j.ParseException;
 
@@ -27,7 +28,7 @@ public class NavigationController {
 	
 	private ParkingArea area;
 	
-	private Map<String, Destination> faculties;
+	private Map<String, Destination> destinations;
 	
 	private Map<Integer, ParkingArea> parkingAreas;
 	
@@ -35,20 +36,29 @@ public class NavigationController {
 	
 	private ParkingAreas allAreas;
 	
+	public NavigationController(User user) {
+		this.user = user;
+		this.walking = false;
+		this.destinations = Destination.getDestinations();
+	}
+	
 	public NavigationController(User user, MapLocation currentLocation, List<Destination> faculties,
 			ParkingAreas areas, boolean walking) {
 		this.user = user;
-		this.faculties = new HashMap<String, Destination>();
+		this.destinations = new HashMap<String, Destination>();
 		this.allAreas = areas;
 		this.walking = walking;
 		this.currentLocation = currentLocation;
-		for (Destination ¢ : faculties) this.faculties.put(¢.getDestinationName(), ¢);
+		for (Destination ¢ : faculties) this.destinations.put(¢.getDestinationName(), ¢);
 		for (ParkingArea ¢ : areas.getParkingAreas()) this.parkingAreas.put(¢.getAreaId(), ¢);
 	}
 	
+	public Set<String> getLocations() {
+		return destinations.keySet();
+	}
+	
 	public ParkingSlot getClosetParkingSlot() throws ParseException {
-		ParkingSlot result = area != null ? Navigation.parkingSlotAtParkingArea(user, area, destination)
-				: Navigation.closestParkingSlot(user, currentLocation, allAreas, destination);
+		ParkingSlot result = Navigation.closestParkingSlot(user, currentLocation, allAreas, destination);
 		if (result == null) showError("No free parking slots, try later.");
 		return null;
 	}
@@ -59,8 +69,8 @@ public class NavigationController {
 	}
 	
 	public void chooseDestination(String name) {
-		if (name == null || !faculties.containsKey(name)) showError("No such Faculy exists.");
-		this.destination = faculties.get(name);
+		if (name == null || !destinations.containsKey(name)) showError("No such Faculy exists.");
+		this.destination = destinations.get(name);
 	}
 	
 	public void setLocation(MapLocation newLocation) {
