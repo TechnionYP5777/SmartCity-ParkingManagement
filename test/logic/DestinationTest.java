@@ -8,6 +8,34 @@ import Exceptions.*;
 
 public class DestinationTest {
 	
+	@Test
+	public void getDestinationNameTest(){
+		Assert.assertEquals(Destination.destinationExists("taubTest123"), false);
+		Destination d = null;
+		try{
+			d = new Destination("taubTest123", new MapLocation(32.778069, 35.021935));
+			Assert.assertEquals("taubTest123", d.getDestinationName());
+			d.deleteParseObject();
+			
+		} catch(Exception e){
+			Assert.fail();
+		}
+	}
+	@Test
+	public void getEntranceTest(){
+		Assert.assertEquals(Destination.destinationExists("taubTest123"), false);
+		Destination d = null;
+		try{
+			d = new Destination("taubTest123", new MapLocation(32.778069, 35.021935));
+			Assert.assertEquals(d.getEntrance().getLat(), 32.778069, 0);
+			Assert.assertEquals(d.getEntrance().getLon(), 35.021935, 0);
+			d.deleteParseObject();
+			
+		} catch(Exception e){
+			Assert.fail();
+		}
+	}
+	
 	
 	// this test checks there is no destination in the db with the name taubTest123
 	@Test
@@ -73,6 +101,7 @@ public class DestinationTest {
 		try{
 			d = new Destination("taubTest123", new MapLocation(32.778069, 35.021935));
 			d2 = new Destination("taubTest123");
+			Assert.assertEquals("taubTest123", d2.getDestinationName());
 			Assert.assertEquals(d.getEntrance().getLat(), d2.getEntrance().getLat(), 0);
 			Assert.assertEquals(d.getEntrance().getLon(), d2.getEntrance().getLon(), 0);
 
@@ -84,6 +113,27 @@ public class DestinationTest {
 			Assert.fail();
 		} catch (AlreadyExists e){
 			Assert.fail();
+		}
+	}
+	
+	/* this test shows that if there isn't a destination in the db with name X
+	 * and you try to initialize a Destination object with the data of X
+	 * you will get a NotExists exception
+	 */
+	
+	@Test
+	public void constructorTest3() {
+		
+		Assert.assertEquals(Destination.destinationExists("taubTest123"), false);
+		Destination d = null;
+		try{
+			d = new Destination("taubTest123");
+			Assert.fail();
+			
+		} catch( ParseException e){
+			Assert.fail();
+		} catch (Exception e){
+			Assert.assertEquals(e.getClass().getSimpleName(), "NotExists");
 		}
 	}
 }
