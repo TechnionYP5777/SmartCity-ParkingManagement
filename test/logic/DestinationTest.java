@@ -4,7 +4,7 @@ import data.members.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.parse4j.ParseException;
-import Exceptions.*;
+//import Exceptions.*;
 
 public class DestinationTest {
 	

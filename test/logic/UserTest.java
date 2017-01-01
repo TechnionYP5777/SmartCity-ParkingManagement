@@ -23,44 +23,23 @@ public class UserTest {
 		User user = null;
 		try {
 			user = new User("3209654");
-		} catch (LoginException e) {
-			Assert.fail();
-		}
-		try {
 			if (user != null)
 				user.setCurrentParking(new ParkingSlot("DavidSlot", ParkingSlotStatus.FREE, StickersColor.RED,
 						StickersColor.RED, new MapLocation(32.778153, 35.021855), new Date()));
-		} catch (ParseException e) {
-			Assert.fail();
-		}
-
-		Assert.assertEquals(user.getCurrentParking().getName(), "DavidSlot");
-		try {
+			Assert.assertEquals(user.getCurrentParking().getName(), "DavidSlot");
 			user.getCurrentParking().setColor(StickersColor.BORDEAUX);
-		} catch (ParseException e) {
-			Assert.fail();
-		}
-
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
-		ParseObject park = null;
-		try {
+			ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
 			Assert.assertEquals(new ParkingSlot(user.getCurrentParking().getParseObject()).getColor(),
 					StickersColor.BORDEAUX);
-			park = query.get((user.getCurrentParking().getParseObject()).getObjectId());
-		} catch (ParseException e1) {
-			Assert.fail();
-		}
-
-		Assert.assertEquals(StickersColor.values()[park.getInt("color")], StickersColor.BORDEAUX);
-		try {
+			ParseObject park = query.get((user.getCurrentParking().getParseObject()).getObjectId());
+			Assert.assertEquals(StickersColor.values()[park.getInt("color")], StickersColor.BORDEAUX);
 			user.setCurrentParking(null);
-		} catch (ParseException e) {
-			Assert.fail();
-		}
-
-		try {
 			park.delete();
+		} catch (LoginException e) {
+			e.printStackTrace();
+			Assert.fail();
 		} catch (ParseException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -71,35 +50,22 @@ public class UserTest {
 	 */
 	@Test
 	public void test02() {
-		User user = null;
 		try {
-			user = new User("3209654");
-		} catch (LoginException e) {
-			Assert.fail();
-		}
-		ParkingSlot ps = null;
-		try {
-			ps = new ParkingSlot("DavidSlot2", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
+			User user = new User("3209654");
+			ParkingSlot ps = new ParkingSlot("DavidSlot2", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
 					new MapLocation(32.778153, 35.021855), new Date());
-		} catch (ParseException e1) {
-			Assert.fail();
-		}
-		try {
 			if (user != null)
 				user.setCurrentParking(ps);
-		} catch (ParseException e) {
-			Assert.fail();
-		}
-
-		Assert.assertEquals(user.getCurrentParking().getName(), "DavidSlot2");
-
-		try {
+			Assert.assertEquals(user.getCurrentParking().getName(), "DavidSlot2");
 			ps.deleteParseObject();
+			Assert.assertEquals(user.getCurrentParking(), null);
+		} catch (LoginException e) {
+			e.printStackTrace();
+			Assert.fail();
 		} catch (ParseException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
-
-		Assert.assertEquals(user.getCurrentParking(), null);
 	}
 
 	/*
@@ -108,46 +74,28 @@ public class UserTest {
 	 */
 	@Test
 	public void test03() {
-		User user = null;
 		try {
-			user = new User("3209654");
-		} catch (LoginException e) {
-			Assert.fail();
-		}
-		try {
+			User user = new User("3209654");
 			if (user != null)
 				user.setCurrentParking(new ParkingSlot("DavidSlot3", ParkingSlotStatus.FREE, StickersColor.RED,
 						StickersColor.RED, new MapLocation(32.778153, 35.021855), new Date()));
-		} catch (ParseException e) {
-			Assert.fail();
-		}
-		Assert.assertEquals(user.getCurrentParking().getName(), "DavidSlot3");
-
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
-		ParseObject park = null;
-		try {
-			park = query.get((user.getCurrentParking().getParseObject()).getObjectId());
-		} catch (ParseException e1) {
-			Assert.fail();
-		}
-
-		Assert.assertEquals(StickersColor.values()[park.getInt("color")], StickersColor.RED);
-		Assert.assertEquals(park.getString("name"), "DavidSlot3");
-		try {
+			Assert.assertEquals(user.getCurrentParking().getName(), "DavidSlot3");
+			ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
+			ParseObject park = query.get((user.getCurrentParking().getParseObject()).getObjectId());
+			Assert.assertEquals(StickersColor.values()[park.getInt("color")], StickersColor.RED);
+			Assert.assertEquals(park.getString("name"), "DavidSlot3");
 			park.put("name", "DavidSlot4");
 			park.save();
-		} catch (ParseException e) {
-			Assert.fail();
-		}
-		Assert.assertEquals(park.getString("name"), "DavidSlot4");
-
-		Assert.assertEquals(user.getCurrentParking().getName(), "DavidSlot4");
-
-		try {
+			Assert.assertEquals(park.getString("name"), "DavidSlot4");
+			Assert.assertEquals(user.getCurrentParking().getName(), "DavidSlot4");
 			Assert.assertEquals(new ParkingSlot(user.getCurrentParking().getParseObject()).getName(), "DavidSlot4");
 			user.setCurrentParking(null);
 			park.delete();
 		} catch (ParseException e) {
+			e.printStackTrace();
+			Assert.fail();
+		} catch (LoginException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -158,44 +106,31 @@ public class UserTest {
 	 */
 	@Test
 	public void test04() {
-		User user = null;
 		try {
-			user = new User("3209654");
-		} catch (LoginException e) {
-			Assert.fail();
-		}
-		try {
+			User user = new User("3209654");
 			if (user != null)
 				user.setCurrentParking(new ParkingSlot("DavidSlot3", ParkingSlotStatus.FREE, StickersColor.RED,
 						StickersColor.RED, new MapLocation(32.778153, 35.021855), new Date()));
-		} catch (ParseException e) {
-			Assert.fail();
-		}
-
-		ParseObject park1 = user.getCurrentParking().getParseObject();
-		Assert.assertEquals(user.getCurrentParking().getName(), "DavidSlot3");
-		Assert.assertEquals(user.getCurrentParking().getColor(), StickersColor.RED);
-		Assert.assertEquals(user.getCurrentParking().getStatus(), ParkingSlotStatus.FREE);
-
-		try {
+			ParseObject park1 = user.getCurrentParking().getParseObject();
+			Assert.assertEquals(user.getCurrentParking().getName(), "DavidSlot3");
+			Assert.assertEquals(user.getCurrentParking().getColor(), StickersColor.RED);
+			Assert.assertEquals(user.getCurrentParking().getStatus(), ParkingSlotStatus.FREE);
 			if (user != null)
 				user.setCurrentParking(new ParkingSlot("DavidSlot4", ParkingSlotStatus.TAKEN, StickersColor.GREEN,
 						StickersColor.GREEN, new MapLocation(32.778153, 35.021855), new Date()));
-		} catch (ParseException e) {
-			Assert.fail();
-		}
-		ParseObject park2 = user.getCurrentParking().getParseObject();
-		Assert.assertEquals(user.getCurrentParking().getName(), "DavidSlot4");
-		Assert.assertEquals(user.getCurrentParking().getColor(), StickersColor.GREEN);
-		Assert.assertEquals(user.getCurrentParking().getStatus(), ParkingSlotStatus.TAKEN);
-
-		try {
+			ParseObject park2 = user.getCurrentParking().getParseObject();
+			Assert.assertEquals(user.getCurrentParking().getName(), "DavidSlot4");
+			Assert.assertEquals(user.getCurrentParking().getColor(), StickersColor.GREEN);
+			Assert.assertEquals(user.getCurrentParking().getStatus(), ParkingSlotStatus.TAKEN);
 			user.setCurrentParking(null);
 			park1.delete();
 			park2.delete();
+		} catch (LoginException e) {
+			e.printStackTrace();
+			Assert.fail();
 		} catch (ParseException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 	}
-
 }
