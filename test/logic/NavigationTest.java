@@ -49,10 +49,7 @@ public class NavigationTest {
 			try{
 				destination = new Destination("Taub-NavigationTest", location);
 			} catch (AlreadyExists e){
-				// shouldn't happen
-				System.out.println("Taub-NavigationTest already exists");
-				Assert.assertEquals(true, false);
-				
+				Assert.fail();
 			}
 
 			ParkingArea upperTaubArea = new ParkingArea(100, taubSlots, StickersColor.RED);
@@ -146,9 +143,7 @@ public class NavigationTest {
 			try{
 				destination = new Destination("Taub-NavigationTest", location);
 			} catch (AlreadyExists e){
-				// shouldn't happen
-				System.out.println("Taub-NavigationTest already exists");
-				Assert.assertEquals(true, false);
+				Assert.fail();
 			}
 
 			try {
@@ -210,15 +205,15 @@ public class NavigationTest {
 			try{
 				destination = new Destination("Taub-NavigationTest", location);
 			} catch (AlreadyExists e){
-				// shouldn't happen
-				System.out.println("Taub-NavigationTest already exists");
-				Assert.assertEquals(true, false);
+				Assert.fail();
 			}
 			User user = null;
 			try {
 				user = new User("3209654");
 				Navigation.parkingSlotAtParkingArea(user, upperTaubArea, destination);
 				Navigation.parkAtArea(user, upperTaubArea, destination);
+				Assert.assertEquals(user.getCurrentParking().getLocation().getLat(), taubSlot1.getLocation().getLat(), 0);
+				Assert.assertEquals(user.getCurrentParking().getLocation().getLon(), taubSlot1.getLocation().getLon(), 0);
 				Assert.assertEquals(user.getCurrentParking().getStatus().ordinal(), taubSlot1.getStatus().ordinal());
 				Assert.assertEquals(user.getCurrentParking().getStatus(), ParkingSlotStatus.TAKEN);
 				user.setCurrentParking(null);
