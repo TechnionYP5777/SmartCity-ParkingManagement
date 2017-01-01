@@ -34,9 +34,7 @@ public class Destination extends dbMember {
 		query.limit(1);
 		try {
 			List<ParseObject> result = query.find();
-			if (result == null || result.size() == 0)
-				return null;
-			return result.get(0);
+			return result == null || result.isEmpty() ? null : result.get(0);
 		} catch (Exception e) {
 			return null;
 		}
