@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.junit.Test;
 import org.parse4j.ParseException;
@@ -77,7 +76,7 @@ public class parkingAreaTest {
 			if (areaList == null || areaList.isEmpty())
 				throw new RuntimeException("There should be an area with areaId="+ 0);
 			System.out.println("before 2nd query: " + System.currentTimeMillis());
-			List<ParseObject> pList = areaList.get(0).getList("parkingSlots");
+			//List<ParseObject> pList = areaList.get(0).getList("parkingSlots");
 			ParkingArea area = new ParkingArea(areaList.get(0));
 			System.out.println("after 2nd query: " + System.currentTimeMillis());
 			System.out.println("free slots for id: " + area.getobjectId() + " is: " + area.getNumOfFreeSlots());
