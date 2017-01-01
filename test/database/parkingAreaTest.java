@@ -1,12 +1,14 @@
 package database;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
@@ -18,7 +20,6 @@ import data.members.ParkingArea;
 import data.members.ParkingSlot;
 import data.members.ParkingSlotStatus;
 import data.members.StickersColor;
-
 public class parkingAreaTest {
 		
 	@Test	
@@ -32,10 +33,10 @@ public class parkingAreaTest {
 			Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
 			
-			Assert.assertNotNull((new ParkingArea(0, slots, StickersColor.RED)));
+			assertNotNull((new ParkingArea(0, slots, StickersColor.RED)));
 		} catch(Exception e){
 			e.printStackTrace();
-			Assert.fail();
+			fail();
 		}
 	}
 	
@@ -52,39 +53,37 @@ public class parkingAreaTest {
 			slots.add(slot1);
 			
 			ParkingArea area = new ParkingArea(0, slots, StickersColor.RED);
-			Assert.assertNotNull(area);
+			assertNotNull(area);
 			
-			ParkingSlot slot2 = new ParkingSlot("testS2", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED, new MapLocation(0, 0), new Date());
-			area.addParkingSlot(slot2);
+			area.addParkingSlot((new ParkingSlot("testS2", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
+					new MapLocation(0, 0), new Date())));
 		} catch(Exception e){
 			e.printStackTrace();
-			Assert.fail();
+			fail();
 		}
 	}
 	
 	@Test
 	public void testRetrieveSlots(){
+		System.out.println("before init: " + System.currentTimeMillis());
 		DBManager.initialize();
+		System.out.println("after init: " + System.currentTimeMillis());
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
-		query.whereEqualTo("areaId", 0);
+		query.whereEqualTo("areaId", 11);
 		try {
+			System.out.println("before 1st query: " + System.currentTimeMillis());
 			List<ParseObject> areaList = query.find();
+			System.out.println("after 1st query: " + System.currentTimeMillis());
 			if (areaList == null || areaList.isEmpty())
 				throw new RuntimeException("There should be an area with areaId="+ 0);
+			System.out.println("before 2nd query: " + System.currentTimeMillis());
 			List<ParseObject> pList = areaList.get(0).getList("parkingSlots");
-			System.out.println(areaList.get(0).getObjectId());
-			List<Object> ids = pList.stream().map(p -> p.getObjectId()).collect(Collectors.toList());
-			ParseQuery<ParseObject> slotQuery = ParseQuery.getQuery("ParkingSlot");
-			slotQuery.whereContainedIn("objectId", ids);
-			slotQuery.whereEqualTo("status", ParkingSlotStatus.FREE.ordinal());
-			List<ParseObject> vacantSpots = slotQuery.find();
-			if(vacantSpots != null)
-				System.out.println(vacantSpots.size());
-			else{
-				System.out.println("no spots exist");
-			}
+			ParkingArea area = new ParkingArea(areaList.get(0));
+			System.out.println("after 2nd query: " + System.currentTimeMillis());
+			System.out.println("free slots for id: " + area.getobjectId() + " is: " + area.getNumOfFreeSlots());
+			System.out.println("adfter getting slots: " + System.currentTimeMillis());
 		} catch (ParseException e) {
-			Assert.assertEquals(true, false);
+			fail();
 		}
 
 	}
