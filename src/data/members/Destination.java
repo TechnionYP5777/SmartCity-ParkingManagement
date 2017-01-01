@@ -99,7 +99,11 @@ public class Destination extends dbMember {
 		return this.entrance;
 	}
 
-	public void setDestinationName(String name) throws ParseException {
+	public void setDestinationName(String name) throws ParseException, AlreadyExists {
+		
+		if (destinationExists(name))
+			throw new AlreadyExists("already exists");
+		
 		this.name = name;
 		this.parseObject.put(NAME, name);
 		this.parseObject.save();
