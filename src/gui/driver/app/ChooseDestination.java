@@ -47,7 +47,8 @@ public class ChooseDestination extends AbstractWindow{
 	
 		Set<String> locationsList = navigate.getLocations();
 		
-		GridPane.setConstraints(title, 1, 0); 
+		GridPane.setConstraints(title, 0, 0);
+		GridPane.setColumnSpan(title, 2);
 		int currIdx = 1; 
 		Label from = new Label("From:");
 		ChoiceBox<String> fromValue = new ChoiceBox<>();

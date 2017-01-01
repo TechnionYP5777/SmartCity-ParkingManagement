@@ -82,7 +82,8 @@ public class Login extends AbstractWindow {
 		});
 		HBox hbox = new HBox(20);
 		hbox.setPadding( new Insets(10,10,10,10));
-		GridPane.setConstraints(title, 1,0);
+		GridPane.setConstraints(title, 0, 0);
+		GridPane.setColumnSpan(title, 2);
 		GridPane.setConstraints(user, 0, 1);
 		GridPane.setConstraints(nameInput, 1, 1);
 		GridPane.setConstraints(pass, 0, 2);
