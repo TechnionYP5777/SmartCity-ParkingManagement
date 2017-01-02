@@ -33,7 +33,6 @@ public class ChooseAction extends AbstractWindow {
 
 	public void display(Stage primaryStage, WindowEnum prevWindow) {
 		String title = "What Would you like to do?";
-//		String message = "What Would you like to do?";
 
 		GridPane layout = new GridPane();
 		layout.setHgap(10);
@@ -46,19 +45,6 @@ public class ChooseAction extends AbstractWindow {
 		//window.setMinWidth(750);
 		
 		
-		//Label label = new Label();
-		//label.setText(message);
-		//GridPane.setConstraints(label, 0, 0);
-
-		// Button buttonGetPass = new Button("Get Password");
-		// buttonGetPass.setOnAction(e-> {
-		// window.close();
-		// GetPassByMail GPBM = new GetPassByMail();
-		// prevWindows.add(this);
-		// GPBM.display(primaryStage, WindowEnum.CHOOSE_ACTION, prevWindows);
-		//
-		// });
-		// GridPane.setConstraints(buttonGetPass, 0, 1);
 		
 		//TODO: get a better way to check logged in
 		welcomeLabel = new Label();

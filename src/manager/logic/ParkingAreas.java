@@ -9,7 +9,9 @@ import org.parse4j.ParseQuery;
 import data.members.ParkingArea;
 import data.members.ParkingSlot;
 
+
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * @author Inbal Matityahu
@@ -36,6 +38,18 @@ public class ParkingAreas {
 
 	public ParkingAreas() {
 		this.parkingAreas = new HashSet<ParkingArea>();
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
+		try {
+			List<ParseObject> areaList = query.find();
+			if (areaList == null || areaList.isEmpty())
+				throw new RuntimeException("There was a problem - ParkingArea table doesnt found");
+			for (ParseObject ¢: areaList)
+				this.parkingAreas.add((new ParkingArea(¢)));
+			System.out.println("====="+this.parkingAreas.size()+"======");
+		}
+		catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void addParkingArea(ParkingArea newParkingArea) {
@@ -84,27 +98,23 @@ public class ParkingAreas {
 		for (ParkingArea currentArea : this.parkingAreas)
 			if (currentArea.equals(a))
 				$ = currentArea.getNumOfFreeSlots();
-		////TODO: rewrite this function
+	
 		return $;
 	}
 
 	// Return num of free parking slots
 	public int getNumOfFreeSlots() {
 		int $ = 0;
-		for (ParkingArea currentArea : this.parkingAreas) {
-			//TODO: rewrite this function
+		for (ParkingArea currentArea : this.parkingAreas)
 			$ += currentArea.getNumOfFreeSlots();
-		}
 		return $;
 	}
 
 	// Return num of taken parking slots
 	public int getNumOfTakenSlots() {
 		int $ = 0;
-		for (ParkingArea currentArea : this.parkingAreas) {
-			//TODO: rewrite this function
+		for (ParkingArea currentArea : this.parkingAreas)
 			$ += currentArea.getNumOfTakenSlots();
-		}
 		return $;
 	}
 

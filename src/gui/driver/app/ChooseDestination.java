@@ -53,7 +53,7 @@ public class ChooseDestination extends AbstractWindow{
 		Label from = new Label("From:");
 		ChoiceBox<String> fromValue = new ChoiceBox<>();
 		fromValue.getItems().addAll(locationsList);
-		fromValue.setValue("Shaar Nesher");
+		fromValue.setValue("Taub");
 		fromValue.getStyleClass().add("cb");
 		GridPane.setConstraints(fromValue, 1, currIdx);
 		GridPane.setConstraints(from, 0, currIdx++);
@@ -61,7 +61,7 @@ public class ChooseDestination extends AbstractWindow{
 		Label to = new Label("To:");
 		ChoiceBox<String> toValue = new ChoiceBox<>();
 		toValue.getItems().addAll(locationsList);
-		toValue.setValue("Shaar Nosh");
+		toValue.setValue("Nosh Gate");
 		toValue.getStyleClass().add("cb");
 		GridPane.setConstraints(toValue, 1, currIdx);
 		GridPane.setConstraints(to, 0, currIdx++);
@@ -70,18 +70,15 @@ public class ChooseDestination extends AbstractWindow{
 		
 		Button buttonBack = new Button("Back");
 		buttonBack.setOnAction(e -> {
-			window.close();
-			ChooseAction CA = new ChooseAction();
-			ChooseAction.prevWindows.add(this);
-			CA.display(primaryStage, WindowEnum.CHOOSE_ACTION);
+			this.window.close();
+			AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size()-1).window.show();
+			AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size()-1);
 
 		});
 		GridPane.setConstraints(buttonBack, 0, currIdx);
 		//buttonBack.setDisable(true);
 		
 		Button buttonGO = new Button("GO!");
-		//buttonGO.setPrefSize(100, 100);
-		//buttonGO.setStyle("-fx-background-color: green; -fx-text-fill: black;");
 		
 		buttonGO.getStyleClass().add("button-go");
 		

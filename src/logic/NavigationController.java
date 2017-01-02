@@ -26,8 +26,6 @@ public class NavigationController {
 	
 	private Destination destination;
 	
-	private ParkingArea area;
-	
 	private Map<String, Destination> destinations;
 	
 	private Map<Integer, ParkingArea> parkingAreas;
@@ -61,11 +59,6 @@ public class NavigationController {
 		ParkingSlot result = Navigation.closestParkingSlot(user, currentLocation, allAreas, destination);
 		if (result == null) showError("No free parking slots, try later.");
 		return null;
-	}
-	
-	public void chooseParkingSlot(Integer parkId) {
-		if (parkId == null || !parkingAreas.containsKey(parkId)) showError("No such parking area exists.");
-		this.area = parkingAreas.get(parkId);
 	}
 	
 	public void chooseDestination(String name) {

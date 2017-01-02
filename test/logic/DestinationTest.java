@@ -4,17 +4,43 @@ import data.members.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.parse4j.ParseException;
-import Exceptions.*;
 
 public class DestinationTest {
 	
+	@Test
+	public void getDestinationNameTest(){
+		Destination d = null;
+		try{
+			d = new Destination("taubTest123", new MapLocation(32.778069, 35.021935));
+			Assert.assertEquals("taubTest123", d.getDestinationName());
+			d.deleteParseObject();
+			
+		} catch(Exception e){
+			Assert.fail();
+		}
+	}
+	@Test
+	public void getEntranceTest(){
+		Destination d = null;
+		try{
+			d = new Destination("taubTest123", new MapLocation(32.778069, 35.021935));
+			Assert.assertEquals(d.getEntrance().getLat(), 32.778069, 0);
+			Assert.assertEquals(d.getEntrance().getLon(), 35.021935, 0);
+			d.deleteParseObject();
+			
+		} catch(Exception e){
+			Assert.fail();
+		}
+	}
 	
+	// this test checks there is no destination in the db with the name taubTest123
 	@Test
 	public void destinationExistsTest1() {
 		
 		Assert.assertEquals(Destination.destinationExists("taubTest123"), false);
 	}
 	
+	// this test inserts a destination to the db and then checks that there is a dest with the name  taubTest123
 	@Test
 	public void destinationExistsTest2() {
 		
@@ -25,10 +51,67 @@ public class DestinationTest {
 			Assert.assertEquals(Destination.destinationExists("taubTest123"), true);
 			d.deleteParseObject();
 			
-		} catch( ParseException e){
-			Assert.assertEquals(true, false);
-		} catch (AlreadyExists e){
-			Assert.assertEquals(true, false);
+		} catch(Exception e){
+			Assert.fail();
+		}
+	}
+	
+	/* this test checks that when you try to set destination name to a name that already
+	 * exists, an AlreadyExists exception is thrown.
+	 */
+	@Test
+	public void setDestinationNameTest(){
+		Destination d1 = null;
+		Destination d2 = null;
+		try{
+			d1 = new Destination("taubTest123", new MapLocation(32.778069, 35.021935));
+			d2 = new Destination("taubTest124", new MapLocation(32.778069, 35.021935));
+			d1.setDestinationName("taubTest124");
+			Assert.fail();
+		} catch(Exception e){
+			Assert.assertEquals(e.getClass().getSimpleName(), "AlreadyExists");
+			try{
+				d1.deleteParseObject();
+				d2.deleteParseObject();
+			} catch(ParseException e2){
+				Assert.fail();
+			}
+		}
+	}
+	
+	// this test check the setDestinationName function when there are no problems with the name
+	@Test
+	public void setDestinationNameTest2(){
+		Destination d = null;
+		try{
+			d = new Destination("taubTest123", new MapLocation(32.778069, 35.021935));
+			d.setDestinationName("taubTest124");
+			Assert.assertEquals(d.getDestinationName(), "taubTest124");
+			Assert.assertEquals(Destination.destinationExists("taubTest123"), false);
+			Assert.assertEquals(Destination.destinationExists("taubTest124"), true);
+			d.deleteParseObject();
+					
+		} catch(Exception e){
+			Assert.fail();
+		}
+	}
+	
+	@Test
+	public void setEntranceTest(){
+		Destination d1 = null;
+		Destination d2 = null;
+		try{
+
+			d1 = new Destination("taubTest123", new MapLocation(32.777318, 35.021149));
+			d1.setEntrance(new MapLocation(32.778069, 35.021935));
+			Assert.assertEquals(d1.getEntrance().getLat(), 32.778069, 0);
+			Assert.assertEquals(d1.getEntrance().getLon(), 35.021935, 0);
+			d2 = new Destination("taubTest123");
+			Assert.assertEquals(d1.getEntrance().getLat(), d2.getEntrance().getLat(), 0);
+			Assert.assertEquals(d1.getEntrance().getLon(), d2.getEntrance().getLon(), 0);
+			d1.deleteParseObject();
+		} catch(Exception e){
+			Assert.fail();
 		}
 	}
 	
@@ -45,18 +128,62 @@ public class DestinationTest {
 			d = new Destination("taubTest123", new MapLocation(32.778069, 35.021935));
 			Assert.assertEquals(Destination.destinationExists("taubTest123"), true);
 			d = new Destination("taubTest123", new MapLocation(32.778069, 35.021935));
-			Assert.assertEquals(true, false);	
+			Assert.fail();
 			
-		} catch( ParseException e){
-			Assert.assertEquals(true, false);
-		} catch (AlreadyExists e){
-			Assert.assertEquals(true, true);
+		} catch (Exception e){
+			Assert.assertEquals(e.getClass().getSimpleName(), "AlreadyExists");
 			try{
 				d.deleteParseObject();
 			} catch(ParseException e2){
-				System.out.print("parse ecxeption");
+				Assert.fail();
 			}
 		}
+		
 	}
+	
+	/* this test shows that if there is a destination in the db with name X
+	 * you have can initialize a Destination object with the data of X
+	 */
+	
+	@Test
+	public void constructorTest2() {
+		
+		Assert.assertEquals(Destination.destinationExists("taubTest123"), false);
+		Destination d = null;
+		Destination d2 = null;
+		try{
+			d = new Destination("taubTest123", new MapLocation(32.778069, 35.021935));
+			d2 = new Destination("taubTest123");
+			Assert.assertEquals("taubTest123", d2.getDestinationName());
+			Assert.assertEquals(d.getEntrance().getLat(), d2.getEntrance().getLat(), 0);
+			Assert.assertEquals(d.getEntrance().getLon(), d2.getEntrance().getLon(), 0);
+			d.deleteParseObject();
+		} catch (Exception e){
+			Assert.fail();
+		}
+	}
+	
+	/* this test shows that if there isn't a destination in the db with name X
+	 * and you try to initialize a Destination object with the data of X
+	 * you will get a NotExists exception
+	 */
+	
+	@Test
+	public void constructorTest3() {
+		
+		Assert.assertEquals(Destination.destinationExists("taubTest123"), false);
+		try{
+			new Destination("taubTest123");
+			Assert.fail();
+		} catch (Exception e){
+			Assert.assertEquals(e.getClass().getSimpleName(), "NotExists");
+		}
+	}
+	
+	@Test
+	public void getDestinationsTest() {
+		Assert.assertTrue(Destination.getDestinations().keySet().contains("Taub"));
+	}
+	
 	
 }

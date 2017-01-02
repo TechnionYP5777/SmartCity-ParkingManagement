@@ -41,30 +41,27 @@ public class LoginTest {
 		try {
 			testUserObject.save();
 		} catch (ParseException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
-		}
-		String id = testUserObject.getObjectId();
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
-		ParseObject ret;
-		try {
-			ret = query.get(id);
-		} catch (ParseException e) {
 			Assert.fail();
-			return;
 		}
-		Assert.assertEquals("Shay", ret.getString("username"));
-		Assert.assertEquals("shayS", ret.getString("password"));
-		Assert.assertEquals("1234567", ret.getString("carNumber"));
 		try {
+			String id = testUserObject.getObjectId();
+			ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
+			ParseObject ret = query.get(id);
+			Assert.assertEquals("Shay", ret.getString("username"));
+			Assert.assertEquals("shayS", ret.getString("password"));
+			Assert.assertEquals("1234567", ret.getString("carNumber"));
 			testUserObject.delete();
 			ret = query.get(id);
 			Assert.assertEquals(ret, null);
 		} catch (ParseException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -75,26 +72,21 @@ public class LoginTest {
 		String uID = "";
 		try {
 			uID = lg.userSignUp("Sefi Albo", "sefi987", "0507788999", "3216549", "sefi@gmail.com", StickersColor.GREEN);
-		} catch (LoginException e2) {
-			Assert.fail();
-		}
-		Assert.assertNotEquals("", uID);
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
-		ParseObject user = null;
-		try {
-			user = query.get(uID);
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			Assert.fail();
-		}
-		Assert.assertEquals("Sefi Albo", user.getString("username"));
-		Assert.assertEquals("sefi987", user.getString("password"));
-		Assert.assertEquals("0507788999", user.getString("phoneNumber"));
-		Assert.assertEquals("3216549", user.getString("carNumber"));
-		Assert.assertEquals(StickersColor.GREEN.ordinal(), user.getInt("sticker"));
-		try {
+
+			Assert.assertNotEquals("", uID);
+			ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
+			ParseObject user = query.get(uID);
+			Assert.assertEquals("Sefi Albo", user.getString("username"));
+			Assert.assertEquals("sefi987", user.getString("password"));
+			Assert.assertEquals("0507788999", user.getString("phoneNumber"));
+			Assert.assertEquals("3216549", user.getString("carNumber"));
+			Assert.assertEquals(StickersColor.GREEN.ordinal(), user.getInt("sticker"));
 			lg.deleteUser();
+		} catch (LoginException e) {
+			e.printStackTrace();
+			Assert.fail();
 		} catch (ParseException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -132,7 +124,6 @@ public class LoginTest {
 		} catch (LoginException e) {
 			Assert.assertEquals("User already exist", (e + ""));
 		}
-
 	}
 
 	@Test
@@ -151,7 +142,6 @@ public class LoginTest {
 		} catch (LoginException e) {
 			Assert.assertEquals("Phone contains only integers", (e + ""));
 		}
-		// short car number
 	}
 
 	@Test
@@ -160,33 +150,25 @@ public class LoginTest {
 		try {
 			Assert.assertTrue(lg.userLogin("3209654", "David123"));
 			Assert.assertTrue(lg.userUpdate("3209654", "David", "0501234567", "david@gmail.com", "2222222", null));
-		} catch (LoginException e1) {
-			Assert.fail();
-		}
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
-		query.whereEqualTo("carNumber", "3296054");
-		try {
+			ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
+			query.whereEqualTo("carNumber", "3296054");
 			List<ParseObject> userList = query.find();
 			if (userList != null && !userList.isEmpty()) {
 				Assert.assertEquals("David", userList.get(0).getString("username"));
 				Assert.assertEquals("0501234567", userList.get(0).getString("phoneNumber"));
 			}
-		} catch (ParseException e) {
-			Assert.fail();
-		}
-		try {
 			Assert.assertTrue(
 					lg.userUpdate("2222222", "David Cohen", "0508937778", "david.5581@hotmail.com", "3209654", null));
-		} catch (LoginException e1) {
-			Assert.fail();
-		}
-		try {
-			List<ParseObject> userList = query.find();
-			if (userList != null && !userList.isEmpty()) {
-				Assert.assertEquals("David Cohen", userList.get(0).getString("username"));
-				Assert.assertEquals("0508937778", userList.get(0).getString("phoneNumber"));
+			List<ParseObject> userList1 = query.find();
+			if (userList1 != null && !userList1.isEmpty()) {
+				Assert.assertEquals("David Cohen", userList1.get(0).getString("username"));
+				Assert.assertEquals("0508937778", userList1.get(0).getString("phoneNumber"));
 			}
+		} catch (LoginException e) {
+			e.printStackTrace();
+			Assert.fail();
 		} catch (ParseException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -210,27 +192,16 @@ public class LoginTest {
 		try {
 			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "3256549", "zahi@campus.technion.ac.il",
 					StickersColor.GREEN);
-		} catch (LoginException e) {
-			Assert.fail();
-		}
-
-		try {
 			lg.deleteUser();
-		} catch (ParseException e) {
-			Assert.fail();
-		}
-
-		try {
 			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "3216549", "zahi@gmail.com", StickersColor.GREEN);
-		} catch (LoginException e) {
-			Assert.fail();
-		}
-
-		try {
 			lg.deleteUser();
+
+		} catch (LoginException e) {
+			e.printStackTrace();
+			Assert.fail();
 		} catch (ParseException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 	}
-
 }

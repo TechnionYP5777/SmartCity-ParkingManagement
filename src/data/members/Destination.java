@@ -34,9 +34,7 @@ public class Destination extends dbMember {
 		query.limit(1);
 		try {
 			List<ParseObject> result = query.find();
-			if (result == null || result.size() == 0)
-				return null;
-			return result.get(0);
+			return result == null || result.isEmpty() ? null : result.get(0);
 		} catch (Exception e) {
 			return null;
 		}
@@ -101,7 +99,11 @@ public class Destination extends dbMember {
 		return this.entrance;
 	}
 
-	public void setDestinationName(String name) throws ParseException {
+	public void setDestinationName(String name) throws ParseException, AlreadyExists {
+		
+		if (destinationExists(name))
+			throw new AlreadyExists("already exists");
+		
 		this.name = name;
 		this.parseObject.put(NAME, name);
 		this.parseObject.save();

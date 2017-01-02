@@ -86,7 +86,6 @@ public class MyDetails extends AbstractWindow{
 			// move to editing my details
 			MyDetailsEdit MDE = new MyDetailsEdit();
 			AbstractWindow.prevWindows.add(this);
-			System.out.println(AbstractWindow.prevWindows);
 			MDE.display(primaryStage, prevWindow, labels, values);
 
 		});
@@ -99,7 +98,6 @@ public class MyDetails extends AbstractWindow{
 			this.window.close();
 			AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size()-1).window.show();
 			AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size()-1);
-			System.out.println(AbstractWindow.prevWindows+"			");
 		});
 		GridPane.setConstraints(backButton, 1, buttonIndex);
 		

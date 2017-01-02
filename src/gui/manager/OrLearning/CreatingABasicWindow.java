@@ -1,6 +1,8 @@
 package gui.manager.OrLearning;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -9,12 +11,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class CreatingABasicWindow extends Application implements EventHandler<ActionEvent> {
+	public enum Color { GRAY, BLUE, GREEN, RED }
 	Stage window;
 	Button myButton, switchToScene2, switchToScene1, alertBoxBtn;
 	Scene scene1, scene2;
@@ -23,6 +29,7 @@ public class CreatingABasicWindow extends Application implements EventHandler<Ac
 		launch(args);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void start(Stage mainStage) {
 		window=mainStage;
@@ -54,9 +61,33 @@ public class CreatingABasicWindow extends Application implements EventHandler<Ac
 		switchToScene1.setText("Switch to 1");
 		switchToScene1.setOnAction(e -> window.setScene(scene1));
 		
+		//Parking areas table
+		TableView<parkingAreas> table;
+		
+		//Parking areas table - column build - parking area name
+		TableColumn<parkingAreas, String> nameColumn = new TableColumn<>("Parking Area Name");
+		nameColumn.setMinWidth(200);
+		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+		
+		//Parking areas table - column build - parking area Color
+		TableColumn<parkingAreas, Color> colorColumn = new TableColumn<>("Parking Area Color");
+		colorColumn.setMinWidth(150);
+		colorColumn.setCellValueFactory(new PropertyValueFactory<>("color"));
+
+		//Parking areas table - column build - parking spots
+		TableColumn<parkingAreas, String> spotsColumn = new TableColumn<>("Parking Area Spots");
+		spotsColumn.setMinWidth(130);
+		spotsColumn.setCellValueFactory(new PropertyValueFactory<>("spots"));
+		
+		//TableView for the parking areas
+		table = new TableView<>();
+		table.setItems(getData());
+		table.getColumns().addAll(nameColumn, colorColumn, spotsColumn);
+		
+		
 		//Layouts
 		VBox layout = new VBox(10);
-		layout.getChildren().addAll(getInput, inputHandler, myButton,switchToScene2, alertBoxBtn);
+		layout.getChildren().addAll(getInput, inputHandler, myButton,switchToScene2, alertBoxBtn,table);
 		layout.setAlignment(Pos.CENTER);
 		scene1 = new Scene(layout, 500, 500);
 		
@@ -106,6 +137,15 @@ public class CreatingABasicWindow extends Application implements EventHandler<Ac
 		window.show();
 	}
 	
+	//Parking areas table - getData function
+	public ObservableList<parkingAreas> getData() {
+		ObservableList<parkingAreas> $ = FXCollections.observableArrayList();
+		$.add(new parkingAreas("Taub",Color.RED,132));
+		$.add(new parkingAreas("Ezrachit",Color.GREEN,44));
+		$.add(new parkingAreas("Heykefi",Color.GRAY,78));
+		return $;
+	}
+	
 	private boolean isInt(String value) {
 		try {
 			int number = Integer.parseInt(value);
@@ -115,7 +155,6 @@ public class CreatingABasicWindow extends Application implements EventHandler<Ac
 		catch (NumberFormatException e) {
 			System.out.println("Hi there, but " + value + " is not a number!");
 			return false;
-			
 		}
 	}
 	
