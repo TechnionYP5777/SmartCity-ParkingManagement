@@ -23,7 +23,7 @@
 }
 
 .button:hover {
-    -fx-background-color: #000033; /* Green */
+    -fx-background-color: linear-gradient(#0066ff, #000033); /* Green */
     -fx-color: white;
    -fx-effect: dropshadow( gaussian , rgba(0, 0, 148, 0.8) , 10,0,0,1 ); 
 }

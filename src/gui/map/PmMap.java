@@ -125,7 +125,7 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 		});
 		tb.getItems().addAll(new Label("MapType: "), mapTypeCombo, new Label("Coordinates: "), lblCenter,
 				new Label("Click: "), lblClick, btnHideMarker, btnDeleteMarker, btnShowMarkers, btnSelectRoute,btnReturn);
-		markerVbox = addVBox("markers");
+		markerVbox = addVBox("Markers");
 		markerVbox.setVisible(true);
 		sp = new ScrollPane();
 		sp.setContent(markerVbox);
