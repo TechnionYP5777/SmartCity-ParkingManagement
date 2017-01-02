@@ -99,9 +99,9 @@ public class Login extends AbstractWindow {
 			if (!login.userLogin(nameInput.getText(), passInput.getText()))
 				(new AlertBox()).display("Login failed", "Car Number/Password is incorrect.");
 			else {
-				(new AlertBox()).display("Successful", "You have successfuly logged in");
-				navigate = new NavigationController(login.getUser());
 				this.window.close();
+				navigate = new NavigationController(login.getUser());
+				(new AlertBox()).display("Successful", "You have successfuly logged in");
 				Opening.getCAObject(prevWindows).buttonLogin.setDisable(true);
 				Opening.getCAObject(prevWindows).buttonRegister.setDisable(true);
 				Opening.getCAObject(prevWindows).buttonChooseDestination.setDisable(false);

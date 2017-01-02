@@ -53,7 +53,7 @@ public class ChooseDestination extends AbstractWindow{
 		Label from = new Label("From:");
 		ChoiceBox<String> fromValue = new ChoiceBox<>();
 		fromValue.getItems().addAll(locationsList);
-		fromValue.setValue("Shaar Nesher");
+		fromValue.setValue("Taub");
 		fromValue.getStyleClass().add("cb");
 		GridPane.setConstraints(fromValue, 1, currIdx);
 		GridPane.setConstraints(from, 0, currIdx++);
@@ -61,7 +61,7 @@ public class ChooseDestination extends AbstractWindow{
 		Label to = new Label("To:");
 		ChoiceBox<String> toValue = new ChoiceBox<>();
 		toValue.getItems().addAll(locationsList);
-		toValue.setValue("Shaar Nosh");
+		toValue.setValue("Nosh Gate");
 		toValue.getStyleClass().add("cb");
 		GridPane.setConstraints(toValue, 1, currIdx);
 		GridPane.setConstraints(to, 0, currIdx++);
