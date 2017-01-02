@@ -108,7 +108,7 @@ public class Register extends AbstractWindow {
 			AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size() - 1);
 		});
 		HBox hbox = new HBox(20);
-		GridPane.setConstraints(title, 1, 0);
+		GridPane.setConstraints(title, 0, 0);
 		GridPane.setColumnSpan(title, 3);
 		GridPane.setConstraints(user, 0, 1);
 		GridPane.setConstraints(nameInput, 1, 1);

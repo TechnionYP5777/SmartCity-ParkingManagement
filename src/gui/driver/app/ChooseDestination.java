@@ -70,18 +70,15 @@ public class ChooseDestination extends AbstractWindow{
 		
 		Button buttonBack = new Button("Back");
 		buttonBack.setOnAction(e -> {
-			window.close();
-			ChooseAction CA = new ChooseAction();
-			ChooseAction.prevWindows.add(this);
-			CA.display(primaryStage, WindowEnum.CHOOSE_ACTION);
+			this.window.close();
+			AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size()-1).window.show();
+			AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size()-1);
 
 		});
 		GridPane.setConstraints(buttonBack, 0, currIdx);
 		//buttonBack.setDisable(true);
 		
 		Button buttonGO = new Button("GO!");
-		//buttonGO.setPrefSize(100, 100);
-		//buttonGO.setStyle("-fx-background-color: green; -fx-text-fill: black;");
 		
 		buttonGO.getStyleClass().add("button-go");
 		

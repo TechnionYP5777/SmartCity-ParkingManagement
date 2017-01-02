@@ -11,7 +11,7 @@ public abstract class AbstractWindow {
 	WindowEnum windowEnum;
 	public Stage window;
 	protected static LoginManager login = new logic.LoginManager();
-	protected static NavigationController navigate =  null;
+	protected static NavigationController navigate;
 	protected static ArrayList<AbstractWindow> prevWindows;
 
 }
