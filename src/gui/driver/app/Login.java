@@ -99,7 +99,6 @@ public class Login extends AbstractWindow {
 			if (!login.userLogin(nameInput.getText(), passInput.getText()))
 				(new AlertBox()).display("Login failed", "Car Number/Password is incorrect.");
 			else {
-				System.out.println("SS");
 				(new AlertBox()).display("Successful", "You have successfuly logged in");
 				navigate = new NavigationController(login.getUser());
 				this.window.close();
