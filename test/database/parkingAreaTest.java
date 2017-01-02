@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
@@ -85,6 +86,81 @@ public class parkingAreaTest {
 			fail();
 		}
 
+	}
+	
+	@Test
+	public void testAllSlots(){
+		DBManager.initialize();
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
+		query.whereEqualTo("areaId", 11);
+		try {
+			List<ParseObject> areaList = query.find();
+			if (areaList == null || areaList.isEmpty())
+				throw new RuntimeException("There should be an area with areaId="+ 0);
+			Assert.assertEquals(2,(areaList.get(0).fetchIfNeeded().getList("parkingSlot").size()));
+		} catch (ParseException e) {
+			fail();
+		}
+	}
+	
+	@Test
+	public void testGetAllSlots(){
+		DBManager.initialize();
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
+		query.whereEqualTo("areaId", 11);
+		try {
+			List<ParseObject> areaList = query.find();
+			if (areaList == null || areaList.isEmpty())
+				throw new RuntimeException("There should be an area with areaId="+ 0);
+			Assert.assertEquals(2,(new ParkingArea(areaList.get(0)).getAllSlots().size()));
+		} catch (ParseException e) {
+			fail();
+		}
+	}
+	
+	@Test
+	public void testConvertSlots(){
+		DBManager.initialize();
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
+		query.whereEqualTo("areaId", 3);
+		try {
+			List<ParseObject> areaList = query.find();
+			if (areaList == null || areaList.isEmpty())
+				throw new RuntimeException("There should be an area with areaId="+ 0);
+			Assert.assertEquals(2,(new ParkingArea(areaList.get(0)).convertToSlots(new ParkingArea(areaList.get(0)).getAllSlots())).size());
+		} catch (ParseException e) {
+			fail();
+		}
+	}
+	
+	@Test
+	public void testGetSlotsByStatus(){
+		DBManager.initialize();
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
+		query.whereEqualTo("areaId", 3);
+		try {
+			List<ParseObject> areaList = query.find();
+			if (areaList == null || areaList.isEmpty())
+				throw new RuntimeException("There should be an area with areaId="+ 0);
+			Assert.assertEquals(2,(new ParkingArea(areaList.get(0)).getSlotsByStatus(ParkingSlotStatus.FREE).size()));
+		} catch (ParseException e) {
+			fail();
+		}
+	}
+	
+	@Test
+	public void testGetSlotsByStatus2(){
+		DBManager.initialize();
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
+		query.whereEqualTo("areaId", 3);
+		try {
+			List<ParseObject> areaList = query.find();
+			if (areaList == null || areaList.isEmpty())
+				throw new RuntimeException("There should be an area with areaId="+ 0);
+			Assert.assertEquals(0,(new ParkingArea(areaList.get(0)).getSlotsByStatus(ParkingSlotStatus.TAKEN).size()));
+		} catch (ParseException e) {
+			fail();
+		}
 	}
 	
 }

@@ -60,7 +60,7 @@ public class ParkingArea extends dbMember {
 	}
 
 	public int getNumOfParkingSlots() {
-		return this.parkingSlots.size();
+		return this.getAllSlots().size();
 	}
 
 	public Set<ParkingSlot> getParkingSlots() {
@@ -76,7 +76,7 @@ public class ParkingArea extends dbMember {
 		return getSlotsByStatus(ParkingSlotStatus.FREE).size();
 	}
 
-	private List<ParseObject> getAllSlots() {
+	public List<ParseObject> getAllSlots() {
 		try {
 			List<ParseObject> slots = parseObject.getList("parkingSlots");
 			List<Object> ids = slots.stream().map(p -> p.getObjectId()).collect(Collectors.toList());
@@ -88,7 +88,7 @@ public class ParkingArea extends dbMember {
 		}
 	}
 
-	private Set<ParkingSlot> getSlotsByStatus(ParkingSlotStatus s) {
+	public Set<ParkingSlot> getSlotsByStatus(ParkingSlotStatus s) {
 		
 		return parkingSlots.stream()
 				.filter((slot) -> slot.getStatus().equals(s))
@@ -104,7 +104,7 @@ public class ParkingArea extends dbMember {
 		return getSlotsByStatus(ParkingSlotStatus.FREE);
 	}
 
-	private Set<ParkingSlot> convertToSlots(List<ParseObject> slots) {
+	public Set<ParkingSlot> convertToSlots(List<ParseObject> slots) {
 		List<ParkingSlot> freeSlots = new ArrayList<ParkingSlot>();
 		for (ParseObject ¢ : slots)
 			freeSlots.add(new ParkingSlot(¢));
@@ -154,4 +154,6 @@ public class ParkingArea extends dbMember {
 		this.parseObject.put("parkingSlots", slots);
 		this.parseObject.save();
 	}
+	
+	
 }

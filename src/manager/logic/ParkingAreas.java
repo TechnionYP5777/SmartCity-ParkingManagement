@@ -45,7 +45,7 @@ public class ParkingAreas {
 				throw new RuntimeException("There was a problem - ParkingArea table doesnt found");
 			for (ParseObject ¢: areaList)
 				this.parkingAreas.add((new ParkingArea(¢)));
-			System.out.println("====="+this.parkingAreas.size()+"======");
+			//System.out.println("====="+this.parkingAreas.size()+"======");
 		}
 		catch (ParseException e) {
 			e.printStackTrace();
@@ -80,25 +80,19 @@ public class ParkingAreas {
 
 	// Return num of taken parking slots by a given area
 	public int getNumOfTakenByArea(ParkingArea a) {
-		if (!this.parkingAreas.contains(a))
-			return 0;
-
 		int $ = 0;
 		for (ParkingArea currentArea : this.parkingAreas)
-			if (currentArea.equals(a))
+			if (currentArea.getAreaId()==(a.getAreaId()))
 				$ = currentArea.getNumOfTakenSlots();
 		return $;
 	}
 
 	// Return num of free parking slots by given area
 	public int getNumOfFreeByArea(ParkingArea a) {
-		if (!this.parkingAreas.contains(a))
-			return 0;
 		int $ = 0;
 		for (ParkingArea currentArea : this.parkingAreas)
-			if (currentArea.equals(a))
+			if (currentArea.getAreaId()==(a.getAreaId()))
 				$ = currentArea.getNumOfFreeSlots();
-	
 		return $;
 	}
 
@@ -121,11 +115,9 @@ public class ParkingAreas {
 
 	// Return parking slots per area
 	public int getNumOfSlotsByArea(ParkingArea a) {
-		if (!this.parkingAreas.contains(a))
-			return 0;
 		int $ = 0;
 		for (ParkingArea currentArea : this.parkingAreas)
-			if (currentArea.equals(a))
+			if (currentArea.getAreaId()==(a.getAreaId()))
 				$ = currentArea.getNumOfParkingSlots();
 		return $;
 	}
@@ -134,10 +126,8 @@ public class ParkingAreas {
 	// Return a free parking slot by a given area
 	public ParkingSlot getParkingslotByArea(ParkingArea a) throws ParseException {
 		ParkingSlot $ = null;
-		if (!this.parkingAreas.contains(a))
-			return $;
 		for (ParkingArea currentArea : this.parkingAreas)
-			if (currentArea.equals(a))
+			if (currentArea.getAreaId()==(a.getAreaId()))
 				for (ParkingSlot currentSlot : currentArea.getFreeSlots())
 					$ = currentSlot;
 		return $;
