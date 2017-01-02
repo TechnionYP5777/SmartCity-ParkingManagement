@@ -4,7 +4,6 @@ import data.members.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.parse4j.ParseException;
-//import Exceptions.*;
 
 public class DestinationTest {
 	
@@ -173,13 +172,18 @@ public class DestinationTest {
 	public void constructorTest3() {
 		
 		Assert.assertEquals(Destination.destinationExists("taubTest123"), false);
-		Destination d = null;
-		
 		try{
-			d = new Destination("taubTest123");
+			new Destination("taubTest123");
 			Assert.fail();
 		} catch (Exception e){
 			Assert.assertEquals(e.getClass().getSimpleName(), "NotExists");
 		}
 	}
+	
+	@Test
+	public void getDestinationsTest() {
+		Assert.assertTrue(Destination.getDestinations().keySet().contains("Taub"));
+	}
+	
+	
 }

@@ -7,7 +7,8 @@ import data.members.User;
 import Exceptions.LoginException;
 
 /**
- * @Author DavidCohen55
+ * @author DavidCohen55
+ * @author sefialbo
  */
 
 public class LoginManager {

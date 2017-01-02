@@ -10,7 +10,8 @@ import Exceptions.LoginException;
 import data.management.DBManager;
 
 /**
- * @Author DavidCohen55
+ * @author DavidCohen55
+ * @author sefialbo
  */
 
 public class User extends dbMember {
