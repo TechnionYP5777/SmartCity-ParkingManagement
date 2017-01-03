@@ -3,6 +3,7 @@ package data.members;
 import java.util.List;
 
 import org.parse4j.ParseException;
+
 import org.parse4j.ParseObject;
 import org.parse4j.ParseQuery;
 
@@ -93,6 +94,21 @@ public class User extends dbMember {
 		}
 	}
 
+	 public User(ParseObject obj) {
+		DBManager.initialize();
+		this.parseObject = obj;
+		this.name = this.parseObject.getString("username");
+		this.carNumber = this.parseObject.getString("carNumber");
+		this.email = this.parseObject.getString("email");
+		this.password = this.parseObject.getString("password");
+		this.phoneNumber = this.parseObject.getString("phoneNumber");
+		this.sticker = StickersColor.values()[this.parseObject.getInt("sticker")];
+		this.currentParking = this.parseObject.getParseObject("currentParking") == null ? null
+				: new ParkingSlot(this.parseObject.getParseObject("currentParking"));
+
+		this.objectId = this.parseObject.getObjectId();
+	}
+	
 	/* Get functions */
 
 	public ParkingSlot getCurrentParking() {

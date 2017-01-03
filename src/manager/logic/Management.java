@@ -1,6 +1,7 @@
 package manager.logic;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import data.members.ParkingArea;
@@ -32,10 +33,21 @@ public class Management {
 	public Management() {
 		this.users = new HashSet<User>();
 		this.parkingSlots = new HashSet<ParkingSlot>();
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
+		try {
+			List<ParseObject> usersList = query.find();
+			if (usersList == null || usersList.isEmpty())
+				throw new RuntimeException("There was a problem - Users table doesnt found");
+			for (ParseObject ¢: usersList)
+				this.users.add((new User(¢)));
+		}
+		catch (ParseException e) {
+			e.printStackTrace();
+		}
+		this.parkingAreas = new ParkingAreas();
 	}
 
 	public Management(Set<User> users, Set<ParkingSlot> parkingSlots, ParkingAreas parkingAreas) throws ParseException {
-		
 		this.parkingAreas = parkingAreas;
 		this.parkingSlots = parkingSlots;
 		this.users = users;
@@ -104,8 +116,6 @@ public class Management {
 			return null;
 		}
 		StickersColor $ = null;
-		if (!this.users.contains(u))
-			return $;
 		for (User currentUser : this.users)
 			if (currentUser.getCarNumber().equals(u.getCarNumber()))
 				$ = currentUser.getSticker();
@@ -128,8 +138,6 @@ public class Management {
 			return null;
 		}
 		ParkingSlot $ = null;
-		if (!this.users.contains(u))
-			return $;
 		for (User currentUser : this.users)
 			if (currentUser.getCarNumber().equals(u.getCarNumber()))
 				$ = currentUser.getCurrentParking();
@@ -151,12 +159,11 @@ public class Management {
 			return null;
 		}
 		User $ = null;
-		if (!this.parkingSlots.contains(parkinSlot))
-			return null;
 		//search current user in parkingSlot
 		for (User ¢ : this.getUsers())
-			if (¢.getCurrentParking().getName().equals(parkinSlot.getName()))
+			if (¢.getCurrentParking() != null && ¢.getCurrentParking().getName().equals(parkinSlot.getName()))
 				return ¢;
+			
 		return $;
 	}
 

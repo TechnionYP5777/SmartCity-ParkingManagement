@@ -20,6 +20,10 @@ import data.members.User;
 public class Queries {
 	private Management managment;
 
+	public Queries(){
+		this.managment = new Management();
+	}
+	
 	public Management getManagment() {
 		return managment;
 	}
