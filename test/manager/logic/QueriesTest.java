@@ -159,4 +159,31 @@ public class QueriesTest {
 		DBManager.initialize();
 		Assert.assertEquals("Shahar",(new Queries().returnUserName("1234567")));
 	}
+	
+	@Test
+	public void test12() {
+		DBManager.initialize();
+		Assert.assertEquals("1234567",(new Queries().returnUserPassword("1234567")));
+	}
+	
+	@Test
+	public void test13() {
+		DBManager.initialize();
+		Assert.assertEquals("0525408810",(new Queries().returnUserPhoneNum("1234567")));
+	}
+	
+	
+	@Test
+	public void test14() {
+		DBManager.initialize();
+		Assert.assertEquals(StickersColor.WHITE,((new Queries().returnUserSticker("1234567"))));
+		Assert.assertEquals(StickersColor.GREEN,((new Queries().returnUserSticker("6060"))));
+	}
+	
+	@Test
+	public void test15() {
+		DBManager.initialize();
+		Assert.assertEquals(null,new Queries().returnUserCurrentParking("1234567"));
+	}
+	
 }
