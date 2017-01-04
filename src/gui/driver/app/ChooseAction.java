@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 //import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -28,12 +29,12 @@ public class ChooseAction extends AbstractWindow {
 	public ChooseAction() {
 		windowEnum = WindowEnum.CHOOSE_ACTION;
 		window = new Stage();
+		window.getIcons().add(new Image(getClass().getResourceAsStream("Smart_parking_icon.png")));
 		window.initModality(Modality.APPLICATION_MODAL);
 	}
 
 	public void display(Stage primaryStage, WindowEnum prevWindow) {
 		String title = "What Would you like to do?";
-
 		GridPane layout = new GridPane();
 		layout.setHgap(10);
 		layout.setVgap(20);

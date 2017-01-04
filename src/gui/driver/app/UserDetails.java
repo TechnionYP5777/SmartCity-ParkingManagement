@@ -8,7 +8,6 @@ public class UserDetails {
 	
 	static Stage window;
 	public static void display(Stage primaryStage){
-		
 		window = primaryStage;
 		window.setTitle("Get Password By Email");
 		GridPane grid = new GridPane();

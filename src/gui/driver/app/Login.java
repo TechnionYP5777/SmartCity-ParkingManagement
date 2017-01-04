@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -31,6 +32,7 @@ public class Login extends AbstractWindow {
 	public Login() {
 		windowEnum = WindowEnum.LOG_IN;
 		window = new Stage(); 
+		window.getIcons().add(new Image(getClass().getResourceAsStream("Smart_parking_icon.png")));
 	}
 
 	public void display(Stage primaryStage, WindowEnum __) {

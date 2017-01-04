@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -19,6 +20,7 @@ public class MyDetails extends AbstractWindow{
 	public MyDetails(){
 		windowEnum = WindowEnum.MY_DETAILS;
 		window = new Stage();
+		window.getIcons().add(new Image(getClass().getResourceAsStream("Smart_parking_icon.png")));
 	}
 
 	public void display(Stage primaryStage, WindowEnum prevWindow, final ArrayList<Label> newLabels,

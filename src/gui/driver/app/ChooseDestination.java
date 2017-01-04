@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -23,6 +24,7 @@ public class ChooseDestination extends AbstractWindow{
 	ChooseDestination(){
 		windowEnum = WindowEnum.CHOOSE_DESTINATION;
 		window = new Stage();
+		window.getIcons().add(new Image(getClass().getResourceAsStream("Smart_parking_icon.png")));
 	}
 	
 	public void display(Stage primaryStage){

@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -22,6 +23,7 @@ public class MyDetailsEdit extends AbstractWindow {
 
 	public MyDetailsEdit() {
 		windowEnum = WindowEnum.MY_DETAILS_EDIT;
+		window.getIcons().add(new Image(getClass().getResourceAsStream("Smart_parking_icon.png")));
 		window = new Stage();
 	}
 
