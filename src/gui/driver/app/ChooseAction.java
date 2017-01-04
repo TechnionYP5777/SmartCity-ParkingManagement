@@ -34,6 +34,7 @@ public class ChooseAction extends AbstractWindow {
 	}
 
 	public void display(Stage primaryStage, WindowEnum prevWindow) {
+		//window = primaryStage;
 		String title = "What Would you like to do?";
 		GridPane layout = new GridPane();
 		layout.setHgap(10);

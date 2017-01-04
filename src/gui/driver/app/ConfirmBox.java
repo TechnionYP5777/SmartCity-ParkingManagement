@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -19,6 +20,7 @@ public class ConfirmBox{
 		window.setTitle(title);
 		window.setMinWidth(250);
 		window.setMinHeight(150);
+		window.getIcons().add(new Image(getClass().getResourceAsStream("Smart_parking_icon.png")));
 		
 		Label label = new Label();
 		label.setText(message);

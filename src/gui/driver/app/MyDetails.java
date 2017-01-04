@@ -25,7 +25,7 @@ public class MyDetails extends AbstractWindow{
 
 	public void display(Stage primaryStage, WindowEnum prevWindow, final ArrayList<Label> newLabels,
 			final ArrayList<Label> newValues) {
-		window = primaryStage;
+		//window = primaryStage;
 		window.setTitle("My Details");
 		window.setWidth(350);
 		window.setHeight(300);
@@ -88,6 +88,7 @@ public class MyDetails extends AbstractWindow{
 			// move to editing my details
 			MyDetailsEdit MDE = new MyDetailsEdit();
 			AbstractWindow.prevWindows.add(this);
+			window.close();
 			MDE.display(primaryStage, prevWindow, labels, values);
 
 		});

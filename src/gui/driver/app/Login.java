@@ -43,7 +43,6 @@ public class Login extends AbstractWindow {
 		grid.setHgap(10);
 		window.setWidth(465);
 		window.setHeight(310);
-		//window.setMinWidth(700);
 
 		// title
 		DropShadow shadow = new DropShadow();

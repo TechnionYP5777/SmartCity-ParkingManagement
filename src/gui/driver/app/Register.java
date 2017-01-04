@@ -32,6 +32,12 @@ import javafx.stage.Stage;
 
 public class Register extends AbstractWindow {
 
+	Register(){
+		windowEnum = WindowEnum.REGISTER;
+		window = new Stage();
+		window.getIcons().add(new Image(getClass().getResourceAsStream("Smart_parking_icon.png")));
+	}
+	
 	public void display(Stage primaryStage, WindowEnum __) {
 		window = primaryStage;
 		window.getIcons().add(new Image(getClass().getResourceAsStream("Smart_parking_icon.png")));

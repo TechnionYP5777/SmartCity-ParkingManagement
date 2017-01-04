@@ -88,6 +88,7 @@ public class Opening extends Application {
 		ChooseAction chooseActionObject = new ChooseAction();
 		AbstractWindow.prevWindows = new ArrayList<AbstractWindow>(); 
 		primaryStage = new Stage(); 
+		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("Smart_parking_icon.png")));
 		chooseActionObject.display(primaryStage, WindowEnum.NONE);
 	}
 

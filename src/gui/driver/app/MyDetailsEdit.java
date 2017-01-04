@@ -23,13 +23,13 @@ public class MyDetailsEdit extends AbstractWindow {
 
 	public MyDetailsEdit() {
 		windowEnum = WindowEnum.MY_DETAILS_EDIT;
-		window.getIcons().add(new Image(getClass().getResourceAsStream("Smart_parking_icon.png")));
 		window = new Stage();
+		window.getIcons().add(new Image(getClass().getResourceAsStream("Smart_parking_icon.png")));
 	}
 
 	public void display(Stage primaryStage, WindowEnum prevWindow, final ArrayList<Label> labels,
 			final ArrayList<Label> values) {
-		window = primaryStage;
+		//window = primaryStage;
 		window.setTitle("Edit My Details");
 		GridPane grid = new GridPane();
 		grid.setPadding(new Insets(20, 20, 20, 20));
