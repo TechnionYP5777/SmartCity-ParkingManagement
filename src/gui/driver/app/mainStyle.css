@@ -8,6 +8,11 @@
 	-fx-text-fill: #ffffff; 
 }
 
+.label-welcome {
+	-fx-text-fill: #ffffff; 
+	-fx-font-size: 20pt; 
+}
+
 .label-title {
 	-fx-text-fill: linear-gradient(lightblue, cyan); 
 	-fx-font-size: 48pt; 
@@ -20,6 +25,29 @@
 	-fx-background-color: linear-gradient(#3333ff, #000066); 
 	-fx-text-fill: #ffffff;
 	-fx-background-radius:10; 
+}
+
+
+.button:hover {
+    -fx-background-color: linear-gradient(#0066ff, #000033); /* Green */
+    -fx-color: white;
+   -fx-effect: dropshadow( gaussian , rgba(0, 0, 148, 0.8) , 10,0,0,1 ); 
+}
+
+.button-menu {
+	-fx-font-size: 14pt; 
+	-fx-background-color: linear-gradient(#3333ff, #000066); 
+	-fx-text-fill: #ffffff;
+	-fx-background-radius:10; 
+	-fx-pref-height: 20;
+   -fx-pref-width: 200;
+}
+
+.button-menu:hover {
+	 -fx-background-color: linear-gradient(#0066ff, #000033); /* Green */
+    -fx-color: white;
+   -fx-effect: dropshadow( gaussian , rgba(0, 0, 148, 0.8) , 10,0,0,1 ); 
+	
 }
 
 .button:hover {
