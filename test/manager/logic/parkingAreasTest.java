@@ -13,6 +13,10 @@ import org.parse4j.ParseQuery;
 import data.management.DBManager;
 import data.members.ParkingArea;
 
+/**
+ * @Author Inbal Matityahu
+ */
+
 public class parkingAreasTest {
 	@Test
 	public void test1() {
