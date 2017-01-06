@@ -7,13 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-//import javafx.scene.control.Label;
-//import javafx.scene.layout.Background;
-//import javafx.scene.layout.BackgroundFill;
-//import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-//import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logic.LoginManager;
@@ -35,7 +29,7 @@ public class ChooseAction extends AbstractWindow {
 	}
 
 	public void display(Stage primaryStage, WindowEnum prevWindow) {
-		//window = primaryStage;
+		// window = primaryStage;
 		String title = "What Would you like to do?";
 		window.setTitle(title);
 		window.setMinWidth(750);
@@ -52,15 +46,17 @@ public class ChooseAction extends AbstractWindow {
 		}
 		welcomeLabel.getStyleClass().add("label-welcome");
 
-		int buttonIdx = 0;
 		buttonLogin = new Button("Login");
 		buttonLogin.setOnAction(e -> {
-			window.close();
+            window.close();
 			Login login = new Login();
 			ChooseAction.prevWindows.add(this);
 			login.display(primaryStage, WindowEnum.CHOOSE_ACTION);
-		});
+        }
+	); 
 		buttonLogin.getStyleClass().add("button-menu");
+
+		
 		
 		buttonRegister = new Button("Register");
 		buttonRegister.setOnAction(e -> {
@@ -88,7 +84,6 @@ public class ChooseAction extends AbstractWindow {
 			MD.display(primaryStage, WindowEnum.CHOOSE_ACTION, null, null);
 
 		});
-		GridPane.setConstraints(buttonMyDetails,buttonIdx++, 1);
 		buttonMyDetails.setDisable(true);
 		buttonMyDetails.getStyleClass().add("button-menu");
 		
@@ -101,7 +96,6 @@ public class ChooseAction extends AbstractWindow {
 			CD.display(primaryStage);
 
 		});
-		GridPane.setConstraints(buttonChooseDestination,buttonIdx++, 1);
 		buttonChooseDestination.setDisable(true);
 		buttonChooseDestination.getStyleClass().add("button-menu");
 		
@@ -110,7 +104,6 @@ public class ChooseAction extends AbstractWindow {
 			if (prevWindow == WindowEnum.NONE && (new ConfirmBox()).display("Confirmation", "Are you sure you want to exit?"))
 				window.close();
 		});
-		GridPane.setConstraints(buttonClose, buttonIdx++, 1);
 		buttonClose.getStyleClass().add("button-menu");
 		
 		buttonLogOut = new Button("Log Out");
@@ -123,7 +116,6 @@ public class ChooseAction extends AbstractWindow {
 				//window.close();
 			}
 		});
-		GridPane.setConstraints(buttonLogOut, buttonIdx++, 1);
 		buttonLogOut.setDisable(true);
 		buttonLogOut.getStyleClass().add("button-menu");
 		

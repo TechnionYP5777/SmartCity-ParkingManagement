@@ -32,13 +32,9 @@ public class Opening extends Application {
 	private static final int SPLASH_WIDTH = 274;
 	private static final int SPLASH_HEIGHT = 266;
 	
-	//public static ArrayList<AbstractWindow> prevWindows;
 	
 	
 	public static void main(String[] args) throws Exception {
-		/*globalWindows = new ArrayList<>();
-		globalWindows.set(1, new ChooseAction());*/
-		
 		launch(args);
 	}
 
