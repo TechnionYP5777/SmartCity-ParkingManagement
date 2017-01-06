@@ -6,10 +6,12 @@
 
 .label {
 	-fx-text-fill: #ffffff; 
+	-fx-font-weight: bold; 
 }
 
 .label-welcome {
 	-fx-text-fill: #ffffff; 
+	-fx-font-weight: bold; 
 	-fx-font-size: 20pt; 
 }
 
@@ -29,26 +31,21 @@
 
 
 .button:hover {
-    -fx-background-color: linear-gradient(#0066ff, #000033); /* Green */
+    -fx-background-color: linear-gradient(#0066ff, #000033); 
     -fx-color: white;
    -fx-effect: dropshadow( gaussian , rgba(0, 0, 148, 0.8) , 10,0,0,1 ); 
 }
 
 
 .button-menu {
-	-fx-background-color: 
-        linear-gradient(#0066ff, #000033),
-        linear-gradient(#0050ff, #000033),
-        linear-gradient(#0080ff, #000033),
-        linear-gradient(#66B2FF 0%, #0066ff 50%, #000033 100%),
-        linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+	-fx-background-color: linear-gradient(#0066ff, #000033); 
 	-fx-font-size: 14pt; 
 	-fx-text-fill: #ffffff;
 	-fx-background-radius: 30;
     -fx-background-insets: 0,1,2,3,0;
 	 -fx-font-weight: bold;
 	-fx-pref-height: 20;
-   -fx-pref-width: 200;
+   -fx-pref-width: 300;
    -fx-padding: 10 20 10 20
  
 }
@@ -56,7 +53,7 @@
 
 
 .button-menu:hover {
-	 -fx-background-color: linear-gradient(#0066ff, #000033); /* Green */
+	 -fx-background-color: linear-gradient(#0066ff, #000033); 
     -fx-color: white;
    -fx-effect: dropshadow( gaussian , rgba(0, 0, 148, 0.8) , 10,0,0,1 ); 
 	
