@@ -13,6 +13,10 @@ import data.members.StickersColor;
 
 public class SelectAnArea {
 	private Queries queries;
+	
+	public SelectAnArea(){
+		this.queries = new Queries();
+	}
 
 	public Queries getQueries() {
 		return queries;

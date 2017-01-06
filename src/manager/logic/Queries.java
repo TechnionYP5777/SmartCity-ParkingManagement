@@ -149,6 +149,6 @@ public class Queries {
 		for (ParkingArea $ : this.managment.getParkingAreas().getParkingAreas())
 			if ($.getAreaId() == areaID)
 				return $;
-		return null;
+		throw new RuntimeException("There is no area with "+areaID+" on DB"); 
 	}
 }
