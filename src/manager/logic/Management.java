@@ -33,6 +33,7 @@ public class Management {
 	public Management() {
 		this.users = new HashSet<User>();
 		this.parkingSlots = new HashSet<ParkingSlot>();
+		//init set of users
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
 		try {
 			List<ParseObject> usersList = query.find();
@@ -40,6 +41,18 @@ public class Management {
 				throw new RuntimeException("There was a problem - Users table doesnt found");
 			for (ParseObject ¢: usersList)
 				this.users.add((new User(¢)));
+		}
+		catch (ParseException e) {
+			e.printStackTrace();
+		}
+		//init set of parking slots
+		ParseQuery<ParseObject> query2 = ParseQuery.getQuery("ParkingSlot");
+		try {
+			List<ParseObject> slotList = query2.find();
+			if (slotList == null || slotList.isEmpty())
+				throw new RuntimeException("There was a problem - ParkingSlot table doesnt found");
+			for (ParseObject ¢: slotList)
+				this.parkingSlots.add((new ParkingSlot(¢)));
 		}
 		catch (ParseException e) {
 			e.printStackTrace();

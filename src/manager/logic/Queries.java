@@ -118,7 +118,7 @@ public class Queries {
 	//Return parking slot according to given location
 	public ParkingSlot returnParkingSlot(MapLocation ¢){
 		for (ParkingSlot $ : this.managment.getParkingSlots())
-			if ($.getLocation().equals(¢))
+			if ($.getLocation().getLat()==(¢.getLat()) && $.getLocation().getLon()==(¢.getLon()))
 				return $;
 		return null;
 	}
@@ -139,7 +139,7 @@ public class Queries {
 	public User returnParkingSlotCurrentUser(MapLocation l){
 		ParkingSlot currentSlot=this.returnParkingSlot(l);
 		for (User $ : this.managment.getUsers())
-			if ($.getCurrentParking().getName().equals(currentSlot.getName()))
+			if ($.getCurrentParking() != null && $.getCurrentParking().getName().equals(currentSlot.getName()))
 				return $;
 		return null;
 	}
@@ -149,6 +149,6 @@ public class Queries {
 		for (ParkingArea $ : this.managment.getParkingAreas().getParkingAreas())
 			if ($.getAreaId() == areaID)
 				return $;
-		return null;
+		throw new RuntimeException("There is no area with "+areaID+" on DB"); 
 	}
 }
