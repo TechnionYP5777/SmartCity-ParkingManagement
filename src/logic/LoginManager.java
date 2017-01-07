@@ -87,7 +87,7 @@ public class LoginManager {
 			throw new LoginException($);
 		try {
 			this.user = new User(name, pass, phone, car, email, type, null);
-			$ = this.user.getobjectId();
+			$ = this.user.getObjectId();
 		} catch (Exception e) {
 			$ = "";
 		}

@@ -7,7 +7,7 @@ public abstract class dbMember {
 	protected ParseObject parseObject;
 	protected String objectId;
 
-	public String getobjectId() {
+	public String getObjectId() {
 		return objectId;
 	}
 
@@ -22,8 +22,8 @@ public abstract class dbMember {
 	public void setObjectId() {
 		objectId = parseObject.getObjectId();
 	}
-	
-	public void deleteParseObject() throws ParseException{
+
+	public void deleteParseObject() throws ParseException {
 		parseObject.delete();
 	}
 }

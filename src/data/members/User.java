@@ -83,18 +83,7 @@ public class User extends dbMember {
 		}
 	}
 
-	private static ParseObject getDbUserObject(String carNumber) {
-		ParseQuery<ParseObject> query = ParseQuery.getQuery(TABLE_NAME);
-		query.whereEqualTo(CAR_NUMBER, carNumber);
-		try {
-			List<ParseObject> users = query.find();
-			return users == null || users.size() != 1 ? null : users.get(0);
-		} catch (Exception e) {
-			return null;
-		}
-	}
-
-	 public User(ParseObject obj) {
+	public User(ParseObject obj) throws ParseException {
 		DBManager.initialize();
 		this.parseObject = obj;
 		this.name = this.parseObject.getString("username");
@@ -108,15 +97,26 @@ public class User extends dbMember {
 
 		this.objectId = this.parseObject.getObjectId();
 	}
-	
+
 	/* Get functions */
+
+	private static ParseObject getDbUserObject(String carNumber) {
+		ParseQuery<ParseObject> query = ParseQuery.getQuery(TABLE_NAME);
+		query.whereEqualTo(CAR_NUMBER, carNumber);
+		try {
+			List<ParseObject> users = query.find();
+			return users == null || users.size() != 1 ? null : users.get(0);
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
 	public ParkingSlot getCurrentParking() {
 		ParseObject o = null;
 		ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("ParkingSlot");
 		if (currentParking != null)
 			try {
-				o = query.get(currentParking.getobjectId());
+				o = query.get(currentParking.getObjectId());
 			} catch (ParseException e) {
 				System.out.println("could'nt find");
 				return null;
