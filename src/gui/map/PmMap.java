@@ -3,6 +3,7 @@ package gui.map;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
+import com.lynden.gmapsfx.javascript.object.DirectionsPane;
 import com.lynden.gmapsfx.javascript.object.GoogleMap;
 import com.lynden.gmapsfx.javascript.object.InfoWindow;
 import com.lynden.gmapsfx.javascript.object.InfoWindowOptions;
@@ -13,6 +14,13 @@ import com.lynden.gmapsfx.javascript.object.MapOptions;
 import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
 import com.lynden.gmapsfx.javascript.object.Marker;
 import com.lynden.gmapsfx.javascript.object.MarkerOptions;
+import com.lynden.gmapsfx.service.directions.DirectionStatus;
+import com.lynden.gmapsfx.service.directions.DirectionsRenderer;
+import com.lynden.gmapsfx.service.directions.DirectionsRequest;
+import com.lynden.gmapsfx.service.directions.DirectionsResult;
+import com.lynden.gmapsfx.service.directions.DirectionsService;
+import com.lynden.gmapsfx.service.directions.DirectionsServiceCallback;
+import com.lynden.gmapsfx.service.directions.TravelModes;
 import com.lynden.gmapsfx.shapes.Polyline;
 import com.lynden.gmapsfx.shapes.PolylineOptions;
 
@@ -44,7 +52,7 @@ import netscape.javascript.JSObject;
 /*
  * @Autor Shay Segal
  */
-public class PmMap extends  AbstractWindow implements MapComponentInitializedListener {
+public class PmMap extends  AbstractWindow implements MapComponentInitializedListener, DirectionsServiceCallback {
 //extends Application
 
 	protected GoogleMapView mapComponent;
@@ -69,10 +77,9 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 	ArrayList<Marker> markers;
 	private VBox routeVbox;
 	Polyline poly;
-	
+	protected DirectionsService directionsService;
+    protected DirectionsPane directionsPane;
 
-	//@Override
-	//public void start(final Stage s) throws Exception {
 	public void display( Stage s) {
 		btns = new ArrayList<Button>();
 		markers = new ArrayList<Marker>();
@@ -150,8 +157,8 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 		});
 		lblClick.setText((center + ""));
 		MapOptions options = new MapOptions();
-		options.center(center).zoom(2).overviewMapControl(false).panControl(false).rotateControl(false)
-				.scaleControl(true).streetViewControl(true).zoomControl(true).mapType(MapTypeIdEnum.HYBRID);
+		options.center(center).zoom(12).overviewMapControl(false).panControl(false).rotateControl(false)
+				.scaleControl(true).streetViewControl(true).zoomControl(true).mapType(MapTypeIdEnum.ROADMAP);
 		map = mapComponent.createMap(options, false);
 		map.setHeading(123.2);
 		LatLong markerLatLong = new LatLong(32.777157, 35.023131);// Ulman
@@ -187,13 +194,11 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 		mapTypeCombo.setDisable(false);
 
 		mapTypeCombo.getItems().addAll(MapTypeIdEnum.ALL);
-		LatLong[] ary = new LatLong[] { markerLatLong, markerLatLong2 };
-		MVCArray mvc = new MVCArray(ary);
-
-		PolylineOptions polyOpts = new PolylineOptions().path(mvc).strokeColor("red").strokeWeight(3);
-		poly = new Polyline(polyOpts);
-		map.addMapShape(poly);
+        directionsService = new DirectionsService();
+        directionsPane = mapComponent.getDirec();
 		scene.getWindow().sizeToScene();
+		directionsService.getRoute((new DirectionsRequest("technion", "haifa university", TravelModes.DRIVING)), this,
+				new DirectionsRenderer(true, mapComponent.getMap(), directionsPane));
 
 	}
 
@@ -241,10 +246,6 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 				+ mapComponent.getHeight() / 2);
 	}
 
-//	public static void main(String[] args) {
-//		System.setProperty("java.net.useSystemProxies", "true");
-//		launch(args);
-//	}
 
 	public VBox addVBox(String head) {
 		VBox $ = new VBox();
@@ -294,6 +295,11 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 			if (((MyMarker) ¢).isTitle(title))
 				return ((MyMarker) ¢);
 		return null;
+	}
+
+	@Override
+	public void directionsReceived(DirectionsResult __, DirectionStatus s) {
+		
 	}
 
 }
