@@ -239,12 +239,12 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 		fromLocation = new ComboBox<String>();
 		fromLocation.setOnAction(e->{
 			//delete line that drawn
-				map.removeMapShape(poly);
+			map.hideDirectionsPane();
 		});
 		toLocation = new ComboBox<String>();
 		toLocation.setOnAction(e->{
 			//delete line that drawn
-				map.removeMapShape(poly);
+				map.hideDirectionsPane();
 		});
 		Button btn =new Button("draw");
 		btn.setOnAction(e->{
@@ -252,15 +252,12 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 				return;
 			MyMarker to = getMarkerByTitle(toLocation.getSelectionModel().getSelectedItem());
 			MyMarker from = getMarkerByTitle(fromLocation.getSelectionModel().getSelectedItem());
-			LatLong[] ary = new LatLong[] {to.lat, from.lat};
-			MVCArray mvc = new MVCArray(ary);
-			PolylineOptions polyOpts = new PolylineOptions().path(mvc).strokeColor("red").strokeWeight(3);
-			poly = new Polyline(polyOpts);
-			map.addMapShape(poly);
+			directionsService.getRoute((new DirectionsRequest(from.lat.getLatitude()+", "+from.lat.getLongitude(),to.lat.getLatitude()+", "+to.lat.getLongitude(),TravelModes.DRIVING)), this,
+					new DirectionsRenderer(true, mapComponent.getMap(), directionsPane));
 		});
 		Button removeBtn = new Button("remove line");
 		removeBtn.setOnAction(e->{
-			map.removeMapShape(poly);
+			map.hideDirectionsPane();
 		});
 		routeVbox.getChildren().addAll(fromLocation, toLocation,btn,removeBtn);
 		
