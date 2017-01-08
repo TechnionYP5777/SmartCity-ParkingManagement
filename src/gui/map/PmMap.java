@@ -72,8 +72,8 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 	Polyline poly;
 	protected DirectionsService directionsService;
     protected DirectionsPane directionsPane;
-    protected LatLong fromLogic=null;
-    protected LatLong toLogic=null;
+    protected LatLong fromLogic;
+    protected LatLong toLogic;
     public PmMap(LatLong fromLogic,LatLong toLogic){
     	this.fromLogic=fromLogic;
     	this.toLogic=toLogic;
@@ -180,10 +180,9 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
         directionsService = new DirectionsService();
         directionsPane = mapComponent.getDirec();
 		scene.getWindow().sizeToScene();
-		if(fromLogic==null||toLogic==null){
-			directionsService.getRoute((new DirectionsRequest("technion", "haifa university", TravelModes.DRIVING)), this,
-					new DirectionsRenderer(true, mapComponent.getMap(), directionsPane));
-		}
+		if(fromLogic==null||toLogic==null)
+			directionsService.getRoute((new DirectionsRequest("technion", "haifa university", TravelModes.DRIVING)),
+					this, new DirectionsRenderer(true, mapComponent.getMap(), directionsPane));
 	}
 
 	private Marker createMarker(LatLong lat, String title) {

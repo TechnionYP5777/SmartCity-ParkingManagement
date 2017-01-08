@@ -2,7 +2,6 @@ package gui.driver.app;
 
 import java.util.Set;
 
-import com.lynden.gmapsfx.javascript.object.LatLong;
 
 import gui.map.PmMap;
 import javafx.geometry.Insets;
@@ -91,12 +90,10 @@ public class ChooseDestination extends AbstractWindow{
 			//************Add navigation functionality************//
 			window.close();
 			ChooseAction.prevWindows.add(this);
-			PmMap map =new PmMap();
-			map.display(primaryStage);
+			(new PmMap()).display(primaryStage);
 
 		});
 		GridPane.setConstraints(buttonGO, 1, currIdx++);
-		//buttonGO.setDisable(true);
 		
 		grid.getChildren().addAll(title, from, fromValue, to, toValue, buttonBack, buttonGO);
 		
