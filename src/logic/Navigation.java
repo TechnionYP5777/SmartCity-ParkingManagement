@@ -151,15 +151,19 @@ public class Navigation {
 		u.setCurrentParking(s);
 	}
 
-	public static void parkAtClosestSlot(User u, MapLocation currentLocation, ParkingAreas a,
+	public static ParkingSlot parkAtClosestSlot(User u, MapLocation currentLocation, ParkingAreas a,
 			Destination d) throws NoSlotAvailable, org.parse4j.ParseException {
-		parkAtSlot(u, closestParkingSlot(u, currentLocation, a, d));
+		ParkingSlot slot = closestParkingSlot(u, currentLocation, a, d);
+		parkAtSlot(u, slot);
+		return slot;
 
 	}
 
-	public static void parkAtArea(User u, ParkingArea a, Destination d)
+	public static ParkingSlot parkAtArea(User u, ParkingArea a, Destination d)
 			throws NoSlotAvailable, org.parse4j.ParseException {
-		parkAtSlot(u, parkingSlotAtParkingArea(u, a, d));
+		ParkingSlot slot = parkingSlotAtParkingArea(u, a, d);
+		parkAtSlot(u, slot);
+		return slot;
 	}
 
 }

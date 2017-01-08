@@ -210,13 +210,16 @@ public class NavigationTest {
 			User user = null;
 			try {
 				user = new User("3209654");
-				Navigation.parkingSlotAtParkingArea(user, upperTaubArea, destination);
 				Navigation.parkAtArea(user, upperTaubArea, destination);
 				Assert.assertEquals(user.getCurrentParking().getLocation().getLat(), taubSlot1.getLocation().getLat(), 0);
 				Assert.assertEquals(user.getCurrentParking().getLocation().getLon(), taubSlot1.getLocation().getLon(), 0);
 				Assert.assertEquals(user.getCurrentParking().getStatus().ordinal(), taubSlot1.getStatus().ordinal());
 				Assert.assertEquals(user.getCurrentParking().getStatus(), ParkingSlotStatus.TAKEN);
 				user.setCurrentParking(null);
+				destination.deleteParseObject();
+				upperTaubArea.deleteParseObject();
+				taubSlot1.deleteParseObject();
+				
 			} catch (Exception e) {
 				Assert.fail();
 			}

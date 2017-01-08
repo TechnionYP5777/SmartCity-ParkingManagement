@@ -98,11 +98,13 @@ public class ParkingSlot extends dbMember {
 	private void setName(String name) throws ParseException {
 		this.name = name;
 		this.parseObject.put("name", name);
+		this.parseObject.save();
 	}
 
 	private void setStatus(ParkingSlotStatus ¢) throws ParseException {
 		this.status = ¢;
 		this.parseObject.put("status", ¢.ordinal());
+		this.parseObject.save();
 	}
 
 	public void setColor(StickersColor ¢) throws ParseException {
@@ -114,11 +116,13 @@ public class ParkingSlot extends dbMember {
 	private void setLocation(MapLocation ¢) throws ParseException {
 		this.location = ¢;
 		this.parseObject.put("location", (new ParseGeoPoint(¢.getLat(), ¢.getLon())));
+		this.parseObject.save();
 	}
 
 	private void setDefaultColor(StickersColor defaultColor) throws ParseException {
 		this.defaultColor = defaultColor;
 		this.parseObject.put("defaultColor", defaultColor.ordinal());
+		this.parseObject.save();
 	}
 
 	public void setEndTime(Date endTime) throws ParseException {
