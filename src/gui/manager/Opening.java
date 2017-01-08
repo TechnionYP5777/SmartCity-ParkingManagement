@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 
 public class Opening extends Application{
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		launch(args);
 	}
 
