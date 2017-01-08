@@ -5,8 +5,6 @@ import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.DirectionsPane;
 import com.lynden.gmapsfx.javascript.object.GoogleMap;
-import com.lynden.gmapsfx.javascript.object.InfoWindow;
-import com.lynden.gmapsfx.javascript.object.InfoWindowOptions;
 import com.lynden.gmapsfx.javascript.object.LatLong;
 import com.lynden.gmapsfx.javascript.object.LatLongBounds;
 import com.lynden.gmapsfx.javascript.object.MVCArray;
@@ -30,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 
-//import javafx.application.Application;
+
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
@@ -63,8 +61,6 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 	private ComboBox<String> fromLocation;
 	private ComboBox<String> toLocation;
 	private ComboBox<MapTypeIdEnum> mapTypeCombo;
-	private Marker myMarker;
-	private Marker myMarker2;
 	private Button btnHideMarker;
 	private Button btnDeleteMarker;
 	private Button btnReturn;
@@ -137,7 +133,6 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 		sp = new ScrollPane();
 		sp.setContent(markerVbox);
 		createRoutePane();
-		//bp.setRight(routeVbox);
 		bp.setTop(tb);
 		bp.setCenter(mapComponent);
 		scene = new Scene(bp);
@@ -161,24 +156,6 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 				.scaleControl(true).streetViewControl(true).zoomControl(true).mapType(MapTypeIdEnum.ROADMAP);
 		map = mapComponent.createMap(options, false);
 		map.setHeading(123.2);
-		/*
-		LatLong markerLatLong = new LatLong(32.777157, 35.023131);// Ulman
-		myMarker = createMarker(markerLatLong, "Ulman");
-		LatLong markerLatLong2 = new LatLong(32.778032, 35.023663);// TAUB
-		myMarker2 = createMarker(markerLatLong2, "Taub");
-		map.addMarker(myMarker);
-		map.addMarker(myMarker2);
-		InfoWindowOptions infoOptions = new InfoWindowOptions();
-		infoOptions.content("<h3>Ulman</h3>").position(new LatLong(32.777157, 35.023131));
-
-		InfoWindow window = new InfoWindow(infoOptions);
-		window.open(map, myMarker);
-		InfoWindowOptions infoOptions2 = new InfoWindowOptions();
-		infoOptions2.content("<h3>Taub</h3>").position(new LatLong(32.778032, 35.023663));
-
-		InfoWindow window2 = new InfoWindow(infoOptions2);
-		window2.open(map, myMarker2);
-		*/
 		map.fitBounds(new LatLongBounds(center, new LatLong(32.779032, 35.024663)));
 
 		lblCenter.setText((map.getCenter() + ""));
