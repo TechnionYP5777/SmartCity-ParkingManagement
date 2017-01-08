@@ -7,7 +7,6 @@ import com.lynden.gmapsfx.javascript.object.DirectionsPane;
 import com.lynden.gmapsfx.javascript.object.GoogleMap;
 import com.lynden.gmapsfx.javascript.object.LatLong;
 import com.lynden.gmapsfx.javascript.object.LatLongBounds;
-import com.lynden.gmapsfx.javascript.object.MVCArray;
 import com.lynden.gmapsfx.javascript.object.MapOptions;
 import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
 import com.lynden.gmapsfx.javascript.object.Marker;
@@ -20,8 +19,6 @@ import com.lynden.gmapsfx.service.directions.DirectionsService;
 import com.lynden.gmapsfx.service.directions.DirectionsServiceCallback;
 import com.lynden.gmapsfx.service.directions.TravelModes;
 import com.lynden.gmapsfx.shapes.Polyline;
-import com.lynden.gmapsfx.shapes.PolylineOptions;
-
 import gui.driver.app.AbstractWindow;
 
 import java.util.ArrayList;
@@ -75,7 +72,6 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 	Polyline poly;
 	protected DirectionsService directionsService;
     protected DirectionsPane directionsPane;
-
 	public void display( Stage s) {
 		btns = new ArrayList<Button>();
 		markers = new ArrayList<Marker>();
