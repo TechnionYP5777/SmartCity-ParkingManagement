@@ -2,6 +2,9 @@ package gui.driver.app;
 
 import java.util.Set;
 
+import com.lynden.gmapsfx.javascript.object.LatLong;
+
+import gui.map.PmMap;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -87,8 +90,9 @@ public class ChooseDestination extends AbstractWindow{
 		buttonGO.setOnAction(e -> {
 			//************Add navigation functionality************//
 			window.close();
-			AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size()-1).window.show();
-			AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size()-1);
+			ChooseAction.prevWindows.add(this);
+			PmMap map =new PmMap();
+			map.display(primaryStage);
 
 		});
 		GridPane.setConstraints(buttonGO, 1, currIdx++);
