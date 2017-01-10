@@ -82,6 +82,64 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
     	this.fromLogic=null;
     	this.toLogic=null;
     }
+    
+    public BorderPane getMapBorderPane() {
+		btns = new ArrayList<Button>();
+		markers = new ArrayList<Marker>();
+		mapComponent = new GoogleMapView(Locale.getDefault().getLanguage(), null);
+		mapComponent.addMapInializedListener(this);
+		BorderPane $ = new BorderPane();
+		ToolBar tb = new ToolBar();
+
+		lblCenter = new Label();
+		lblClick = new Label();
+
+		mapTypeCombo = new ComboBox<>();
+		mapTypeCombo.setOnAction(e -> {
+			map.setMapType(mapTypeCombo.getSelectionModel().getSelectedItem());
+		});
+		mapTypeCombo.setDisable(true);
+
+		Button btnType = new Button("Map type");
+		btnType.setOnAction(e -> {
+			map.setMapType(MapTypeIdEnum.HYBRID);
+		});
+
+		btnHideMarker = new Button("Hide Marker");
+		btnHideMarker.setOnAction(e -> {
+			hideMarker();
+		});
+
+		btnDeleteMarker = new Button("Delete Marker");
+		btnDeleteMarker.setOnAction(e -> {
+			deleteMarker();
+		});
+		
+		btnShowMarkers = new Button("Show/Hide markers");
+		btnShowMarkers.setOnAction(e -> {
+			if($.getRight()!=null)
+				btnSelectRoute.fire();
+			$.setLeft($.getLeft() == null ? sp : null);
+		});
+		btnSelectRoute = new Button("Select Route");
+		btnSelectRoute.setOnAction(e -> {
+			if($.getLeft()!=null)
+				btnShowMarkers.fire();
+			$.setRight($.getRight() != null ? null : routeVbox);
+		});
+		tb.getItems().addAll(new Label("MapType: "), mapTypeCombo, new Label("Coordinates: "), lblCenter,
+				new Label("Click: "), lblClick, btnHideMarker, btnDeleteMarker, btnShowMarkers, btnSelectRoute);
+		markerVbox = addVBox("Markers");
+		markerVbox.setVisible(true);
+		sp = new ScrollPane();
+		sp.setContent(markerVbox);
+		createRoutePane();
+		$.setTop(tb);
+		$.setCenter(mapComponent);
+		return $;
+	}
+    
+    
 	public void display( Stage s) {
 		btns = new ArrayList<Button>();
 		markers = new ArrayList<Marker>();
