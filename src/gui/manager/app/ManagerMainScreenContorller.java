@@ -10,6 +10,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -37,8 +38,8 @@ public class ManagerMainScreenContorller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle __) {
         System.out.println("View is now loading...");
-        mapPane.setMaxHeight(Region.USE_COMPUTED_SIZE);
-        mapPane.setMaxWidth(Region.USE_COMPUTED_SIZE);
+        mapPane.setMaxHeight(400);
+        mapPane.setMaxWidth(500);
         mapPane.setMinHeight(Region.USE_COMPUTED_SIZE);
         mapPane.setMinWidth(Region.USE_COMPUTED_SIZE);
         mapView.getChildren().addAll(mapPane);
