@@ -23,6 +23,7 @@ public class NavigationTest {
 	public void getDurationTest() {
 		Assert.assertEquals(84, Navigation.getDuration((new MapLocation(32.777552, 35.020578)),
 				(new MapLocation(32.778761, 35.016469)), false));
+		
 	}
 
 	@Test
@@ -55,7 +56,7 @@ public class NavigationTest {
 			ParkingArea upperTaubArea = new ParkingArea(100, taubSlots, StickersColor.RED);
 			try {
 
-				User user = new User("3209654");
+				User user = new User("Navigation Tester", "1234", "0547456382", "1188999"," tester@gmail.com", StickersColor.RED, null);
 				ParkingSlot result = Navigation.parkingSlotAtParkingArea(user, upperTaubArea, destination);
 				Assert.assertEquals(taubSlot3.getName(), result.getName());
 
@@ -71,13 +72,14 @@ public class NavigationTest {
 				taubSlot2.deleteParseObject();
 				taubSlot3.deleteParseObject();
 				destination.deleteParseObject();
+				user.deleteParseObject();
 
-			} catch (LoginException e) {
-				System.out.println("login exception");
+			} catch (ParseException e){
+				Assert.fail();
 			}
 
 		} catch (ParseException e) {
-			System.out.print("parse exception");
+			Assert.fail();
 		}
 	}
 
@@ -148,17 +150,13 @@ public class NavigationTest {
 
 			try {
 
-				User user = new User("3209654");
-				// David's sticker type is red, lets change it to blue and will
-				// return to original value at end
-				user.setSticker(StickersColor.BLUE);
-
+				User user = new User("Navigation Tester", "1234", "0547456382", "1188999"," tester@gmail.com", StickersColor.BLUE, null);
+				
 				ParkingSlot result = Navigation.closestParkingSlot(user, location, parkingAreas, destination);
 
-				user.setSticker(StickersColor.RED);
 
 				// taub slots are the closest but since the area is RED and
-				// david's sticker is BLUE taub slots won't be checked
+				// user'S sticker is BLUE taub slots won't be checked
 				Assert.assertEquals(poolSlot2.getName(), result.getName());
 
 				upperTaubArea.deleteParseObject();
@@ -174,13 +172,14 @@ public class NavigationTest {
 				poolSlot2.deleteParseObject();
 				
 				destination.deleteParseObject();
+				user.deleteParseObject();
 
-			} catch (LoginException e) {
-				System.out.println("login exception");
+			} catch (ParseException e) {
+				Assert.fail();
 			}
 
 		} catch (ParseException e) {
-			System.out.print("parse exception");
+			Assert.fail();
 		}
 
 	}
@@ -188,9 +187,7 @@ public class NavigationTest {
 	// the parkAtClosestSlot test is similar so I'll check only one parkAtArea
 	@Test
 	public void parkAtAreaTest() {
-		boolean gotNoSlotAvailableException = false;
 		try {
-
 			MapLocation location = new MapLocation(32.777408, 35.020332);
 			ParkingSlot taubSlot1 = new ParkingSlot("upperTaub-slot1", ParkingSlotStatus.FREE, StickersColor.RED,
 					StickersColor.RED, location, new Date());
@@ -209,17 +206,12 @@ public class NavigationTest {
 			}
 			User user = null;
 			try {
-				user = new User("3209654");
+				user = new User("Navigation Tester", "1234", "0547456382", "1188999"," tester@gmail.com", StickersColor.RED, null);
 				Navigation.parkAtArea(user, upperTaubArea, destination);
 				Assert.assertEquals(user.getCurrentParking().getLocation().getLat(), taubSlot1.getLocation().getLat(), 0);
 				Assert.assertEquals(user.getCurrentParking().getLocation().getLon(), taubSlot1.getLocation().getLon(), 0);
 				Assert.assertEquals(user.getCurrentParking().getStatus().ordinal(), taubSlot1.getStatus().ordinal());
 				Assert.assertEquals(user.getCurrentParking().getStatus(), ParkingSlotStatus.TAKEN);
-				user.setCurrentParking(null);
-				destination.deleteParseObject();
-				upperTaubArea.deleteParseObject();
-				taubSlot1.deleteParseObject();
-				
 			} catch (Exception e) {
 				Assert.fail();
 			}
@@ -227,16 +219,18 @@ public class NavigationTest {
 			try {
 				// the NoSlotAvailable exception should be thrown
 				Navigation.parkAtArea(user, upperTaubArea, destination);
-			} catch (NoSlotAvailable e) {
-				gotNoSlotAvailableException = true;
+				Assert.fail();
+			} catch (Exception e) {
+				Assert.assertEquals(e.getClass().getSimpleName(), "NoSlotAvailable");
+				user.setCurrentParking(null);
+				destination.deleteParseObject();
 				upperTaubArea.deleteParseObject();
 				taubSlot1.deleteParseObject();
-				destination.deleteParseObject();
+				user.deleteParseObject();	
 			}
 
 		} catch (ParseException e) {
-			System.out.print("parse exception");
+			Assert.fail();
 		}
-		Assert.assertEquals(gotNoSlotAvailableException, true);
 	}
 }
