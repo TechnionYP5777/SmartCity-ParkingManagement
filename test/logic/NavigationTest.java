@@ -21,7 +21,7 @@ public class NavigationTest {
 
 	@Test
 	public void getDurationTest() {
-		Assert.assertEquals(82, Navigation.getDuration((new MapLocation(32.777552, 35.020578)),
+		Assert.assertEquals(84, Navigation.getDuration((new MapLocation(32.777552, 35.020578)),
 				(new MapLocation(32.778761, 35.016469)), false));
 	}
 
