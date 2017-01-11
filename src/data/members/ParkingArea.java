@@ -68,7 +68,8 @@ public class ParkingArea extends dbMember {
 	}
 
 	public int getNumOfParkingSlots() {
-		return this.getAllSlots().size();
+		List<ParseObject> parkingSlots = this.getAllSlots();
+		return parkingSlots == null ? 0 : parkingSlots.size();
 	}
 
 	public Set<ParkingSlot> getParkingSlots() {
@@ -76,7 +77,8 @@ public class ParkingArea extends dbMember {
 	}
 
 	public int getNumOfFreeSlots() {
-		return this.getSlotsByStatus(ParkingSlotStatus.FREE).size();
+		Set<ParkingSlot> spots = getSlotsByStatus(ParkingSlotStatus.FREE);
+		return spots == null ? 0 : spots.size();
 	}
 
 	public List<ParseObject> getAllSlots() {
@@ -133,6 +135,8 @@ public class ParkingArea extends dbMember {
 
 	public Set<ParkingSlot> convertToSlots(List<ParseObject> slots) {
 		List<ParkingSlot> freeSlots = new ArrayList<ParkingSlot>();
+		if (slots == null)
+			return null;
 		for (ParseObject p : slots)
 			try {
 				freeSlots.add(new ParkingSlot(p));
@@ -160,6 +164,8 @@ public class ParkingArea extends dbMember {
 	 * and the total count of parking
 	 */
 	public void removeParkingSlot(ParkingSlot s) throws ParseException {
+		if (this.parkingSlots == null)
+			return;
 		for (ParkingSlot p : this.parkingSlots)
 			if (p.objectId.equals(s.objectId))
 				this.parkingSlots.remove(p);
@@ -172,7 +178,7 @@ public class ParkingArea extends dbMember {
 		List<ParseObject> slots = new ArrayList<ParseObject>();
 		if (!this.parkingSlots.isEmpty())
 			for (ParkingSlot p : this.parkingSlots)
-				slots.add(DBManager.getParseObject(p));
+				slots.add(p.getParseObject()); // slots.add(DBManager.getParseObject(p));
 
 		this.parseObject.put("parkingSlots", slots);
 		this.parseObject.save();
