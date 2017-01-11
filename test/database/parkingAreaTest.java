@@ -22,6 +22,7 @@ import data.members.ParkingSlotStatus;
 import data.members.StickersColor;
 
 /*
+ *  @Author Tom Nof
  *  @Author David Cohen
  */
 
