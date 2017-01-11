@@ -25,5 +25,6 @@ public abstract class dbMember {
 
 	public void deleteParseObject() throws ParseException {
 		parseObject.delete();
+		this.objectId = "";
 	}
 }

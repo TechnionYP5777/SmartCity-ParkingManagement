@@ -21,6 +21,10 @@ import data.members.ParkingSlot;
 import data.members.ParkingSlotStatus;
 import data.members.StickersColor;
 
+/*
+ *  @Author David Cohen
+ */
+
 public class parkingAreaTest {
 
 	@Test

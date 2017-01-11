@@ -172,8 +172,7 @@ public class ParkingSlot extends dbMember {
 	};
 
 	public void removeParkingSlotFromDB() throws ParseException {
-		this.parseObject.delete();
-		this.objectId = "";
+		this.deleteParseObject();
 	}
 
 	public void removeParkingSlotFromAreaAndDB() throws ParseException {

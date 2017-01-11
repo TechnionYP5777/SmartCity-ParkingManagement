@@ -41,9 +41,12 @@ public class parkingSlotTest {
 					new MapLocation(0, 0), new Date());
 			Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
-			Assert.assertEquals((new ParkingArea(0, slots, StickersColor.RED)).getObjectId(),
-					slot1.findContainingParkingArea());
-
+			ParkingArea area = new ParkingArea(0, slots, StickersColor.RED);
+			Assert.assertEquals(area.getObjectId(), slot1.findContainingParkingArea());
+			
+			area.deleteParseObject();
+			slot1.deleteParseObject();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail();
@@ -60,10 +63,11 @@ public class parkingSlotTest {
 			Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
 			ParkingArea area = new ParkingArea(12, slots, StickersColor.RED);
-
+			
 			// Act + assert
 			slot1.removeParkingSlotFromAreaAndDB();
-
+				
+			area.deleteParseObject();
 		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail();
