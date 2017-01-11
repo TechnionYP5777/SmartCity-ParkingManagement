@@ -14,7 +14,7 @@ public class DBManager {
 		Parse.initialize(appId, restKey, serverUrl);
 	}
 	
-	public static ParseObject getParseObject(dbMember member){
-		return member.getParseObject();			
+	public static ParseObject getParseObject(dbMember ¢){
+		return ¢.getParseObject();			
 	}
 }

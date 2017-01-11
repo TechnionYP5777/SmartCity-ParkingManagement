@@ -15,6 +15,7 @@ import data.members.ParkingArea;
 
 /**
  * @Author Inbal Matityahu
+ * @Author David Cohen
  */
 
 public class parkingAreasTest {

@@ -16,6 +16,8 @@ import data.management.DBManager;
 
 /**
  * @author Inbal Matityahu
+ * @author David Cohen
+ * @author Tom Nof
  * @since 12.11.16This class represent a parking area inside the Technion
  */
 
@@ -121,14 +123,14 @@ public class ParkingArea extends dbMember {
 		this.parseObject.put("areaId", areaId);
 	}
 
-	private void setParkingSlots(Set<ParkingSlot> ss) throws ParseException {
-		this.parkingSlots = ss;
+	private void setParkingSlots(Set<ParkingSlot> ¢) throws ParseException {
+		this.parkingSlots = ¢;
 		updateSlotsArray();
 	}
 
-	private void setColor(StickersColor s) {
-		this.color = s;
-		this.parseObject.put("color", s.ordinal());
+	private void setColor(StickersColor ¢) {
+		this.color = ¢;
+		this.parseObject.put("color", ¢.ordinal());
 	}
 
 	/* Methods */
@@ -166,9 +168,9 @@ public class ParkingArea extends dbMember {
 	public void removeParkingSlot(ParkingSlot s) throws ParseException {
 		if (this.parkingSlots == null)
 			return;
-		for (ParkingSlot p : this.parkingSlots)
-			if (p.objectId.equals(s.objectId))
-				this.parkingSlots.remove(p);
+		for (ParkingSlot ¢ : this.parkingSlots)
+			if (¢.objectId.equals(s.objectId))
+				this.parkingSlots.remove(¢);
 		s.removeParkingSlotFromDB();
 		updateSlotsArray();
 	}
@@ -177,8 +179,8 @@ public class ParkingArea extends dbMember {
 	private void updateSlotsArray() throws ParseException {
 		List<ParseObject> slots = new ArrayList<ParseObject>();
 		if (!this.parkingSlots.isEmpty())
-			for (ParkingSlot p : this.parkingSlots)
-				slots.add(p.getParseObject()); // slots.add(DBManager.getParseObject(p));
+			for (ParkingSlot ¢ : this.parkingSlots)
+				slots.add(¢.getParseObject()); // slots.add(DBManager.getParseObject(p));
 
 		this.parseObject.put("parkingSlots", slots);
 		this.parseObject.save();

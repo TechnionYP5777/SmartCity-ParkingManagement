@@ -74,7 +74,7 @@ public class parkingAreaTest {
 		DBManager.initialize();
 		System.out.println("after init: " + System.currentTimeMillis());
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
-		query.whereEqualTo("areaId", 11);
+		query.whereEqualTo("areaId", 3);
 		try {
 			System.out.println("before 1st query: " + System.currentTimeMillis());
 			List<ParseObject> areaList = query.find();
@@ -115,7 +115,7 @@ public class parkingAreaTest {
 	public void testGetAllSlots() {
 		DBManager.initialize();
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
-		query.whereEqualTo("areaId", 11);
+		query.whereEqualTo("areaId", 3);
 		try {
 			List<ParseObject> areaList = query.find();
 			if (areaList == null || areaList.isEmpty())
