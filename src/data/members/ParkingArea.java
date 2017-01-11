@@ -18,7 +18,7 @@ import data.management.DBManager;
  * @author Inbal Matityahu
  * @author David Cohen
  * @author Tom Nof
- * @since 12.11.16This class represent a parking area inside the Technion
+ * @since 12.11.16 This class represent a parking area inside the Technion
  */
 
 public class ParkingArea extends dbMember {
