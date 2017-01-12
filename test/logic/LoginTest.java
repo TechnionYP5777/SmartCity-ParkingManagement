@@ -1,7 +1,10 @@
 package logic;
 
 import java.util.List;
+
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
@@ -9,6 +12,7 @@ import org.parse4j.ParseQuery;
 import Exceptions.LoginException;
 import data.management.DBManager;
 import data.members.StickersColor;
+import data.members.User;
 
 /**
  * @Author DavidCohen55
@@ -16,53 +20,47 @@ import data.members.StickersColor;
 
 public class LoginTest {
 
+	@Before
+	public void BeforeLoginTest() {
+		try {
+			// making a new user in the database for all of the tests
+			new User("Test User", "Test", "0500000000", "0000000", "test@gmail.com", StickersColor.BLUE, null);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Test
 	public void test01() {
-		Assert.assertTrue((new LoginManager()).userLogin("3209654", "David123"));
+		Assert.assertTrue((new LoginManager()).userLogin("0000000", "Test"));
 	}
 
 	@Test
 	public void test02() {
-		Assert.assertFalse((new LoginManager()).userLogin("3209654", "David1"));
+		Assert.assertFalse((new LoginManager()).userLogin("0000000", "David1"));
 	}
 
 	@Test
 	public void test03() {
-		Assert.assertFalse((new LoginManager()).userLogin("1111111", "David1"));
+		Assert.assertFalse((new LoginManager()).userLogin("0000001", "David1"));
 	}
 
 	@Test
 	public void test04() {
 		DBManager.initialize();
-		ParseObject testUserObject = new ParseObject("PMUser");
-		testUserObject.put("username", "Shay");
-		testUserObject.put("password", "shayS");
-		testUserObject.put("carNumber", "1234567");
 		try {
-			testUserObject.save();
-		} catch (ParseException e) {
-			e.printStackTrace();
-			Assert.fail();
-		}
-		try {
-			Thread.sleep(100);
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-			Assert.fail();
-		}
-		try {
-			String id = testUserObject.getObjectId();
+			String id = (new User("0000000")).getObjectId();
 			ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
 			ParseObject ret = query.get(id);
-			Assert.assertEquals("Shay", ret.getString("username"));
-			Assert.assertEquals("shayS", ret.getString("password"));
-			Assert.assertEquals("1234567", ret.getString("carNumber"));
-			testUserObject.delete();
-			ret = query.get(id);
-			Assert.assertEquals(ret, null);
+			Assert.assertEquals("Test User", ret.getString("username"));
+			Assert.assertEquals("Test", ret.getString("password"));
+			Assert.assertEquals("0000000", ret.getString("carNumber"));
 		} catch (ParseException e) {
 			e.printStackTrace();
 			Assert.fail();
+		} catch (LoginException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -95,7 +93,7 @@ public class LoginTest {
 	public void test06() {
 		LoginManager lg = new LoginManager();
 		Assert.assertEquals("User already exist",
-				lg.userValueCheck("David", "1234567890", "david@gmail.com", "3209654"));
+				lg.userValueCheck("David", "1234567890", "david@gmail.com", "0000000"));
 
 		// name contains integer
 		try {
@@ -148,21 +146,20 @@ public class LoginTest {
 	public void test08() {
 		LoginManager lg = new LoginManager();
 		try {
-			Assert.assertTrue(lg.userLogin("3209654", "David123"));
-			Assert.assertTrue(lg.userUpdate("3209654", "David", "0501234567", "david@gmail.com", "2222222", null));
+			Assert.assertTrue(lg.userLogin("0000000", "Test"));
+			Assert.assertTrue(lg.userUpdate("0000000", "Test David", "0501234567", "david@gmail.com", "2222222", null));
 			ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
-			query.whereEqualTo("carNumber", "3296054");
+			query.whereEqualTo("carNumber", "2222222");
 			List<ParseObject> userList = query.find();
 			if (userList != null && !userList.isEmpty()) {
-				Assert.assertEquals("David", userList.get(0).getString("username"));
+				Assert.assertEquals("Test David", userList.get(0).getString("username"));
 				Assert.assertEquals("0501234567", userList.get(0).getString("phoneNumber"));
 			}
-			Assert.assertTrue(
-					lg.userUpdate("2222222", "David Cohen", "0508937778", "david.5581@hotmail.com", "3209654", null));
+			Assert.assertTrue(lg.userUpdate("2222222", "Test User", "0500000000", "test@gmail.com", "0000000", null));
 			List<ParseObject> userList1 = query.find();
 			if (userList1 != null && !userList1.isEmpty()) {
-				Assert.assertEquals("David Cohen", userList1.get(0).getString("username"));
-				Assert.assertEquals("0508937778", userList1.get(0).getString("phoneNumber"));
+				Assert.assertEquals("Test User", userList1.get(0).getString("username"));
+				Assert.assertEquals("0500000000", userList1.get(0).getString("phoneNumber"));
 			}
 		} catch (LoginException e) {
 			e.printStackTrace();
@@ -202,6 +199,16 @@ public class LoginTest {
 		} catch (ParseException e) {
 			e.printStackTrace();
 			Assert.fail();
+		}
+	}
+
+	@After
+	public void AfterLoginTest() {
+		try {
+			// delete the template user from the database
+			(new User("0000000")).deleteParseObject();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }
