@@ -23,12 +23,10 @@ public class NavigationTest {
 	public void getDurationTest() {
 		Assert.assertEquals(84, Navigation.getDuration((new MapLocation(32.777552, 35.020578)),
 				(new MapLocation(32.778761, 35.016469)), false));
-		
 	}
 
 	@Test
 	public void parkingSlotAtParkingAreaTest() {
-
 		try {
 			MapLocation location = new MapLocation(32.777408, 35.020332); // farest
 			ParkingSlot taubSlot1 = new ParkingSlot("upperTaub-slot1", ParkingSlotStatus.FREE, StickersColor.RED,
@@ -154,7 +152,6 @@ public class NavigationTest {
 				
 				ParkingSlot result = Navigation.closestParkingSlot(user, location, parkingAreas, destination);
 
-
 				// taub slots are the closest but since the area is RED and
 				// user'S sticker is BLUE taub slots won't be checked
 				Assert.assertEquals(poolSlot2.getName(), result.getName());
@@ -181,7 +178,6 @@ public class NavigationTest {
 		} catch (ParseException e) {
 			Assert.fail();
 		}
-
 	}
 
 	// the parkAtClosestSlot test is similar so I'll check only one parkAtArea

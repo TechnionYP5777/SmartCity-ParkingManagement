@@ -31,6 +31,9 @@ public class ParkingSlot extends dbMember {
 	// The slot's default color
 	private StickersColor defaultColor;
 
+	// The slot's start time.
+	private Date startTime;
+	
 	// The slot's endTime. if null the color permanent, else temporary
 	private Date endTime;
 
@@ -48,6 +51,7 @@ public class ParkingSlot extends dbMember {
 		this.setColor(color);
 		this.setLocation(location);
 		this.setDefaultColor(defaultColor);
+		this.setStartTime(null);
 		this.setEndTime(endTime);
 		this.setObjectId();
 		this.parseObject.save();
@@ -62,6 +66,7 @@ public class ParkingSlot extends dbMember {
 		ParseGeoPoint geo = this.parseObject.getParseGeoPoint("location");
 		this.location = new MapLocation(geo.getLatitude(), geo.getLongitude());
 		this.defaultColor = StickersColor.values()[this.parseObject.getInt("defaultColor")];
+		this.startTime = this.parseObject.getDate("startTime");
 		this.endTime = this.parseObject.getDate("endTime");
 		this.objectId = this.parseObject.getObjectId();
 		this.parseObject.save();
@@ -88,7 +93,11 @@ public class ParkingSlot extends dbMember {
 	public StickersColor getDefaultColor() {
 		return defaultColor;
 	}
-
+	
+	public Date getStartTime(){
+		return startTime;
+	}
+	
 	public Date getEndTime() {
 		return endTime;
 	}
@@ -124,7 +133,17 @@ public class ParkingSlot extends dbMember {
 		this.parseObject.put("defaultColor", defaultColor.ordinal());
 		this.parseObject.save();
 	}
-
+	
+	public void setStartTime(Date startTime) throws ParseException {
+		this.startTime = startTime;
+		if(startTime == null)
+			// this is the way to set a null date in the db
+			this.parseObject.remove("startTime");
+		else
+			this.parseObject.put("startTime", startTime);
+		this.parseObject.save();
+	}
+	
 	public void setEndTime(Date endTime) throws ParseException {
 		// TODO: check what happens if null (should be OK)
 		this.endTime = endTime;
