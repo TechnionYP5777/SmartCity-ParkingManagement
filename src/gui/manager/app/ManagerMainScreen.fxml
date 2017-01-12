@@ -15,7 +15,7 @@
 
 <BorderPane maxHeight="500.0" maxWidth="700.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.manager.app.ManagerMainScreenContorller">
    <top>
-      <MenuBar BorderPane.alignment="CENTER">
+      <MenuBar BorderPane.alignment="CENTER" fx:id="mainMenuBar">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
@@ -30,6 +30,11 @@
           <Menu mnemonicParsing="false" text="Help">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Testing">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Notifications" onAction="#switchToNotificationsScene"/>
             </items>
           </Menu>
         </menus>
