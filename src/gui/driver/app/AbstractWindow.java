@@ -13,5 +13,9 @@ public abstract class AbstractWindow {
 	protected static LoginManager login = new logic.LoginManager();
 	protected static NavigationController navigate;
 	protected static ArrayList<AbstractWindow> prevWindows;
+	
+	public Stage getStage() {
+		return window; 
+	}
 
 }

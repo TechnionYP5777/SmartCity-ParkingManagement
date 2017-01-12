@@ -28,16 +28,19 @@ import logic.NavigationController;
 
 public class Login extends AbstractWindow {
 
+	GridPane grid; 
 
 	public Login() {
 		windowEnum = WindowEnum.LOG_IN;
 		window = new Stage(); 
 		window.getIcons().add(new Image(getClass().getResourceAsStream("Smart_parking_icon.png")));
 	}
+	
+	
 
 	public void display(Stage primaryStage, WindowEnum __) {
 		window = primaryStage;
-		GridPane grid = new GridPane();
+		grid = new GridPane();
 		grid.setPadding(new Insets(20, 20, 20, 20));
 		grid.setVgap(8);
 		grid.setHgap(10);
@@ -120,5 +123,9 @@ public class Login extends AbstractWindow {
 		window.setScene(scene);
 		window.setTitle("Login");
 		window.show();
+	}
+	
+	public GridPane getRoot() {
+	 return grid; 	
 	}
 }
