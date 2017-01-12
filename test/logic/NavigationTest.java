@@ -48,6 +48,7 @@ public class NavigationTest {
 			try{
 				destination = new Destination("Taub-NavigationTest", location);
 			} catch (AlreadyExists e){
+				e.printStackTrace();
 				Assert.fail();
 			}
 
@@ -73,10 +74,12 @@ public class NavigationTest {
 				user.deleteParseObject();
 
 			} catch (ParseException e){
+				e.printStackTrace();
 				Assert.fail();
 			}
 
 		} catch (ParseException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -143,6 +146,7 @@ public class NavigationTest {
 			try{
 				destination = new Destination("Taub-NavigationTest", location);
 			} catch (AlreadyExists e){
+				e.printStackTrace();
 				Assert.fail();
 			}
 
@@ -172,10 +176,12 @@ public class NavigationTest {
 				user.deleteParseObject();
 
 			} catch (ParseException e) {
+				e.printStackTrace();
 				Assert.fail();
 			}
 
 		} catch (ParseException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -198,6 +204,7 @@ public class NavigationTest {
 			try{
 				destination = new Destination("Taub-NavigationTest", location);
 			} catch (AlreadyExists e){
+				e.printStackTrace();
 				Assert.fail();
 			}
 			User user = null;
@@ -209,6 +216,7 @@ public class NavigationTest {
 				Assert.assertEquals(user.getCurrentParking().getStatus().ordinal(), taubSlot1.getStatus().ordinal());
 				Assert.assertEquals(user.getCurrentParking().getStatus(), ParkingSlotStatus.TAKEN);
 			} catch (Exception e) {
+				e.printStackTrace();
 				Assert.fail();
 			}
 
@@ -226,6 +234,7 @@ public class NavigationTest {
 			}
 
 		} catch (ParseException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 	}
