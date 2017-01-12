@@ -202,6 +202,36 @@ public class LoginTest {
 		}
 	}
 
+	@Test
+	public void test10() {
+		LoginManager lg = new LoginManager();
+		Assert.assertTrue(lg.userLogin("0000000", "Test"));
+		Assert.assertEquals(lg.getCarNumber(), "0000000");
+		Assert.assertEquals(lg.getEmail(), "test@gmail.com");
+		Assert.assertEquals(lg.getUserName(), "Test User");
+		Assert.assertEquals(lg.getPhoneNumber(), "0500000000");
+		Assert.assertEquals(lg.getSticker(), StickersColor.BLUE);
+	}
+
+	@Test
+	public void test11() {
+		LoginManager lg = new LoginManager();
+		Assert.assertTrue(lg.userLogin("0000000", "Test"));
+		User user = lg.getUser();
+		try {
+			User tmpUser = new User("0000000");
+			Assert.assertEquals(user.getCarNumber(), tmpUser.getCarNumber());
+			Assert.assertEquals(user.getEmail(), tmpUser.getEmail());
+			Assert.assertEquals(user.getName(), tmpUser.getName());
+			Assert.assertEquals(user.getPassword(), tmpUser.getPassword());
+			Assert.assertEquals(user.getPhoneNumber(), tmpUser.getPhoneNumber());
+			Assert.assertEquals(user.getSticker(), tmpUser.getSticker());
+		} catch (LoginException e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+	}
+
 	@After
 	public void AfterLoginTest() {
 		try {
