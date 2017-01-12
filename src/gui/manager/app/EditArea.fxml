@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.PerspectiveCamera?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Cylinder?>
+<?import javafx.scene.shape.MeshView?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
+
+<AnchorPane minHeight="400.0" minWidth="300.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="gui.manager.app.EditAreaController">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="45.0" prefHeight="71.0" prefWidth="180.0" AnchorPane.bottomAnchor="319.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="61.0" prefWidth="180.0" text="Taub" textAlignment="CENTER">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Cylinder height="250.0" layoutX="165.0" layoutY="188.0" radius="15.77" rotate="65.2" />
+      <PerspectiveCamera />
+      <MeshView layoutX="98.0" layoutY="164.0" />
+   </children>
 </AnchorPane>
-
