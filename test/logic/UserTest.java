@@ -144,10 +144,60 @@ public class UserTest {
 		}
 	}
 
+	@Test
+	public void test05() {
+		try {
+			User user = new User("0000000");
+			Assert.assertEquals(user.getCarNumber(), "0000000");
+			Assert.assertEquals(user.getEmail(), "test@gmail.com");
+			Assert.assertEquals(user.getName(), "Test User");
+			Assert.assertEquals(user.getPassword(), "Test");
+			Assert.assertEquals(user.getPhoneNumber(), "0500000000");
+			Assert.assertEquals(user.getSticker(), StickersColor.BLUE);
+			user.updateUser("Test David", "0500000001");
+			user.updatePassword("Test123", "Test123");
+			Assert.assertEquals(user.getName(), "Test David");
+			Assert.assertEquals(user.getPassword(), "Test123");
+			Assert.assertEquals(user.getPhoneNumber(), "0500000001");
+			user.updateUser("Test User", "0500000000");
+			user.updatePassword("Test", "Test");
+			Assert.assertEquals(user.getName(), "Test User");
+			Assert.assertEquals(user.getPassword(), "Test");
+			Assert.assertEquals(user.getPhoneNumber(), "0500000000");
+		} catch (LoginException e) {
+			e.printStackTrace();
+			Assert.fail();
+		} catch (ParseException e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+	}
+
+	@Test
+	public void test06() {
+		try {
+			User tmpUser = new User("0000000");
+			User user = new User(tmpUser.getParseObject());
+			Assert.assertEquals(user.getCarNumber(), tmpUser.getCarNumber());
+			Assert.assertEquals(user.getEmail(), tmpUser.getEmail());
+			Assert.assertEquals(user.getName(), tmpUser.getName());
+			Assert.assertEquals(user.getPassword(), tmpUser.getPassword());
+			Assert.assertEquals(user.getPhoneNumber(), tmpUser.getPhoneNumber());
+			Assert.assertEquals(user.getSticker(), tmpUser.getSticker());
+		} catch (LoginException e) {
+			e.printStackTrace();
+			Assert.fail();
+		} catch (ParseException e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+	}
+
+
 	@After
 	public void AfterUserTest() {
 		try {
-			//delete the template user from the database
+			// delete the template user from the database
 			(new User("0000000")).deleteParseObject();
 		} catch (Exception e) {
 			e.printStackTrace();
