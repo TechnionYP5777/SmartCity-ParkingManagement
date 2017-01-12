@@ -1,8 +1,8 @@
 package logic;
 
 import java.util.Date;
-import org.junit.Assert;
-import org.junit.Test;
+
+import org.junit.*;
 import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
 import org.parse4j.ParseQuery;
@@ -14,6 +14,16 @@ import data.members.*;
  */
 public class UserTest {
 
+	@Before
+	public void BeforeUserTest() {
+		try {
+			// making a new user in the database for all of the tests
+			new User("Test User", "Test", "0500000000", "0000000", "test@gmail.com", StickersColor.BLUE, null);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/*
 	 * test that checks that if you update a User parking slot from the user
 	 * itself it will change it also in the parse server
@@ -22,7 +32,7 @@ public class UserTest {
 	public void test01() {
 		User user = null;
 		try {
-			user = new User("3209654");
+			user = new User("0000000");
 			if (user != null)
 				user.setCurrentParking(new ParkingSlot("DavidSlot", ParkingSlotStatus.FREE, StickersColor.RED,
 						StickersColor.RED, new MapLocation(32.778153, 35.021855), new Date()));
@@ -51,7 +61,7 @@ public class UserTest {
 	@Test
 	public void test02() {
 		try {
-			User user = new User("3209654");
+			User user = new User("0000000");
 			ParkingSlot ps = new ParkingSlot("DavidSlot2", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
 					new MapLocation(32.778153, 35.021855), new Date());
 			if (user != null)
@@ -75,7 +85,7 @@ public class UserTest {
 	@Test
 	public void test03() {
 		try {
-			User user = new User("3209654");
+			User user = new User("0000000");
 			if (user != null)
 				user.setCurrentParking(new ParkingSlot("DavidSlot3", ParkingSlotStatus.FREE, StickersColor.RED,
 						StickersColor.RED, new MapLocation(32.778153, 35.021855), new Date()));
@@ -107,7 +117,7 @@ public class UserTest {
 	@Test
 	public void test04() {
 		try {
-			User user = new User("3209654");
+			User user = new User("0000000");
 			if (user != null)
 				user.setCurrentParking(new ParkingSlot("DavidSlot3", ParkingSlotStatus.FREE, StickersColor.RED,
 						StickersColor.RED, new MapLocation(32.778153, 35.021855), new Date()));
@@ -133,4 +143,15 @@ public class UserTest {
 			Assert.fail();
 		}
 	}
+
+	@After
+	public void AfterUserTest() {
+		try {
+			//delete the template user from the database
+			(new User("0000000")).deleteParseObject();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }
