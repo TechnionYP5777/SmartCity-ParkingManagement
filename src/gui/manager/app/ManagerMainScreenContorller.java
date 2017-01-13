@@ -16,11 +16,13 @@ import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
-import gui.map.PmMap;
+import com.lynden.gmapsfx.GoogleMapView;
+
+import gui.map.ManegerMap;
 
 public class ManagerMainScreenContorller implements Initializable {
 
@@ -51,20 +53,20 @@ public class ManagerMainScreenContorller implements Initializable {
 	}
 	
 	Label testLabel = new Label();
-    PmMap map = new PmMap();
-    BorderPane mapPane = map.getMapBorderPane();
+    ManegerMap map = new ManegerMap();
+    GoogleMapView view = new GoogleMapView(Locale.getDefault().getLanguage(), null); 
+
     
     @Override
     public void initialize(URL location, ResourceBundle __) {
+    	map.SetMapComponent(view);
         System.out.println("View is now loading...");
-        mapPane.setMaxHeight(400);
-        mapPane.setMaxWidth(500);
-        mapPane.setMinHeight(Region.USE_COMPUTED_SIZE);
-        mapPane.setMinWidth(Region.USE_COMPUTED_SIZE);
-        mapView.getChildren().addAll(mapPane);
-        BorderPane.setAlignment(mapPane, Pos.TOP_CENTER);
-        
-        //Initialize parking areas list
+        mapView.getChildren().addAll(view);
+        view.setMaxHeight(400);
+        view.setMaxWidth(500);
+        view.setMinHeight(Region.USE_COMPUTED_SIZE);
+        view.setMinWidth(Region.USE_COMPUTED_SIZE);
+        BorderPane.setAlignment(view, Pos.TOP_CENTER);
         ObservableList<String> areas = FXCollections.observableArrayList("Taub", "Ulman","Nesher");
         parkingAreas.setItems(areas);
         

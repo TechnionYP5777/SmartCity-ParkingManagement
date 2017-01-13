@@ -19,6 +19,8 @@ import com.lynden.gmapsfx.service.directions.DirectionsService;
 import com.lynden.gmapsfx.service.directions.DirectionsServiceCallback;
 import com.lynden.gmapsfx.service.directions.TravelModes;
 import com.lynden.gmapsfx.shapes.Polyline;
+import com.lynden.gmapsfx.shapes.Circle;
+import com.lynden.gmapsfx.shapes.CircleOptions;
 import gui.driver.app.AbstractWindow;
 
 import java.util.ArrayList;
@@ -207,6 +209,7 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 		// Once the map has been loaded by the Webview, initialize the map
 		// details.
 		LatLong center = new LatLong(32.777, 35.0225);
+		System.out.println("got here");
 		mapComponent.addMapReadyListener(() -> {
 			// This call will fail unless the map is completely ready.
 			checkCenter(center);
@@ -215,6 +218,7 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 		MapOptions options = new MapOptions();
 		options.center(center).zoom(12).overviewMapControl(false).panControl(false).rotateControl(false)
 				.scaleControl(true).streetViewControl(true).zoomControl(true).mapType(MapTypeIdEnum.ROADMAP);
+		
 		map = mapComponent.createMap(options, false);
 		map.setHeading(123.2);
 		map.fitBounds(new LatLongBounds(center, new LatLong(32.779032, 35.024663)));
@@ -230,7 +234,6 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
         directionsService = new DirectionsService();
         directionsPane = mapComponent.getDirec();
 		scene.getWindow().sizeToScene();
-		
 	}
 
 	protected Marker createMarker(LatLong lat, String title) {
