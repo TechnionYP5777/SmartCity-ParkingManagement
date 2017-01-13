@@ -53,22 +53,22 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 	protected GoogleMapView mapComponent;
 	protected GoogleMap map;
 
-	private Label lblCenter;
-	private Label lblClick;
-	private ComboBox<String> fromLocation;
-	private ComboBox<String> toLocation;
-	private ComboBox<MapTypeIdEnum> mapTypeCombo;
-	private Button btnHideMarker;
-	private Button btnDeleteMarker;
-	private Button btnReturn;
-	private Button btnShowMarkers;
-	private Button btnSelectRoute;
-	private Scene scene;
-	private VBox markerVbox;
-	private ScrollPane sp;
+	protected Label lblCenter;
+	protected Label lblClick;
+	protected ComboBox<String> fromLocation;
+	protected ComboBox<String> toLocation;
+	protected ComboBox<MapTypeIdEnum> mapTypeCombo;
+	protected Button btnHideMarker;
+	protected Button btnDeleteMarker;
+	protected Button btnReturn;
+	protected Button btnShowMarkers;
+	protected Button btnSelectRoute;
+	protected Scene scene;
+	protected VBox markerVbox;
+	protected ScrollPane sp;
 	ArrayList<Button> btns;
 	ArrayList<Marker> markers;
-	private VBox routeVbox;
+	protected VBox routeVbox;
 	Polyline poly;
 	protected DirectionsService directionsService;
     protected DirectionsPane directionsPane;
@@ -242,7 +242,7 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 					this, new DirectionsRenderer(true, mapComponent.getMap(), directionsPane));
 	}
 
-	private Marker createMarker(LatLong lat, String title) {
+	protected Marker createMarker(LatLong lat, String title) {
 		MarkerOptions options = new MarkerOptions();
 		options.position(lat).title(title).visible(true);
 		Marker $ = new MyMarker(options,title,lat);
@@ -278,7 +278,7 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 			bt.fire();
 	}
 
-	private void checkCenter(LatLong center) {
+	protected void checkCenter(LatLong center) {
 		System.out.println("Testing fromLatLngToPoint using: " + center);
 		Point2D p = map.fromLatLngToPoint(center);
 		System.out.println("Testing fromLatLngToPoint result: " + p);
