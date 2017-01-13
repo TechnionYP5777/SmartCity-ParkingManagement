@@ -1,6 +1,7 @@
 package data.members;
 
 import java.util.List;
+import java.util.Date;
 
 import org.parse4j.ParseException;
 
@@ -9,6 +10,7 @@ import org.parse4j.ParseQuery;
 
 import Exceptions.LoginException;
 import data.management.DBManager;
+
 
 /**
  * @author DavidCohen55
@@ -38,6 +40,9 @@ public class User extends dbMember {
 
 	// saves the parking slot of a user if he parked
 	private ParkingSlot currentParking;
+	
+	// last log in time
+	private Date lastLoginTime;
 
 	private static final String USER_NAME = "username";
 	private static final String PASSWORD = "password";
@@ -46,6 +51,7 @@ public class User extends dbMember {
 	private static final String STICKER = "sticker";
 	private static final String EMAIL = "email";
 	private static final String PARKING = "currentParking";
+	private static final String LAST_LOGIN_TIME = "lastLoginTime";
 	private static final String TABLE_NAME = "PMUser";
 
 	public User(String name, String password, String phoneNumber, String carNumber, String email, StickersColor type,
@@ -59,6 +65,7 @@ public class User extends dbMember {
 		this.setSticker(type);
 		this.setEmail(email);
 		this.setCurrentParking(currentLocation);
+		this.setLastLoginTime(null);
 		this.setObjectId();
 	}
 
@@ -73,6 +80,7 @@ public class User extends dbMember {
 		this.carNumber = this.parseObject.getString(CAR_NUMBER);
 		this.sticker = StickersColor.values()[this.parseObject.getInt(STICKER)];
 		this.email = this.parseObject.getString(EMAIL);
+		this.lastLoginTime = this.parseObject.getDate(LAST_LOGIN_TIME);
 		this.objectId = this.parseObject.getObjectId();
 		if (this.parseObject.getParseObject(PARKING) == null)
 			return;
@@ -94,6 +102,7 @@ public class User extends dbMember {
 		this.sticker = StickersColor.values()[this.parseObject.getInt("sticker")];
 		this.currentParking = this.parseObject.getParseObject("currentParking") == null ? null
 				: new ParkingSlot(this.parseObject.getParseObject("currentParking"));
+		this.lastLoginTime = this.parseObject.getDate(LAST_LOGIN_TIME);
 
 		this.objectId = this.parseObject.getObjectId();
 	}
@@ -153,6 +162,10 @@ public class User extends dbMember {
 	public String getEmail() {
 		return email;
 	}
+	
+	public Date getLastLoginTime(){
+		return lastLoginTime;
+	}
 
 	/* Set functions */
 	public void setName(String name) throws ParseException {
@@ -188,6 +201,15 @@ public class User extends dbMember {
 			return;
 		}
 		this.currentParking = new ParkingSlot(currentParking);
+		this.parseObject.save();
+	}
+	
+	public void setLastLoginTime(Date lastLoginTime) throws ParseException {
+		this.lastLoginTime = lastLoginTime;
+		if (lastLoginTime == null)
+			this.parseObject.remove(LAST_LOGIN_TIME);
+		else
+			this.parseObject.put(LAST_LOGIN_TIME, lastLoginTime);
 		this.parseObject.save();
 	}
 
