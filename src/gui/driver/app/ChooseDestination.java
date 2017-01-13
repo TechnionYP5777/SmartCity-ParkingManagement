@@ -30,7 +30,7 @@ public class ChooseDestination extends AbstractWindow{
 	}
 	
 	public void display(Stage primaryStage){
-		
+		window = primaryStage;
 		window.setTitle("Choose Destination");
 		Label title = new Label(); 
 		DropShadow shadow = new DropShadow();
@@ -90,7 +90,7 @@ public class ChooseDestination extends AbstractWindow{
 			//************Add navigation functionality************//
 			window.close();
 			ChooseAction.prevWindows.add(this);
-			(new PmMap()).display(primaryStage);
+			(new PmMap()).display(window);
 
 		});
 		GridPane.setConstraints(buttonGO, 1, currIdx++);

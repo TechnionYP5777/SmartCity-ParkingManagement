@@ -138,6 +138,7 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
     
     
 	public void display( Stage s) {
+		s.setTitle("Navigate");
 		btns = new ArrayList<Button>();
 		markers = new ArrayList<Marker>();
 		mapComponent = new GoogleMapView(Locale.getDefault().getLanguage(), null);

@@ -44,7 +44,7 @@ public class Login extends AbstractWindow {
 		grid.setPadding(new Insets(20, 20, 20, 20));
 		grid.setVgap(8);
 		grid.setHgap(10);
-		window.setWidth(465);
+		window.setWidth(480);
 		window.setHeight(310);
 
 		// title
