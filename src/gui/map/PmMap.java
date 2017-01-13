@@ -23,10 +23,6 @@ import gui.driver.app.AbstractWindow;
 
 import java.util.ArrayList;
 import java.util.Locale;
-
-
-
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
@@ -53,7 +49,7 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 	protected GoogleMapView mapComponent;
 	protected GoogleMap map;
 
-	protected Label lblCenter;
+	//protected Label lblCenter;
 	protected Label lblClick;
 	protected ComboBox<String> fromLocation;
 	protected ComboBox<String> toLocation;
@@ -91,7 +87,7 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 		BorderPane $ = new BorderPane();
 		ToolBar tb = new ToolBar();
 
-		lblCenter = new Label();
+		//lblCenter = new Label();
 		lblClick = new Label();
 
 		mapTypeCombo = new ComboBox<>();
@@ -147,7 +143,7 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 		BorderPane bp = new BorderPane();
 		ToolBar tb = new ToolBar();
 
-		lblCenter = new Label();
+		//lblCenter = new Label();
 		lblClick = new Label();
 
 		mapTypeCombo = new ComboBox<>();
@@ -189,8 +185,8 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 				btnShowMarkers.fire();
 			bp.setRight(bp.getRight() != null ? null : routeVbox);
 		});
-		tb.getItems().addAll(new Label("MapType: "), mapTypeCombo, new Label("Coordinates: "), lblCenter,
-				new Label("Click: "), lblClick, btnHideMarker, btnDeleteMarker, btnShowMarkers, btnSelectRoute,btnReturn);
+		tb.getItems().addAll(new Label("MapType: "), mapTypeCombo,/* new Label("Coordinates: "), lblCenter,*/
+				new Label("Click: "), /*lblClick,*/ btnHideMarker, btnDeleteMarker, btnShowMarkers, btnSelectRoute,btnReturn);
 		markerVbox = addVBox("Markers");
 		markerVbox.setVisible(true);
 		sp = new ScrollPane();
@@ -213,18 +209,13 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 			// This call will fail unless the map is completely ready.
 			checkCenter(center);
 		});
-		lblClick.setText((center + ""));
+		//lblClick.setText((center + ""));
 		MapOptions options = new MapOptions();
 		options.center(center).zoom(12).overviewMapControl(false).panControl(false).rotateControl(false)
 				.scaleControl(true).streetViewControl(true).zoomControl(true).mapType(MapTypeIdEnum.ROADMAP);
 		map = mapComponent.createMap(options, false);
 		map.setHeading(123.2);
 		map.fitBounds(new LatLongBounds(center, new LatLong(32.779032, 35.024663)));
-
-		lblCenter.setText((map.getCenter() + ""));
-		map.centerProperty().addListener((ObservableValue<? extends LatLong> obs, LatLong o, LatLong n) -> {
-			lblCenter.setText((n + ""));
-		});
 		map.addUIEventHandler(UIEventType.click, (JSObject obj) -> {
 			LatLong newLat = new LatLong((JSObject) obj.getMember("latLng"));
 			newLat = new LatLong(newLat.getLatitude(),newLat.getLongitude());
@@ -237,9 +228,7 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
         directionsService = new DirectionsService();
         directionsPane = mapComponent.getDirec();
 		scene.getWindow().sizeToScene();
-		if(fromLogic==null||toLogic==null)
-			directionsService.getRoute((new DirectionsRequest("technion", "haifa university", TravelModes.DRIVING)),
-					this, new DirectionsRenderer(true, mapComponent.getMap(), directionsPane));
+		
 	}
 
 	protected Marker createMarker(LatLong lat, String title) {
