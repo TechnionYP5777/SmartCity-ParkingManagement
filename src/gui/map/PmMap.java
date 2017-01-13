@@ -68,9 +68,11 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 	Polyline poly;
 	protected DirectionsService directionsService;
     protected DirectionsPane directionsPane;
-    protected LatLong fromLogic;
-    protected LatLong toLogic;
-    public PmMap(LatLong fromLogic,LatLong toLogic){
+    protected String fromLogic;
+    protected String toLogic;
+    protected  BorderPane bp;
+	protected ToolBar tb ;
+    public PmMap(String fromLogic,String toLogic){
     	this.fromLogic=fromLogic;
     	this.toLogic=toLogic;
     }
@@ -140,8 +142,8 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 		markers = new ArrayList<Marker>();
 		mapComponent = new GoogleMapView(Locale.getDefault().getLanguage(), null);
 		mapComponent.addMapInializedListener(this);
-		BorderPane bp = new BorderPane();
-		ToolBar tb = new ToolBar();
+		bp = new BorderPane();
+		tb = new ToolBar();
 
 		//lblCenter = new Label();
 		lblClick = new Label();
@@ -185,8 +187,7 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 				btnShowMarkers.fire();
 			bp.setRight(bp.getRight() != null ? null : routeVbox);
 		});
-		tb.getItems().addAll(new Label("MapType: "), mapTypeCombo,/* new Label("Coordinates: "), lblCenter,*/
-				new Label("Click: "), /*lblClick,*/ btnHideMarker, btnDeleteMarker, btnShowMarkers, btnSelectRoute,btnReturn);
+		tb.getItems().addAll(new Label("MapType: "), mapTypeCombo,new Label("Click: "), btnReturn);
 		markerVbox = addVBox("Markers");
 		markerVbox.setVisible(true);
 		sp = new ScrollPane();
@@ -257,12 +258,12 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 
 	}
 
-	private void hideMarker() {
+	protected void hideMarker() {
 		for (Marker ¢ : markers)
 			¢.setVisible(!¢.getVisible());
 	}
 
-	private void deleteMarker() {
+	protected void deleteMarker() {
 		for (Button bt : btns)
 			bt.fire();
 	}

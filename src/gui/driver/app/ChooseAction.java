@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logic.LoginManager;
-import gui.map.PmMap;  
+import gui.map.DriverMap;  
 
 public class ChooseAction extends AbstractWindow {
 	Button buttonLogin;
@@ -71,7 +71,7 @@ public class ChooseAction extends AbstractWindow {
 		buttonMap.setOnAction(e -> {
 			window.close();
 			ChooseAction.prevWindows.add(this);
-			(new PmMap()).display(primaryStage);
+			(new DriverMap("32.777789, 35.022054","32.761565, 35.019438")).display(primaryStage);
 		});
 
 		buttonMap.getStyleClass().add("button-menu");
