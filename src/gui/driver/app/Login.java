@@ -123,9 +123,7 @@ public class Login extends AbstractWindow {
 		window.setScene(scene);
 		window.setTitle("Login");
 		window.show();
+		
 	}
 	
-	public GridPane getRoot() {
-	 return grid; 	
-	}
 }
