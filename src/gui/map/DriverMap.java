@@ -19,11 +19,11 @@ public class DriverMap extends PmMap {
 	@Override
 	public void mapInitialized() {
 		super.mapInitialized();
-		if(fromLogic!=null||toLogic!=null){
-			directionsService.getRoute((new DirectionsRequest("technion", "haifa university", TravelModes.DRIVING)),
-					this, new DirectionsRenderer(true, mapComponent.getMap(), directionsPane));
-			tb.getItems().addAll(new Label("Origin:"+fromLogic),new Label("Destination:"+toLogic));
-			scene.getWindow().sizeToScene();
-		}
+		if (fromLogic == null && toLogic == null)
+			return;
+		directionsService.getRoute((new DirectionsRequest("technion", "haifa university", TravelModes.DRIVING)), this,
+				new DirectionsRenderer(true, mapComponent.getMap(), directionsPane));
+		tb.getItems().addAll(new Label("Origin:" + fromLogic), new Label("Destination:" + toLogic));
+		scene.getWindow().sizeToScene();
 	}
 }
