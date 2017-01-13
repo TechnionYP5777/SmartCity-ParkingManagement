@@ -12,7 +12,7 @@ import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
 import org.parse4j.ParseQuery;
 
-public class populateDB {
+public class testingDB {
 
 	private static final String appId = "parkingmanagment";
 	private static final String restKey = "2139d-231cb2-738aa";
@@ -39,6 +39,7 @@ public class populateDB {
 		test.put("testValue0", 1);
 		try {
 			test.save();
+			test.delete();
 		} catch (ParseException e) {
 			e.printStackTrace();
 			Assert.fail();
@@ -59,6 +60,7 @@ public class populateDB {
 
 		try {
 			test.save();
+			test.delete();
 		} catch (ParseException e) {
 			e.printStackTrace();
 			Assert.fail();
@@ -80,6 +82,9 @@ public class populateDB {
 
 			test.put("subClass", subTest);
 			test.save();
+			
+			test.delete();
+			subTest.delete();
 		} catch (ParseException e) {
 			e.printStackTrace();
 			Assert.fail();
@@ -107,8 +112,10 @@ public class populateDB {
 			Assert.assertEquals(4, val);
 
 			test.put("subClass", returnedO);
-
 			test.save();
+			
+			test.delete();
+			subTest.delete();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -141,6 +148,11 @@ public class populateDB {
 			test.put("subClassArray", values);
 
 			test.save();
+			
+			test.delete();
+			subTest1.delete();
+			subTest2.delete();
+			subTest3.delete();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
