@@ -206,21 +206,25 @@ public class selectAreaTest {
 	
 	@Test(expected=RuntimeException.class)
 	public void test5() {
+		DBManager.initialize();
 		System.out.println((new SelectAnArea()).getNumOfFreeSlotsPerArea(100));
 	}
 	
 	@Test(expected=RuntimeException.class)
 	public void test6() {
+		DBManager.initialize();
 		(new SelectAnArea()).getNumOfTakenSlotsPerArea(100);
 	}
 	
 	@Test(expected=RuntimeException.class)
 	public void test7() {
+		DBManager.initialize();
 		(new SelectAnArea()).getTotalNumOfSlotsPerArea(100);
 	}
 	
 	@Test(expected=RuntimeException.class)
 	public void test8() {
+		DBManager.initialize();
 		(new SelectAnArea()).getColorOfArea(100);
 	}
 }
