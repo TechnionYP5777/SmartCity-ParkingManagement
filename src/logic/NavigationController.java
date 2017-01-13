@@ -38,21 +38,29 @@ public class NavigationController {
 		this.user = user;
 		this.walking = false;
 		this.destinations = Destination.getDestinations();
+		this.allAreas = new ParkingAreas();
 	}
 	
-	public NavigationController(User user, MapLocation currentLocation, List<Destination> faculties,
-			ParkingAreas areas, boolean walking) {
+	public NavigationController(User user, MapLocation currentLocation, List<Destination> faculties, boolean walking) {
 		this.user = user;
 		this.destinations = new HashMap<String, Destination>();
-		this.allAreas = areas;
+		this.allAreas = new ParkingAreas();
 		this.walking = walking;
 		this.currentLocation = currentLocation;
 		for (Destination ¢ : faculties) this.destinations.put(¢.getDestinationName(), ¢);
-		for (ParkingArea ¢ : areas.getParkingAreas()) this.parkingAreas.put(¢.getAreaId(), ¢);
+		for (ParkingArea ¢ : allAreas.getParkingAreas()) this.parkingAreas.put(¢.getAreaId(), ¢);
 	}
 	
 	public Set<String> getLocations() {
 		return destinations.keySet();
+	}
+	
+	public Destination getDestination(String key) {
+		return destinations.get(key);
+	}
+	
+	public ParkingAreas getAreas() {
+		return allAreas;
 	}
 	
 	public ParkingSlot getClosetParkingSlot() throws ParseException {
