@@ -4,10 +4,7 @@ import java.util.Set;
 
 import org.parse4j.ParseException;
 
-//import data.members.Destination;
-//import data.members.MapLocation;
-//import data.members.ParkingSlot;
-import gui.map.PmMap;
+import gui.map.DriverMap;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -25,7 +22,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import logic.Navigation;
-//import manager.logic.ParkingAreas;
 
 public class ChooseDestination extends AbstractWindow{
 	
@@ -96,16 +92,18 @@ public class ChooseDestination extends AbstractWindow{
 			//************Add navigation functionality************//
 			window.close();
 			ChooseAction.prevWindows.add(this);
-			try {
-				(new PmMap(navigate.getDestination(fromValue.getValue()).getEntrance(),
-						Navigation
-								.closestParkingSlot(login.getUser(),
-										navigate.getDestination(fromValue.getValue()).getEntrance(),
-										navigate.getAreas(), navigate.getDestination(toValue.getValue()))
-								.getLocation())).display(window);
-			} catch (ParseException e1) {
-				e1.printStackTrace();
-			}
+			(new DriverMap("","")).display(window);
+//			TILL GET FIXED!!!		
+//			try {  
+//				(new DriverMap(navigate.getDestination(fromValue.getValue()).getEntrance(),
+//						Navigation
+//								.closestParkingSlot(login.getUser(),
+//										navigate.getDestination(fromValue.getValue()).getEntrance(),
+//										navigate.getAreas(), navigate.getDestination(toValue.getValue()))
+//								.getLocation())).display(window);				
+//			} catch (ParseException e1) {
+//				e1.printStackTrace();
+//			}
 		});
 		GridPane.setConstraints(buttonGO, 1, currIdx++);
 		

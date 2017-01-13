@@ -19,7 +19,6 @@ import com.lynden.gmapsfx.service.directions.DirectionsService;
 import com.lynden.gmapsfx.service.directions.DirectionsServiceCallback;
 import com.lynden.gmapsfx.service.directions.TravelModes;
 import com.lynden.gmapsfx.shapes.Polyline;
-
 import data.members.MapLocation;
 import gui.driver.app.AbstractWindow;
 
@@ -74,8 +73,6 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
     protected String toLogic;
     protected  BorderPane bp;
 	protected ToolBar tb ;
-	private MapLocation from;
-	private MapLocation to;
     public PmMap(String fromLogic,String toLogic){
     	this.fromLogic=fromLogic;
     	this.toLogic=toLogic;
@@ -87,8 +84,6 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
     public PmMap(MapLocation from, MapLocation to) {
     	this.fromLogic=null;
     	this.toLogic=null;
-    	this.from = from;
-    	this.to = to;
     }
     
     public BorderPane getMapBorderPane() {
@@ -217,6 +212,7 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 		// Once the map has been loaded by the Webview, initialize the map
 		// details.
 		LatLong center = new LatLong(32.777, 35.0225);
+		System.out.println("got here");
 		mapComponent.addMapReadyListener(() -> {
 			// This call will fail unless the map is completely ready.
 			checkCenter(center);
@@ -225,6 +221,7 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 		MapOptions options = new MapOptions();
 		options.center(center).zoom(12).overviewMapControl(false).panControl(false).rotateControl(false)
 				.scaleControl(true).streetViewControl(true).zoomControl(true).mapType(MapTypeIdEnum.ROADMAP);
+		
 		map = mapComponent.createMap(options, false);
 		map.setHeading(123.2);
 		map.fitBounds(new LatLongBounds(center, new LatLong(32.779032, 35.024663)));
@@ -240,7 +237,6 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
         directionsService = new DirectionsService();
         directionsPane = mapComponent.getDirec();
 		scene.getWindow().sizeToScene();
-		
 	}
 
 	protected Marker createMarker(LatLong lat, String title) {

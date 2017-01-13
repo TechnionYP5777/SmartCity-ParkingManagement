@@ -15,14 +15,27 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+<<<<<<< HEAD
 import javafx.util.Duration;
 
+=======
+import javafx.stage.Stage;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+>>>>>>> 8c7532649735165f1698ace6d6e3cd5b643671f8
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
+<<<<<<< HEAD
 import org.controlsfx.control.Notifications;
 
 import gui.map.PmMap;
+=======
+import com.lynden.gmapsfx.GoogleMapView;
+
+import gui.map.ManegerMap;
+>>>>>>> 8c7532649735165f1698ace6d6e3cd5b643671f8
 
 public class ManagerMainScreenContorller implements Initializable {
 
@@ -54,12 +67,15 @@ public class ManagerMainScreenContorller implements Initializable {
 	}
 	
 	Label testLabel = new Label();
-    PmMap map = new PmMap();
-    BorderPane mapPane = map.getMapBorderPane();
+    ManegerMap map = new ManegerMap();
+    GoogleMapView view = new GoogleMapView(Locale.getDefault().getLanguage(), null); 
+
     
     @Override
     public void initialize(URL location, ResourceBundle __) {
+    	map.SetMapComponent(view);
         System.out.println("View is now loading...");
+<<<<<<< HEAD
         mapPane.setMaxHeight(450);
         mapPane.setMaxWidth(550);
         mapPane.setMinHeight(Region.USE_COMPUTED_SIZE);
@@ -68,6 +84,14 @@ public class ManagerMainScreenContorller implements Initializable {
         BorderPane.setAlignment(mapPane, Pos.TOP_CENTER);
         
         //Initialize parking areas list
+=======
+        mapView.getChildren().addAll(view);
+        view.setMaxHeight(400);
+        view.setMaxWidth(500);
+        view.setMinHeight(Region.USE_COMPUTED_SIZE);
+        view.setMinWidth(Region.USE_COMPUTED_SIZE);
+        BorderPane.setAlignment(view, Pos.TOP_CENTER);
+>>>>>>> 8c7532649735165f1698ace6d6e3cd5b643671f8
         ObservableList<String> areas = FXCollections.observableArrayList("Taub", "Ulman","Nesher");
         parkingAreas.setItems(areas);
         
