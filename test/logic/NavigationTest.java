@@ -52,7 +52,7 @@ public class NavigationTest {
 				Assert.fail();
 			}
 
-			ParkingArea upperTaubArea = new ParkingArea(100, taubSlots, StickersColor.RED);
+			ParkingArea upperTaubArea = new ParkingArea(100,"t1", taubSlots, StickersColor.RED);
 			try {
 
 				User user = new User("Navigation Tester", "1234", "0547456382", "1188999"," tester@gmail.com", StickersColor.RED, null);
@@ -106,7 +106,7 @@ public class NavigationTest {
 			taubSlots.add(taubSlot2);
 			taubSlots.add(taubSlot3);
 
-			ParkingArea upperTaubArea = new ParkingArea(100, taubSlots, StickersColor.RED);
+			ParkingArea upperTaubArea = new ParkingArea(100,"t1", taubSlots, StickersColor.RED);
 
 			// nesher area + slots
 
@@ -117,7 +117,7 @@ public class NavigationTest {
 			Set<ParkingSlot> nesherSlots = new HashSet<ParkingSlot>();
 			nesherSlots.add(nesherSlot1);
 
-			ParkingArea nesherArea = new ParkingArea(101, nesherSlots, StickersColor.WHITE);
+			ParkingArea nesherArea = new ParkingArea(101, "t1",nesherSlots, StickersColor.WHITE);
 
 			// pool area + slots
 
@@ -132,7 +132,7 @@ public class NavigationTest {
 			poolSlots.add(poolSlot1);
 			poolSlots.add(poolSlot2);
 
-			ParkingArea poolArea = new ParkingArea(102, poolSlots, StickersColor.BLUE);
+			ParkingArea poolArea = new ParkingArea(102, "t1",poolSlots, StickersColor.BLUE);
 
 			Set<ParkingArea> areas = new HashSet<ParkingArea>();
 			areas.add(upperTaubArea);
@@ -197,7 +197,7 @@ public class NavigationTest {
 			Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(taubSlot1);
 
-			ParkingArea upperTaubArea = new ParkingArea(100, slots, StickersColor.RED);
+			ParkingArea upperTaubArea = new ParkingArea(100, "t1",slots, StickersColor.RED);
 
 			location = new MapLocation(32.777466, 35.021094);
 			Destination destination = null;

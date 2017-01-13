@@ -37,7 +37,7 @@ public class selectAreaTest {
 			ParkingSlot slot2 = new ParkingSlot("selectAreaTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN, StickersColor.GREEN,
 					new MapLocation(0, 0), new Date());
 			slots.add(slot2);
-			new ParkingArea(20, slots, StickersColor.GREEN);
+			new ParkingArea(20, "t1",slots, StickersColor.GREEN);
 			Assert.assertEquals(1,new SelectAnArea().getNumOfFreeSlotsPerArea(20));
 			
 			//delete objects
@@ -80,7 +80,7 @@ public class selectAreaTest {
 			ParkingSlot slot2 = new ParkingSlot("selectAreaTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN, StickersColor.GREEN,
 					new MapLocation(0, 0), new Date());
 			slots.add(slot2);
-			ParkingArea area = new ParkingArea(20, slots, StickersColor.GREEN);
+			ParkingArea area = new ParkingArea(20,"t1", slots, StickersColor.GREEN);
 			assertNotNull(area);
 			
 			Assert.assertEquals(1,new SelectAnArea().getNumOfTakenSlotsPerArea(20));
@@ -125,7 +125,7 @@ public class selectAreaTest {
 			ParkingSlot slot2 = new ParkingSlot("selectAreaTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN, StickersColor.GREEN,
 					new MapLocation(0, 0), new Date());
 			slots.add(slot2);
-			ParkingArea area = new ParkingArea(20, slots, StickersColor.GREEN);
+			ParkingArea area = new ParkingArea(20, "t1",slots, StickersColor.GREEN);
 			assertNotNull(area);
 			
 			Assert.assertEquals(2,new SelectAnArea().getTotalNumOfSlotsPerArea(20));
@@ -170,7 +170,7 @@ public class selectAreaTest {
 			ParkingSlot slot2 = new ParkingSlot("selectAreaTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN, StickersColor.GREEN,
 					new MapLocation(0, 0), new Date());
 			slots.add(slot2);
-			ParkingArea area = new ParkingArea(20, slots, StickersColor.GREEN);
+			ParkingArea area = new ParkingArea(20,"t1", slots, StickersColor.GREEN);
 			assertNotNull(area);
 			
 			Assert.assertEquals(StickersColor.GREEN,new SelectAnArea().getColorOfArea(20));
