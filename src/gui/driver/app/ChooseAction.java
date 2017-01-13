@@ -14,6 +14,7 @@ import logic.LoginManager;
 import gui.map.DriverMap;  
 
 public class ChooseAction extends AbstractWindow {
+	Button buttonAbout;
 	Button buttonLogin;
 	Button buttonMyDetails;
 	Button buttonRegister;
@@ -46,6 +47,16 @@ public class ChooseAction extends AbstractWindow {
 		}
 		welcomeLabel.getStyleClass().add("label-welcome");
 
+		
+		buttonAbout = new Button("About");
+		buttonAbout.setOnAction(e -> {
+			window.close();
+			ChooseAction.prevWindows.add(this);
+			(new About()).display(primaryStage, WindowEnum.CHOOSE_ACTION);
+		});
+
+		buttonAbout.getStyleClass().add("button-menu");
+		
 		buttonLogin = new Button("Login");
 		buttonLogin.setOnAction(e -> {
             window.close();
@@ -119,7 +130,7 @@ public class ChooseAction extends AbstractWindow {
 		buttonLogOut.setDisable(true);
 		buttonLogOut.getStyleClass().add("button-menu");
 		
-		vbox.getChildren().addAll( welcomeLabel, buttonLogin, buttonRegister, buttonChooseDestination, buttonMap, 
+		vbox.getChildren().addAll( welcomeLabel, buttonAbout, buttonLogin, buttonRegister, buttonChooseDestination, buttonMap, 
 				buttonClose, buttonLogOut); 
 		vbox.setAlignment(Pos.CENTER);
 

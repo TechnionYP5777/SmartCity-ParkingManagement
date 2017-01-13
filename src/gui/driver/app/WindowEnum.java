@@ -13,7 +13,8 @@ public enum WindowEnum {
 	LOG_IN 				(7),
 	CHOOSE_DESTINATION	(8),
 	REGISTER			(9),
-	NONE				(10);
+	ABOUT 				(10),
+	NONE				(11);
 
 
 	private WindowEnum(int __){
