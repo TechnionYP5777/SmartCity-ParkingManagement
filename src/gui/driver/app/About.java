@@ -7,6 +7,7 @@
 package gui.driver.app;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,7 +27,6 @@ public class About extends AbstractWindow{
             "possibility to communicate with other car owners.\n"; 
 	
 	public static final String IMAGE = "https://s23.postimg.org/ecvvaduyz/smart_parking.png";
-	
 	public About() {
 		windowEnum = WindowEnum.ABOUT;
 		window = new Stage(); 
@@ -44,7 +44,16 @@ public class About extends AbstractWindow{
 	            rotate
 	        );
 	        VBox vbox = new VBox (10);
-	        vbox.getChildren().add(label); 
+	        
+	        Button backButton = new Button("Back");
+			backButton.setOnAction(e -> {
+				// move to editing my details
+				this.window.close();
+				AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size()-1).window.show();
+				AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size()-1);
+			});
+	        
+	        vbox.getChildren().addAll(label, backButton); 
 	        Scene scene = new Scene(vbox);
 			window.setScene(scene);
 			window.setTitle("Login");
