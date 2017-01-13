@@ -45,7 +45,6 @@ public class ParkingAreas {
 				throw new RuntimeException("There was a problem - ParkingArea table doesnt found");
 			for (ParseObject ¢: areaList)
 				this.parkingAreas.add((new ParkingArea(¢)));
-			//System.out.println("====="+this.parkingAreas.size()+"======");
 		}
 		catch (ParseException e) {
 			e.printStackTrace();

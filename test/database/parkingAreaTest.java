@@ -23,6 +23,7 @@ import data.members.StickersColor;
 
 /*
  *  @Author Tom Nof
+ *  @Inbal Matityauh
  *  @Author David Cohen
  */
 
