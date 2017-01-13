@@ -185,5 +185,13 @@ public class ParkingArea extends dbMember {
 		this.parseObject.put("parkingSlots", slots);
 		this.parseObject.save();
 	}
+	
+	public String getName() throws ParseException{
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
+		query.whereEqualTo("objectId", objectId);
+		ParseObject parseObject = query.find().get(0);
+		String $ = parseObject.getString("areaName");
+		return $;
+	}
 
 }

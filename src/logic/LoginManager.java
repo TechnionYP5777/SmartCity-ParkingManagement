@@ -5,6 +5,7 @@ import data.management.DBManager;
 import data.members.StickersColor;
 import data.members.User;
 import Exceptions.LoginException;
+import java.util.Date;
 
 /**
  * @author DavidCohen55
@@ -32,8 +33,10 @@ public class LoginManager {
 	public boolean userLogin(String carNumber, String password) {
 		try {
 			User tmp = new User(carNumber);
-			if (tmp.getPassword().equals(password))
+			if (tmp.getPassword().equals(password)){
 				this.user = tmp;
+				this.user.setLastLoginTime(new Date());
+			}
 			return user.getPassword().equals(password);
 		} catch (Exception e) {
 			return false;

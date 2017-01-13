@@ -9,7 +9,7 @@ import org.parse4j.ParseQuery;
 import data.members.ParkingArea;
 import data.members.ParkingSlot;
 
-
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -130,6 +130,14 @@ public class ParkingAreas {
 			if (currentArea.getAreaId()==(a.getAreaId()))
 				for (ParkingSlot currentSlot : currentArea.getFreeSlots())
 					$ = currentSlot;
+		return $;
+	}
+	
+	public List<String> getParkingAreasNames() throws ParseException{
+		List<String> $=new ArrayList<String>();
+		for (ParkingArea currentArea : this.parkingAreas){
+			$.add(currentArea.getName());
+		}
 		return $;
 	}
 
