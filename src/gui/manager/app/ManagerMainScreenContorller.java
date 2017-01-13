@@ -3,22 +3,24 @@ package gui.manager.app;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-import javafx.stage.Stage;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import org.controlsfx.control.Notifications;
 
 import gui.map.PmMap;
 
@@ -40,14 +42,15 @@ public class ManagerMainScreenContorller implements Initializable {
 	private MenuBar mainMenuBar;
 	
 	@FXML
-	void switchToNotificationsScene(ActionEvent $)  throws Exception {
-		Parent notificationsRoot = FXMLLoader.load(getClass().getResource("Notifications.fxml"));
-		Scene notificationsScene = new Scene(notificationsRoot);
-		Stage appStage = (Stage) mainMenuBar.getScene().getWindow();
-		appStage.hide();
-		appStage.setScene(notificationsScene);
-		appStage.show();
-		
+	void triggerNotifications() {
+		Notifications.create().title("Color has changed").text("In Taub, from RED to GRAY").owner(mainBorderPane)
+				.graphic(new ImageView(new Image(getClass().getResourceAsStream("project-logo-with-shadow.png")))).hideAfter(Duration.seconds(7))
+				.position(Pos.BOTTOM_RIGHT).onAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent $) {
+						System.out.println("Clicked");
+					}
+				}).show();
 	}
 	
 	Label testLabel = new Label();
@@ -57,8 +60,8 @@ public class ManagerMainScreenContorller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle __) {
         System.out.println("View is now loading...");
-        mapPane.setMaxHeight(400);
-        mapPane.setMaxWidth(500);
+        mapPane.setMaxHeight(450);
+        mapPane.setMaxWidth(550);
         mapPane.setMinHeight(Region.USE_COMPUTED_SIZE);
         mapPane.setMinWidth(Region.USE_COMPUTED_SIZE);
         mapView.getChildren().addAll(mapPane);

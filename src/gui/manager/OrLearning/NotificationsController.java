@@ -1,4 +1,4 @@
-package gui.manager.app;
+package gui.manager.OrLearning;
 
 import org.controlsfx.control.Notifications;
 
@@ -32,5 +32,7 @@ public class NotificationsController {
 		notificationBuilder.darkStyle();
 		notificationBuilder.showConfirm();
 	}
+    
+    
 
 }

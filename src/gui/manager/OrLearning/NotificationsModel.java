@@ -1,4 +1,4 @@
-package gui.manager.app;
+package gui.manager.OrLearning;
 
 
 public class NotificationsModel {

@@ -1,5 +1,7 @@
 package gui.manager.app;
 
+import java.net.URL;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,8 +13,16 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("ManagerMainScreen.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setTitle("Manage Parking");
+        Scene scene = new Scene(root);
+        URL url = this.getClass().getResource("NotificationStyle.css");
+        if (url == null) {
+            System.out.println("Resource not found. Aborting.");
+            System.exit(-1);
+        }
+        String css = url.toExternalForm(); 
+        scene.getStylesheets().add(css);
+        primaryStage.setScene(scene);
         primaryStage.show();
 	}
 
