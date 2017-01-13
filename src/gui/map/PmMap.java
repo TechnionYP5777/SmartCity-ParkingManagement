@@ -19,6 +19,8 @@ import com.lynden.gmapsfx.service.directions.DirectionsService;
 import com.lynden.gmapsfx.service.directions.DirectionsServiceCallback;
 import com.lynden.gmapsfx.service.directions.TravelModes;
 import com.lynden.gmapsfx.shapes.Polyline;
+
+import data.members.MapLocation;
 import gui.driver.app.AbstractWindow;
 
 import java.util.ArrayList;
@@ -72,13 +74,21 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
     protected String toLogic;
     protected  BorderPane bp;
 	protected ToolBar tb ;
+	private MapLocation from;
+	private MapLocation to;
     public PmMap(String fromLogic,String toLogic){
     	this.fromLogic=fromLogic;
     	this.toLogic=toLogic;
     }
-    public PmMap(){
+    public PmMap() {
     	this.fromLogic=null;
     	this.toLogic=null;
+    }
+    public PmMap(MapLocation from, MapLocation to) {
+    	this.fromLogic=null;
+    	this.toLogic=null;
+    	this.from = from;
+    	this.to = to;
     }
     
     public BorderPane getMapBorderPane() {
