@@ -9,6 +9,14 @@
 	-fx-font-weight: bold; 
 }
 
+.label-about {
+	-fx-background-color: mediumseagreen;
+    -fx-background-radius: 10px;
+    -fx-padding: 10px;
+    -fx-graphic-text-gap: 10px;
+    -fx-font-family: 'American Typewriter'
+}
+
 .label-welcome {
 	-fx-text-fill: #ffffff; 
 	-fx-font-weight: bold; 
