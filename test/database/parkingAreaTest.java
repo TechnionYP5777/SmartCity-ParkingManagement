@@ -41,7 +41,7 @@ public class parkingAreaTest {
 					new MapLocation(0, 0), new Date());
 			Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
-			ParkingArea area = new ParkingArea(0, slots, StickersColor.RED);
+			ParkingArea area = new ParkingArea(0,"t1", slots, StickersColor.RED);
 			assertNotNull(area);
 
 			area.deleteParseObject();
@@ -67,7 +67,7 @@ public class parkingAreaTest {
 			Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
 
-			ParkingArea area = new ParkingArea(0, slots, StickersColor.RED);
+			ParkingArea area = new ParkingArea(0,"t1",  slots, StickersColor.RED);
 			assertNotNull(area);
 			ParkingSlot slot2 = new ParkingSlot("testS2", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
 					new MapLocation(0, 0), new Date());
@@ -219,7 +219,7 @@ public class parkingAreaTest {
 					new MapLocation(0, 0), new Date());
 			Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
-			ParkingArea area = new ParkingArea(0, slots, StickersColor.RED);
+			ParkingArea area = new ParkingArea(0,"t1", slots, StickersColor.RED);
 
 			// Act
 			ParkingArea returnedArea = new ParkingArea(area.getObjectId());
