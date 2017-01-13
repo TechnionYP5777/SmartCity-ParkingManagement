@@ -6,6 +6,7 @@ import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
 import org.parse4j.ParseQuery;
 
+import data.management.DBManager;
 import data.members.ParkingArea;
 import data.members.ParkingSlot;
 
@@ -37,6 +38,7 @@ public class ParkingAreas {
 	}
 
 	public ParkingAreas() {
+		DBManager.initialize();
 		this.parkingAreas = new HashSet<ParkingArea>();
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
 		try {

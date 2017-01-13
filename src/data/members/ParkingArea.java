@@ -25,6 +25,7 @@ public class ParkingArea extends dbMember {
 
 	private StickersColor color;
 	private int areaId;
+	private String name;
 	private Set<ParkingSlot> parkingSlots;
 
 	/* Constructors */
@@ -37,6 +38,7 @@ public class ParkingArea extends dbMember {
 
 		this.parseObject = parseObject;
 		this.areaId = (Integer) parseObject.get("areaId");
+		this.name = (String) parseObject.get("name");
 		this.color = StickersColor.values()[(Integer) parseObject.get("color")];
 		this.parkingSlots = convertToSlots(getAllSlots());
 		this.setObjectId();
@@ -44,10 +46,11 @@ public class ParkingArea extends dbMember {
 	}
 
 	// Create a new parking area
-	public ParkingArea(int areaId, Set<ParkingSlot> parkingSlots, StickersColor defaultColor) throws ParseException {
+	public ParkingArea(int areaId, String name, Set<ParkingSlot> parkingSlots, StickersColor defaultColor) throws ParseException {
 		DBManager.initialize();
 		this.parseObject = new ParseObject("ParkingArea");
 		this.setAreaId(areaId);
+		this.setName(name);
 		this.setColor(defaultColor);
 		this.setParkingSlots(parkingSlots);
 
@@ -58,6 +61,7 @@ public class ParkingArea extends dbMember {
 	public ParkingArea(ParseObject parseObject) throws ParseException {
 		this.parseObject = parseObject;
 		this.areaId = (Integer) parseObject.get("areaId");
+		this.name = (String) parseObject.get("name");
 		this.color = StickersColor.values()[(Integer) parseObject.get("color")];
 		this.parkingSlots = convertToSlots(getAllSlots());
 		this.setObjectId();
@@ -69,6 +73,10 @@ public class ParkingArea extends dbMember {
 		return this.areaId;
 	}
 
+	public String getName() {
+		return this.name;
+	}
+	
 	public int getNumOfParkingSlots() {
 		List<ParseObject> parkingSlots = this.getAllSlots();
 		return parkingSlots == null ? 0 : parkingSlots.size();
@@ -123,6 +131,11 @@ public class ParkingArea extends dbMember {
 		this.parseObject.put("areaId", areaId);
 	}
 
+	private void setName(String name) {
+		this.name = name;
+		this.parseObject.put("name", name);
+	}
+	
 	private void setParkingSlots(Set<ParkingSlot> ¢) throws ParseException {
 		this.parkingSlots = ¢;
 		updateSlotsArray();
@@ -186,12 +199,12 @@ public class ParkingArea extends dbMember {
 		this.parseObject.save();
 	}
 	
-	public String getName() throws ParseException{
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
-		query.whereEqualTo("objectId", objectId);
-		ParseObject parseObject = query.find().get(0);
-		String $ = parseObject.getString("areaName");
-		return $;
-	}
+//	public String getName() throws ParseException{
+//		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
+//		query.whereEqualTo("objectId", objectId);
+//		ParseObject parseObject = query.find().get(0);
+//		String $ = parseObject.getString("areaName");
+//		return $;
+//	}
 
 }
