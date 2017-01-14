@@ -31,7 +31,7 @@ public class MyDetails extends AbstractWindow{
 		window.setHeight(300);
 		GridPane grid = new GridPane();
 		grid.setPadding(new Insets(20, 20, 20, 20));
-		grid.setVgap(20);
+		grid.setVgap(10);
 		grid.setHgap(10);
 		grid.setBackground(
 				new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2, 2, 2, 2))));
@@ -73,6 +73,11 @@ public class MyDetails extends AbstractWindow{
 			Label sticker = new Label(StaticMethods.getStickerClolorFromEnum(login.getSticker()));
 			labels.add(stickerLabel);
 			values.add(sticker);
+			
+			Label lastLoginLabel = new Label("Last Login:");
+			Label lastLogin = new Label("" + login.getUser().getLastLoginTime());
+			labels.add(lastLoginLabel);
+			values.add(lastLogin);
 			
 		}
 		

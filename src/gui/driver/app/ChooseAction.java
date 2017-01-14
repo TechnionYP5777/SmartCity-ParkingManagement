@@ -131,7 +131,7 @@ public class ChooseAction extends AbstractWindow {
 		buttonLogOut.getStyleClass().add("button-menu");
 		
 		vbox.getChildren().addAll( welcomeLabel, buttonAbout, buttonLogin, buttonRegister, buttonChooseDestination, buttonMap, 
-				buttonClose, buttonLogOut); 
+				buttonClose, buttonLogOut, buttonMyDetails); 
 		vbox.setAlignment(Pos.CENTER);
 
 		Scene scene = new Scene(vbox);

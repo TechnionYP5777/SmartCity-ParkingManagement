@@ -41,15 +41,15 @@ public class MyDetailsEdit extends AbstractWindow {
 		window.setHeight(300);
 		ArrayList<TextField> newValues = new ArrayList<TextField>();
 		int i = 0;
-		int stickerIdx = 0;
-		for (; i < labels.size(); i++) {
-			if (!labels.get(i).getText().equals("Sticker Color:") && i!=3) {
+		int stickerIdx = 4;
+		//System.out.println("DME labels.size(): " + labels.size());
+		for (; i <= 2; i++) {
+			
+			//System.out.println("DME newValues: " + i + " " + labels.get(i).getText());
 				newValues.add(new TextField(values.get(i).getText()));
 				GridPane.setConstraints(labels.get(i), 0, i);
 				GridPane.setConstraints(newValues.get(i), 1, i);
 				grid.getChildren().addAll(labels.get(i), newValues.get(i));
-			} else
-				stickerIdx = i;
 		}
 		
 		
@@ -115,7 +115,7 @@ public class MyDetailsEdit extends AbstractWindow {
 				/* Done */
 			}
 		});
-		GridPane.setConstraints(doneButton, 0, i);
+		GridPane.setConstraints(doneButton, 0, values.size());
 
 		Button backButton = new Button();
 		backButton.setText("Back");
@@ -127,7 +127,7 @@ public class MyDetailsEdit extends AbstractWindow {
 			MD.display(primaryStage, prevWindow, labels, values);
 
 		});
-		GridPane.setConstraints(backButton, 1, i);
+		GridPane.setConstraints(backButton, 1, values.size());
 
 		grid.getChildren().addAll(doneButton, backButton, hboxPhone, phoneNumber);
 		Scene scene = new Scene(grid);
