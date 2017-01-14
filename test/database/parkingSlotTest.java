@@ -73,4 +73,27 @@ public class parkingSlotTest {
 			Assert.fail();
 		}
 	}
+	
+	@Test
+	public void getSlotByName() {
+		DBManager.initialize();
+		try {
+			// Arrange
+			ParkingSlot slot1 = new ParkingSlot("testS1", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
+					new MapLocation(0, 0), new Date());
+			
+			// Act 
+			ParkingSlot slot1returned = new ParkingSlot("testS1");
+			
+			// Assert
+			Assert.assertEquals(slot1.getObjectId(), slot1returned.getObjectId());
+			
+			// Cleanup
+			slot1.deleteParseObject();
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+	}
 }
