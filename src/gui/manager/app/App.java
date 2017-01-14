@@ -14,7 +14,7 @@ public class App extends Application {
 	public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("ManagerMainScreen.fxml"));
         primaryStage.setTitle("Manage Parking");
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root,1200,750);
         URL url = this.getClass().getResource("NotificationStyle.css");
         if (url == null) {
             System.out.println("Resource not found. Aborting.");

@@ -1,7 +1,6 @@
 package gui.manager.app;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,13 +12,12 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import org.controlsfx.control.Notifications;
@@ -34,7 +32,7 @@ public class ManagerMainScreenContorller implements Initializable {
 	private BorderPane mainBorderPane;
 	
 	@FXML
-	private Pane mapView;
+	private VBox mapVBox;
 	
 	@FXML
 	private BorderPane mapBorderPane;
@@ -64,12 +62,12 @@ public class ManagerMainScreenContorller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle __) {
         System.out.println("View is now loading...");
-        mapPane.setMaxHeight(450);
-        mapPane.setMaxWidth(550);
+        mapPane.setMaxHeight(Region.USE_COMPUTED_SIZE);
+        mapPane.setMaxWidth(Region.USE_COMPUTED_SIZE);
         mapPane.setMinHeight(Region.USE_COMPUTED_SIZE);
         mapPane.setMinWidth(Region.USE_COMPUTED_SIZE);
-        mapView.getChildren().addAll(mapPane);
-        BorderPane.setAlignment(mapPane, Pos.TOP_CENTER);
+        mapVBox.getChildren().addAll(mapPane);
+        //BorderPane.setAlignment(mapPane, Pos.TOP_CENTER);
         
         //Initialize parking areas list
         ParkingAreas pa = new ParkingAreas();
