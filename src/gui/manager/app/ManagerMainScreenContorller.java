@@ -18,10 +18,14 @@ import javafx.scene.layout.Region;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import org.controlsfx.control.Notifications;
+import org.parse4j.ParseException;
 
+import data.members.ParkingAreas;
 import gui.map.PmMap;
 
 public class ManagerMainScreenContorller implements Initializable {
@@ -68,9 +72,12 @@ public class ManagerMainScreenContorller implements Initializable {
         BorderPane.setAlignment(mapPane, Pos.TOP_CENTER);
         
         //Initialize parking areas list
-        ObservableList<String> areas = FXCollections.observableArrayList("Taub", "Ulman","Nesher");
-        parkingAreas.setItems(areas);
-        
+        ParkingAreas pa = new ParkingAreas();
+        try {
+			parkingAreas.setItems(FXCollections.observableList(((ArrayList<String>) pa.getParkingAreasNames())));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
         System.out.println("View is now loaded!");
     }
 }
