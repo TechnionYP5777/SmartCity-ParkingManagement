@@ -371,4 +371,11 @@ public class parkingAreasTest {
 		DBManager.initialize();
 		Assert.assertEquals(0, (new ParkingAreas().getNumOfTakenSlots()));
 	}
+	
+	@Test
+	public void test10() throws ParseException {
+		DBManager.initialize();
+		Assert.assertEquals(4, (new ParkingAreas().getParkingAreasNames()).size());
+	}
+	
 }
