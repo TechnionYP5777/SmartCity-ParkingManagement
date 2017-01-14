@@ -34,7 +34,7 @@ public class parkingAreaTest {
 	private ParkingSlot slot1;
 	private ParkingSlot slot2;
 	private ParkingArea area;
-	ParseQuery<ParseObject> query;
+	private ParseQuery<ParseObject> query;
 
 	@Before
 	public void BeforeTest() {
@@ -52,7 +52,7 @@ public class parkingAreaTest {
 			area = new ParkingArea(0, "t1", slots, StickersColor.RED);
 
 			query = ParseQuery.getQuery("ParkingArea");
-			query.whereEqualTo("areaId", 0);
+			query.whereEqualTo("name", "t1");
 
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -189,10 +189,10 @@ public class parkingAreaTest {
 	}
 
 	@Test
-	public void getAreaByObjectId() {
+	public void getAreaByName() {
 		try {
 			// Act
-			ParkingArea returnedArea = new ParkingArea(area.getObjectId());
+			ParkingArea returnedArea = new ParkingArea(area.getName());
 
 			// Assert
 			Assert.assertEquals(area.getAreaId(), returnedArea.getAreaId());

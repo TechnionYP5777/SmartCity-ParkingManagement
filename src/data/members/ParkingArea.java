@@ -17,7 +17,7 @@ import data.management.DBManager;
 /**
  * @author Inbal Matityahu
  * @author David Cohen
- * @author Tom Nof
+ * @author Toma
  * @since 12.11.16 This class represent a parking area inside the Technion
  */
 
@@ -30,10 +30,12 @@ public class ParkingArea extends dbMember {
 
 	/* Constructors */
 
-	// Retrieve an exiting area from DB by the objectId
-	public ParkingArea(String objectId) throws ParseException {
+	// Retrieve an exiting area from DB by the name
+	public ParkingArea(String name) throws ParseException {
+		DBManager.initialize();
+		
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
-		query.whereEqualTo("objectId", objectId);
+		query.whereEqualTo("name", name);
 		ParseObject parseObject = query.find().get(0);
 
 		this.parseObject = parseObject;
@@ -66,7 +68,7 @@ public class ParkingArea extends dbMember {
 		this.parkingSlots = convertToSlots(getAllSlots());
 		this.setObjectId();
 	}
-
+	
 	/* Getters */
 
 	public int getAreaId() {
@@ -141,13 +143,16 @@ public class ParkingArea extends dbMember {
 		updateSlotsArray();
 	}
 
-	private void setColor(StickersColor ¢) {
-		this.color = ¢;
-		this.parseObject.put("color", ¢.ordinal());
+	private void setColor(StickersColor c) {
+		this.color = c;
+		this.parseObject.put("color", c.ordinal());
 	}
 
 	/* Methods */
-
+	public void removeParkingAreaFromDB() throws ParseException {
+		this.deleteParseObject();
+	}
+	
 	public Set<ParkingSlot> convertToSlots(List<ParseObject> slots) {
 		List<ParkingSlot> freeSlots = new ArrayList<ParkingSlot>();
 		if (slots == null)
@@ -167,8 +172,8 @@ public class ParkingArea extends dbMember {
 	 * free slot, and therefore increase the amount of free slots in this area,
 	 * and the total count of parking
 	 */
-	public void addParkingSlot(ParkingSlot ¢) throws ParseException {
-		this.parkingSlots.add(¢);
+	public void addParkingSlot(ParkingSlot p) throws ParseException {
+		this.parkingSlots.add(p);
 
 		updateSlotsArray();
 	}
@@ -181,9 +186,9 @@ public class ParkingArea extends dbMember {
 	public void removeParkingSlot(ParkingSlot s) throws ParseException {
 		if (this.parkingSlots == null)
 			return;
-		for (ParkingSlot ¢ : this.parkingSlots)
-			if (¢.objectId.equals(s.objectId))
-				this.parkingSlots.remove(¢);
+		for (ParkingSlot p : this.parkingSlots)
+			if (p.objectId.equals(s.objectId))
+				this.parkingSlots.remove(p);
 		s.removeParkingSlotFromDB();
 		updateSlotsArray();
 	}
@@ -192,19 +197,10 @@ public class ParkingArea extends dbMember {
 	private void updateSlotsArray() throws ParseException {
 		List<ParseObject> slots = new ArrayList<ParseObject>();
 		if (!this.parkingSlots.isEmpty())
-			for (ParkingSlot ¢ : this.parkingSlots)
-				slots.add(¢.getParseObject()); // slots.add(DBManager.getParseObject(p));
+			for (ParkingSlot p : this.parkingSlots)
+				slots.add(p.getParseObject()); 
 
 		this.parseObject.put("parkingSlots", slots);
 		this.parseObject.save();
 	}
-	
-//	public String getName() throws ParseException{
-//		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
-//		query.whereEqualTo("objectId", objectId);
-//		ParseObject parseObject = query.find().get(0);
-//		String $ = parseObject.getString("areaName");
-//		return $;
-//	}
-
 }

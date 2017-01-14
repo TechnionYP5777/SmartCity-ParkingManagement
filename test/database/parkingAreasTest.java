@@ -1,4 +1,4 @@
-package manager.logic;
+package database;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
@@ -17,6 +17,7 @@ import org.parse4j.ParseQuery;
 import data.management.DBManager;
 import data.members.MapLocation;
 import data.members.ParkingArea;
+import data.members.ParkingAreas;
 import data.members.ParkingSlot;
 import data.members.ParkingSlotStatus;
 import data.members.StickersColor;

@@ -1,7 +1,6 @@
 package logic;
 
 import data.members.*;
-import manager.logic.ParkingAreas;
 import Exceptions.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

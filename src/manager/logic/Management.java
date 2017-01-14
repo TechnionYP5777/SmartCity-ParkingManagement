@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import data.members.ParkingArea;
+import data.members.ParkingAreas;
 import data.members.ParkingSlot;
 import data.members.StickersColor;
 import data.members.User;

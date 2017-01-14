@@ -42,7 +42,7 @@ public class parkingSlotTest {
 			Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
 			ParkingArea area = new ParkingArea(0,"t1", slots, StickersColor.RED);
-			Assert.assertEquals(area.getObjectId(), slot1.findContainingParkingArea());
+			Assert.assertEquals(area.getName(), slot1.findContainingParkingArea());
 			
 			area.deleteParseObject();
 			slot1.deleteParseObject();

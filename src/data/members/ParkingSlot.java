@@ -165,7 +165,7 @@ public class ParkingSlot extends dbMember {
 			throw new IllegalArgumentException("location can not be empty!");
 	}
 
-	private ParseObject findContaingParkingAre() {
+	private ParseObject findContaingParkingArea() {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
 		query.whereEqualTo("parkingSlots", this.parseObject);
 		try {
@@ -178,7 +178,7 @@ public class ParkingSlot extends dbMember {
 	}
 
 	public String findContainingParkingArea() {
-		return findContaingParkingAre().getObjectId();
+		return (String)findContaingParkingArea().get("name");
 	}
 
 	public void changeStatus(ParkingSlotStatus newStatus) {

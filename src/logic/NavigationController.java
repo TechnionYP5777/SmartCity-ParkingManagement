@@ -10,9 +10,9 @@ import org.parse4j.ParseException;
 import data.members.Destination;
 import data.members.MapLocation;
 import data.members.ParkingArea;
+import data.members.ParkingAreas;
 import data.members.ParkingSlot;
 import data.members.User;
-import manager.logic.ParkingAreas;
 
 /**
  * @Author sefialbo
