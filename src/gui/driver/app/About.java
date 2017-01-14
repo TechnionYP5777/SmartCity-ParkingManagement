@@ -39,6 +39,8 @@ public class About extends AbstractWindow {
 	public void display(Stage primaryStage, WindowEnum __) {
 		window = primaryStage;
 		window.setTitle("About");
+		window.setWidth(1350);
+		window.setHeight(400);
 		final Label label = new Label(TEXT);
 		label.setAlignment(Pos.CENTER);
 		label.setGraphic(new ImageView(new Image(IMAGE)));
