@@ -31,7 +31,7 @@ public class parkingAreasTest {
 	@Test
 	public void test() {
 		DBManager.initialize();
-		Assert.assertEquals(16, new ParkingAreas().getParkingAreas().size());
+		Assert.assertEquals(4, new ParkingAreas().getParkingAreas().size());
 	}
 	
 
@@ -252,7 +252,7 @@ public class parkingAreasTest {
 	@Test
 	public void test6() {
 		DBManager.initialize();
-		Assert.assertEquals(25, (new ParkingAreas().getNumOfFreeSlots()));
+		Assert.assertEquals(40, (new ParkingAreas().getNumOfFreeSlots()));
 	}
 
 	@Test
@@ -331,8 +331,13 @@ public class parkingAreasTest {
 			List<ParseObject> areaList = query.find();
 			if (areaList == null || areaList.isEmpty())
 				throw new RuntimeException("There should be an area with areaId=" + 0);
-			Assert.assertEquals("parkingAreasTest1", (new ParkingAreas().getParkingslotByArea(new ParkingArea(areaList.get(0))).getName()));
-		
+			if(!"parkingAreasTest1".equalsIgnoreCase(
+					new ParkingAreas().getParkingslotByArea(new ParkingArea(areaList.get(0))).getName())
+					&& !"parkingAreasTest1".equalsIgnoreCase(
+							new ParkingAreas().getParkingslotByArea(new ParkingArea(areaList.get(0))).getName())
+					&& !"parkingAreasTest2".equalsIgnoreCase(
+							new ParkingAreas().getParkingslotByArea(new ParkingArea(areaList.get(0))).getName()))
+				Assert.fail();
 			//remove new ParkingArea and ParkingSlots
 			ParseQuery<ParseObject> queryArea = ParseQuery.getQuery("ParkingArea");
 			queryArea.whereEqualTo("areaId", 20);
@@ -367,4 +372,11 @@ public class parkingAreasTest {
 		DBManager.initialize();
 		Assert.assertEquals(0, (new ParkingAreas().getNumOfTakenSlots()));
 	}
+	
+	@Test
+	public void test10() throws ParseException {
+		DBManager.initialize();
+		Assert.assertEquals(4, (new ParkingAreas().getParkingAreasNames()).size());
+	}
+	
 }
