@@ -45,6 +45,7 @@ public class MyDetails extends AbstractWindow{
 		if (newLabels != null) {
 			labels = newLabels;
 			values = newValues;
+			values.add(new Label("" + login.getUser().getLastLoginTime()));
 		} else {
 			labels = new ArrayList<Label>();
 			values = new ArrayList<Label>();
@@ -82,12 +83,12 @@ public class MyDetails extends AbstractWindow{
 		}
 		
 		int i = 0;
-		for (; i < labels.size(); ++i) {
+		for (; i < values.size(); ++i) {
+			//System.out.println(i + ": " + labels.get(i));
 			GridPane.setConstraints(labels.get(i), 0, i);
 			GridPane.setConstraints(values.get(i), 1, i);
 			grid.getChildren().addAll(labels.get(i), values.get(i));
 		}
-		
 		buttonIndex = i;
 		editDetailsButton.setOnAction(e -> {
 			// move to editing my details

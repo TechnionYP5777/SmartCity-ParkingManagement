@@ -104,8 +104,8 @@ public class MyDetailsEdit extends AbstractWindow {
 					//String carNumber, String name, String phoneNumber, String email, String newCar, StickersColor type
 					login.userUpdate(login.getCarNumber(), correctedValues.get(1).getText(), correctedValues.get(3).getText(),
 							correctedValues.get(0).getText(), correctedValues.get(2).getText(), type);
-					// You can only get here if the last prevWindows is
-					// 'MyDetails'!!
+					// You can only get here if the last prevWindows is 'MyDetails'!!
+					window.close();
 					MyDetails MD = (MyDetails) AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1);
 					AbstractWindow.prevWindows.remove(prevWindows.size() - 1);
 					MD.display(primaryStage, prevWindow, labels, correctedValues);
