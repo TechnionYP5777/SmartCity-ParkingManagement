@@ -6,12 +6,14 @@
 package gui.driver.app;
 
 import javafx.animation.PauseTransition;
+import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -105,16 +107,14 @@ public class Login extends AbstractWindow {
 			if (!login.userLogin(nameInput.getText(), passInput.getText()))
 				(new AlertBox()).display("Login failed", "Car Number/Password is incorrect.");
 			else {
+				
+				AlertBox MB = new AlertBox();
+				MB.display("Please Wait", "Connecting to server. \nThis might take a Few seconds. \nPlease confirm and wait patiently");
+				navigate = new NavigationController(login.getUser());
+				MB.window.close();
+				 
 				this.window.close();
-				MessageBox MB = new MessageBox();
-				MB.display("Please Wait", "Connecting to server...");
-				PauseTransition pause = new PauseTransition(Duration.seconds(3_000));
-				pause.setOnFinished(event -> {
-						navigate = new NavigationController(login.getUser());
-				       
-				});
-				 MB.window.close();
-				System.out.println("connecting");
+				
 
 				(new AlertBox()).display("Successful", "You have successfuly logged in");
 				Opening.getCAObject(prevWindows).buttonLogin.setDisable(true);

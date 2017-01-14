@@ -29,7 +29,8 @@ public class MessageBox {
 		Scene scene = new Scene(layout);
 		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());
 		window.setScene(scene);
-		window.show();				
+		window.showAndWait();		
+		
 	}
 }
 
