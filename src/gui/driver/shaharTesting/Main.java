@@ -3,7 +3,9 @@ package gui.driver.shaharTesting;
 import java.util.ArrayList;
 
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.scene.Scene;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
 
@@ -36,9 +38,22 @@ public class Main extends Application {
 		ChooseAction chooseActionObject = new ChooseAction();
 		ArrayList<AbstractWindow> prevWindows = new ArrayList<AbstractWindow>();
 		prevWindows.add(chooseActionObject);
-		chooseActionObject.display(primaryStage, WindowEnum.NONE, prevWindows);
 		
-		
+		final Task task = new Task() {
+
+	        @Override
+	        protected Object call() throws Exception {
+	            int s = 100;
+	            AudioClip audio = new AudioClip(getClass().getResource("sound.mp3").toExternalForm());
+	            audio.setVolume(0.5f);
+	            audio.setCycleCount(s);
+	            audio.play();
+	            return null;
+	        }
+	    };
+	    Thread thread = new Thread(task);
+	    thread.start();
+	    chooseActionObject.display(primaryStage, WindowEnum.NONE, prevWindows);
 //		if (!ConfirmBox.display("Choose Action", "would you like to get password?"))
 //			AlertBox.display("Goodbye!", "Hope you enjoyed!");
 //		else
