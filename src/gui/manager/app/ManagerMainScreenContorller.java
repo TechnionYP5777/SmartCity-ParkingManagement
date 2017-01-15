@@ -62,6 +62,13 @@ public class ManagerMainScreenContorller implements Initializable {
     //PmMap map = new PmMap();
     //BorderPane mapPane = map.getMapBorderPane();
     ManegerMap map = new ManegerMap();
+    //TODO: **************************Need to Change to ********************************************/
+    //ManegerMap map = new ManegerMap(locations,colors);
+    //Where locations is a HashMap<String,MapLocation> of parking areas and their location from DB 
+    //Where colors is a HashMap<String,String> of parking areas and their colors from DB
+    //also when change a color please update to map with ChangeColorOfParking(String id ,String color)
+    // event handler should use focusOnParkingArea(String AreaID)
+    /**********************************************************************************************/
     GoogleMapView view = new GoogleMapView(Locale.getDefault().getLanguage(), null); 
     @Override
     public void initialize(URL location, ResourceBundle __) {
