@@ -1,15 +1,22 @@
 package logic;
 
-import data.members.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.Assert;
 import org.junit.Test;
-import java.util.Date;
 import org.parse4j.ParseException;
-import java.util.Set;
-import java.util.HashSet;
-import Exceptions.*;
-import logic.Navigation;
-import manager.logic.*;
+
+import Exceptions.AlreadyExists;
+import data.members.Destination;
+import data.members.MapLocation;
+import data.members.ParkingArea;
+import data.members.ParkingAreas;
+import data.members.ParkingSlot;
+import data.members.ParkingSlotStatus;
+import data.members.StickersColor;
+import data.members.User;
 
 public class NavigationTest {
 

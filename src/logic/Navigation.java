@@ -56,6 +56,8 @@ public class Navigation {
 	public static long getDuration(MapLocation source, MapLocation target, boolean walkingMode) {
 		String url = createURL(source, target, walkingMode);
 		JSONObject element = getInnerJSON(url);
+		if (!element.containsKey("duration") || !((JSONObject)element.get("duration")).containsKey("value"))
+			return Integer.MAX_VALUE;
 		return element == null ? 0 : (long) ((JSONObject) element.get("duration")).get("value");
 	}
 

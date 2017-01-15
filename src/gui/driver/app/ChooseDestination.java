@@ -2,8 +2,6 @@ package gui.driver.app;
 
 import java.util.Set;
 
-import org.parse4j.ParseException;
-
 import gui.map.DriverMap;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -21,7 +19,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import logic.Navigation;
 
 public class ChooseDestination extends AbstractWindow{
 	
