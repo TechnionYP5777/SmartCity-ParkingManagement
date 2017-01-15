@@ -9,6 +9,7 @@ import org.parse4j.ParseQuery;
 import data.management.DBManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -149,6 +150,13 @@ public class ParkingAreas extends dbMember {
 		for (ParkingArea currentArea : this.parkingAreas)
 			s.add(currentArea.getName());
 		return s;
+	}
+	
+	public HashMap<String,StickersColor> getParkingAreasColor() throws ParseException{
+		 HashMap<String,StickersColor> colorsByName = new  HashMap<String,StickersColor>();
+		for (ParkingArea currentArea : this.parkingAreas)
+			colorsByName.put(currentArea.getName(),currentArea.getColor());
+		return colorsByName;
 	}
 	
 	// Update the areas array in the DB according to the last update
