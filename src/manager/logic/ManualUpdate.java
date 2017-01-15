@@ -16,24 +16,23 @@ import data.members.StickersColor;
 public class ManualUpdate {
 	private Queries queries;
 	
-	public void updateArea(int areaId, int slotsAmount, StickersColor demandColor, 
-			DurationType d, Date untilDate){
-
-		//check if the area is exist
-		ParkingArea givenArea = this.queries.returnArea(areaId);
-		if (givenArea == null)
-			System.out.println("demand area does not exist");
-		//check if slots amounts is makes sense
-		else if (givenArea.getNumOfFreeSlots() < slotsAmount)
-			System.out.println("demand amount does not possible");
-		//check if the demand color is different from the original one
-		else if (givenArea.getColor().equals(demandColor))
-			System.out.println("there is no change in colors");
-		//check if the end day is in the future
-		else if (untilDate == null || untilDate.before((new Date())))
-			System.out.println("end time is not in the future");
-		else
-			//update
-			(new ManualUpdateArea(areaId, slotsAmount, demandColor, d, untilDate)).updateArea();
+	public ManualUpdate(){
+		this.queries=new Queries();
 	}
+	
+	public void updateArea(int areaId, int slotsAmount, StickersColor demandColor, 
+			DurationType t, Date untilDate){
+				ParkingArea givenArea = this.queries.returnArea(areaId);
+				if (givenArea == null)
+					throw new RuntimeException("demand area does not exist");
+				if (givenArea.getNumOfFreeSlots() < slotsAmount)
+					throw new RuntimeException("demand amount does not possible");
+				if (givenArea.getColor().equals(demandColor))
+					throw new RuntimeException("there is no change in colors");
+				if (untilDate!=null && untilDate.before((new Date())))
+					throw new RuntimeException("end time is not in the future");
+				if (untilDate==null && t.equals(DurationType.TEMPORARY))
+					throw new RuntimeException("temporary without end date");
+				(new ManualUpdateArea(this.queries.returnArea(areaId), slotsAmount, demandColor, t, untilDate)).updateArea();
+			}
 }
