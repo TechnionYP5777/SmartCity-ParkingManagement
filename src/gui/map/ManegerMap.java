@@ -1,8 +1,11 @@
 package gui.map;
 
 
-import com.lynden.gmapsfx.GoogleMapView;
+import java.util.ArrayList;
+import java.util.Random;
 
+import com.lynden.gmapsfx.GoogleMapView;
+import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.LatLong;
 import com.lynden.gmapsfx.javascript.object.LatLongBounds;
 import com.lynden.gmapsfx.javascript.object.MapOptions;
@@ -34,11 +37,18 @@ public class ManegerMap extends PmMap {
 			Circle pool=new Circle(new CircleOptions().center(new LatLong(32.779639, 35.019509)).fillColor("green")
 					.radius(20.0).fillOpacity(0.40).editable(false).clickable(true));
 			map.addMapShape(pool);
-			Circle makak=new Circle(new CircleOptions().center(new LatLong(32.780694, 35.022191)).fillColor("blue")
-					.radius(20.0).fillOpacity(0.40).editable(false).clickable(true));
-			map.addMapShape(makak);
+			map.addMapShape((new Circle(new CircleOptions().center(new LatLong(32.780694, 35.022191)).fillColor("blue")
+					.radius(20.0).fillOpacity(0.40).editable(false).clickable(true))));
 		});
-
+		ArrayList<String> debug = new ArrayList<String>();
+		map.addUIEventHandler(UIEventType.click, e -> {
+			debug.add("taub");
+			debug.add("studentHous");
+			debug.add("pool");
+			debug.add("makak");
+			int index = (new Random()).nextInt(debug.size() - 1);
+			focusOnParkingArea(debug.get(index));
+		});
 	
 
 	}
@@ -50,12 +60,24 @@ public class ManegerMap extends PmMap {
     	switch (AreaID){
     	case "taub":
     		map.setCenter(new LatLong(32.777469, 35.021177));
-    	case "StudentHous":
+    		map.setZoom(17);
+    		System.out.println("taub");
+    		break;
+    	case "studentHous":
+    		System.out.println("StudentHous");
     		map.setCenter(new LatLong(32.776009, 35.022816));
+    		map.setZoom(17);
+    		break;
     	case "pool":
     		map.setCenter(new LatLong(32.779639, 35.019509));
+    		System.out.println("pool");
+    		map.setZoom(17);
+    		break;
     	case "makak":
     		map.setCenter(new LatLong(32.780694, 35.022191));
+    		System.out.println("makak");
+    		map.setZoom(17);
+    		break;
     	default:
     		System.out.println("dont have this label");
     	}
