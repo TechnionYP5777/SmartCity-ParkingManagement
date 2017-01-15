@@ -18,13 +18,16 @@ import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.controlsfx.control.Notifications;
 import org.parse4j.ParseException;
 
+import com.lynden.gmapsfx.GoogleMapView;
+
 import data.members.ParkingAreas;
-import gui.map.PmMap;
+import gui.map.ManegerMap;
 
 public class ManagerMainScreenContorller implements Initializable {
 
@@ -56,17 +59,19 @@ public class ManagerMainScreenContorller implements Initializable {
 	}
 	
 	Label testLabel = new Label();
-    PmMap map = new PmMap();
-    BorderPane mapPane = map.getMapBorderPane();
-    
+    //PmMap map = new PmMap();
+    //BorderPane mapPane = map.getMapBorderPane();
+    ManegerMap map = new ManegerMap();
+    GoogleMapView view = new GoogleMapView(Locale.getDefault().getLanguage(), null); 
     @Override
     public void initialize(URL location, ResourceBundle __) {
+    	map.SetMapComponent(view);
         System.out.println("View is now loading...");
-        mapPane.setMaxHeight(Region.USE_COMPUTED_SIZE);
-        mapPane.setMaxWidth(Region.USE_COMPUTED_SIZE);
-        mapPane.setMinHeight(Region.USE_COMPUTED_SIZE);
-        mapPane.setMinWidth(Region.USE_COMPUTED_SIZE);
-        mapVBox.getChildren().addAll(mapPane);
+        view.setMaxHeight(Region.USE_COMPUTED_SIZE);
+        view.setMaxWidth(Region.USE_COMPUTED_SIZE);
+        view.setMinHeight(Region.USE_COMPUTED_SIZE);
+        view.setMinWidth(Region.USE_COMPUTED_SIZE);
+        mapVBox.getChildren().addAll(view);
         //BorderPane.setAlignment(mapPane, Pos.TOP_CENTER);
         
         //Initialize parking areas list
