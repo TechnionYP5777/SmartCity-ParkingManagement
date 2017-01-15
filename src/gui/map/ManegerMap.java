@@ -1,16 +1,14 @@
 package gui.map;
 
+
 import com.lynden.gmapsfx.GoogleMapView;
-import com.lynden.gmapsfx.javascript.event.MapStateEventType;
-import com.lynden.gmapsfx.javascript.event.UIEventType;
+
 import com.lynden.gmapsfx.javascript.object.LatLong;
 import com.lynden.gmapsfx.javascript.object.LatLongBounds;
 import com.lynden.gmapsfx.javascript.object.MapOptions;
-import com.lynden.gmapsfx.javascript.object.MapShape;
 import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
 import com.lynden.gmapsfx.shapes.Circle;
 import com.lynden.gmapsfx.shapes.CircleOptions;
-import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Default;
 
 /*
  * @Author shay segal
@@ -41,6 +39,7 @@ public class ManegerMap extends PmMap {
 			map.addMapShape(makak);
 		});
 
+	
 
 	}
     public void SetMapComponent(GoogleMapView mapComponent){
