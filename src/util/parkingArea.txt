@@ -1,4 +1,4 @@
-0 taub RED taub0 taub1 taub2 taub3 taub4 taub5 taub6 taub6 taub7 taub8 taub9
-1 studentHous RED studentHous0 studentHous1 studentHous2 studentHous3 studentHous4 studentHous5 studentHous6 studentHous7 studentHous8 studentHous9
-2 makak WHITE makak0 makak1 makak2 makak3 makak4 makak5 makak6 makak7 makak8 makak9
-3 pool GREEN pool0 pool1 pool2 pool3 pool4 pool5 pool6 pool7 pool8 pool9
+0 Taub RED taub0 taub1 taub2 taub3 taub4 taub5 taub6 taub6 taub7 taub8 taub9
+1 StudentHous RED studentHous0 studentHous1 studentHous2 studentHous3 studentHous4 studentHous5 studentHous6 studentHous7 studentHous8 studentHous9
+2 Makak WHITE makak0 makak1 makak2 makak3 makak4 makak5 makak6 makak7 makak8 makak9
+3 Pool GREEN pool0 pool1 pool2 pool3 pool4 pool5 pool6 pool7 pool8 pool9
