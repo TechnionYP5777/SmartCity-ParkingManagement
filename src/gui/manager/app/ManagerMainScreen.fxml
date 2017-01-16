@@ -70,7 +70,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </Label>
-            <Label text="38">
+            <Label fx:id="totalSlotsLbl" text="38">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" />
                </VBox.margin>
@@ -83,7 +83,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </Label>
-            <Label text="11">
+            <Label fx:id="freeSlotsLbl" text="11">
                <font>
                   <Font name="System Bold" size="27.0" />
                </font>
@@ -96,7 +96,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </Label>
-            <Label text="27">
+            <Label fx:id="takenSlotsLbl" text="27">
                <font>
                   <Font name="System Bold" size="27.0" />
                </font>

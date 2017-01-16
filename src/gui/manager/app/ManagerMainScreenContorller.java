@@ -28,6 +28,7 @@ import org.parse4j.ParseException;
 import com.jfoenix.controls.JFXButton;
 import com.lynden.gmapsfx.GoogleMapView;
 
+import data.members.ParkingArea;
 import data.members.ParkingAreas;
 import gui.map.ManegerMap;
 
@@ -48,6 +49,15 @@ public class ManagerMainScreenContorller implements Initializable {
     @FXML
     private JFXButton editBtn;
 	
+    @FXML
+    private Label totalSlotsLbl;
+    
+    @FXML
+    private Label freeSlotsLbl;
+    
+    @FXML
+    private Label takenSlotsLbl;
+    
 	@FXML
 	private MenuBar mainMenuBar;
 	
@@ -98,6 +108,21 @@ public class ManagerMainScreenContorller implements Initializable {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+        
+        parkingAreas.getSelectionModel().selectedItemProperty().addListener( (v,prev,next) -> {
+        	ParkingArea area;
+			try {
+				area = new ParkingArea(next);
+				int freeSlots = (int) area.getFreeSlots().stream().count();
+	        	freeSlotsLbl.setText(String.valueOf(freeSlots));
+	        	int takenSlots = (int) area.getFreeSlots().stream().count();
+	        	takenSlotsLbl.setText(String.valueOf(takenSlots));
+	        	totalSlotsLbl.setText(String.valueOf(freeSlots+takenSlots));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        });
 		
         System.out.println("View is now loaded!");
     }
