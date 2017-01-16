@@ -1,5 +1,8 @@
 package manager.logic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import data.members.ParkingArea;
 import data.members.StickersColor;
 
@@ -48,5 +51,12 @@ public class SelectAnArea {
 	public StickersColor getColorOfArea(int areaId) {
 		ParkingArea currentArea = this.queries.returnArea(areaId);
 		return currentArea == null ? null : currentArea.getColor();
+	}
+	
+	public List<String> getAllPossibleColors(){
+		List<String> $=new ArrayList<String>();
+		for (StickersColor ¢ : StickersColor.values())
+			$.add(¢.name());
+		return $;
 	}
 }

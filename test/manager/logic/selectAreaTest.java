@@ -227,4 +227,13 @@ public class selectAreaTest {
 		DBManager.initialize();
 		(new SelectAnArea()).getColorOfArea(100);
 	}
+	
+	@Test
+	public void test9() {
+		DBManager.initialize();
+		List<String> colors=(new SelectAnArea()).getAllPossibleColors();
+		Assert.assertEquals(6,colors.size());
+		//for (String s: colors)
+			//System.out.println(s);
+	}
 }
