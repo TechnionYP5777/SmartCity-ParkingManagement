@@ -5,26 +5,28 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXSlider;
+import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import manager.logic.SelectAnArea;
 
-public class EditAreaController {
+public class EditAreaController implements Initializable {
     @FXML
     private AnchorPane curbstoneView;
 
     @FXML
-    private JFXSlider slotsSlider;
+    private Slider slotsSlider;
 
     @FXML
     private JFXTextField slotsInput;
@@ -42,7 +44,9 @@ public class EditAreaController {
     private JFXButton ChngBtn;
     
     public void initialize(URL location, ResourceBundle __) {
-    	(new SelectAnArea()).getAllPossibleColors().forEach(c -> radioHBox.getChildren().add(new RadioButton(c)));
+    	(new SelectAnArea()).getAllPossibleColors().forEach(c -> {
+    		radioHBox.getChildren().addAll((new JFXRadioButton((Character.toUpperCase(c.charAt(0)) + c.substring(1).toLowerCase()))));
+    	});
     }
     
 	public static void display() throws IOException {
