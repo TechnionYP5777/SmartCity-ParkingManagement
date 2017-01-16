@@ -44,7 +44,7 @@
                   <Insets bottom="30.0" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox fx:id="radioHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <JFXRadioButton text="Red" />
                   <JFXRadioButton text="Green" />
