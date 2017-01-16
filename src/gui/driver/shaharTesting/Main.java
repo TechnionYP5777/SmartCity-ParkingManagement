@@ -39,7 +39,7 @@ public class Main extends Application {
 		ArrayList<AbstractWindow> prevWindows = new ArrayList<AbstractWindow>();
 		prevWindows.add(chooseActionObject);
 		
-		final Task task = new Task() {
+		final Task<Object> task = new Task<Object>() {
 
 	        @Override
 	        protected Object call() throws Exception {
