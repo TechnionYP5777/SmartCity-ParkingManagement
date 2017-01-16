@@ -19,6 +19,7 @@ import org.parse4j.ParseQuery;
 import data.members.DurationType;
 import data.members.ParkingArea;
 import data.members.ParkingSlot;
+import data.members.ParkingSlotStatus;
 import data.members.StickersColor;
 
 public class ManualUpdateArea {
@@ -74,7 +75,7 @@ public class ManualUpdateArea {
 	public void updateArea(){
 		//update area details
 		updateAreaDetails();
-		Set<ParkingSlot> slots = area.convertToSlots(area.getAllSlots());
+		Set<ParkingSlot> slots = area.getSlotsByStatus(ParkingSlotStatus.FREE);
 		//change randomly amount of slots in the area to the demand color
 		//update slots
 		int counter=1;
