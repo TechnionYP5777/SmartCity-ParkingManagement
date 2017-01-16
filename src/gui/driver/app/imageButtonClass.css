@@ -1,0 +1,8 @@
+
+.button {
+		-fx-graphic: url('https://s28.postimg.org/6ish5dcz1/icon_64.png');
+}
+
+.button:hover {
+    -fx-graphic: url('https://s29.postimg.org/kuj53h8if/selected_icon_64.png');
+}

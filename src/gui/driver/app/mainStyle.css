@@ -54,16 +54,14 @@
 	 -fx-font-weight: bold;
 	-fx-pref-height: 20;
    -fx-pref-width: 300;
-   -fx-padding: 10 20 10 20
+   -fx-padding: 10 20 10 20;
  
 }
-
-
 
 .button-menu:hover {
 	 -fx-background-color: linear-gradient(#0066ff, #000033); 
     -fx-color: white;
-   -fx-effect: dropshadow( gaussian , rgba(0, 0, 148, 0.8) , 10,0,0,1 ); 
+   -fx-effect: dropshadow( gaussian , rgba(0, 0, 148, 0.8) , 10,0,0,1); 
 	
 }
 
@@ -74,18 +72,18 @@
 }
 
 .button-go {
-	-fx-background-color: #3c7fb1, linear-gradient(#fafdfe, #e8f5fc), 
-				 linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);
+	-fx-background-color: transparent;
 	-fx-background-insets: 0,1,2; 
 	-fx-background-radius: 30;
 	-fx-text-fill: black;
 }
 
 .button-go:hover {
-	-fx-background-color: #00FF80; 
+	-fx-background-color: transparent;
     -fx-color: black; 
     -fx-effect: dropshadow( gaussian , rgba(0, 0, 148, 0.8) , 10,0,0,1 ); 
 }
+
 
 .disabled {
     -fx-opacity: 0.6;

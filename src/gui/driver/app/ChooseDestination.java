@@ -10,6 +10,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -72,6 +73,10 @@ public class ChooseDestination extends AbstractWindow{
 		
 		
 		Button buttonBack = new Button("Back");
+		Button buttonGO = new Button();
+		ImageView iv = new ImageView (new Image(getClass().getResourceAsStream("selected_icon_64.png")));
+		buttonGO.setGraphic(iv);
+		
 		buttonBack.setOnAction(e -> {
 			this.window.close();
 			AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size()-1).window.show();
@@ -81,9 +86,6 @@ public class ChooseDestination extends AbstractWindow{
 		GridPane.setConstraints(buttonBack, 0, currIdx);
 		//buttonBack.setDisable(true);
 		
-		Button buttonGO = new Button("GO!");
-		
-		buttonGO.getStyleClass().add("button-go");
 		
 		buttonGO.setOnAction(e -> {
 			//************Add navigation functionality************//
@@ -103,11 +105,12 @@ public class ChooseDestination extends AbstractWindow{
 //			}
 		});
 		GridPane.setConstraints(buttonGO, 1, currIdx++);
-		
 		grid.getChildren().addAll(title, from, fromValue, to, toValue, buttonBack, buttonGO);
 		
+		buttonGO.getStyleClass().add("button-go");
 		Scene scene = new Scene(grid);
 		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());
+		
 		window.setScene(scene);
 		window.show();
 	}
