@@ -79,8 +79,8 @@ public class ManagerMainScreenContorller implements Initializable {
 	}
 	
 	@FXML
-	private void popEditAreaScreen() throws IOException {
-		EditAreaController.display();
+	private void popEditAreaScreen() throws IOException, ParseException {
+		EditAreaController.display(parkingAreasListView.getSelectionModel().getSelectedItem());
 	}
 	
 	@FXML
