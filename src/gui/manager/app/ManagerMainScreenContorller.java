@@ -49,6 +49,9 @@ public class ManagerMainScreenContorller implements Initializable {
 	private ListView<String> parkingAreasListView;
 	
     @FXML
+    private JFXButton showAllBtn;
+	
+    @FXML
     private JFXButton editBtn;
 	
     @FXML
@@ -80,28 +83,23 @@ public class ManagerMainScreenContorller implements Initializable {
 		EditAreaController.display();
 	}
 	
+	@FXML
+	private void resetParkingAreasListView() {
+		parkingAreasListView.getSelectionModel().clearSelection();
+		editBtn.setDisable(true);
+    	freeSlotsLbl.setText(String.valueOf(allFreeSlots));
+    	takenSlotsLbl.setText(String.valueOf(allTakenSlots));
+    	totalSlotsLbl.setText(String.valueOf(allFreeSlots+allTakenSlots));
+	}
+	
+	private int allFreeSlots;
+	private int allTakenSlots;
+	
     @Override
     public void initialize(URL location, ResourceBundle __) {
-    	try {
-    		ParkingAreas pareas = new ParkingAreas();
-    	    HashMap<String,MapLocation> locations=pareas.getParkingAreasLocation();
-    	    HashMap<String,String> colors = new HashMap<>();
-    	    pareas.getParkingAreasColor().forEach((k, v) -> {
-    			colors.put(k, v.name());
-    		});
-        	ManegerMap map = new ManegerMap(locations,colors);
-    	    GoogleMapView view = new GoogleMapView(Locale.getDefault().getLanguage(), null); 
-        	map.SetMapComponent(view);
-            System.out.println("View is now loading...");
-            view.setMaxHeight(Region.USE_COMPUTED_SIZE);
-            view.setMaxWidth(Region.USE_COMPUTED_SIZE);
-            view.setMinHeight(Region.USE_COMPUTED_SIZE);
-            view.setMinWidth(Region.USE_COMPUTED_SIZE);
-            mapVBox.getChildren().addAll(view);
-    	} catch (ParseException e) {
-    		e.printStackTrace();
-    	}
-        
+    	
+    	editBtn.setDisable(true);
+    	
         //Initialize parking areas list
         ParkingAreas pa = new ParkingAreas();
         try {
@@ -110,17 +108,46 @@ public class ManagerMainScreenContorller implements Initializable {
 			e.printStackTrace();
 		}
         
+        //Initialize map
+        ParkingAreas pareas = new ParkingAreas();
+        HashMap<String,MapLocation> locations=new HashMap<>();
+        HashMap<String,String> colors = new HashMap<>();
+        try {
+			locations= pareas.getParkingAreasLocation();
+	        pareas.getParkingAreasColor().forEach((k, v) -> {
+	        	colors.put(k, v.name());
+	        });
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        ManegerMap map = new ManegerMap(locations,colors);
+        GoogleMapView view = new GoogleMapView(Locale.getDefault().getLanguage(), null); 
+        map.SetMapComponent(view);
+        System.out.println("View is now loading...");
+        view.setMaxHeight(Region.USE_COMPUTED_SIZE);
+        view.setMaxWidth(Region.USE_COMPUTED_SIZE);
+        view.setMinHeight(Region.USE_COMPUTED_SIZE);
+        view.setMinWidth(Region.USE_COMPUTED_SIZE);
+        mapVBox.getChildren().addAll(view);       
+        
         //Initialize total slots amount
         ParkingAreas parkingAreas = new ParkingAreas();
-		int allFreeSlots = parkingAreas.getNumOfFreeSlots();
+		allFreeSlots = parkingAreas.getNumOfFreeSlots();
     	freeSlotsLbl.setText(String.valueOf(allFreeSlots));
-    	int allTakenSlots = parkingAreas.getNumOfTakenSlots();
+    	allTakenSlots = parkingAreas.getNumOfTakenSlots();
     	takenSlotsLbl.setText(String.valueOf(allTakenSlots));
     	totalSlotsLbl.setText(String.valueOf(allFreeSlots+allTakenSlots));
         
         //Initialize ListView listener for parking areas
     	parkingAreasListView.getSelectionModel().selectedItemProperty().addListener( (v,prev,next) -> {
-        	ParkingArea area;
+    		if (next==null){
+        		map.resetMap();
+        		return;
+    		}
+    		map.focusOnParkingArea(next);
+    		editBtn.setDisable(false);
+    		ParkingArea area;
 			try {
 				area = new ParkingArea(next);
 				int freeSlots = (int) area.getFreeSlots().stream().count();
@@ -132,8 +159,8 @@ public class ManagerMainScreenContorller implements Initializable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+						
         });
-		
         System.out.println("View is now loaded!");
     }
 }
