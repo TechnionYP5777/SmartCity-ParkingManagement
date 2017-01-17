@@ -159,6 +159,13 @@ public class ParkingAreas extends dbMember {
 		return colorsByName;
 	}
 	
+	public HashMap<String,MapLocation> getParkingAreasLocation() throws ParseException{
+		 HashMap<String,MapLocation> locationsByName = new  HashMap<String,MapLocation>();
+		for (ParkingArea currentArea : this.parkingAreas)
+			locationsByName.put(currentArea.getName(),currentArea.getLocation());
+		return locationsByName;
+	}
+	
 	// Update the areas array in the DB according to the last update
 		private void updateAreasArray() throws ParseException {
 			List<ParseObject> areas = new ArrayList<ParseObject>();

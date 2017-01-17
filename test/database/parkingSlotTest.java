@@ -41,7 +41,7 @@ public class parkingSlotTest {
 					new MapLocation(0, 0), new Date());
 			Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
-			ParkingArea area = new ParkingArea(0,"t1", slots, StickersColor.RED);
+			ParkingArea area = new ParkingArea(0,"t1", new MapLocation(0, 0), slots, StickersColor.RED);
 			Assert.assertEquals(area.getName(), slot1.findContainingParkingArea());
 			
 			area.deleteParseObject();
@@ -62,7 +62,7 @@ public class parkingSlotTest {
 					new MapLocation(0, 0), new Date());
 			Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
-			ParkingArea area = new ParkingArea(12,"t1", slots, StickersColor.RED);
+			ParkingArea area = new ParkingArea(12,"t1", new MapLocation(0, 0), slots, StickersColor.RED);
 			
 			// Act + assert
 			slot1.removeParkingSlotFromAreaAndDB();

@@ -49,7 +49,7 @@ public class parkingAreaTest {
 			slots.add(slot1);
 			slots.add(slot2);
 
-			area = new ParkingArea(0, "t1", slots, StickersColor.RED);
+			area = new ParkingArea(0, "t1", new MapLocation(0, 0), slots, StickersColor.RED);
 
 			query = ParseQuery.getQuery("ParkingArea");
 			query.whereEqualTo("name", "t1");
@@ -98,7 +98,8 @@ public class parkingAreaTest {
 			if (areaList == null || areaList.isEmpty())
 				throw new RuntimeException("There should be an area with areaId=" + 0);
 			area.removeParkingSlot(slot2);
-			Assert.assertEquals(1, (new ParkingArea(areaList.get(0))).getNumOfFreeSlots());
+//			Assert.assertEquals(1, (new ParkingArea(areaList.get(0))).getNumOfFreeSlots());
+			Assert.assertEquals(1, area.getNumOfFreeSlots());
 
 			ParkingSlot slot3 = new ParkingSlot("testS2", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
 					new MapLocation(0, 0), new Date());

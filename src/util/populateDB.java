@@ -23,13 +23,13 @@ public class populateDB {
 	public static void main(String[] args) {
 		System.out.println("Start Populating DB");
 		try {
-			//insertParkingSlots();
+			insertParkingSlots();
 		} catch (Exception e) {
 			System.out.println("Something went wrong. Could not add the parking slots");
 			e.printStackTrace();
 		}
 		try {
-			//insertParkingArea();
+			insertParkingArea();
 		} catch (Exception e) {
 			System.out.println("Something went wrong. Could not add the parking area");
 			e.printStackTrace();
@@ -62,7 +62,7 @@ public class populateDB {
 			System.out.println("Inserting the following area:");
 			System.out.println(line);
 			String[] input = line.split(" ");
-			if (input.length < 3)
+			if (input.length < 5)
 				throw new IllegalArgumentException(
 						"Input line should look like this: [id] [name] [defaultColor] [slot0] [slot1] ... [slotn]");
 			if (!insertAreaToDB(input))
@@ -115,9 +115,10 @@ public class populateDB {
 		int id = Integer.parseInt(args[0]);
 		String name = args[1];
 		StickersColor defaultColor = StickersColor.valueOf(args[2]);
-
+		double lat = Double.parseDouble(args[3]);
+		double lon = Double.parseDouble(args[4]);
 		Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
-		for(int nameIndex = 3; nameIndex<args.length; ++nameIndex)
+		for(int nameIndex = 5; nameIndex<args.length; ++nameIndex)
 			try {
 				slots.add((new ParkingSlot(args[nameIndex])));
 			} catch (ParseException e) {
@@ -126,7 +127,7 @@ public class populateDB {
 			}
 		
 		try {
-			ParkingArea area = new ParkingArea(id, name, slots, defaultColor);
+			ParkingArea area = new ParkingArea(id, name, new MapLocation(lat, lon), slots, defaultColor);
 		} catch (ParseException e) {
 			e.printStackTrace();
 			return false;

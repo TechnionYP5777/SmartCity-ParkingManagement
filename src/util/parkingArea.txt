@@ -1,4 +1,4 @@
-0 Taub RED taub0 taub1 taub2 taub3 taub4 taub5 taub6 taub6 taub7 taub8 taub9
-1 StudentHous RED studentHous0 studentHous1 studentHous2 studentHous3 studentHous4 studentHous5 studentHous6 studentHous7 studentHous8 studentHous9
-2 Makak WHITE makak0 makak1 makak2 makak3 makak4 makak5 makak6 makak7 makak8 makak9
-3 Pool GREEN pool0 pool1 pool2 pool3 pool4 pool5 pool6 pool7 pool8 pool9
+0 Taub RED 32.777873 35.021724 taub0 taub1 taub2 taub3 taub4 taub5 taub6 taub6 taub7 taub8 taub9
+1 StudentHous RED 32.776560 35.023021 studentHous0 studentHous1 studentHous2 studentHous3 studentHous4 studentHous5 studentHous6 studentHous7 studentHous8 studentHous9
+2 Makak WHITE 32.780823 35.021762 makak0 makak1 makak2 makak3 makak4 makak5 makak6 makak7 makak8 makak9
+3 Pool GREEN 32.779701 35.019082 pool0 pool1 pool2 pool3 pool4 pool5 pool6 pool7 pool8 pool9

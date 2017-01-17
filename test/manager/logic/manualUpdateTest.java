@@ -51,7 +51,7 @@ public class manualUpdateTest {
 		ParkingSlot slot4 = new ParkingSlot("testManual4", ParkingSlotStatus.TAKEN, StickersColor.GREEN, StickersColor.GREEN,
 				new MapLocation(0, 0), new Date());
 		slots.add(slot4);
-		new ParkingArea(20, "testManual",slots, StickersColor.GREEN);
+		new ParkingArea(20, "testManual",new MapLocation(0, 0),slots, StickersColor.GREEN);
 		
 	}
 
@@ -284,7 +284,7 @@ public class manualUpdateTest {
 		ParkingSlot slot2 = new ParkingSlot("checkTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN, StickersColor.GREEN,
 				new MapLocation(0, 0), new Date());
 		slots.add(slot2);
-		ParkingArea area = new ParkingArea(20,"t1", slots, StickersColor.GREEN);
+		ParkingArea area = new ParkingArea(20,"t1", new MapLocation(0, 0), slots, StickersColor.GREEN);
 		assertNotNull(area);
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
 		query.whereEqualTo("areaId", 20);

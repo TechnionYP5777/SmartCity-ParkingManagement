@@ -26,8 +26,7 @@ import data.members.StickersColor;
  * @Author Inbal Matityahu
  */
 
-public class parkingAreasTest {
-
+public class parkingAreasTest {	
 	@Test
 	public void test() {
 		DBManager.initialize();
@@ -47,7 +46,7 @@ public class parkingAreasTest {
 		ParkingSlot slot2 = new ParkingSlot("parkingAreasTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN, StickersColor.GREEN,
 				new MapLocation(0, 0), new Date());
 		slots.add(slot2);
-		ParkingArea area = new ParkingArea(20,"t1", slots, StickersColor.GREEN);
+		ParkingArea area = new ParkingArea(20,"t1", new MapLocation(0, 0), slots, StickersColor.GREEN);
 		assertNotNull(area);
 		
 		//test function
@@ -101,7 +100,7 @@ public class parkingAreasTest {
 		ParkingSlot slot2 = new ParkingSlot("parkingAreasTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN, StickersColor.GREEN,
 				new MapLocation(0, 0), new Date());
 		slots.add(slot2);
-		ParkingArea area = new ParkingArea(20, "t1",slots, StickersColor.GREEN);
+		ParkingArea area = new ParkingArea(20, "t1", new MapLocation(0, 0),slots, StickersColor.GREEN);
 		assertNotNull(area);
 		
 		//test function
@@ -154,7 +153,7 @@ public class parkingAreasTest {
 		ParkingSlot slot2 = new ParkingSlot("parkingAreasTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN, StickersColor.GREEN,
 				new MapLocation(0, 0), new Date());
 		slots.add(slot2);
-		ParkingArea area = new ParkingArea(20,"t1", slots, StickersColor.GREEN);
+		ParkingArea area = new ParkingArea(20,"t1",new MapLocation(0, 0), slots, StickersColor.GREEN);
 		assertNotNull(area);
 		
 		//test function
@@ -207,7 +206,7 @@ public class parkingAreasTest {
 		ParkingSlot slot2 = new ParkingSlot("parkingAreasTest2", ParkingSlotStatus.FREE, StickersColor.GREEN, StickersColor.GREEN,
 				new MapLocation(0, 0), new Date());
 		slots.add(slot2);
-		ParkingArea area = new ParkingArea(20,"t1", slots, StickersColor.GREEN);
+		ParkingArea area = new ParkingArea(20,"t1", new MapLocation(0, 0), slots, StickersColor.GREEN);
 		assertNotNull(area);
 		
 		//test function
@@ -267,7 +266,7 @@ public class parkingAreasTest {
 		ParkingSlot slot2 = new ParkingSlot("parkingAreasTest2", ParkingSlotStatus.FREE, StickersColor.GREEN, StickersColor.GREEN,
 				new MapLocation(0, 0), new Date());
 		slots.add(slot2);
-		ParkingArea area = new ParkingArea(20,"t1", slots, StickersColor.GREEN);
+		ParkingArea area = new ParkingArea(20,"t1", new MapLocation(0, 0), slots, StickersColor.GREEN);
 		assertNotNull(area);
 		
 		//test function
@@ -320,7 +319,7 @@ public class parkingAreasTest {
 		ParkingSlot slot2 = new ParkingSlot("parkingAreasTest2", ParkingSlotStatus.FREE, StickersColor.GREEN, StickersColor.GREEN,
 				new MapLocation(0, 0), new Date());
 		slots.add(slot2);
-		ParkingArea area = new ParkingArea(20,"t1", slots, StickersColor.GREEN);
+		ParkingArea area = new ParkingArea(20,"t1", new MapLocation(0, 0), slots, StickersColor.GREEN);
 		assertNotNull(area);
 		
 		//test function
