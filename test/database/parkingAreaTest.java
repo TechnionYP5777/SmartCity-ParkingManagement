@@ -187,6 +187,20 @@ public class parkingAreaTest {
 			fail();
 		}
 	}
+	
+	@Test
+	public void testNumberOfStatusSlots() {
+		try {
+			List<ParseObject> areaList = query.find();
+			if (areaList == null || areaList.isEmpty())
+				throw new RuntimeException("There should be an area with areaId=" + 0);
+			Assert.assertEquals(2, area.getNumOfFreeSlots());
+			Assert.assertEquals(0, area.getNumOfTakenSlots());
+		} catch (ParseException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
 
 	@Test
 	public void getAreaByName() {
