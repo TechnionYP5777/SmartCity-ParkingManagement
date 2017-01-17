@@ -16,12 +16,12 @@
    <children>
       <VBox alignment="TOP_CENTER" layoutX="45.0" prefHeight="71.0" prefWidth="180.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="61.0" prefWidth="180.0" text="Taub" textAlignment="CENTER">
+            <Label fx:id="areaLbl" alignment="CENTER" contentDisplay="CENTER" prefWidth="600.0" textAlignment="CENTER">
                <font>
                   <Font size="48.0" />
                </font>
             </Label>
-            <AnchorPane fx:id="curbstoneView" prefHeight="200.0" prefWidth="200.0" />
+            <VBox fx:id="curbstoneView" prefHeight="200.0" prefWidth="100.0" />
             <HBox alignment="CENTER" prefHeight="43.0" prefWidth="280.0">
                <children>
                   <Slider fx:id="slotsSlider" />
