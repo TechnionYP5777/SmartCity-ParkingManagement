@@ -4,11 +4,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.parse4j.ParseException;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 
+import data.members.ParkingArea;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -48,24 +51,29 @@ public class EditAreaController implements Initializable {
     @FXML
     private JFXButton ChngBtn;
     
+    private static ParkingArea parkingAreaElement;
+    
+
+	
     public void initialize(URL location, ResourceBundle __) {
-    	areaLbl.setText("Edit Area");
+    	areaLbl.setText(parkingAreaElement.getName());
     	ToggleGroup group = new ToggleGroup();
     	(new SelectAnArea()).getAllPossibleColors().forEach(c -> {
 			JFXRadioButton rbtn = new JFXRadioButton(
 					(Character.toUpperCase(c.charAt(0)) + c.substring(1).toLowerCase()));
 			radioHBox.getChildren().addAll((rbtn));
 			rbtn.setToggleGroup(group);
-			if (c == "RED")
+			if (c == parkingAreaElement.getColor().name())
 				rbtn.setSelected(true);
 		});
     }
     
-	public static void display() throws IOException {
+	public static void display(String parkingAreaID) throws IOException, ParseException {
+		parkingAreaElement = new ParkingArea(parkingAreaID);
 		Stage window = new Stage();
 		Parent editAreaParent = FXMLLoader.load(EditAreaController.class.getResource("EditArea.fxml"));
 		window.initModality(Modality.APPLICATION_MODAL);
-		window.setTitle("Edit Parking Area");
+		window.setTitle("Edit Parking Area: " + parkingAreaElement.getName());
 		Scene editScreen = new Scene(editAreaParent);
 		window.setScene(editScreen);
 		window.showAndWait();
