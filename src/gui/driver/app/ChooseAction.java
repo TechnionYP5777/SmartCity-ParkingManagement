@@ -33,23 +33,30 @@ public class ChooseAction extends AbstractWindow {
 
 	public void display(Stage primaryStage, WindowEnum prevWindow) {
 		// window = primaryStage;
-
+		//System.out.println(System.getProperty("os.name"));
+		if(!"Linux".equals(System.getProperty("os.name"))){
 		//Turn on the music!
 		final Task<Object> task = new Task<Object>() {
-			
 	        @Override
 	        protected Object call() throws Exception {
-
+	        	try{
 	            int s = 100;
 	            AudioClip audio = new AudioClip(getClass().getResource("sound.mp3").toExternalForm());
 	            audio.setVolume(0.5f);
 	            audio.setCycleCount(s);
 	            audio.play();
 	            return null;
+	        	}
+	        	catch(com.sun.media.jfxmedia.MediaException e){
+	    			System.out.println("Oh Shiettttt2!");
+	    		}
+	        	return null;
 	        }
 	    };
 	    Thread thread = new Thread(task);
 	    thread.start();
+		}
+		
 		
 		String title = "What Would you like to do?";
 		window.setTitle(title);
