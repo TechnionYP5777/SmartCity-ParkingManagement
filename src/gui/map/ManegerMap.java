@@ -47,8 +47,8 @@ public class ManegerMap extends PmMap {
 		mapComponent.addMapReadyListener(() -> {
 			for(String key : parkingToLocation.keySet()){
 				MapLocation ml=parkingToLocation.get(key);
-				Circle c=(new Circle(new CircleOptions().center(new LatLong(ml.getLat(), ml.getLat()))
-						.fillColor(parkingToColor.get(key)).radius(20.0).fillOpacity(0.40).editable(false)
+				Circle c=(new Circle(new CircleOptions().center(new LatLong(ml.getLat(), ml.getLon()))
+						.fillColor(parkingToColor.get(key).toLowerCase()).radius(20.0).fillOpacity(0.40).editable(false)
 						.clickable(true)));
 				shapes.put(key, c);
 				map.addMapShape(c);
