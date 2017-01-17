@@ -202,10 +202,9 @@ public class ParkingArea extends dbMember {
 	public void removeParkingSlot(ParkingSlot s) throws ParseException {
 		if (this.parkingSlots == null)
 			return;
-		Iterator<ParkingSlot> iterator = this.parkingSlots.iterator();
-		while (iterator.hasNext()) {
+		for (Iterator<ParkingSlot> iterator = this.parkingSlots.iterator(); iterator.hasNext();) {
 			ParkingSlot slot = iterator.next();
-		    if (slot.objectId.equalsIgnoreCase(s.objectId))
+			if (slot.objectId.equalsIgnoreCase(s.objectId))
 				iterator.remove();
 		}
 		s.removeParkingSlotFromDB();

@@ -98,7 +98,6 @@ public class parkingAreaTest {
 			if (areaList == null || areaList.isEmpty())
 				throw new RuntimeException("There should be an area with areaId=" + 0);
 			area.removeParkingSlot(slot2);
-//			Assert.assertEquals(1, (new ParkingArea(areaList.get(0))).getNumOfFreeSlots());
 			Assert.assertEquals(1, area.getNumOfFreeSlots());
 
 			ParkingSlot slot3 = new ParkingSlot("testS2", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,

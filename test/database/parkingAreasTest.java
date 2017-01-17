@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -376,6 +377,43 @@ public class parkingAreasTest {
 	public void test10() throws ParseException {
 		DBManager.initialize();
 		Assert.assertEquals(4, (new ParkingAreas().getParkingAreasNames()).size());
+	}
+	
+	@Test
+	public void test11() throws ParseException {
+		// Arrange
+		DBManager.initialize();
+		ParkingSlot slot1 = new ParkingSlot("testS1", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
+				new MapLocation(0, 0), new Date());
+		ParkingSlot slot2 = new ParkingSlot("testS2", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
+				new MapLocation(0, 0), new Date());
+
+		Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
+		slots.add(slot1);
+		slots.add(slot2);
+
+		MapLocation loc =  new MapLocation(0, 0);
+		ParkingArea area = new ParkingArea(0, "t1", loc, slots, StickersColor.RED);
+		
+		Set<ParkingArea> a = new HashSet<ParkingArea>();
+		a.add(area);
+		ParkingAreas areas = new ParkingAreas(a);
+		
+		// Act
+		HashMap<String,StickersColor> colors = areas.getParkingAreasColor();
+		HashMap<String,MapLocation> locations = areas.getParkingAreasLocation();
+		
+		// Assert
+		Assert.assertEquals(1,colors.size());
+		Assert.assertEquals(1,locations.size());
+		Assert.assertEquals(StickersColor.RED,colors.get("t1"));
+		Assert.assertEquals(loc,locations.get("t1"));
+		
+		// Cleanup
+		areas.deleteParseObject();
+		area.deleteParseObject();
+		slot1.deleteParseObject();
+		slot2.deleteParseObject();
 	}
 	
 }
