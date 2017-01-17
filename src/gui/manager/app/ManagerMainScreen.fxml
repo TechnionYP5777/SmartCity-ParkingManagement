@@ -42,7 +42,7 @@
    <left>
       <VBox alignment="TOP_CENTER" minWidth="300.0" BorderPane.alignment="TOP_CENTER">
          <children>
-            <ListView fx:id="parkingAreas" prefWidth="256.0" VBox.vgrow="ALWAYS">
+            <ListView fx:id="parkingAreasListView" prefWidth="256.0" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
@@ -55,22 +55,25 @@
       </VBox>
    </left>
    <right>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="150.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Info:">
+            <Label text="Information" textFill="#417db5">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
+               <font>
+                  <Font name="System Italic" size="15.0" />
+               </font>
             </Label>
             <Label text="Total Slots">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="totalSlotsLbl" text="38">
+            <Label fx:id="totalSlotsLbl" text="-">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" />
                </VBox.margin>
@@ -83,7 +86,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="freeSlotsLbl" text="11">
+            <Label fx:id="freeSlotsLbl" text="-">
                <font>
                   <Font name="System Bold" size="27.0" />
                </font>
@@ -96,7 +99,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="takenSlotsLbl" text="27">
+            <Label fx:id="takenSlotsLbl" text="-">
                <font>
                   <Font name="System Bold" size="27.0" />
                </font>

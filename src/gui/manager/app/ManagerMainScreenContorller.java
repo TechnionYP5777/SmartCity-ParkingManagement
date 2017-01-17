@@ -19,6 +19,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -28,6 +29,7 @@ import org.parse4j.ParseException;
 import com.jfoenix.controls.JFXButton;
 import com.lynden.gmapsfx.GoogleMapView;
 
+import data.members.MapLocation;
 import data.members.ParkingArea;
 import data.members.ParkingAreas;
 import gui.map.ManegerMap;
@@ -44,7 +46,7 @@ public class ManagerMainScreenContorller implements Initializable {
 	private BorderPane mapBorderPane;
 	
 	@FXML
-	private ListView<String> parkingAreas;
+	private ListView<String> parkingAreasListView;
 	
     @FXML
     private JFXButton editBtn;
@@ -78,44 +80,52 @@ public class ManagerMainScreenContorller implements Initializable {
 		EditAreaController.display();
 	}
 	
-	Label testLabel = new Label();
-    //PmMap map = new PmMap();
-    //BorderPane mapPane = map.getMapBorderPane();
-    ManegerMap map = new ManegerMap();
-    //TODO: **************************Need to Change to ********************************************/
-    //ManegerMap map = new ManegerMap(locations,colors);
-    //Where locations is a HashMap<String,MapLocation> of parking areas and their location from DB 
-    //Where colors is a HashMap<String,String> of parking areas and their colors from DB
-    //also when change a color please update to map with ChangeColorOfParking(String id ,String color)
-    // event handler should use focusOnParkingArea(String AreaID)
-    /**********************************************************************************************/
-    GoogleMapView view = new GoogleMapView(Locale.getDefault().getLanguage(), null); 
     @Override
     public void initialize(URL location, ResourceBundle __) {
-    	map.SetMapComponent(view);
-        System.out.println("View is now loading...");
-        view.setMaxHeight(Region.USE_COMPUTED_SIZE);
-        view.setMaxWidth(Region.USE_COMPUTED_SIZE);
-        view.setMinHeight(Region.USE_COMPUTED_SIZE);
-        view.setMinWidth(Region.USE_COMPUTED_SIZE);
-        mapVBox.getChildren().addAll(view);
-        //BorderPane.setAlignment(mapPane, Pos.TOP_CENTER);
+    	try {
+    		ParkingAreas pareas = new ParkingAreas();
+    	    HashMap<String,MapLocation> locations=pareas.getParkingAreasLocation();
+    	    HashMap<String,String> colors = new HashMap<>();
+    	    pareas.getParkingAreasColor().forEach((k, v) -> {
+    			colors.put(k, v.name());
+    		});
+        	ManegerMap map = new ManegerMap(locations,colors);
+    	    GoogleMapView view = new GoogleMapView(Locale.getDefault().getLanguage(), null); 
+        	map.SetMapComponent(view);
+            System.out.println("View is now loading...");
+            view.setMaxHeight(Region.USE_COMPUTED_SIZE);
+            view.setMaxWidth(Region.USE_COMPUTED_SIZE);
+            view.setMinHeight(Region.USE_COMPUTED_SIZE);
+            view.setMinWidth(Region.USE_COMPUTED_SIZE);
+            mapVBox.getChildren().addAll(view);
+    	} catch (ParseException e) {
+    		e.printStackTrace();
+    	}
         
         //Initialize parking areas list
         ParkingAreas pa = new ParkingAreas();
         try {
-			parkingAreas.setItems(FXCollections.observableList(((ArrayList<String>) pa.getParkingAreasNames())));
+			parkingAreasListView.setItems(FXCollections.observableList(((ArrayList<String>) pa.getParkingAreasNames())));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
         
-        parkingAreas.getSelectionModel().selectedItemProperty().addListener( (v,prev,next) -> {
+        //Initialize total slots amount
+        ParkingAreas parkingAreas = new ParkingAreas();
+		int allFreeSlots = parkingAreas.getNumOfFreeSlots();
+    	freeSlotsLbl.setText(String.valueOf(allFreeSlots));
+    	int allTakenSlots = parkingAreas.getNumOfTakenSlots();
+    	takenSlotsLbl.setText(String.valueOf(allTakenSlots));
+    	totalSlotsLbl.setText(String.valueOf(allFreeSlots+allTakenSlots));
+        
+        //Initialize ListView listener for parking areas
+    	parkingAreasListView.getSelectionModel().selectedItemProperty().addListener( (v,prev,next) -> {
         	ParkingArea area;
 			try {
 				area = new ParkingArea(next);
 				int freeSlots = (int) area.getFreeSlots().stream().count();
 	        	freeSlotsLbl.setText(String.valueOf(freeSlots));
-	        	int takenSlots = (int) area.getFreeSlots().stream().count();
+	        	int takenSlots = (int) area.getTakenSlots().stream().count();
 	        	takenSlotsLbl.setText(String.valueOf(takenSlots));
 	        	totalSlotsLbl.setText(String.valueOf(freeSlots+takenSlots));
 			} catch (ParseException e) {
