@@ -24,7 +24,7 @@ public class Curbstone3D extends Application{
         s.setTitle("Curbstone 3D");
         Curbstone c = new Curbstone(50,Color.web("#DC143C"),1);
         c.setTranslateX(0);
-        c.rx.setAngle(45);
+        c.rx.setAngle(25);
         c.ry.setAngle(45);
  
         Timeline animation = new Timeline();

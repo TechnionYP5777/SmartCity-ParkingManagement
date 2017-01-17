@@ -14,16 +14,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import manager.logic.SelectAnArea;
 
 public class EditAreaController implements Initializable {
     @FXML
-    private AnchorPane curbstoneView;
+    private Label areaLbl;
+    
+    @FXML
+    private VBox curbstoneView;
 
     @FXML
     private Slider slotsSlider;
@@ -44,9 +49,16 @@ public class EditAreaController implements Initializable {
     private JFXButton ChngBtn;
     
     public void initialize(URL location, ResourceBundle __) {
+    	areaLbl.setText("Edit Area");
+    	ToggleGroup group = new ToggleGroup();
     	(new SelectAnArea()).getAllPossibleColors().forEach(c -> {
-    		radioHBox.getChildren().addAll((new JFXRadioButton((Character.toUpperCase(c.charAt(0)) + c.substring(1).toLowerCase()))));
-    	});
+			JFXRadioButton rbtn = new JFXRadioButton(
+					(Character.toUpperCase(c.charAt(0)) + c.substring(1).toLowerCase()));
+			radioHBox.getChildren().addAll((rbtn));
+			rbtn.setToggleGroup(group);
+			if (c == "RED")
+				rbtn.setSelected(true);
+		});
     }
     
 	public static void display() throws IOException {
