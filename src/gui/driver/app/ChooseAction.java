@@ -1,6 +1,7 @@
 package gui.driver.app;
 
 
+import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -8,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logic.LoginManager;
@@ -31,6 +33,24 @@ public class ChooseAction extends AbstractWindow {
 
 	public void display(Stage primaryStage, WindowEnum prevWindow) {
 		// window = primaryStage;
+
+		//Turn on the music!
+		final Task<Object> task = new Task<Object>() {
+			
+	        @Override
+	        protected Object call() throws Exception {
+
+	            int s = 100;
+	            AudioClip audio = new AudioClip(getClass().getResource("sound.mp3").toExternalForm());
+	            audio.setVolume(0.5f);
+	            audio.setCycleCount(s);
+	            audio.play();
+	            return null;
+	        }
+	    };
+	    Thread thread = new Thread(task);
+	    thread.start();
+		
 		String title = "What Would you like to do?";
 		window.setTitle(title);
 		window.setMinWidth(750);
