@@ -250,9 +250,41 @@ public class parkingAreasTest {
 	}
 
 	@Test
-	public void test6() {
+	public void test6() throws ParseException {
+		// Arrange
 		DBManager.initialize();
-		Assert.assertEquals(40, (new ParkingAreas().getNumOfFreeSlots()));
+		ParkingSlot slot1 = new ParkingSlot("testS1", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
+				new MapLocation(0, 0), new Date());
+		ParkingSlot slot2 = new ParkingSlot("testS2", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
+				new MapLocation(0, 0), new Date());
+
+		Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
+		slots.add(slot1);
+		slots.add(slot2);
+
+		MapLocation loc =  new MapLocation(0, 0);
+		ParkingArea area1 = new ParkingArea(0, "t1", loc, slots, StickersColor.RED);
+		ParkingArea area2 = new ParkingArea(0, "t2", loc, slots, StickersColor.RED);
+		
+		Set<ParkingArea> a = new HashSet<ParkingArea>();
+		a.add(area1);a.add(area2);
+		ParkingAreas areas = new ParkingAreas(a);
+		
+		// Act
+		int free = areas.getNumOfFreeSlots();
+		int taken = areas.getNumOfTakenSlots();
+		
+		// Assert
+		Assert.assertEquals(4,free);
+		Assert.assertEquals(0,taken);
+
+		
+		// Cleanup
+		areas.deleteParseObject();
+		area1.deleteParseObject();
+		area2.deleteParseObject();
+		slot1.deleteParseObject();
+		slot2.deleteParseObject();
 	}
 
 	@Test
