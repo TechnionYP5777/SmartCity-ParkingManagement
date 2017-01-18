@@ -86,6 +86,19 @@ public class ParkingSlot extends dbMember {
 		this.parseObject.save();
 	}
 
+	
+	public static String ParkingNameByLocation(MapLocation l){
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
+		query.whereNear("location", new ParseGeoPoint(l.getLat(),l.getLon()));
+		query.limit(1);
+		try {
+			List<ParseObject> result = query.find();
+			return result == null || result.isEmpty() ? null : result.get(0).getString("name");
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
 	/* Getters */
 
 	public String getName() {

@@ -91,6 +91,20 @@ public class Destination extends dbMember {
 		this.entrance = new MapLocation(geo.getLatitude(), geo.getLongitude());		
 	}
 	
+	public Destination(MapLocation location) throws ParseException, NotExists {
+		DBManager.initialize();
+		
+		ParseQuery<ParseObject> query = ParseQuery.getQuery(TABLE_NAME);
+		query.whereNear(ENTRANCE, new ParseGeoPoint(location.getLat(),location.getLon()));
+		query.limit(1);
+			List<ParseObject> result = query.find();
+			this.parseObject = result == null || result.isEmpty() ? null : result.get(0);	
+		if (this.parseObject == null) throw new NotExists("not exists");
+		this.name = this.parseObject.getString(NAME);
+		ParseGeoPoint geo = this.parseObject.getParseGeoPoint(ENTRANCE);
+		this.entrance = new MapLocation(geo.getLatitude(), geo.getLongitude());		
+	}
+	
 	public String getDestinationName() {
 		return this.name;
 	}
