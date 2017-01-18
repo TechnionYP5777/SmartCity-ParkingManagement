@@ -38,19 +38,6 @@ public class ChooseAction extends AbstractWindow {
 
 	public void display(Stage primaryStage, WindowEnum prevWindow) {
 		// window = primaryStage;
-		// System.out.println(System.getProperty("os.name"));
-		/*
-		 * if(!"Linux".equals(System.getProperty("os.name"))) (new Thread(new
-		 * Task<Object>() {
-		 * 
-		 * @Override protected Object call() throws Exception { try { //int s =
-		 * 100; AudioClip audio = new
-		 * AudioClip(getClass().getResource("sound.mp3").toExternalForm());
-		 * audio.setVolume(0.5f); audio.setCycleCount(AudioClip.INDEFINITE);
-		 * audio.play(); return null; } catch
-		 * (com.sun.media.jfxmedia.MediaException e) {
-		 * System.out.println("Oh Shiettttt2!"); } return null; } })).start();
-		 */
 		
 		String title = "What Would you like to do?";
 		window.setTitle(title);
@@ -59,7 +46,6 @@ public class ChooseAction extends AbstractWindow {
 		vbox.setPadding(new Insets(10, 10, 10, 10));
 		
 		if (!"Linux".equals(System.getProperty("os.name"))) {
-			boolean MUTED = false;
 			//System.out.println("Sound the music!");
 			URL resource = getClass().getResource("sound.mp3");
 			MediaPlayer a = new MediaPlayer(new Media(resource + ""));
@@ -71,9 +57,19 @@ public class ChooseAction extends AbstractWindow {
 			a.play();
 			buttonMute = new Button("MUTE");
 			buttonMute.setOnAction(e -> {
-				a.setMute(!a.isMute());
+				if (a.isMute()) {
+					a.setMute(false);
+					buttonMute.setText("MUTE");
+					buttonMute.getStyleClass().remove("button-muteON");
+					buttonMute.getStyleClass().add("button-muteOFF");
+				} else {
+					a.setMute(true);
+					buttonMute.setText("UNMUTE");
+					buttonMute.getStyleClass().remove("button-muteOFF");
+					buttonMute.getStyleClass().add("button-muteON");
+				}
 			});
-			buttonMute.getStyleClass().add("button-menu");
+			buttonMute.getStyleClass().add("button-muteOFF");
 		}
 		
 

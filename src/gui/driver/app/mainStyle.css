@@ -96,3 +96,30 @@
 .hyperlink{
 	-fx-text-fill: blue;
 }
+
+.button-muteOFF {
+	-fx-background-color: linear-gradient(#00cc00, #006600);
+	-fx-background-insets: 0,1,2; 
+	-fx-background-radius: 30;
+	-fx-text-fill: black;
+}
+
+.button-muteOFF :hover {
+	-fx-background-color: linear-gradient(#ff0000, #800000);
+    -fx-color: black; 
+    -fx-effect: dropshadow( gaussian , rgba(0, 0, 148, 0.8) , 10,0,0,1 ); 
+}
+
+.button-muteON {
+	-fx-background-color: linear-gradient(#ff0000, #800000);
+	-fx-background-insets: 0,1,2; 
+	-fx-background-radius: 30;
+	-fx-text-fill: black;
+}
+
+.button-muteON :hover {
+	-fx-background-color: linear-gradient(#00cc00, #006600);
+    -fx-color: black; 
+    -fx-effect: dropshadow( gaussian , rgba(0, 0, 148, 0.8) , 10,0,0,1 ); 
+}
+
