@@ -19,6 +19,7 @@ import java.net.URL;
 import gui.map.DriverMap;
 
 public class ChooseAction extends AbstractWindow {
+	Button buttonMute;
 	Button buttonAbout;
 	Button buttonLogin;
 	Button buttonMyDetails;
@@ -50,22 +51,31 @@ public class ChooseAction extends AbstractWindow {
 		 * (com.sun.media.jfxmedia.MediaException e) {
 		 * System.out.println("Oh Shiettttt2!"); } return null; } })).start();
 		 */
+		
+		String title = "What Would you like to do?";
+		window.setTitle(title);
+		window.setMinWidth(750);
+		VBox vbox = new VBox(8);
+		vbox.setPadding(new Insets(10, 10, 10, 10));
+		
 		if (!"Linux".equals(System.getProperty("os.name"))) {
-			System.out.println("Sound the music!");
+			boolean MUTED = false;
+			//System.out.println("Sound the music!");
 			URL resource = getClass().getResource("sound.mp3");
-			MediaPlayer a = new MediaPlayer(new Media(resource.toString()));
+			MediaPlayer a = new MediaPlayer(new Media(resource + ""));
 			a.setOnEndOfMedia(new Runnable() {
 				public void run() {
 					a.seek(Duration.ZERO);
 				}
 			});
 			a.play();
+			buttonMute = new Button("MUTE");
+			buttonMute.setOnAction(e -> {
+				a.setMute(!a.isMute());
+			});
+			buttonMute.getStyleClass().add("button-menu");
 		}
-		String title = "What Would you like to do?";
-		window.setTitle(title);
-		window.setMinWidth(750);
-		VBox vbox = new VBox(8);
-		vbox.setPadding(new Insets(10, 10, 10, 10));
+		
 
 		// TODO: get a better way to check logged in
 		welcomeLabel = new Label();
@@ -76,13 +86,16 @@ public class ChooseAction extends AbstractWindow {
 		}
 		welcomeLabel.getStyleClass().add("label-welcome");
 
+		
+
+
+		
 		buttonAbout = new Button("About");
 		buttonAbout.setOnAction(e -> {
 			window.close();
 			ChooseAction.prevWindows.add(this);
 			(new About()).display(primaryStage, WindowEnum.CHOOSE_ACTION);
 		});
-
 		buttonAbout.getStyleClass().add("button-menu");
 
 		buttonLogin = new Button("Login");
@@ -156,7 +169,7 @@ public class ChooseAction extends AbstractWindow {
 		buttonLogOut.getStyleClass().add("button-menu");
 
 		vbox.getChildren().addAll(welcomeLabel, buttonAbout, buttonLogin, buttonRegister, buttonChooseDestination,
-				buttonMap, buttonClose, buttonLogOut, buttonMyDetails);
+				buttonMap, buttonClose, buttonLogOut, buttonMyDetails, buttonMute);
 		vbox.setAlignment(Pos.CENTER);
 
 		Scene scene = new Scene(vbox);
