@@ -6,7 +6,7 @@ public class Message {
 	
   private static final String EMAIL = "SmartParking@emailservice.com";
   
-  private static final String API_KEY = "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";
+  private static final String API_KEY = "";
   	
   public static void sendEmail(String userEmail, String subject, String message) throws IOException {
     Email from = new Email(EMAIL);
