@@ -39,6 +39,18 @@ public class Register extends AbstractWindow {
 	}
 	
 	public void display(Stage primaryStage, WindowEnum __) {
+		
+		/*System.out.println("Sound the music!");
+		 URL resource = getClass().getResource("sound.mp3");
+		 MediaPlayer a =new MediaPlayer(new Media(resource.toString()));
+		 a.setOnEndOfMedia(new Runnable() {
+		       public void run() {
+		         a.seek(Duration.ZERO);
+		       }
+		   });
+		  a.play();*/
+		
+		
 		window = primaryStage;
 		window.getIcons().add(new Image(getClass().getResourceAsStream("Smart_parking_icon.png")));
 		GridPane grid = new GridPane();
