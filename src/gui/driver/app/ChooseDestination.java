@@ -100,7 +100,7 @@ public class ChooseDestination extends AbstractWindow {
 								.closestParkingSlot(login.getUser(),
 										navigate.getDestination(fromValue.getValue()).getEntrance(),
 										navigate.getAreas(), navigate.getDestination(toValue.getValue()))
-								.getLocation())).display(window);
+								.getLocation(),navigate.getDestination(toValue.getValue()).getEntrance())).display(window);
 			} catch (ParseException e1) {
 				e1.printStackTrace();
 			}

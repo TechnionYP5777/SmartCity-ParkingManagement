@@ -6,8 +6,10 @@ package gui.map;
 
 import org.parse4j.ParseException;
 
+import com.lynden.gmapsfx.service.directions.DirectionStatus;
 import com.lynden.gmapsfx.service.directions.DirectionsRenderer;
 import com.lynden.gmapsfx.service.directions.DirectionsRequest;
+import com.lynden.gmapsfx.service.directions.DirectionsResult;
 import com.lynden.gmapsfx.service.directions.TravelModes;
 
 import Exceptions.NotExists;
@@ -21,8 +23,9 @@ public class DriverMap extends PmMap {
 	// private final static String StubTo = "32.777480, 35.021224";
 	private MapLocation from;
 	private MapLocation to;
-
-	public DriverMap(MapLocation fromLogic, MapLocation toLogic) {
+	private MapLocation realto;
+	private boolean SeconedCall;
+	public DriverMap(MapLocation fromLogic, MapLocation toLogic, MapLocation realtoLogic) {
 		this(fromLogic.getLat() + ", " + fromLogic.getLon(), toLogic.getLat() + ", " + toLogic.getLon()); // till
 																											// DB
 																											// works
@@ -30,6 +33,7 @@ public class DriverMap extends PmMap {
 
 		from = fromLogic;
 		to = toLogic;
+		realto=realtoLogic;
 		// this(StubFrom,StubTo);
 	}
 
@@ -67,5 +71,15 @@ public class DriverMap extends PmMap {
 				e.printStackTrace();
 			}
 		scene.getWindow().sizeToScene();
+	}@Override
+	public void directionsReceived(DirectionsResult __, DirectionStatus s) {
+		// TODO Auto-generated method stub
+		super.directionsReceived(__, s);
+		if (SeconedCall)
+			return;
+		directionsService.getRoute(
+				(new DirectionsRequest(toLogic, realto.getLat() + "," + realto.getLon(), TravelModes.WALKING)), this,
+				new DirectionsRenderer(true, mapComponent.getMap(), directionsPane));
+		SeconedCall = true;
 	}
 }

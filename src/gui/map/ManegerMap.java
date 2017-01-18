@@ -64,7 +64,7 @@ public class ManegerMap extends PmMap {
     }
     public void resetMap(){
     	map.setCenter( new LatLong(32.777, 35.0225));
-		map.setZoom(10);
+		map.setZoom(16);
     }
     public void ChangeColorOfParking(String id ,String color){
     	parkingToColor.put(id, color);
