@@ -11,6 +11,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -118,7 +119,10 @@ public class MyDetailsEdit extends AbstractWindow {
 		GridPane.setConstraints(doneButton, 0, values.size());
 
 		Button backButton = new Button();
-		backButton.setText("Back");
+		ImageView ivBack= new ImageView(new Image(getClass().getResourceAsStream("back_button.png")));
+		backButton.setGraphic(ivBack);
+		backButton.getStyleClass().add("button-go");
+		
 		backButton.setOnAction(e -> {
 			// move to editing my details
 			this.window.close();

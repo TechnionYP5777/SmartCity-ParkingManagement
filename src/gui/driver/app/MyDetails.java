@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -101,7 +102,11 @@ public class MyDetails extends AbstractWindow{
 		
 		//TODO: finish it
 		Button backButton = new Button();
-		backButton.setText("Back");
+		ImageView ivBack= new ImageView(new Image(getClass().getResourceAsStream("back_button.png")));
+		backButton.setGraphic(ivBack);
+		backButton.getStyleClass().add("button-go");
+		
+		
 		backButton.setOnAction(e -> {
 			// move to editing my details
 			this.window.close();

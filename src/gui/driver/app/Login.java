@@ -14,6 +14,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -77,7 +78,10 @@ public class Login extends AbstractWindow {
 		});
 
 		Button loginButton = new Button("Login");
-		Button backButton = new Button("Back");
+		Button backButton = new Button();
+		ImageView ivBack= new ImageView(new Image(getClass().getResourceAsStream("back_button.png")));
+		backButton.setGraphic(ivBack);
+		backButton.getStyleClass().add("button-go");
 		backButton.setOnAction(e -> {
 			// move to editing my details
 			this.window.close();
