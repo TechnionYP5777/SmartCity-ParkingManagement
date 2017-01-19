@@ -73,10 +73,13 @@ public class ChooseDestination extends AbstractWindow {
 		GridPane.setConstraints(toValue, 1, currIdx);
 		GridPane.setConstraints(to, 0, currIdx++);
 
-		Button buttonBack = new Button("Back");
+		Button buttonBack = new Button();
+		ImageView ivBack = new ImageView(new Image(getClass().getResourceAsStream("back_button.png")));
+		buttonBack.setGraphic(ivBack);
+		
 		Button buttonGO = new Button();
-		ImageView iv = new ImageView(new Image(getClass().getResourceAsStream("selected_icon_64.png")));
-		buttonGO.setGraphic(iv);
+		ImageView ivGO = new ImageView(new Image(getClass().getResourceAsStream("go_button.png")));
+		buttonGO.setGraphic(ivGO);
 
 		buttonBack.setOnAction(e -> {
 			this.window.close();
@@ -110,6 +113,7 @@ public class ChooseDestination extends AbstractWindow {
 		grid.getChildren().addAll(title, from, fromValue, to, toValue, buttonBack, buttonGO);
 
 		buttonGO.getStyleClass().add("button-go");
+		buttonBack.getStyleClass().add("button-go");
 		Scene scene = new Scene(grid);
 		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());
 
