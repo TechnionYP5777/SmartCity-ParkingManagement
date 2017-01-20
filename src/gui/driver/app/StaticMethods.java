@@ -1,5 +1,7 @@
 package gui.driver.app;
 
+import java.util.ArrayList;
+
 import data.members.StickersColor;
 import javafx.scene.control.Button;
 import javafx.scene.media.MediaPlayer;
@@ -24,35 +26,35 @@ public class StaticMethods {
 			return "";
 		}
 	}
-//onEntry checks if you just entered the window or you clicked on the mute button
-	public static void dealWithMute(MediaPlayer p, Button buttonMute, boolean onEntry) {
-		if (!onEntry)
-			if (p.isMute()) {
-				p.setMute(false);
-				buttonMute.setText("MUTE");
-				buttonMute.getStyleClass().remove("button-muteON");
-				buttonMute.getStyleClass().add("button-muteOFF");
-			} else {
-				p.setMute(true);
-				buttonMute.setText("UNMUTE");
-				System.out.println("removing button-muteOFF:");
-				System.out.println(buttonMute.toString());
-				buttonMute.getStyleClass().remove("button-muteOFF");
-				System.out.println(buttonMute.toString());
-				buttonMute.getStyleClass().add("button-muteON");
-			}
-		else if (!p.isMute()) {
-			p.setMute(false);
-			buttonMute.setText("MUTE");
-			buttonMute.getStyleClass().remove("button-muteON");
-			buttonMute.getStyleClass().add("button-muteOFF");
-		} else {
-			p.setMute(true);
-			buttonMute.setText("UNMUTE");
-			buttonMute.getStyleClass().remove("button-muteOFF");
-			buttonMute.getStyleClass().add("button-muteON");
-		}
 
+	// onEntry checks if you just entered the window or you clicked on the mute
+	// button
+	public static void dealWithMute(MediaPlayer p, ArrayList<Button> muteButtonsAL) {
+		for (Button currButton : muteButtonsAL) {
+			currButton.getStyleClass().clear();
+			currButton.getStyleClass().add("button");
+			if (p.isMute()) {
+				currButton.setText("MUTE");
+				currButton.getStyleClass().add("button-muteOFF");
+			} else {
+				currButton.setText("UNMUTE");
+				currButton.getStyleClass().add("button-muteON");
+			}
+			//System.out.println("buttonMute.getStyleClass(): "  + " "+ currButton.getStyleClass());
+		}
+		p.setMute(!p.isMute());
+	}
+
+	public static Button cloneButton(Button firstButton) {
+		Button $ = new Button();
+		$.setText(firstButton.getText());
+//		System.out.println("firstButton.getOnAction(): " + firstButton.getOnAction());
+//		System.out.println(firstButton.getStyleClass().toString());
+		$.getStyleClass().addAll(firstButton.getStyleClass());
+		$.setOnAction(e -> {
+			StaticMethods.dealWithMute(AbstractWindow.mediaPlayer, AbstractWindow.muteButtonsAL);
+		});
+		return $;
 	}
 
 }

@@ -36,7 +36,7 @@ public class About extends AbstractWindow {
 		window.getIcons().add(new Image(getClass().getResourceAsStream("Smart_parking_icon.png")));
 	}
 
-	public void display(Stage primaryStage, WindowEnum __) {
+	public void display(Stage primaryStage, WindowEnum __, Button buttonMute) {
 		window = primaryStage;
 		window.setTitle("About");
 		window.setWidth(1350);
@@ -50,21 +50,20 @@ public class About extends AbstractWindow {
 		VBox vbox = new VBox(10);
 		vbox.setStyle("-fx-background-color: null; -fx-padding: 10px;");
 		// System.out.println("HERE IS BUTTONMUTE: "+ buttonMute.toString());
+		
 		if (!isLinuxOS) {
-			StaticMethods.dealWithMute(mediaPlayer, buttonMute, true);
-			buttonMute.setOnAction(e -> {
-				StaticMethods.dealWithMute(mediaPlayer, buttonMute, false);
-			});
-			buttonMute.getStyleClass().add("button-muteOFF");
-			vbox.getChildren().add(buttonMute);
+			Button AboutMute = StaticMethods.cloneButton(buttonMute);
+			muteButtonsAL.add(AboutMute);
+			vbox.getChildren().add(AboutMute);
 		}
+		
 		Button backButton = new Button("Back");
 		backButton.setOnAction(e -> {
 			this.window.close();
-			AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1).window.show();
-			AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size() - 1);
-			if (!isLinuxOS)
-				StaticMethods.dealWithMute(mediaPlayer, buttonMute, true);
+//			if (!isLinuxOS)
+//				StaticMethods.dealWithMute(mediaPlayer, buttonMute, true);
+			prevWindows.get(prevWindows.size() - 1).window.show();
+			prevWindows.remove(prevWindows.size() - 1);
 		});
 		vbox.getChildren().addAll(label, backButton);
 		vbox.setAlignment(Pos.CENTER);

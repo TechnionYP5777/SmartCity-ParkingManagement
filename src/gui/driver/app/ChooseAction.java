@@ -15,10 +15,12 @@ import javafx.util.Duration;
 import logic.LoginManager;
 
 import java.net.URL;
+import java.util.ArrayList;
 
 import gui.map.DriverMap;
 
 public class ChooseAction extends AbstractWindow {
+	public
 	Button buttonAbout;
 	Button buttonLogin;
 	Button buttonMyDetails;
@@ -26,18 +28,20 @@ public class ChooseAction extends AbstractWindow {
 	Button buttonChooseDestination;
 	Button buttonMap;
 	Button buttonLogOut;
+	Button buttonMute;
 	Label welcomeLabel;
 
 	public ChooseAction() {
 		windowEnum = WindowEnum.CHOOSE_ACTION;
+		muteButtonsAL = new ArrayList<Button>();
 		window = new Stage();
+		buttonMute = new Button();
 		window.getIcons().add(new Image(getClass().getResourceAsStream("Smart_parking_icon.png")));
 		window.initModality(Modality.APPLICATION_MODAL);
 	}
 
 	public void display(Stage primaryStage, WindowEnum prevWindow) {
 		// window = primaryStage;
-		
 		String title = "What Would you like to do?";
 		window.setTitle(title);
 		window.setMinWidth(750);
@@ -46,7 +50,7 @@ public class ChooseAction extends AbstractWindow {
 		isLinuxOS = "Linux".equals(System.getProperty("os.name"));
 		if (!isLinuxOS) {
 			//System.out.println("Sound the music!");
-			buttonMute = new Button("MUTE");
+			
 			URL resource = getClass().getResource("sound.mp3");
 			mediaPlayer = new MediaPlayer(new Media(resource + ""));
 			mediaPlayer.setOnEndOfMedia(new Runnable() {
@@ -57,12 +61,14 @@ public class ChooseAction extends AbstractWindow {
 			mediaPlayer.play();
 			
 			buttonMute.setText("MUTE");
-			buttonMute.getStyleClass().remove("button-muteON");
+			//buttonMute.setDisable(false);
+			//buttonMute.getStyleClass().clear();
 			buttonMute.getStyleClass().add("button-muteOFF");
 			
 			buttonMute.setOnAction(e -> {
-				StaticMethods.dealWithMute(mediaPlayer, buttonMute, false);
+				StaticMethods.dealWithMute(mediaPlayer, AbstractWindow.muteButtonsAL);
 			});
+			muteButtonsAL.add(buttonMute);
 			//buttonMute.getStyleClass().add("button-muteOFF");
 		}
 		
@@ -76,15 +82,12 @@ public class ChooseAction extends AbstractWindow {
 		}
 		welcomeLabel.getStyleClass().add("label-welcome");
 
-		
 
-
-		
 		buttonAbout = new Button("About");
 		buttonAbout.setOnAction(e -> {
 			window.close();
-			ChooseAction.prevWindows.add(this);
-			(new About()).display(primaryStage, WindowEnum.CHOOSE_ACTION);
+			prevWindows.add(this);
+			(new About()).display(primaryStage, WindowEnum.CHOOSE_ACTION, buttonMute);
 		});
 		buttonAbout.getStyleClass().add("button-menu");
 
@@ -159,7 +162,9 @@ public class ChooseAction extends AbstractWindow {
 		buttonLogOut.getStyleClass().add("button-menu");
 
 		vbox.getChildren().addAll(welcomeLabel, buttonAbout, buttonLogin, buttonRegister, buttonChooseDestination,
-				buttonMap, buttonClose, buttonLogOut, buttonMyDetails, buttonMute);
+				buttonMap, buttonClose, buttonLogOut, buttonMyDetails);
+		if (!isLinuxOS)
+			vbox.getChildren().add(buttonMute);
 		vbox.setAlignment(Pos.CENTER);
 
 		Scene scene = new Scene(vbox);
@@ -170,6 +175,7 @@ public class ChooseAction extends AbstractWindow {
 
 	public void setButtonsDefaultValues() {
 		buttonLogin.setDisable(false);
+		buttonMute.setDisable(false);
 		buttonMyDetails.setDisable(true);
 		buttonRegister.setDisable(false);
 		buttonChooseDestination.setDisable(true);

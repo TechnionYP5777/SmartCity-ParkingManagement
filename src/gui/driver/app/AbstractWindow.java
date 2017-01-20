@@ -15,6 +15,7 @@ public abstract class AbstractWindow {
 	public static MediaPlayer mediaPlayer;
 	public static Button buttonMute;
 	public static boolean isLinuxOS;
+	protected static ArrayList<Button> muteButtonsAL;
 	protected static LoginManager login = new logic.LoginManager();
 	protected static NavigationController navigate;
 	protected static ArrayList<AbstractWindow> prevWindows;
