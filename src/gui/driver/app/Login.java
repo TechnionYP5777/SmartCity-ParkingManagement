@@ -76,6 +76,23 @@ public class Login extends AbstractWindow {
 			//window.close(); 
 			(new GetPassByMail()).display(primaryStage, WindowEnum.LOG_IN);
 		});
+		
+		Button buttonMute = new Button("MUTE");
+		buttonMute.setOnAction(e -> {
+			if (mediaPlayer.isMute()) {
+				mediaPlayer.setMute(false);
+				buttonMute.setText("MUTE");
+				buttonMute.getStyleClass().remove("button-muteON");
+				buttonMute.getStyleClass().add("button-muteOFF");
+			} else {
+				mediaPlayer.setMute(true);
+				buttonMute.setText("UNMUTE");
+				buttonMute.getStyleClass().remove("button-muteOFF");
+				buttonMute.getStyleClass().add("button-muteON");
+			}
+		});
+		buttonMute.getStyleClass().add("button-muteOFF");
+		
 
 		Button loginButton = new Button("Login");
 		Button backButton = new Button();

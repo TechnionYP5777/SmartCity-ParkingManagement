@@ -19,7 +19,6 @@ import java.net.URL;
 import gui.map.DriverMap;
 
 public class ChooseAction extends AbstractWindow {
-	Button buttonMute;
 	Button buttonAbout;
 	Button buttonLogin;
 	Button buttonMyDetails;
@@ -44,32 +43,27 @@ public class ChooseAction extends AbstractWindow {
 		window.setMinWidth(750);
 		VBox vbox = new VBox(8);
 		vbox.setPadding(new Insets(10, 10, 10, 10));
-		
-		if (!"Linux".equals(System.getProperty("os.name"))) {
+		isLinuxOS = "Linux".equals(System.getProperty("os.name"));
+		if (!isLinuxOS) {
 			//System.out.println("Sound the music!");
-			URL resource = getClass().getResource("sound.mp3");
-			MediaPlayer a = new MediaPlayer(new Media(resource + ""));
-			a.setOnEndOfMedia(new Runnable() {
-				public void run() {
-					a.seek(Duration.ZERO);
-				}
-			});
-			a.play();
 			buttonMute = new Button("MUTE");
-			buttonMute.setOnAction(e -> {
-				if (a.isMute()) {
-					a.setMute(false);
-					buttonMute.setText("MUTE");
-					buttonMute.getStyleClass().remove("button-muteON");
-					buttonMute.getStyleClass().add("button-muteOFF");
-				} else {
-					a.setMute(true);
-					buttonMute.setText("UNMUTE");
-					buttonMute.getStyleClass().remove("button-muteOFF");
-					buttonMute.getStyleClass().add("button-muteON");
+			URL resource = getClass().getResource("sound.mp3");
+			mediaPlayer = new MediaPlayer(new Media(resource + ""));
+			mediaPlayer.setOnEndOfMedia(new Runnable() {
+				public void run() {
+					mediaPlayer.seek(Duration.ZERO);
 				}
 			});
+			mediaPlayer.play();
+			
+			buttonMute.setText("MUTE");
+			buttonMute.getStyleClass().remove("button-muteON");
 			buttonMute.getStyleClass().add("button-muteOFF");
+			
+			buttonMute.setOnAction(e -> {
+				StaticMethods.dealWithMute(mediaPlayer, buttonMute, false);
+			});
+			//buttonMute.getStyleClass().add("button-muteOFF");
 		}
 		
 
