@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -60,7 +61,6 @@ public class ChooseAction extends AbstractWindow {
 				}
 			});
 			mediaPlayer.play();
-			
 			buttonMute = new Button(); 
 			ImageView ivBack= new ImageView(new Image(getClass().getResourceAsStream("unmute_button.png")));
 			buttonMute.setGraphic(ivBack);
@@ -77,6 +77,7 @@ public class ChooseAction extends AbstractWindow {
 		
 
 		// TODO: get a better way to check logged in
+		HBox mute = new HBox(1);
 		welcomeLabel = new Label();
 		try {
 			welcomeLabel.setText("Welcome " + login.getUserName() + "!");
@@ -164,12 +165,14 @@ public class ChooseAction extends AbstractWindow {
 		buttonLogOut.setDisable(true);
 		buttonLogOut.getStyleClass().add("button-menu");
 
-		vbox.getChildren().addAll(welcomeLabel, buttonAbout, buttonLogin, buttonRegister, buttonChooseDestination,
-				buttonMap, buttonClose, buttonLogOut, buttonMyDetails);
 		if (!isLinuxOS)
-			vbox.getChildren().add(buttonMute);
-		vbox.setAlignment(Pos.CENTER);
+			mute.getChildren().add(buttonMute);
+		mute.setAlignment(Pos.TOP_RIGHT);
 
+		
+		vbox.getChildren().addAll(mute,welcomeLabel, buttonAbout, buttonLogin, buttonRegister, buttonChooseDestination,
+				buttonMap, buttonClose, buttonLogOut, buttonMyDetails);
+		vbox.setAlignment(Pos.CENTER);
 		Scene scene = new Scene(vbox);
 		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());
 		window.setScene(scene);
