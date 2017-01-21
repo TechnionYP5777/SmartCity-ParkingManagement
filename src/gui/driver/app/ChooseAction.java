@@ -174,6 +174,9 @@ public class ChooseAction extends AbstractWindow {
 	//	buttonClose.getStyleClass().add("button-menu");
 
 		buttonLogOut = new Button("Log Out");
+		ImageView ivLogout = new ImageView(new Image(getClass().getResourceAsStream("logout_button.png")));
+		buttonLogOut.setGraphic(ivLogout);
+		buttonLogOut.getStyleClass().add("button-go");
 		buttonLogOut.setOnAction(e -> {
 			if (prevWindow == WindowEnum.NONE
 					&& (new ConfirmBox()).display("Confirmation", "Are you sure you want to log out?")) {
@@ -184,7 +187,7 @@ public class ChooseAction extends AbstractWindow {
 			}
 		});
 		buttonLogOut.setDisable(true);
-		buttonLogOut.getStyleClass().add("button-menu");
+	//	buttonLogOut.getStyleClass().add("button-menu");
 
 		if (!isLinuxOS)
 			mute.getChildren().add(buttonMute);
