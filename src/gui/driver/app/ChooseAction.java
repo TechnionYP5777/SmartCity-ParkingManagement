@@ -88,41 +88,56 @@ public class ChooseAction extends AbstractWindow {
 
 
 		buttonAbout = new Button("About");
+		ImageView ivAbout= new ImageView(new Image(getClass().getResourceAsStream("about_button.png")));
+		buttonAbout.setGraphic(ivAbout);
+		buttonAbout.getStyleClass().add("button-go");
 		buttonAbout.setOnAction(e -> {
 			window.close();
 			prevWindows.add(this);
 			(new About()).display(primaryStage, WindowEnum.CHOOSE_ACTION, buttonMute);
 		});
-		buttonAbout.getStyleClass().add("button-menu");
+		//buttonAbout.getStyleClass().add("button-menu");
 
 		buttonLogin = new Button("Login");
+		ImageView ivLogin = new ImageView(new Image(getClass().getResourceAsStream("login_button.png")));
+		buttonLogin.setGraphic(ivLogin);
+		buttonLogin.getStyleClass().add("button-go");
 		buttonLogin.setOnAction(e -> {
 			window.close();
 			Login login = new Login();
 			ChooseAction.prevWindows.add(this);
 			login.display(primaryStage, WindowEnum.CHOOSE_ACTION);
 		});
-		buttonLogin.getStyleClass().add("button-menu");
+		//buttonLogin.getStyleClass().add("button-menu");
 
 		buttonRegister = new Button("Register");
+		ImageView ivRegister = new ImageView(new Image(getClass().getResourceAsStream("register_button.png")));
+		buttonRegister.setGraphic(ivRegister);
+		buttonRegister.getStyleClass().add("button-go");
 		buttonRegister.setOnAction(e -> {
 			window.close();
 			ChooseAction.prevWindows.add(this);
 			(new Register()).display(primaryStage, WindowEnum.CHOOSE_ACTION);
 		});
 
-		buttonRegister.getStyleClass().add("button-menu");
+		//buttonRegister.getStyleClass().add("button-menu");
 
 		buttonMap = new Button("View Map");
+		ImageView ivMap = new ImageView(new Image(getClass().getResourceAsStream("map_button.png")));
+		buttonMap.setGraphic(ivMap);
+		buttonMap.getStyleClass().add("button-go");
 		buttonMap.setOnAction(e -> {
 			window.close();
 			ChooseAction.prevWindows.add(this);
 			(new DriverMap("32.777789, 35.022054", "32.761565, 35.019438")).display(primaryStage);
 		});
 
-		buttonMap.getStyleClass().add("button-menu");
+		//buttonMap.getStyleClass().add("button-menu");
 
 		buttonMyDetails = new Button("My Details");
+		ImageView ivDetails = new ImageView(new Image(getClass().getResourceAsStream("details_button.png")));
+		buttonMyDetails.setGraphic(ivDetails);
+		buttonMyDetails.getStyleClass().add("button-go");
 		buttonMyDetails.setOnAction(e -> {
 			window.close();
 			MyDetails MD = new MyDetails();
@@ -131,9 +146,12 @@ public class ChooseAction extends AbstractWindow {
 
 		});
 		buttonMyDetails.setDisable(true);
-		buttonMyDetails.getStyleClass().add("button-menu");
+		//buttonMyDetails.getStyleClass().add("button-menu");
 
 		buttonChooseDestination = new Button("Choose Destination");
+		ImageView ivDestination = new ImageView(new Image(getClass().getResourceAsStream("choose_destination_button.png")));
+		buttonChooseDestination.setGraphic(ivDestination);
+		buttonChooseDestination.getStyleClass().add("button-go");
 		buttonChooseDestination.setOnAction(e -> {
 			window.close();
 			ChooseDestination CD = new ChooseDestination();
@@ -142,15 +160,18 @@ public class ChooseAction extends AbstractWindow {
 
 		});
 		buttonChooseDestination.setDisable(true);
-		buttonChooseDestination.getStyleClass().add("button-menu");
+		//buttonChooseDestination.getStyleClass().add("button-menu");
 
-		Button buttonClose = new Button("Close Program");
+		Button buttonClose = new Button("Exit");
+		ImageView ivExit = new ImageView(new Image(getClass().getResourceAsStream("exit_button.png")));
+		buttonClose.setGraphic(ivExit);
+		buttonClose.getStyleClass().add("button-go");
 		buttonClose.setOnAction(e -> {
 			if (prevWindow == WindowEnum.NONE
 					&& (new ConfirmBox()).display("Confirmation", "Are you sure you want to exit?"))
 				window.close();
 		});
-		buttonClose.getStyleClass().add("button-menu");
+	//	buttonClose.getStyleClass().add("button-menu");
 
 		buttonLogOut = new Button("Log Out");
 		buttonLogOut.setOnAction(e -> {
@@ -169,9 +190,11 @@ public class ChooseAction extends AbstractWindow {
 			mute.getChildren().add(buttonMute);
 		mute.setAlignment(Pos.TOP_RIGHT);
 
-		
-		vbox.getChildren().addAll(mute,welcomeLabel, buttonAbout, buttonLogin, buttonRegister, buttonChooseDestination,
-				buttonMap, buttonClose, buttonLogOut, buttonMyDetails);
+		HBox hbox1 = new HBox (5); 
+		HBox hbox2 = new HBox (5); 
+		hbox1.getChildren().addAll(buttonAbout, buttonLogin, buttonRegister, buttonChooseDestination); 
+		hbox2.getChildren().addAll(buttonMap, buttonMyDetails, buttonLogOut, buttonClose);
+		vbox.getChildren().addAll(mute,welcomeLabel,hbox1,hbox2);
 		vbox.setAlignment(Pos.CENTER);
 		Scene scene = new Scene(vbox);
 		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());
