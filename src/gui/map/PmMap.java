@@ -32,6 +32,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToolBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -175,7 +177,10 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 			deleteMarker();
 		});
 
-		btnReturn = new Button("Back");
+		btnReturn = new Button();
+		ImageView ivBack= new ImageView(new Image(getClass().getResourceAsStream("back_button.png")));
+		btnReturn.setGraphic(ivBack);
+		btnReturn.getStyleClass().add("button-go");
 		btnReturn.setOnAction(e -> {
 			s.close();
 			AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size()-1).window.show();

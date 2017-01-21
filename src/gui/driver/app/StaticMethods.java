@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import data.members.StickersColor;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.media.MediaPlayer;
 
 public class StaticMethods {
@@ -30,18 +32,9 @@ public class StaticMethods {
 	// onEntry checks if you just entered the window or you clicked on the mute
 	// button
 	public static void dealWithMute(MediaPlayer p, ArrayList<Button> muteButtonsAL) {
-		for (Button currButton : muteButtonsAL) {
-			currButton.getStyleClass().clear();
-			currButton.getStyleClass().add("button");
-			if (p.isMute()) {
-				currButton.setText("MUTE");
-				currButton.getStyleClass().add("button-muteOFF");
-			} else {
-				currButton.setText("UNMUTE");
-				currButton.getStyleClass().add("button-muteON");
-			}
-			//System.out.println("buttonMute.getStyleClass(): "  + " "+ currButton.getStyleClass());
-		}
+		for (Button currButton : muteButtonsAL)
+			currButton.setGraphic(
+					new ImageView(new Image(StaticMethods.class.getResourceAsStream(p.isMute() ? "unmute_button.png" : "mute_button.png"))));
 		p.setMute(!p.isMute());
 	}
 

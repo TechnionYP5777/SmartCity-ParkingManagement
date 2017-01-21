@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -60,10 +61,12 @@ public class ChooseAction extends AbstractWindow {
 			});
 			mediaPlayer.play();
 			
-			buttonMute.setText("MUTE");
+			buttonMute = new Button(); 
+			ImageView ivBack= new ImageView(new Image(getClass().getResourceAsStream("unmute_button.png")));
+			buttonMute.setGraphic(ivBack);
+			buttonMute.getStyleClass().add("button-go");
 			//buttonMute.setDisable(false);
 			//buttonMute.getStyleClass().clear();
-			buttonMute.getStyleClass().add("button-muteOFF");
 			
 			buttonMute.setOnAction(e -> {
 				StaticMethods.dealWithMute(mediaPlayer, AbstractWindow.muteButtonsAL);

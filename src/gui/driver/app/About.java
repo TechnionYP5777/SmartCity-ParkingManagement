@@ -57,7 +57,10 @@ public class About extends AbstractWindow {
 			vbox.getChildren().add(AboutMute);
 		}
 		
-		Button backButton = new Button("Back");
+		Button backButton = new Button();
+		ImageView ivBack= new ImageView(new Image(getClass().getResourceAsStream("back_button.png")));
+		backButton.setGraphic(ivBack);
+		backButton.getStyleClass().add("button-go");
 		backButton.setOnAction(e -> {
 			this.window.close();
 //			if (!isLinuxOS)
