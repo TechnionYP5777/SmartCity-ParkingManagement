@@ -177,10 +177,10 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 			deleteMarker();
 		});
 
-		btnReturn = new Button();
-		ImageView ivBack= new ImageView(new Image(getClass().getResourceAsStream("back_button.png")));
-		btnReturn.setGraphic(ivBack);
-		btnReturn.getStyleClass().add("button-go");
+		btnReturn = new Button("Back");
+//		ImageView ivBack= new ImageView(new Image(getClass().getResourceAsStream("back_button.png")));
+//		btnReturn.setGraphic(ivBack);
+//		btnReturn.getStyleClass().add("button-go");
 		btnReturn.setOnAction(e -> {
 			s.close();
 			AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size()-1).window.show();
