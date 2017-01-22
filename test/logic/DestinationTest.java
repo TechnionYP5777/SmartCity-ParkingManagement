@@ -190,7 +190,7 @@ public class DestinationTest {
 
 	@Test
 	public void getDestinationsTest() {
-		Assert.assertTrue(Destination.getDestinations().keySet().contains("Taub"));
+		Assert.assertTrue(Destination.getDestinations().keySet().contains("Computer Science Faculty"));
 	}
 
 }
