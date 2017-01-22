@@ -116,6 +116,7 @@ public class MyDetailsEdit extends AbstractWindow {
 				/* Done */
 			}
 		});
+		//System.out.println("MDE 2 size: " + values.size() + " : " + values);
 		GridPane.setConstraints(doneButton, 0, values.size());
 
 		Button backButton = new Button();
@@ -129,6 +130,8 @@ public class MyDetailsEdit extends AbstractWindow {
 			MyDetails MD = (MyDetails) AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1);
 			AbstractWindow.prevWindows.remove(prevWindows.size() - 1);
 			MD.display(primaryStage, prevWindow, labels, values);
+			/*prevWindows.get(prevWindows.size() - 1).window.show();
+			prevWindows.remove(prevWindows.size() - 1);*/
 
 		});
 		GridPane.setConstraints(backButton, 1, values.size());
