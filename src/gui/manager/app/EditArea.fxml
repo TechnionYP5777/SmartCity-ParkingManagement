@@ -55,8 +55,8 @@
                <center>
                   <HBox fx:id="tempHBox" alignment="CENTER" prefHeight="0.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXDatePicker defaultColor="#3286c3" promptText="Until When?" />
-                        <JFXDatePicker defaultColor="#3286c3" promptText="In What Time?" showTime="true" />
+                        <JFXDatePicker fx:id="untilDate" defaultColor="#3286c3" promptText="Until When?" />
+                        <JFXDatePicker fx:id="untilHour" defaultColor="#3286c3" promptText="In What Time?" showTime="true" />
                      </children>
                      <padding>
                         <Insets bottom="20.0" top="20.0" />
@@ -68,7 +68,7 @@
                      <children>
                         <JFXButton fx:id="cancelBtn" alignment="CENTER" onAction="#closeButtonAction" text="Cancel" />
                         <HBox HBox.hgrow="ALWAYS" />
-                        <JFXButton fx:id="ChngBtn" alignment="CENTER" ripplerFill="#2656bf" text="Change" />
+                        <JFXButton fx:id="ChngBtn" alignment="CENTER" onAction="#changeButtonAction" ripplerFill="#2656bf" text="Change" />
                      </children>
                   </HBox>
                </bottom>

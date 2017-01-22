@@ -2,20 +2,30 @@ package gui.manager.app;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
+
 import javafx.util.Duration;
+
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import org.parse4j.ParseException;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXToggleButton;
 
+import data.members.DurationType;
 import data.members.ParkingArea;
+import data.members.StickersColor;
 import javafx.animation.KeyValue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,6 +33,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -60,6 +71,12 @@ public class EditAreaController implements Initializable {
     
     @FXML
     private Double HBoxPrefHeight = 0.0d;
+    
+    @FXML
+    private JFXDatePicker untilDate;
+
+    @FXML
+    private JFXDatePicker untilHour;
 
     @FXML
     private JFXButton cancelBtn;
@@ -67,9 +84,30 @@ public class EditAreaController implements Initializable {
     @FXML
     private JFXButton ChngBtn;
     
-
+	final IntegerTextField slotsField = new IntegerTextField(0, 250, 0);
+	
+	ToggleGroup group = new ToggleGroup();
+	String selectedColor;
+	DurationType durationType = DurationType.PERMANENTLY;
+	
 	@FXML
 	private void closeButtonAction(){
+	    ((Stage) cancelBtn.getScene().getWindow()).close();
+	}
+	
+	@FXML
+	private void changeButtonAction(){
+		manager.logic.ManualUpdate manualUpdate = new manager.logic.ManualUpdate();
+		LocalDate localDate = untilDate.getValue();
+		Date date=durationType != DurationType.TEMPORARY ? null
+				: Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		System.out.println("Data sent to update is:");
+		System.out.println(parkingAreaElement.getAreaId());
+		System.out.println(slotsField.getText());
+		System.out.println(StickersColor.valueOf(selectedColor.toUpperCase()));
+		System.out.println(durationType);
+		System.out.println(date);
+		manualUpdate.updateArea(parkingAreaElement.getAreaId(), Integer.parseInt(slotsField.getText()), StickersColor.valueOf(selectedColor.toUpperCase()), durationType, date);
 	    ((Stage) cancelBtn.getScene().getWindow()).close();
 	}
     
@@ -83,7 +121,6 @@ public class EditAreaController implements Initializable {
 	
     public void initialize(URL location, ResourceBundle __) {
     	areaLbl.setText(parkingAreaElement.getName());
-    	ToggleGroup group = new ToggleGroup();
     	(new SelectAnArea()).getAllPossibleColors().forEach(c -> {
 			JFXRadioButton rbtn = new JFXRadioButton(
 					(Character.toUpperCase(c.charAt(0)) + c.substring(1).toLowerCase()));
@@ -91,10 +128,21 @@ public class EditAreaController implements Initializable {
 			rbtn.setToggleGroup(group);
 			if (c == parkingAreaElement.getColor().name())
 				rbtn.setSelected(true);
+				selectedColor=parkingAreaElement.getColor().name();
 		});
     	
+    	group.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
+    	    public void changed(ObservableValue<? extends Toggle> ov, Toggle prev, Toggle next) {
+				if (group.getSelectedToggle() != null) {
+					JFXRadioButton chk = (JFXRadioButton) next.getToggleGroup().getSelectedToggle();
+					selectedColor = chk.getText();
+				}
+				JFXRadioButton chk = (JFXRadioButton) next.getToggleGroup().getSelectedToggle();
+				System.out.println("Selected Radio Button - " + chk.getText());
+			} 
+    	});
+    	
     	//Slider Initialization: Number of slots
-    	final IntegerTextField slotsField = new IntegerTextField(0, 250, 0);
     	
     	slotsField.valueProperty().bindBidirectional(slotsSlider.valueProperty());
     	slotsField.setPrefWidth(45);
@@ -112,6 +160,7 @@ public class EditAreaController implements Initializable {
 		switchedOn.addListener((listener,prev,next) -> {
 			Timeline timeline = new Timeline();
 			if (next) {
+				durationType = DurationType.TEMPORARY;
 				tempHBox.setPrefHeight(0.0d);
 				tempBp.setCenter(tempHBox);
 				timeline.getKeyFrames().addAll(
@@ -120,6 +169,7 @@ public class EditAreaController implements Initializable {
 				timeline.play();
 			}
 			else {
+				durationType = DurationType.PERMANENTLY;
 				tempBp.setCenter(tempHBox);
 				timeline.getKeyFrames().addAll(
 						new KeyFrame(Duration.ZERO, new KeyValue(tempHBox.prefHeightProperty(), HBoxPrefHeight)),
