@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -133,9 +134,18 @@ public class ManagerMainScreenContorller implements Initializable {
         
         //Initialize total slots amount
         ParkingAreas parkingAreas = new ParkingAreas();
-		allFreeSlots = parkingAreas.getNumOfFreeSlots();
-    	freeSlotsLbl.setText(String.valueOf(allFreeSlots));
-    	allTakenSlots = parkingAreas.getNumOfTakenSlots();
+        try {
+        	allFreeSlots = parkingAreas.getNumOfFreeSlots();
+        	allTakenSlots = parkingAreas.getNumOfTakenSlots();
+        }
+        catch (Exception e) {
+        	allTakenSlots = allFreeSlots = 0;
+        	freeSlotsLbl.setTextFill(Color.web("#cc3300"));
+        	takenSlotsLbl.setTextFill(Color.web("#cc3300"));
+        	totalSlotsLbl.setTextFill(Color.web("#cc3300"));
+        }
+		
+    	freeSlotsLbl.setText(String.valueOf(allFreeSlots));	
     	takenSlotsLbl.setText(String.valueOf(allTakenSlots));
     	totalSlotsLbl.setText(String.valueOf(allFreeSlots+allTakenSlots));
         
@@ -148,16 +158,24 @@ public class ManagerMainScreenContorller implements Initializable {
     		map.focusOnParkingArea(next);
     		editBtn.setDisable(false);
     		ParkingArea area;
+    		int freeSlots=0;
+    		int takenSlots=0;
 			try {
 				area = new ParkingArea(next);
-				int freeSlots = (int) area.getFreeSlots().stream().count();
-	        	freeSlotsLbl.setText(String.valueOf(freeSlots));
-	        	int takenSlots = (int) area.getTakenSlots().stream().count();
-	        	takenSlotsLbl.setText(String.valueOf(takenSlots));
-	        	totalSlotsLbl.setText(String.valueOf(freeSlots+takenSlots));
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				freeSlots = (int) area.getFreeSlots().stream().count();
+	        	takenSlots = (int) area.getTakenSlots().stream().count(); 
+	        	freeSlotsLbl.setTextFill(Color.web("#000"));
+	        	takenSlotsLbl.setTextFill(Color.web("#000"));
+	        	totalSlotsLbl.setTextFill(Color.web("#000"));
+			} catch (Exception e) {
+	        	freeSlotsLbl.setTextFill(Color.web("#cc3300"));
+	        	takenSlotsLbl.setTextFill(Color.web("#cc3300"));
+	        	totalSlotsLbl.setTextFill(Color.web("#cc3300"));
+			}
+			finally {
+				freeSlotsLbl.setText(String.valueOf(freeSlots));
+				takenSlotsLbl.setText(String.valueOf(takenSlots));
+				totalSlotsLbl.setText(String.valueOf(freeSlots+takenSlots));
 			}
 						
         });
