@@ -8,7 +8,6 @@ import org.parse4j.ParseException;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
-import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 
 import data.members.ParkingArea;
@@ -20,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -37,7 +37,7 @@ public class EditAreaController implements Initializable {
     private Slider slotsSlider;
 
     @FXML
-    private JFXTextField slotsInput;
+    private AnchorPane slotsInput;
 
     @FXML
     private HBox radioHBox;
@@ -66,7 +66,17 @@ public class EditAreaController implements Initializable {
 			if (c == parkingAreaElement.getColor().name())
 				rbtn.setSelected(true);
 		});
+    	final IntegerTextField slotsField = new IntegerTextField(0, 250, 0);
+    	
+    	slotsField.valueProperty().bindBidirectional(slotsSlider.valueProperty());
+    	slotsField.setPrefWidth(45);
+    	slotsSlider.setMin(0);
+    	slotsSlider.setMax(250);
+      	slotsSlider.setValue(0);
+    	slotsInput.getChildren().add(slotsField);
     }
+    
+    
     
 	public static void display(String parkingAreaID) throws IOException, ParseException {
 		parkingAreaElement = new ParkingArea(parkingAreaID);
