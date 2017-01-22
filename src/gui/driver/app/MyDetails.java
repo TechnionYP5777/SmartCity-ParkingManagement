@@ -29,7 +29,7 @@ public class MyDetails extends AbstractWindow {
 		// window = primaryStage;
 		window.setTitle("My Details");
 		window.setWidth(350);
-		window.setHeight(300);
+		window.setHeight(320);
 		GridPane grid = new GridPane();
 		grid.setPadding(new Insets(20, 20, 20, 20));
 		grid.setVgap(10);

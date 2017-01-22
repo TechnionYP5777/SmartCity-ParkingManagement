@@ -112,7 +112,7 @@ public class Register extends AbstractWindow {
 		stickerColor.setValue("Blue");
 		stickerColor.getStyleClass().add("cb");
 		Hyperlink wantLogin = new Hyperlink();
-		wantLogin.setText("Are you a registered member? Sign In!");
+		wantLogin.setText("Already Registered?");
 		wantLogin.setOnAction(e -> {
 			// AbstractWindow.prevWindows.add(this); --> will return to login
 			// instead of mainMenu

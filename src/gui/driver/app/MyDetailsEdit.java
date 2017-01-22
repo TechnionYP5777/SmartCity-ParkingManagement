@@ -39,7 +39,7 @@ public class MyDetailsEdit extends AbstractWindow {
 		grid.setBackground(
 				new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2, 2, 2, 2))));
 		window.setWidth(350);
-		window.setHeight(300);
+		window.setHeight(340);
 		ArrayList<TextField> newValues = new ArrayList<TextField>();
 		int i = 0;
 		int stickerIdx = 4;
