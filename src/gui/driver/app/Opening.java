@@ -40,7 +40,7 @@ public class Opening extends Application {
 
 	@Override
 	public void init() {
-		ImageView logo = new ImageView(new Image(getClass().getResourceAsStream("smart_parking.png")));
+		ImageView logo = new ImageView(new Image(getClass().getResourceAsStream("smart_parking_icon.png")));
 		loadProgress = new ProgressBar();
 		loadProgress.setPrefWidth(SPLASH_WIDTH);
 		
