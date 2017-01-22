@@ -178,6 +178,7 @@ public class NavigationTest {
 				poolArea.deleteParseObject();
 				poolSlot1.deleteParseObject();
 				poolSlot2.deleteParseObject();
+				parkingAreas.deleteParseObject();
 				
 				destination.deleteParseObject();
 				user.deleteParseObject();
