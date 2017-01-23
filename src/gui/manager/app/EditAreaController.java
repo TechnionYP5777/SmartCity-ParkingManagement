@@ -31,6 +31,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Toggle;
@@ -107,8 +109,23 @@ public class EditAreaController implements Initializable {
 		System.out.println(StickersColor.valueOf(selectedColor.toUpperCase()));
 		System.out.println(durationType);
 		System.out.println(date);
-		manualUpdate.updateArea(parkingAreaElement.getAreaId(), Integer.parseInt(slotsField.getText()), StickersColor.valueOf(selectedColor.toUpperCase()), durationType, date);
-	    ((Stage) cancelBtn.getScene().getWindow()).close();
+		try {
+			manualUpdate.updateArea(parkingAreaElement.getAreaId(), Integer.parseInt(slotsField.getText()), StickersColor.valueOf(selectedColor.toUpperCase()), durationType, date);
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Update Succeeded");
+			alert.setHeaderText(null);
+			alert.setContentText("Update Succeeded");
+			alert.showAndWait();
+			((Stage) cancelBtn.getScene().getWindow()).close();
+		}
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("An Error Occurred");
+			alert.setHeaderText(null);
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
+		}
 	}
     
     private static ParkingArea parkingAreaElement;
