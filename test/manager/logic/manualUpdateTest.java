@@ -284,10 +284,10 @@ public class manualUpdateTest {
 		ParkingSlot slot2 = new ParkingSlot("checkTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN, StickersColor.GREEN,
 				new MapLocation(0, 0), new Date());
 		slots.add(slot2);
-		ParkingArea area = new ParkingArea(20,"t1", new MapLocation(0, 0), slots, StickersColor.GREEN);
+		ParkingArea area = new ParkingArea(30,"t1", new MapLocation(0, 0), slots, StickersColor.GREEN);
 		assertNotNull(area);
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
-		query.whereEqualTo("areaId", 20);
+		query.whereEqualTo("areaId", 30);
 		
 			List<ParseObject> areaList = query.find();
 			if (areaList == null || areaList.isEmpty())
@@ -295,7 +295,7 @@ public class manualUpdateTest {
 			(new ManualUpdateArea(area, 1, StickersColor.WHITE, DurationType.PERMANENTLY, null)).updateAreaDetails();
 
 			ParseQuery<ParseObject> queryArea2 = ParseQuery.getQuery("ParkingArea");
-			queryArea2.whereEqualTo("areaId", 20);
+			queryArea2.whereEqualTo("areaId", 30);
 			List<ParseObject> areaList3 = queryArea2.find();
 			if (areaList3 == null || areaList3.isEmpty())
 				throw new RuntimeException("There was a problem - ParkingSlot table doesnt found");
@@ -308,7 +308,7 @@ public class manualUpdateTest {
 			
 			//delete area
 			ParseQuery<ParseObject> queryArea = ParseQuery.getQuery("ParkingArea");
-			queryArea.whereEqualTo("areaId", 20);
+			queryArea.whereEqualTo("areaId", 30);
 			List<ParseObject> areaList2 = queryArea.find();
 			if (areaList2 == null || areaList2.isEmpty())
 				throw new RuntimeException("There was a problem - ParkingArea table doesnt found");
