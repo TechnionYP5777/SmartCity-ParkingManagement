@@ -1,6 +1,5 @@
 package manager.logic;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.util.Date;
@@ -34,9 +33,8 @@ public class selectAreaTest {
 					new MapLocation(32.123, 32.123), new Date());
 			Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
-			ParkingSlot slot2 = new ParkingSlot("selectAreaTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN, StickersColor.GREEN,
-					new MapLocation(0, 0), new Date());
-			slots.add(slot2);
+			slots.add(new ParkingSlot("selectAreaTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN, StickersColor.GREEN,
+					new MapLocation(0, 0), new Date()));
 			new ParkingArea(20, "t1",new MapLocation(0, 0), slots, StickersColor.GREEN);
 			Assert.assertEquals(1,new SelectAnArea().getNumOfFreeSlotsPerArea(20));
 			
@@ -63,8 +61,8 @@ public class selectAreaTest {
 				throw new RuntimeException("There was a problem - ParkingSlot table doesnt found");
 			new ParkingSlot(slotList2.get(0)).deleteParseObject();
 			
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception ¢) {
+			¢.printStackTrace();
 			fail();
 		}
 	}
@@ -77,11 +75,9 @@ public class selectAreaTest {
 					new MapLocation(32.123, 32.123), new Date());
 			Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
-			ParkingSlot slot2 = new ParkingSlot("selectAreaTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN, StickersColor.GREEN,
-					new MapLocation(0, 0), new Date());
-			slots.add(slot2);
-			ParkingArea area = new ParkingArea(20,"t1", new MapLocation(0, 0), slots, StickersColor.GREEN);
-			assertNotNull(area);
+			slots.add(new ParkingSlot("selectAreaTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN, StickersColor.GREEN,
+					new MapLocation(0, 0), new Date()));
+			assert new ParkingArea(20, "t1", new MapLocation(0, 0), slots, StickersColor.GREEN) != null;
 			
 			Assert.assertEquals(1,new SelectAnArea().getNumOfTakenSlotsPerArea(20));
 			
@@ -108,8 +104,8 @@ public class selectAreaTest {
 				throw new RuntimeException("There was a problem - ParkingSlot table doesnt found");
 			new ParkingSlot(slotList2.get(0)).deleteParseObject();
 	
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception ¢) {
+			¢.printStackTrace();
 			fail();
 		}
 	}
@@ -122,11 +118,9 @@ public class selectAreaTest {
 					new MapLocation(32.123, 32.123), new Date());
 			Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
-			ParkingSlot slot2 = new ParkingSlot("selectAreaTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN, StickersColor.GREEN,
-					new MapLocation(0, 0), new Date());
-			slots.add(slot2);
-			ParkingArea area = new ParkingArea(20, "t1",new MapLocation(0, 0), slots, StickersColor.GREEN);
-			assertNotNull(area);
+			slots.add(new ParkingSlot("selectAreaTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN, StickersColor.GREEN,
+					new MapLocation(0, 0), new Date()));
+			assert new ParkingArea(20, "t1", new MapLocation(0, 0), slots, StickersColor.GREEN) != null;
 			
 			Assert.assertEquals(2,new SelectAnArea().getTotalNumOfSlotsPerArea(20));
 
@@ -153,8 +147,8 @@ public class selectAreaTest {
 				throw new RuntimeException("There was a problem - ParkingSlot table doesnt found");
 			new ParkingSlot(slotList2.get(0)).deleteParseObject();
 	
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception ¢) {
+			¢.printStackTrace();
 			fail();
 		}
 	}
@@ -167,11 +161,9 @@ public class selectAreaTest {
 					new MapLocation(32.123, 32.123), new Date());
 			Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
-			ParkingSlot slot2 = new ParkingSlot("selectAreaTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN, StickersColor.GREEN,
-					new MapLocation(0, 0), new Date());
-			slots.add(slot2);
-			ParkingArea area = new ParkingArea(20,"t1", new MapLocation(0, 0), slots, StickersColor.GREEN);
-			assertNotNull(area);
+			slots.add(new ParkingSlot("selectAreaTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN, StickersColor.GREEN,
+					new MapLocation(0, 0), new Date()));
+			assert new ParkingArea(20, "t1", new MapLocation(0, 0), slots, StickersColor.GREEN) != null;
 			
 			Assert.assertEquals(StickersColor.GREEN,new SelectAnArea().getColorOfArea(20));
 
@@ -198,8 +190,8 @@ public class selectAreaTest {
 				throw new RuntimeException("There was a problem - ParkingSlot table doesnt found");
 			new ParkingSlot(slotList2.get(0)).deleteParseObject();
 	
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception ¢) {
+			¢.printStackTrace();
 			fail();
 		}
 	}
@@ -231,8 +223,7 @@ public class selectAreaTest {
 	@Test
 	public void test9() {
 		DBManager.initialize();
-		List<String> colors=(new SelectAnArea()).getAllPossibleColors();
-		Assert.assertEquals(6,colors.size());
+		Assert.assertEquals(6,(new SelectAnArea()).getAllPossibleColors().size());
 		//for (String s: colors)
 			//System.out.println(s);
 	}

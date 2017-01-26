@@ -17,7 +17,7 @@ public enum WindowEnum {
 	NONE				(11);
 
 
-	private WindowEnum(int __){
+	WindowEnum(int __){
 	
 	}
 }

@@ -63,12 +63,8 @@ public class DriverMap extends PmMap {
 						new DirectionsRenderer(true, mapComponent.getMap(), directionsPane));
 				tb.getItems().addAll(new Label("Origin:" + dStart.getDestinationName() + " " + fromLogic),
 						new Label("Destination: " + ParkingSlot.ParkingNameByLocation(to) + " " + toLogic));
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NotExists e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (NotExists | ParseException ¢) {
+				¢.printStackTrace();
 			}
 		scene.getWindow().sizeToScene();
 	}@Override

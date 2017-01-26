@@ -29,8 +29,8 @@ public class CreatingABasicWindow extends Application implements EventHandler<Ac
 		launch(args);
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
+	@SuppressWarnings("unchecked")
 	public void start(Stage mainStage) {
 		window=mainStage;
 		window.setTitle("Yearly Project is awesome");
@@ -118,9 +118,7 @@ public class CreatingABasicWindow extends Application implements EventHandler<Ac
 		cb.setValue("red");
 		
 		//ChoiceBox listener
-		cb.getSelectionModel().selectedItemProperty().addListener( (v,prev,next) -> {
-			System.out.println(next);
-		});
+		cb.getSelectionModel().selectedItemProperty().addListener( (v, prev, next) -> System.out.println(next));
 		
 		//Login button
 		Button loginBtn = new Button("Login");
@@ -148,8 +146,7 @@ public class CreatingABasicWindow extends Application implements EventHandler<Ac
 	
 	private boolean isInt(String value) {
 		try {
-			int number = Integer.parseInt(value);
-			System.out.println(number);
+			System.out.println(Integer.parseInt(value));
 			return true;
 		}
 		catch (NumberFormatException e) {

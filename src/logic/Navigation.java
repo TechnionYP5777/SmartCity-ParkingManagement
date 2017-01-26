@@ -1,17 +1,24 @@
 package logic;
 
-import data.members.*;
-import Exceptions.*;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+
+import org.apache.commons.io.IOUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import org.apache.commons.io.IOUtils;
+
+import Exceptions.NoSlotAvailable;
+import data.members.Destination;
+import data.members.MapLocation;
+import data.members.ParkingArea;
+import data.members.ParkingAreas;
+import data.members.ParkingSlot;
+import data.members.ParkingSlotStatus;
+import data.members.User;
 
 public class Navigation {
 
@@ -20,19 +27,13 @@ public class Navigation {
 	}
 
 	private static JSONObject getInnerJSON(String url) {
-		JSONParser parser = new JSONParser();
+		JSONParser $ = new JSONParser();
 		try {
-
-			return (JSONObject) ((JSONArray) ((JSONObject) ((JSONArray) ((JSONObject) parser
+			return (JSONObject) ((JSONArray) ((JSONObject) ((JSONArray) ((JSONObject) $
 					.parse(IOUtils.toString((new URL(url)), StandardCharsets.UTF_8))).get("rows")).get(0))
 							.get("elements")).get(0);
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException | IOException ¢) {
+			¢.printStackTrace();
 		}
 		return null;
 	}
@@ -48,17 +49,14 @@ public class Navigation {
 	}
 
 	public static long getDistance(MapLocation source, MapLocation target, boolean walkingMode) {
-		String url = createURL(source, target, walkingMode);
-		JSONObject element = getInnerJSON(url);
-		return element == null ? 0 : (long) ((JSONObject) element.get("distance")).get("value");
+		JSONObject $ = getInnerJSON(createURL(source, target, walkingMode));
+		return $ == null ? 0 : (long) ((JSONObject) $.get("distance")).get("value");
 	}
 
 	public static long getDuration(MapLocation source, MapLocation target, boolean walkingMode) {
-		String url = createURL(source, target, walkingMode);
-		JSONObject element = getInnerJSON(url);
-		if (!element.containsKey("duration") || !((JSONObject)element.get("duration")).containsKey("value"))
-			return Integer.MAX_VALUE;
-		return element == null ? 0 : (long) ((JSONObject) element.get("duration")).get("value");
+		JSONObject $ = getInnerJSON(createURL(source, target, walkingMode));
+		return !$.containsKey("duration") || !((JSONObject) $.get("duration")).containsKey("value") ? Integer.MAX_VALUE
+				: $ != null ? (long) ((JSONObject) $.get("duration")).get("value") : 0;
 	}
 
 	public static int getClosestParkingArea(MapLocation currentLocation, boolean walkingMode) {
@@ -69,26 +67,19 @@ public class Navigation {
 			int $ = -1;
 			long dist = Integer.MAX_VALUE;
 			for (Object o : a) {
-
 				JSONObject parkingArea = (JSONObject) o;
 				int id = Integer.parseInt((String) parkingArea.get("id"));
 				double targetLat = Double.parseDouble((String) parkingArea.get("locationX"));
 				double targetLon = Double.parseDouble((String) parkingArea.get("locationY"));
-				MapLocation target = new MapLocation(targetLat, targetLon);
-				long d = getDistance(currentLocation, target, walkingMode);
+				long d = getDistance(currentLocation, new MapLocation(targetLat, targetLon), walkingMode);
 				if (d < dist) {
 					$ = id;
 					dist = d;
 				}
 			}
 			return $;
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException | IOException ¢) {
+			¢.printStackTrace();
 		}
 		return -1;
 	}

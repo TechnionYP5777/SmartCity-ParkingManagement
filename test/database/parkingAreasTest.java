@@ -1,6 +1,5 @@
 package database;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.util.Date;
@@ -44,11 +43,9 @@ public class parkingAreasTest {
 				new MapLocation(32.123, 32.123), new Date());
 		Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 		slots.add(slot1);
-		ParkingSlot slot2 = new ParkingSlot("parkingAreasTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN, StickersColor.GREEN,
-				new MapLocation(0, 0), new Date());
-		slots.add(slot2);
-		ParkingArea area = new ParkingArea(20,"t1", new MapLocation(0, 0), slots, StickersColor.GREEN);
-		assertNotNull(area);
+		slots.add(new ParkingSlot("parkingAreasTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN, StickersColor.GREEN,
+				new MapLocation(0, 0), new Date()));
+		assert new ParkingArea(20, "t1", new MapLocation(0, 0), slots, StickersColor.GREEN) != null;
 		
 		//test function
 		
@@ -98,11 +95,9 @@ public class parkingAreasTest {
 				new MapLocation(32.123, 32.123), new Date());
 		Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 		slots.add(slot1);
-		ParkingSlot slot2 = new ParkingSlot("parkingAreasTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN, StickersColor.GREEN,
-				new MapLocation(0, 0), new Date());
-		slots.add(slot2);
-		ParkingArea area = new ParkingArea(20, "t1", new MapLocation(0, 0),slots, StickersColor.GREEN);
-		assertNotNull(area);
+		slots.add(new ParkingSlot("parkingAreasTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN, StickersColor.GREEN,
+				new MapLocation(0, 0), new Date()));
+		assert new ParkingArea(20, "t1", new MapLocation(0, 0), slots, StickersColor.GREEN) != null;
 		
 		//test function
 		
@@ -151,11 +146,9 @@ public class parkingAreasTest {
 				new MapLocation(32.123, 32.123), new Date());
 		Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 		slots.add(slot1);
-		ParkingSlot slot2 = new ParkingSlot("parkingAreasTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN, StickersColor.GREEN,
-				new MapLocation(0, 0), new Date());
-		slots.add(slot2);
-		ParkingArea area = new ParkingArea(20,"t1",new MapLocation(0, 0), slots, StickersColor.GREEN);
-		assertNotNull(area);
+		slots.add(new ParkingSlot("parkingAreasTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN, StickersColor.GREEN,
+				new MapLocation(0, 0), new Date()));
+		assert new ParkingArea(20, "t1", new MapLocation(0, 0), slots, StickersColor.GREEN) != null;
 		
 		//test function
 		
@@ -204,11 +197,9 @@ public class parkingAreasTest {
 				new MapLocation(32.123, 32.123), new Date());
 		Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 		slots.add(slot1);
-		ParkingSlot slot2 = new ParkingSlot("parkingAreasTest2", ParkingSlotStatus.FREE, StickersColor.GREEN, StickersColor.GREEN,
-				new MapLocation(0, 0), new Date());
-		slots.add(slot2);
-		ParkingArea area = new ParkingArea(20,"t1", new MapLocation(0, 0), slots, StickersColor.GREEN);
-		assertNotNull(area);
+		slots.add(new ParkingSlot("parkingAreasTest2", ParkingSlotStatus.FREE, StickersColor.GREEN, StickersColor.GREEN,
+				new MapLocation(0, 0), new Date()));
+		assert new ParkingArea(20, "t1", new MapLocation(0, 0), slots, StickersColor.GREEN) != null;
 		
 		//test function
 		
@@ -296,11 +287,9 @@ public class parkingAreasTest {
 				new MapLocation(32.123, 32.123), new Date());
 		Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 		slots.add(slot1);
-		ParkingSlot slot2 = new ParkingSlot("parkingAreasTest2", ParkingSlotStatus.FREE, StickersColor.GREEN, StickersColor.GREEN,
-				new MapLocation(0, 0), new Date());
-		slots.add(slot2);
-		ParkingArea area = new ParkingArea(20,"t1", new MapLocation(0, 0), slots, StickersColor.GREEN);
-		assertNotNull(area);
+		slots.add(new ParkingSlot("parkingAreasTest2", ParkingSlotStatus.FREE, StickersColor.GREEN, StickersColor.GREEN,
+				new MapLocation(0, 0), new Date()));
+		assert new ParkingArea(20, "t1", new MapLocation(0, 0), slots, StickersColor.GREEN) != null;
 		
 		//test function
 		
@@ -349,11 +338,9 @@ public class parkingAreasTest {
 				new MapLocation(32.123, 32.123), new Date());
 		Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 		slots.add(slot1);
-		ParkingSlot slot2 = new ParkingSlot("parkingAreasTest2", ParkingSlotStatus.FREE, StickersColor.GREEN, StickersColor.GREEN,
-				new MapLocation(0, 0), new Date());
-		slots.add(slot2);
-		ParkingArea area = new ParkingArea(20,"t1", new MapLocation(0, 0), slots, StickersColor.GREEN);
-		assertNotNull(area);
+		slots.add(new ParkingSlot("parkingAreasTest2", ParkingSlotStatus.FREE, StickersColor.GREEN, StickersColor.GREEN,
+				new MapLocation(0, 0), new Date()));
+		assert new ParkingArea(20, "t1", new MapLocation(0, 0), slots, StickersColor.GREEN) != null;
 		
 		//test function
 		
@@ -418,9 +405,9 @@ public class parkingAreasTest {
 		
 		// Assert		
 		Assert.assertEquals(3,names.size());
-		Assert.assertTrue(names.contains("t1"));
-		Assert.assertTrue(names.contains("t2"));
-		Assert.assertTrue(names.contains("t3"));
+		assert names.contains("t1");
+		assert names.contains("t2");
+		assert names.contains("t3");
 		
 		// Cleanup
 		areas.deleteParseObject();

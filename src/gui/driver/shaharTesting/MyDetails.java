@@ -90,8 +90,7 @@ public class MyDetails extends AbstractWindow{
 		GridPane.setConstraints(editDetailsButton, 0, buttonIndex);
 
 		grid.getChildren().addAll(editDetailsButton, backButton);
-		Scene scene = new Scene(grid, 300, 150);
-		window.setScene(scene);
+		window.setScene(new Scene(grid, 300, 150));
 		window.show();
 
 	}

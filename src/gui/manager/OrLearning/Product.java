@@ -8,8 +8,7 @@ public class Product {
 
     public Product(){
         this.name = "";
-        this.price = 0;
-        this.quantity = 0;
+        this.price = this.quantity = 0;
     }
 
     public Product(String name, double price, int quantity){

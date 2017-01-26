@@ -71,11 +71,7 @@ public class Login extends AbstractWindow {
 		Hyperlink forgotPass = new Hyperlink(); 
 		
 		forgotPass.setText("Forgot Password?");
-		forgotPass.setOnAction(e -> {
-			//AbstractWindow.prevWindows.add(this); 
-			//window.close(); 
-			(new GetPassByMail()).display(primaryStage, WindowEnum.LOG_IN);
-		});
+		forgotPass.setOnAction(e -> (new GetPassByMail()).display(primaryStage, WindowEnum.LOG_IN));
 		
 		Button buttonMute = new Button("MUTE");
 		buttonMute.setOnAction(e -> {
@@ -96,8 +92,7 @@ public class Login extends AbstractWindow {
 
 		Button loginButton = new Button("Login");
 		Button backButton = new Button();
-		ImageView ivBack= new ImageView(new Image(getClass().getResourceAsStream("back_button.png")));
-		backButton.setGraphic(ivBack);
+		backButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("back_button.png"))));
 		backButton.getStyleClass().add("button-go");
 		backButton.setOnAction(e -> {
 			// move to editing my details

@@ -1,5 +1,8 @@
 package gui.map;
 
+import java.util.ArrayList;
+import java.util.Locale;
+
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
@@ -19,13 +22,10 @@ import com.lynden.gmapsfx.service.directions.DirectionsService;
 import com.lynden.gmapsfx.service.directions.DirectionsServiceCallback;
 import com.lynden.gmapsfx.service.directions.TravelModes;
 import com.lynden.gmapsfx.shapes.Polyline;
+
 import data.members.MapLocation;
 import gui.driver.app.AbstractWindow;
-
-import java.util.ArrayList;
-import java.util.Locale;
 import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -98,25 +98,16 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 		lblClick = new Label();
 
 		mapTypeCombo = new ComboBox<>();
-		mapTypeCombo.setOnAction(e -> {
-			map.setMapType(mapTypeCombo.getSelectionModel().getSelectedItem());
-		});
+		mapTypeCombo.setOnAction(e -> map.setMapType(mapTypeCombo.getSelectionModel().getSelectedItem()));
 		mapTypeCombo.setDisable(true);
 
-		Button btnType = new Button("Map type");
-		btnType.setOnAction(e -> {
-			map.setMapType(MapTypeIdEnum.HYBRID);
-		});
+		new Button("Map type").setOnAction(e -> map.setMapType(MapTypeIdEnum.HYBRID));
 
 		btnHideMarker = new Button("Hide Marker");
-		btnHideMarker.setOnAction(e -> {
-			hideMarker();
-		});
+		btnHideMarker.setOnAction(e -> hideMarker());
 
 		btnDeleteMarker = new Button("Delete Marker");
-		btnDeleteMarker.setOnAction(e -> {
-			deleteMarker();
-		});
+		btnDeleteMarker.setOnAction(e -> deleteMarker());
 		
 		btnShowMarkers = new Button("Show/Hide markers");
 		btnShowMarkers.setOnAction(e -> {
@@ -155,25 +146,16 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 		lblClick = new Label();
 
 		mapTypeCombo = new ComboBox<>();
-		mapTypeCombo.setOnAction(e -> {
-			map.setMapType(mapTypeCombo.getSelectionModel().getSelectedItem());
-		});
+		mapTypeCombo.setOnAction(e -> map.setMapType(mapTypeCombo.getSelectionModel().getSelectedItem()));
 		mapTypeCombo.setDisable(true);
 
-		Button btnType = new Button("Map type");
-		btnType.setOnAction(e -> {
-			map.setMapType(MapTypeIdEnum.HYBRID);
-		});
+		new Button("Map type").setOnAction(e -> map.setMapType(MapTypeIdEnum.HYBRID));
 
 		btnHideMarker = new Button("Hide Marker");
-		btnHideMarker.setOnAction(e -> {
-			hideMarker();
-		});
+		btnHideMarker.setOnAction(e -> hideMarker());
 
 		btnDeleteMarker = new Button("Delete Marker");
-		btnDeleteMarker.setOnAction(e -> {
-			deleteMarker();
-		});
+		btnDeleteMarker.setOnAction(e -> deleteMarker());
 
 		btnReturn = new Button("Back");
 //		ImageView ivBack= new ImageView(new Image(getClass().getResourceAsStream("back_button.png")));
@@ -216,10 +198,7 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 		// details.
 		LatLong center = new LatLong(32.777, 35.0225);
 		System.out.println("got here");
-		mapComponent.addMapReadyListener(() -> {
-			// This call will fail unless the map is completely ready.
-			checkCenter(center);
-		});
+		mapComponent.addMapReadyListener(() -> checkCenter(center));
 		//lblClick.setText((center + ""));
 		MapOptions options = new MapOptions();
 		options.center(center).zoom(12).overviewMapControl(false).panControl(false).rotateControl(false)
@@ -280,8 +259,7 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 
 	protected void checkCenter(LatLong center) {
 		System.out.println("Testing fromLatLngToPoint using: " + center);
-		Point2D p = map.fromLatLngToPoint(center);
-		System.out.println("Testing fromLatLngToPoint result: " + p);
+		System.out.println("Testing fromLatLngToPoint result: " + map.fromLatLngToPoint(center));
 		System.out.println("Testing fromLatLngToPoint expected: " + mapComponent.getWidth() / 2 + ", "
 				+ mapComponent.getHeight() / 2);
 	}
@@ -301,15 +279,9 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 	public void createRoutePane() {
 		routeVbox = addVBox("select route");
 		fromLocation = new ComboBox<String>();
-		fromLocation.setOnAction(e->{
-			//delete line that drawn
-			map.hideDirectionsPane();
-		});
+		fromLocation.setOnAction(e -> map.hideDirectionsPane());
 		toLocation = new ComboBox<String>();
-		toLocation.setOnAction(e->{
-			//delete line that drawn
-				map.hideDirectionsPane();
-		});
+		toLocation.setOnAction(e -> map.hideDirectionsPane());
 		Button btn =new Button("draw");
 		btn.setOnAction(e->{
 			if(toLocation.getSelectionModel().getSelectedItem()==null || fromLocation.getSelectionModel().getSelectedItem()==null)
@@ -320,17 +292,15 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 					new DirectionsRenderer(true, mapComponent.getMap(), directionsPane));
 		});
 		Button removeBtn = new Button("remove line");
-		removeBtn.setOnAction(e->{
-			map.hideDirectionsPane();
-		});
+		removeBtn.setOnAction(e -> map.hideDirectionsPane());
 		routeVbox.getChildren().addAll(fromLocation, toLocation,btn,removeBtn);
 		
 	}
 
 	public MyMarker getMarkerByTitle(String title){
-		for(Marker ¢ : markers)
-			if (((MyMarker) ¢).isTitle(title))
-				return ((MyMarker) ¢);
+		for(Marker $ : markers)
+			if (((MyMarker) $).isTitle(title))
+				return ((MyMarker) $);
 		return null;
 	}
 

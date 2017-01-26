@@ -46,11 +46,11 @@ public class MyDetails extends AbstractWindow {
 		if (newLabels != null) {
 			labels = newLabels;
 			values = newValues;
-			for (int i = 0; i < values.size(); ++i) {
+			for (int ¢ = 0; ¢ < values.size(); ++¢) {
 				// System.out.println(i + " labels: " + labels.get(i) + "values:
 				// " + values.get(i));
-				GridPane.setConstraints(labels.get(i), 0, i);
-				GridPane.setConstraints(values.get(i), 1, i);
+				GridPane.setConstraints(labels.get(¢), 0, ¢);
+				GridPane.setConstraints(values.get(¢), 1, ¢);
 				// grid.getChildren().addAll(labels.get(i), values.get(i));
 			}
 			if (values.size() < lablesNum)
@@ -85,7 +85,7 @@ public class MyDetails extends AbstractWindow {
 			values.add(sticker);
 
 			Label lastLoginLabel = new Label("Last Login:");
-			Label lastLogin = new Label("" + login.getUser().getLastLoginTime());
+			Label lastLogin = new Label(login.getUser().getLastLoginTime() + "");
 			labels.add(lastLoginLabel);
 			values.add(lastLogin);
 
@@ -111,8 +111,7 @@ public class MyDetails extends AbstractWindow {
 
 		// TODO: finish it
 		Button backButton = new Button();
-		ImageView ivBack = new ImageView(new Image(getClass().getResourceAsStream("back_button.png")));
-		backButton.setGraphic(ivBack);
+		backButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("back_button.png"))));
 		backButton.getStyleClass().add("button-go");
 
 		backButton.setOnAction(e -> {

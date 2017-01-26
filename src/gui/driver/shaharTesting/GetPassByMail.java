@@ -61,8 +61,7 @@ public class GetPassByMail extends AbstractWindow{
 		GridPane.setConstraints(sendButton, 0,2);
 		
 		grid.getChildren().addAll(instruction, eMailInput, sendButton);
-		Scene scene = new Scene(grid, 420,150);
-		window.setScene(scene);
+		window.setScene(new Scene(grid, 420, 150));
 		window.show();
 		
 	}

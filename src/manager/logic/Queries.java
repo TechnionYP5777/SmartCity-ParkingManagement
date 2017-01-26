@@ -87,32 +87,32 @@ public class Queries {
 	
 	//Return user userName according to user carNum
 	public String returnUserName(String carNum){
-		User currentUser = this.returnUser(carNum);
-		return currentUser == null ? null : currentUser.getName();
+		User $ = this.returnUser(carNum);
+		return $ == null ? null : $.getName();
 	}
 	
 	//Return user password according to user carNum
 	public String returnUserPassword(String carNum){
-		User currentUser = this.returnUser(carNum);
-		return currentUser == null ? null : currentUser.getPassword();
+		User $ = this.returnUser(carNum);
+		return $ == null ? null : $.getPassword();
 	}
 	
 	//Return user phoneNum according to user carNum
 	public String returnUserPhoneNum(String carNum){
-		User currentUser = this.returnUser(carNum);
-		return currentUser == null ? null : currentUser.getPhoneNumber();
+		User $ = this.returnUser(carNum);
+		return $ == null ? null : $.getPhoneNumber();
 	}
 	
 	//Return user sticker according to user carNum
 	public StickersColor returnUserSticker(String carNum){
-		User currentUser = this.returnUser(carNum);
-		return currentUser == null ? null : currentUser.getSticker();
+		User $ = this.returnUser(carNum);
+		return $ == null ? null : $.getSticker();
 	}
 	
 	//Return user current parking according to user carNum
 	public ParkingSlot returnUserCurrentParking(String carNum){
-		User currentUser = this.returnUser(carNum);
-		return currentUser == null ? null : currentUser.getCurrentParking();
+		User $ = this.returnUser(carNum);
+		return $ == null ? null : $.getCurrentParking();
 	}
 
 	//Return parking slot according to given location
@@ -124,15 +124,15 @@ public class Queries {
 	}
 	
 	//Return parking slot's status according to given location
-	public ParkingSlotStatus returnParkingSlotStatus(MapLocation l){
-		ParkingSlot currentSlot = this.returnParkingSlot(l);
-		return currentSlot == null ? null : currentSlot.getStatus();
+	public ParkingSlotStatus returnParkingSlotStatus(MapLocation ¢){
+		ParkingSlot $ = this.returnParkingSlot(¢);
+		return $ == null ? null : $.getStatus();
 	}
 	
 	//Return parking slot's color according to given location
-	public StickersColor returnParkingSlotColor(MapLocation l){
-		ParkingSlot currentSlot = this.returnParkingSlot(l);
-		return currentSlot == null ? null : currentSlot.getColor();
+	public StickersColor returnParkingSlotColor(MapLocation ¢){
+		ParkingSlot $ = this.returnParkingSlot(¢);
+		return $ == null ? null : $.getColor();
 	}
 	
 	//Return parking slot's current user according to given location

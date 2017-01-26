@@ -40,8 +40,8 @@ public class testingDB {
 		try {
 			test.save();
 			test.delete();
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException ¢) {
+			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -61,8 +61,8 @@ public class testingDB {
 		try {
 			test.save();
 			test.delete();
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException ¢) {
+			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -85,8 +85,8 @@ public class testingDB {
 			
 			test.delete();
 			subTest.delete();
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException ¢) {
+			¢.printStackTrace();
 			Assert.fail();
 		}
 
@@ -105,9 +105,7 @@ public class testingDB {
 		try {
 			subTest.save();
 
-			String id = subTest.getObjectId();
-			ParseQuery<ParseObject> query = ParseQuery.getQuery("subTest");
-			ParseObject returnedO = query.get(id);
+			ParseObject returnedO = ParseQuery.getQuery("subTest").get(subTest.getObjectId());
 			val = returnedO.getInt("value");
 			Assert.assertEquals(4, val);
 
@@ -116,9 +114,9 @@ public class testingDB {
 			
 			test.delete();
 			subTest.delete();
-		} catch (ParseException e) {
+		} catch (ParseException ¢) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -153,9 +151,9 @@ public class testingDB {
 			subTest1.delete();
 			subTest2.delete();
 			subTest3.delete();
-		} catch (ParseException e) {
+		} catch (ParseException ¢) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			¢.printStackTrace();
 			Assert.fail();
 		}
 	}

@@ -122,8 +122,7 @@ public class Register extends AbstractWindow {
 
 		Button registerButton = new Button("Register");
 		Button backButton = new Button();
-		ImageView ivBack= new ImageView(new Image(getClass().getResourceAsStream("back_button.png")));
-		backButton.setGraphic(ivBack);
+		backButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("back_button.png"))));
 		backButton.getStyleClass().add("button-go");
 		backButton.setOnAction(e -> {
 			// move to editing my details
@@ -159,9 +158,7 @@ public class Register extends AbstractWindow {
 			try {
 				String name = nameInput.getText();
 				String password = passInput.getText();
-				String startPhone = prefixNumber.getSelectionModel().getSelectedItem();
-				String endPhone = phoneNumberInput.getText();
-				String phone = startPhone + endPhone;
+				String phone = prefixNumber.getSelectionModel().getSelectedItem() + phoneNumberInput.getText();
 				String car = carNumberInput.getText();
 				String eMail = mailInput.getText();
 				StickersColor type = StickersColor

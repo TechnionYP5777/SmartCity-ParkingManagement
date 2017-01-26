@@ -103,9 +103,7 @@ public class ManualUpdateArea {
 					//if temporary - insert the given endDate, change color
 					areaList.get(0).put("endDate", this.endDate);
 				else {
-					//if permanent - insert to endDate 31/12/9999, change default color and color
-					Date newDate = (new SimpleDateFormat("yyyy-MM-dd")).parse("9999-12-31");
-					areaList.get(0).put("endDate", newDate);
+					areaList.get(0).put("endDate", (new SimpleDateFormat("yyyy-MM-dd")).parse("9999-12-31"));
 					areaList.get(0).put("defaultColor", this.demandColor.ordinal());
 				}
 				areaList.get(0).save();
@@ -123,17 +121,10 @@ public class ManualUpdateArea {
 			if (slotList != null && !slotList.isEmpty()){
 				slotList.get(0).put("color", demandColor.ordinal());
 				//check if the duration is permanent or temporary
-				if (!t.equals(DurationType.PERMANENTLY)){
-					//if temporary - insert the given endDate, change color
+				if (!t.equals(DurationType.PERMANENTLY))
 					slotList.get(0).put("endDate", endDate);
-					
-				}
-				else {
-					//if permanent - insert to endDate 31/12/9999, change default color and color
-					Date newDate = (new SimpleDateFormat("yyyy-MM-dd")).parse("9999-12-31");
-					slotList.get(0).put("endTime", newDate);
-					//System.out.println("***after change***");
-				}
+				else
+					slotList.get(0).put("endTime", (new SimpleDateFormat("yyyy-MM-dd")).parse("9999-12-31"));
 				slotList.get(0).save();
 			}
 		}catch (Exception e) {

@@ -92,8 +92,8 @@ public class ParkingSlot extends dbMember {
 		query.whereNear("location", new ParseGeoPoint(l.getLat(),l.getLon()));
 		query.limit(1);
 		try {
-			List<ParseObject> result = query.find();
-			return result == null || result.isEmpty() ? null : result.get(0).getString("name");
+			List<ParseObject> $ = query.find();
+			return $ == null || $.isEmpty() ? null : $.get(0).getString("name");
 		} catch (Exception e) {
 			return null;
 		}
@@ -179,13 +179,13 @@ public class ParkingSlot extends dbMember {
 	}
 
 	private ParseObject findContaingParkingArea() {
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
-		query.whereEqualTo("parkingSlots", this.parseObject);
+		ParseQuery<ParseObject> $ = ParseQuery.getQuery("ParkingArea");
+		$.whereEqualTo("parkingSlots", this.parseObject);
 		try {
-			return query.find().get(0);
-		} catch (ParseException e) {
+			return $.find().get(0);
+		} catch (ParseException ¢) {
 			System.out.println("Could not find the containing area");
-			e.printStackTrace();
+			¢.printStackTrace();
 			return null;
 		}
 	}
@@ -197,9 +197,9 @@ public class ParkingSlot extends dbMember {
 	public void changeStatus(ParkingSlotStatus newStatus) {
 		try {
 			this.setStatus(newStatus);
-		} catch (ParseException e) {
+		} catch (ParseException ¢) {
 			System.out.println("could not set the slot's status");
-			e.printStackTrace();
+			¢.printStackTrace();
 		}
 	};
 

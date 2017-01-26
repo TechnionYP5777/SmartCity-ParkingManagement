@@ -32,8 +32,7 @@ public class AlertBox {
 		layout.getChildren().addAll(label, closeButton); 
 		layout.setAlignment(Pos.CENTER);
 		
-		Scene scene = new Scene(layout); 
-		alertWindow.setScene(scene);
+		alertWindow.setScene(new Scene(layout));
 		alertWindow.showAndWait();
 	}
 

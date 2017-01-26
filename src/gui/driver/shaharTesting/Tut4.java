@@ -29,9 +29,7 @@ public class Tut4 extends Application{
 		Label label = new Label("Welcome to the 1st scene");
 		String message = String.valueOf("Are you sure you want to send the pictures?");
 		Button button = new Button("click me!");
-		button.setOnAction(e-> {
-			System.out.println(ConfirmBox.display("Sending pics", message));
-		});
+		button.setOnAction(e -> System.out.println(ConfirmBox.display("Sending pics", message)));
 		
 		VBox layout = new VBox(20);
 		layout.getChildren().addAll(label, button);

@@ -34,7 +34,7 @@ public class StaticMethods {
 	public static void dealWithMute(MediaPlayer p, ArrayList<Button> muteButtonsAL) {
 		for (Button currButton : muteButtonsAL)
 			currButton.setGraphic(
-					new ImageView(new Image(StaticMethods.class.getResourceAsStream(p.isMute() ? "unmute_button.png" : "mute_button.png"))));
+					new ImageView(new Image(StaticMethods.class.getResourceAsStream(!p.isMute() ? "mute_button.png" : "unmute_button.png"))));
 		p.setMute(!p.isMute());
 	}
 
@@ -44,9 +44,7 @@ public class StaticMethods {
 //		System.out.println("firstButton.getOnAction(): " + firstButton.getOnAction());
 //		System.out.println(firstButton.getStyleClass().toString());
 		$.getStyleClass().addAll(firstButton.getStyleClass());
-		$.setOnAction(e -> {
-			StaticMethods.dealWithMute(AbstractWindow.mediaPlayer, AbstractWindow.muteButtonsAL);
-		});
+		$.setOnAction(e -> StaticMethods.dealWithMute(AbstractWindow.mediaPlayer, AbstractWindow.muteButtonsAL));
 		return $;
 	}
 

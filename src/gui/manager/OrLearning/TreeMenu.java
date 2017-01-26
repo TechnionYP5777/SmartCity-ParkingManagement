@@ -46,8 +46,7 @@ public class TreeMenu extends Application {
 		//Layout
 		StackPane layout = new StackPane();
 		layout.getChildren().add(tree);
-		Scene scene = new Scene(layout, 300, 300);
-		window.setScene(scene);
+		window.setScene(new Scene(layout, 300, 300));
 		window.show();
 	}
 	

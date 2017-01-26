@@ -21,14 +21,12 @@ public class VHBoxesExperiment {
 		HBox topMenu = new HBox();
 		Button buttonA = new Button("buttonA");
 		Button buttonB = new Button("buttonB");
-		Button buttonC = new Button("buttonC");
-		topMenu.getChildren().addAll(buttonA,buttonB,buttonC);
+		topMenu.getChildren().addAll(buttonA,buttonB,new Button("buttonC"));
 		
 		VBox leftMenu = new VBox();
 		Button buttonD = new Button("buttonD");
 		Button buttonE = new Button("buttonE");
-		Button buttonF = new Button("buttonF");
-		leftMenu.getChildren().addAll(buttonD,buttonE,buttonF);
+		leftMenu.getChildren().addAll(buttonD,buttonE,new Button("buttonF"));
 		
 		HBox middleMenu = new HBox();
 		Button button = new Button("Close Program");

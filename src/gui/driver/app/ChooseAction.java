@@ -43,9 +43,7 @@ public class ChooseAction extends AbstractWindow {
 	}
 
 	public void display(Stage primaryStage, WindowEnum prevWindow) {
-		// window = primaryStage;
-		String title = "What Would you like to do?";
-		window.setTitle(title);
+		window.setTitle("What Would you like to do?");
 		window.setMinWidth(750);
 		VBox vbox = new VBox(8);
 		vbox.setPadding(new Insets(10, 10, 10, 10));
@@ -62,15 +60,12 @@ public class ChooseAction extends AbstractWindow {
 			});
 			mediaPlayer.play();
 			buttonMute = new Button(); 
-			ImageView ivBack= new ImageView(new Image(getClass().getResourceAsStream("unmute_button.png")));
-			buttonMute.setGraphic(ivBack);
+			buttonMute.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("unmute_button.png"))));
 			buttonMute.getStyleClass().add("button-go");
 			//buttonMute.setDisable(false);
 			//buttonMute.getStyleClass().clear();
 			
-			buttonMute.setOnAction(e -> {
-				StaticMethods.dealWithMute(mediaPlayer, AbstractWindow.muteButtonsAL);
-			});
+			buttonMute.setOnAction(e -> StaticMethods.dealWithMute(mediaPlayer, AbstractWindow.muteButtonsAL));
 			muteButtonsAL.add(buttonMute);
 			//buttonMute.getStyleClass().add("button-muteOFF");
 		}
@@ -88,8 +83,7 @@ public class ChooseAction extends AbstractWindow {
 
 
 		buttonAbout = new Button("About");
-		ImageView ivAbout= new ImageView(new Image(getClass().getResourceAsStream("about_button.png")));
-		buttonAbout.setGraphic(ivAbout);
+		buttonAbout.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("about_button.png"))));
 		buttonAbout.getStyleClass().add("button-go");
 		buttonAbout.setOnAction(e -> {
 			window.close();
@@ -99,8 +93,7 @@ public class ChooseAction extends AbstractWindow {
 		//buttonAbout.getStyleClass().add("button-menu");
 
 		buttonLogin = new Button("Login");
-		ImageView ivLogin = new ImageView(new Image(getClass().getResourceAsStream("login_button.png")));
-		buttonLogin.setGraphic(ivLogin);
+		buttonLogin.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("login_button.png"))));
 		buttonLogin.getStyleClass().add("button-go");
 		buttonLogin.setOnAction(e -> {
 			window.close();
@@ -111,8 +104,7 @@ public class ChooseAction extends AbstractWindow {
 		//buttonLogin.getStyleClass().add("button-menu");
 
 		buttonRegister = new Button("Register");
-		ImageView ivRegister = new ImageView(new Image(getClass().getResourceAsStream("register_button.png")));
-		buttonRegister.setGraphic(ivRegister);
+		buttonRegister.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("register_button.png"))));
 		buttonRegister.getStyleClass().add("button-go");
 		buttonRegister.setOnAction(e -> {
 			window.close();
@@ -123,8 +115,7 @@ public class ChooseAction extends AbstractWindow {
 		//buttonRegister.getStyleClass().add("button-menu");
 
 		buttonMap = new Button("View Map");
-		ImageView ivMap = new ImageView(new Image(getClass().getResourceAsStream("map_button.png")));
-		buttonMap.setGraphic(ivMap);
+		buttonMap.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("map_button.png"))));
 		buttonMap.getStyleClass().add("button-go");
 		buttonMap.setOnAction(e -> {
 			window.close();
@@ -135,8 +126,7 @@ public class ChooseAction extends AbstractWindow {
 		//buttonMap.getStyleClass().add("button-menu");
 
 		buttonMyDetails = new Button("My Details");
-		ImageView ivDetails = new ImageView(new Image(getClass().getResourceAsStream("details_button.png")));
-		buttonMyDetails.setGraphic(ivDetails);
+		buttonMyDetails.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("details_button.png"))));
 		buttonMyDetails.getStyleClass().add("button-go");
 		buttonMyDetails.setOnAction(e -> {
 			window.close();
@@ -149,8 +139,7 @@ public class ChooseAction extends AbstractWindow {
 		//buttonMyDetails.getStyleClass().add("button-menu");
 
 		buttonChooseDestination = new Button("Choose Destination");
-		ImageView ivDestination = new ImageView(new Image(getClass().getResourceAsStream("choose_destination_button.png")));
-		buttonChooseDestination.setGraphic(ivDestination);
+		buttonChooseDestination.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("choose_destination_button.png"))));
 		buttonChooseDestination.getStyleClass().add("button-go");
 		buttonChooseDestination.setOnAction(e -> {
 			window.close();
@@ -163,8 +152,7 @@ public class ChooseAction extends AbstractWindow {
 		//buttonChooseDestination.getStyleClass().add("button-menu");
 
 		Button buttonClose = new Button("Exit");
-		ImageView ivExit = new ImageView(new Image(getClass().getResourceAsStream("exit_button.png")));
-		buttonClose.setGraphic(ivExit);
+		buttonClose.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("exit_button.png"))));
 		buttonClose.getStyleClass().add("button-go");
 		buttonClose.setOnAction(e -> {
 			if (prevWindow == WindowEnum.NONE
@@ -174,8 +162,7 @@ public class ChooseAction extends AbstractWindow {
 	//	buttonClose.getStyleClass().add("button-menu");
 
 		buttonLogOut = new Button("Log Out");
-		ImageView ivLogout = new ImageView(new Image(getClass().getResourceAsStream("logout_button.png")));
-		buttonLogOut.setGraphic(ivLogout);
+		buttonLogOut.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("logout_button.png"))));
 		buttonLogOut.getStyleClass().add("button-go");
 		buttonLogOut.setOnAction(e -> {
 			if (prevWindow == WindowEnum.NONE

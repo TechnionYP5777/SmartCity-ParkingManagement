@@ -43,8 +43,8 @@ public class Management {
 			for (ParseObject ¢: usersList)
 				this.users.add((new User(¢)));
 		}
-		catch (ParseException e) {
-			e.printStackTrace();
+		catch (ParseException ¢) {
+			¢.printStackTrace();
 		}
 		//init set of parking slots
 		ParseQuery<ParseObject> query2 = ParseQuery.getQuery("ParkingSlot");
@@ -55,8 +55,8 @@ public class Management {
 			for (ParseObject ¢: slotList)
 				this.parkingSlots.add((new ParkingSlot(¢)));
 		}
-		catch (ParseException e) {
-			e.printStackTrace();
+		catch (ParseException ¢) {
+			¢.printStackTrace();
 		}
 		this.parkingAreas = new ParkingAreas();
 	}
@@ -125,8 +125,8 @@ public class Management {
 				return null;
 			}
 
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException ¢) {
+			¢.printStackTrace();
 			return null;
 		}
 		StickersColor $ = null;
@@ -147,8 +147,8 @@ public class Management {
 				return null;
 			}
 
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException ¢) {
+			¢.printStackTrace();
 			return null;
 		}
 		ParkingSlot $ = null;
@@ -168,8 +168,8 @@ public class Management {
 				return null;
 			}
 
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException ¢) {
+			¢.printStackTrace();
 			return null;
 		}
 		User $ = null;

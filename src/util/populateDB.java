@@ -24,21 +24,21 @@ public class populateDB {
 		System.out.println("Start Populating DB");
 		try {
 			insertParkingSlots();
-		} catch (Exception e) {
+		} catch (Exception ¢) {
 			System.out.println("Something went wrong. Could not add the parking slots");
-			e.printStackTrace();
+			¢.printStackTrace();
 		}
 		try {
 			insertParkingArea();
-		} catch (Exception e) {
+		} catch (Exception ¢) {
 			System.out.println("Something went wrong. Could not add the parking area");
-			e.printStackTrace();
+			¢.printStackTrace();
 		}
 		try {
 			insertParkingAreas();
-		} catch (Exception e) {
+		} catch (Exception ¢) {
 			System.out.println("Something went wrong. Could not add the parking areas");
-			e.printStackTrace();
+			¢.printStackTrace();
 		}
 		System.out.println("Done Populating DB");
 
@@ -87,10 +87,10 @@ public class populateDB {
 	
 	private static List<String> getLinesFromFile(Path p) throws IOException{
 		Object[] fileArray =  Files.readAllLines(p).toArray();
-		List<String> lines = new ArrayList<String>();
-		for (Object o : fileArray)
-			lines.add((String) o);		
-		return lines;
+		List<String> $ = new ArrayList<String>();
+		for (Object ¢ : fileArray)
+			$.add((String) ¢);		
+		return $;
 	}
 	
 	@SuppressWarnings("unused")
@@ -103,8 +103,8 @@ public class populateDB {
 		double lon = Double.parseDouble(args[5]);
 		try {
 			ParkingSlot slot1 = new ParkingSlot(name, status, currentColor, defaultColor, new MapLocation(lat, lon), new Date());
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException ¢) {
+			¢.printStackTrace();
 			return false;
 		}
 		return true;
@@ -121,15 +121,15 @@ public class populateDB {
 		for(int nameIndex = 5; nameIndex<args.length; ++nameIndex)
 			try {
 				slots.add((new ParkingSlot(args[nameIndex])));
-			} catch (ParseException e) {
+			} catch (ParseException ¢) {
 				System.out.println("Something went wrong. Could not find the last slot in DB");
-				e.printStackTrace();
+				¢.printStackTrace();
 			}
 		
 		try {
 			ParkingArea area = new ParkingArea(id, name, new MapLocation(lat, lon), slots, defaultColor);
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException ¢) {
+			¢.printStackTrace();
 			return false;
 		}
 		return true;
@@ -141,15 +141,15 @@ public class populateDB {
 		for(int idIndex = 0; idIndex<args.length; ++idIndex)
 			try {
 				area.add((new ParkingArea(args[idIndex])));
-			} catch (ParseException e) {
+			} catch (ParseException ¢) {
 				System.out.println("Something went wrong. Could not find the last area in DB");
-				e.printStackTrace();
+				¢.printStackTrace();
 			}
 		
 		try {
 			ParkingAreas areas = new ParkingAreas(area);
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException ¢) {
+			¢.printStackTrace();
 			return false;
 		}
 		return true;

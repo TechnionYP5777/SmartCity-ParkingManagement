@@ -105,8 +105,8 @@ public class ManagerMainScreenContorller implements Initializable {
         ParkingAreas pa = new ParkingAreas();
         try {
 			parkingAreasListView.setItems(FXCollections.observableList(((ArrayList<String>) pa.getParkingAreasNames())));
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException ¢) {
+			¢.printStackTrace();
 		}
         
         //Initialize map
@@ -115,9 +115,7 @@ public class ManagerMainScreenContorller implements Initializable {
         HashMap<String,String> colors = new HashMap<>();
         try {
 			locations= pareas.getParkingAreasLocation();
-	        pareas.getParkingAreasColor().forEach((k, v) -> {
-	        	colors.put(k, v.name());
-	        });
+	        pareas.getParkingAreasColor().forEach((k, v) -> colors.put(k, v.name()));
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

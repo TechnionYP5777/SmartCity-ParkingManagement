@@ -33,8 +33,8 @@ public class Destination extends dbMember {
 		query.whereEqualTo(NAME, name);
 		query.limit(1);
 		try {
-			List<ParseObject> result = query.find();
-			return result == null || result.isEmpty() ? null : result.get(0);
+			List<ParseObject> $ = query.find();
+			return $ == null || $.isEmpty() ? null : $.get(0);
 		} catch (Exception e) {
 			return null;
 		}

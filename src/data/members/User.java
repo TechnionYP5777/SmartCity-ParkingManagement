@@ -113,8 +113,8 @@ public class User extends dbMember {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery(TABLE_NAME);
 		query.whereEqualTo(CAR_NUMBER, carNumber);
 		try {
-			List<ParseObject> users = query.find();
-			return users == null || users.size() != 1 ? null : users.get(0);
+			List<ParseObject> $ = query.find();
+			return $ == null || $.size() != 1 ? null : $.get(0);
 		} catch (Exception e) {
 			return null;
 		}
@@ -122,10 +122,9 @@ public class User extends dbMember {
 
 	public ParkingSlot getCurrentParking() {
 		ParseObject o = null;
-		ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("ParkingSlot");
 		if (currentParking != null)
 			try {
-				o = query.get(currentParking.getObjectId());
+				o = new ParseQuery<ParseObject>("ParkingSlot").get(currentParking.getObjectId());
 			} catch (ParseException e) {
 				System.out.println("could'nt find");
 				return null;

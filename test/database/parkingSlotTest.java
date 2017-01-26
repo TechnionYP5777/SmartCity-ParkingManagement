@@ -25,10 +25,10 @@ public class parkingSlotTest {
 		try {
 			ParkingSlot p = new ParkingSlot("testSlotA", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
 					new MapLocation(32.778153, 35.021855), new Date());
-			Assert.assertNotNull(p);
+			assert p != null;
 			p.removeParkingSlotFromDB();
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception ¢) {
+			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -47,8 +47,8 @@ public class parkingSlotTest {
 			area.deleteParseObject();
 			slot1.deleteParseObject();
 			
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception ¢) {
+			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -68,8 +68,8 @@ public class parkingSlotTest {
 			slot1.removeParkingSlotFromAreaAndDB();
 				
 			area.deleteParseObject();
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception ¢) {
+			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -82,17 +82,14 @@ public class parkingSlotTest {
 			ParkingSlot slot1 = new ParkingSlot("testS1", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
 					new MapLocation(0, 0), new Date());
 			
-			// Act 
-			ParkingSlot slot1returned = new ParkingSlot("testS1");
-			
 			// Assert
-			Assert.assertEquals(slot1.getObjectId(), slot1returned.getObjectId());
+			Assert.assertEquals(slot1.getObjectId(), new ParkingSlot("testS1").getObjectId());
 			
 			// Cleanup
 			slot1.deleteParseObject();
 				
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception ¢) {
+			¢.printStackTrace();
 			Assert.fail();
 		}
 	}

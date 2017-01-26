@@ -2,11 +2,7 @@ package gui.manager.app;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.ZoneId;
-
-import javafx.util.Duration;
-
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -20,8 +16,8 @@ import com.jfoenix.controls.JFXToggleButton;
 import data.members.DurationType;
 import data.members.ParkingArea;
 import data.members.StickersColor;
-import javafx.animation.KeyValue;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
@@ -43,6 +39,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import manager.logic.SelectAnArea;
 
 public class EditAreaController implements Initializable {
@@ -100,9 +97,8 @@ public class EditAreaController implements Initializable {
 	@FXML
 	private void changeButtonAction(){
 		manager.logic.ManualUpdate manualUpdate = new manager.logic.ManualUpdate();
-		LocalDate localDate = untilDate.getValue();
 		Date date=durationType != DurationType.TEMPORARY ? null
-				: Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+				: Date.from(untilDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
 		System.out.println("Data sent to update is:");
 		System.out.println(parkingAreaElement.getAreaId());
 		System.out.println(slotsField.getText());
@@ -150,12 +146,9 @@ public class EditAreaController implements Initializable {
     	
     	group.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
     	    public void changed(ObservableValue<? extends Toggle> ov, Toggle prev, Toggle next) {
-				if (group.getSelectedToggle() != null) {
-					JFXRadioButton chk = (JFXRadioButton) next.getToggleGroup().getSelectedToggle();
-					selectedColor = chk.getText();
-				}
-				JFXRadioButton chk = (JFXRadioButton) next.getToggleGroup().getSelectedToggle();
-				System.out.println("Selected Radio Button - " + chk.getText());
+				if (group.getSelectedToggle() != null)
+					selectedColor = ((JFXRadioButton) next.getToggleGroup().getSelectedToggle()).getText();
+				System.out.println("Selected Radio Button - " + ((JFXRadioButton) next.getToggleGroup().getSelectedToggle()).getText());
 			} 
     	});
     	
@@ -170,9 +163,7 @@ public class EditAreaController implements Initializable {
     	
     	//Toggle switch initialization
     	tempBp.setCenter(null);
-    	tempToggle.setOnAction((e) -> {
-			switchedOn.set(!switchedOn.get());
-		});
+    	tempToggle.setOnAction((e) -> switchedOn.set(!switchedOn.get()));
     	HBoxPrefHeight = 150.0d;   	
 		switchedOn.addListener((listener,prev,next) -> {
 			Timeline timeline = new Timeline();
@@ -203,8 +194,7 @@ public class EditAreaController implements Initializable {
 		Parent editAreaParent = FXMLLoader.load(EditAreaController.class.getResource("EditArea.fxml"));
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.setTitle("Edit Parking Area: " + parkingAreaElement.getName());
-		Scene editScreen = new Scene(editAreaParent);
-		window.setScene(editScreen);
+		window.setScene(new Scene(editAreaParent));
 		window.showAndWait();
 	}
 }

@@ -116,38 +116,35 @@ public class Opening extends Application {
 		initStage.show();
 	}
 	
-	public static ChooseAction getCAObject(ArrayList<AbstractWindow> windows){
+	public static ChooseAction getCAObject(ArrayList<AbstractWindow> ¢){
 //		Iterator<AbstractWindow> iterator = windows.iterator();
 //		while(iterator.hasNext()){
 //			if(iterator.getClass().equals(ChooseAction.class)){
 //				System.out.print("found CA object: "+);
 //			}
 //		}
-		for(AbstractWindow tmp : windows){
-			if(tmp.getClass().equals(ChooseAction.class)){
-				System.out.print("found CA object: "+tmp);
-				return (ChooseAction)tmp;
+		for(AbstractWindow $ : ¢)
+			if ($.getClass().equals(ChooseAction.class)) {
+				System.out.print("found CA object: " + $);
+				return (ChooseAction) $;
 			}
-		}
 
 		return null;
 	}
-	public static MyDetails getMDObject(ArrayList<AbstractWindow> windows){	
-		for(AbstractWindow tmp : windows){
-			if(tmp.getClass().equals(MyDetails.class)){
-				System.out.print("found CA object: "+tmp);
-				return (MyDetails)tmp;
+	public static MyDetails getMDObject(ArrayList<AbstractWindow> ¢){	
+		for(AbstractWindow $ : ¢)
+			if ($.getClass().equals(MyDetails.class)) {
+				System.out.print("found CA object: " + $);
+				return (MyDetails) $;
 			}
-		}
 		return null;
 	}
-	public static MyDetailsEdit getMDEObject(ArrayList<AbstractWindow> windows){	
-		for(AbstractWindow tmp : windows){
-			if(tmp.getClass().equals(MyDetailsEdit.class)){
-				System.out.print("found CA object: "+tmp);
-				return (MyDetailsEdit)tmp;
+	public static MyDetailsEdit getMDEObject(ArrayList<AbstractWindow> ¢){	
+		for(AbstractWindow $ : ¢)
+			if ($.getClass().equals(MyDetailsEdit.class)) {
+				System.out.print("found CA object: " + $);
+				return (MyDetailsEdit) $;
 			}
-		}
 		return null;
 	}
 

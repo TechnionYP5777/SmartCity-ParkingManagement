@@ -31,26 +31,26 @@ public class SelectAnArea {
 
 	// return the number of free slots in a given area
 	public int getNumOfFreeSlotsPerArea(int areaId) {
-		ParkingArea currentArea = this.queries.returnArea(areaId);
-		return currentArea == null ? -1 : this.queries.getNumOfFreeByArea(currentArea);
+		ParkingArea $ = this.queries.returnArea(areaId);
+		return $ == null ? -1 : this.queries.getNumOfFreeByArea($);
 	}
 
 	// return the number of taken slots in a given area
 	public int getNumOfTakenSlotsPerArea(int areaId) {
-		ParkingArea currentArea = this.queries.returnArea(areaId);
-		return currentArea == null ? -1 : this.queries.getNumOfTakenByArea(currentArea);
+		ParkingArea $ = this.queries.returnArea(areaId);
+		return $ == null ? -1 : this.queries.getNumOfTakenByArea($);
 	}
 
 	// return the total number of slots in a given area
 	public int getTotalNumOfSlotsPerArea(int areaId) {
-		ParkingArea currentArea = this.queries.returnArea(areaId);
-		return currentArea == null ? -1 : currentArea.getNumOfParkingSlots();
+		ParkingArea $ = this.queries.returnArea(areaId);
+		return $ == null ? -1 : $.getNumOfParkingSlots();
 	}
 
 	// return the color of slots in a given area
 	public StickersColor getColorOfArea(int areaId) {
-		ParkingArea currentArea = this.queries.returnArea(areaId);
-		return currentArea == null ? null : currentArea.getColor();
+		ParkingArea $ = this.queries.returnArea(areaId);
+		return $ == null ? null : $.getColor();
 	}
 	
 	public List<String> getAllPossibleColors(){

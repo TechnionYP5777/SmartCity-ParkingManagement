@@ -30,20 +30,20 @@ public class LoginManager {
 	 * @throws LoginException
 	 *             is thrown if there is a problem
 	 */
-	public boolean userLogin(String carNumber, String password) {
+	public boolean userLogin(String carNumber, String $) {
 		try {
 			User tmp = new User(carNumber);
-			if (tmp.getPassword().equals(password)){
+			if (tmp.getPassword().equals($)){
 				this.user = tmp;
 				this.user.setLastLoginTime(new Date());
 			}
-			return user.getPassword().equals(password);
+			return user.getPassword().equals($);
 		} catch (Exception e) {
 			return false;
 		}
 	}
 
-	public String userValueCheck(String name, String phone, String email, String car) {
+	public String userValueCheck(String $, String phone, String email, String car) {
 		try {
 			if (car != null) {
 				new User(car);
@@ -51,7 +51,7 @@ public class LoginManager {
 			}
 		} catch (Exception e) {
 		}
-		return name != null && name.matches(".*\\d.*") ? "User has integer"
+		return $ != null && $.matches(".*\\d.*") ? "User has integer"
 				: phone != null && phone.length() != 10 ? "Phone need to be in size 10"
 						: phone != null && !phone.startsWith("05") ? "Phone should start with 05"
 								: phone != null && phone.matches(".*[a-zA-z].*") ? "Phone contains only integers"

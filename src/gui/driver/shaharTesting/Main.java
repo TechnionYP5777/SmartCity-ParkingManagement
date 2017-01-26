@@ -51,8 +51,7 @@ public class Main extends Application {
 	            return null;
 	        }
 	    };
-	    Thread thread = new Thread(task);
-	    thread.start();
+	    new Thread(task).start();
 	    chooseActionObject.display(primaryStage, WindowEnum.NONE, prevWindows);
 //		if (!ConfirmBox.display("Choose Action", "would you like to get password?"))
 //			AlertBox.display("Goodbye!", "Hope you enjoyed!");

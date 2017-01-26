@@ -62,8 +62,7 @@ public class ChooseAction extends AbstractWindow {
 		
 		layout.getChildren().addAll(label, button2, button1, button3);
 		layout.setAlignment(Pos.CENTER);
-		Scene scene = new Scene(layout);
-		window.setScene(scene);
+		window.setScene(new Scene(layout));
 		window.showAndWait();
 	}
 	

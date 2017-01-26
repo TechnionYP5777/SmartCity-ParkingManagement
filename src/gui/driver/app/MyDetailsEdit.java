@@ -28,7 +28,7 @@ public class MyDetailsEdit extends AbstractWindow {
 		window.getIcons().add(new Image(getClass().getResourceAsStream("Smart_parking_icon.png")));
 	}
 
-	public void display(Stage primaryStage, WindowEnum prevWindow, final ArrayList<Label> labels,
+	public void display(Stage primaryStage, WindowEnum prevWindow, final ArrayList<Label> ls,
 			final ArrayList<Label> values) {
 		//window = primaryStage;
 		window.setTitle("Edit My Details");
@@ -44,13 +44,13 @@ public class MyDetailsEdit extends AbstractWindow {
 		int i = 0;
 		int stickerIdx = 4;
 		//System.out.println("DME labels.size(): " + labels.size());
-		for (; i <= 2; i++) {
+		for (; i <= 2; ++i) {
 			
 			//System.out.println("DME newValues: " + i + " " + labels.get(i).getText());
 				newValues.add(new TextField(values.get(i).getText()));
-				GridPane.setConstraints(labels.get(i), 0, i);
+				GridPane.setConstraints(ls.get(i), 0, i);
 				GridPane.setConstraints(newValues.get(i), 1, i);
-				grid.getChildren().addAll(labels.get(i), newValues.get(i));
+				grid.getChildren().addAll(ls.get(i), newValues.get(i));
 		}
 		
 		
@@ -92,24 +92,22 @@ public class MyDetailsEdit extends AbstractWindow {
 			// Save edits
 			if (checkChangesLegality(newValues)) {
 				ArrayList<Label> correctedValues = new ArrayList<Label>();
-				for (int j = 0; j < newValues.size(); j++) {
+				for (int j = 0; j < newValues.size(); ++j)
 					correctedValues.add(new Label(newValues.get(j).getText()));
-				}
 				correctedValues.add(3, new Label(prefixNumber.getValue() + phoneNumberInput.getText()));
 				correctedValues.add(4, new Label(stickerColor.getValue()));
 				
 				//printCorrectedValues(correctedValues);
 
 				try {
-					StickersColor type = StickersColor.valueOf(correctedValues.get(4).getText().toUpperCase());
 					//String carNumber, String name, String phoneNumber, String email, String newCar, StickersColor type
 					login.userUpdate(login.getCarNumber(), correctedValues.get(1).getText(), correctedValues.get(3).getText(),
-							correctedValues.get(0).getText(), correctedValues.get(2).getText(), type);
+							correctedValues.get(0).getText(), correctedValues.get(2).getText(), StickersColor.valueOf(correctedValues.get(4).getText().toUpperCase()));
 					// You can only get here if the last prevWindows is 'MyDetails'!!
 					window.close();
 					MyDetails MD = (MyDetails) AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1);
 					AbstractWindow.prevWindows.remove(prevWindows.size() - 1);
-					MD.display(primaryStage, prevWindow, labels, correctedValues);
+					MD.display(primaryStage, prevWindow, ls, correctedValues);
 				} catch (LoginException e1) {
 					(new AlertBox()).display("Sign Up", (e1 + ""));
 				}
@@ -120,8 +118,7 @@ public class MyDetailsEdit extends AbstractWindow {
 		GridPane.setConstraints(doneButton, 0, values.size());
 
 		Button backButton = new Button();
-		ImageView ivBack= new ImageView(new Image(getClass().getResourceAsStream("back_button.png")));
-		backButton.setGraphic(ivBack);
+		backButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("back_button.png"))));
 		backButton.getStyleClass().add("button-go");
 		
 		backButton.setOnAction(e -> {
@@ -129,7 +126,7 @@ public class MyDetailsEdit extends AbstractWindow {
 			this.window.close();
 			MyDetails MD = (MyDetails) AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1);
 			AbstractWindow.prevWindows.remove(prevWindows.size() - 1);
-			MD.display(primaryStage, prevWindow, labels, values);
+			MD.display(primaryStage, prevWindow, ls, values);
 			/*prevWindows.get(prevWindows.size() - 1).window.show();
 			prevWindows.remove(prevWindows.size() - 1);*/
 

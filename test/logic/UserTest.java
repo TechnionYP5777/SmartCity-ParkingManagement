@@ -19,8 +19,8 @@ public class UserTest {
 		try {
 			// making a new user in the database for all of the tests
 			new User("Test User", "Test", "0500000000", "0000000", "test@gmail.com", StickersColor.BLUE, null);
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException ¢) {
+			¢.printStackTrace();
 		}
 	}
 
@@ -45,11 +45,8 @@ public class UserTest {
 			Assert.assertEquals(StickersColor.values()[park.getInt("color")], StickersColor.BORDEAUX);
 			user.setCurrentParking(null);
 			park.delete();
-		} catch (LoginException e) {
-			e.printStackTrace();
-			Assert.fail();
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException | LoginException ¢) {
+			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -69,11 +66,8 @@ public class UserTest {
 			Assert.assertEquals(user.getCurrentParking().getName(), "DavidSlot2");
 			ps.deleteParseObject();
 			Assert.assertEquals(user.getCurrentParking(), null);
-		} catch (LoginException e) {
-			e.printStackTrace();
-			Assert.fail();
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException | LoginException ¢) {
+			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -90,8 +84,7 @@ public class UserTest {
 				user.setCurrentParking(new ParkingSlot("DavidSlot3", ParkingSlotStatus.FREE, StickersColor.RED,
 						StickersColor.RED, new MapLocation(32.778153, 35.021855), new Date()));
 			Assert.assertEquals(user.getCurrentParking().getName(), "DavidSlot3");
-			ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
-			ParseObject park = query.get((user.getCurrentParking().getParseObject()).getObjectId());
+			ParseObject park = ParseQuery.getQuery("ParkingSlot").get((user.getCurrentParking().getParseObject()).getObjectId());
 			Assert.assertEquals(StickersColor.values()[park.getInt("color")], StickersColor.RED);
 			Assert.assertEquals(park.getString("name"), "DavidSlot3");
 			park.put("name", "DavidSlot4");
@@ -101,11 +94,8 @@ public class UserTest {
 			Assert.assertEquals(new ParkingSlot(user.getCurrentParking().getParseObject()).getName(), "DavidSlot4");
 			user.setCurrentParking(null);
 			park.delete();
-		} catch (ParseException e) {
-			e.printStackTrace();
-			Assert.fail();
-		} catch (LoginException e) {
-			e.printStackTrace();
+		} catch (LoginException | ParseException ¢) {
+			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -135,11 +125,8 @@ public class UserTest {
 			user.setCurrentParking(null);
 			park1.delete();
 			park2.delete();
-		} catch (LoginException e) {
-			e.printStackTrace();
-			Assert.fail();
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException | LoginException ¢) {
+			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -164,11 +151,8 @@ public class UserTest {
 			Assert.assertEquals(user.getName(), "Test User");
 			Assert.assertEquals(user.getPassword(), "Test");
 			Assert.assertEquals(user.getPhoneNumber(), "0500000000");
-		} catch (LoginException e) {
-			e.printStackTrace();
-			Assert.fail();
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException | LoginException ¢) {
+			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -184,11 +168,8 @@ public class UserTest {
 			Assert.assertEquals(user.getPassword(), tmpUser.getPassword());
 			Assert.assertEquals(user.getPhoneNumber(), tmpUser.getPhoneNumber());
 			Assert.assertEquals(user.getSticker(), tmpUser.getSticker());
-		} catch (LoginException e) {
-			e.printStackTrace();
-			Assert.fail();
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException | LoginException ¢) {
+			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -199,8 +180,8 @@ public class UserTest {
 		try {
 			// delete the template user from the database
 			(new User("0000000")).deleteParseObject();
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception ¢) {
+			¢.printStackTrace();
 		}
 	}
 

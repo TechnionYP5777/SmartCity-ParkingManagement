@@ -20,8 +20,7 @@ public class App extends Application {
             System.out.println("Resource not found. Aborting.");
             System.exit(-1);
         }
-        String css = url.toExternalForm(); 
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().add(url.toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
 	}

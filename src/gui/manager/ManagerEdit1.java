@@ -24,8 +24,7 @@ public class ManagerEdit1 extends AbstractWindow{
 	}
 
 	public void display(Stage primaryStage, gui.manager.WindowEnum none, ArrayList<AbstractWindow> prevWindows){
-		String title = "ManagerEdit1";
-		window.setTitle(title);
+		window.setTitle("ManagerEdit1");
 		window.setWidth(400);
 		window.setHeight(100);
 		VBox vbox = new VBox(8); 

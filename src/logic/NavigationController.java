@@ -64,8 +64,7 @@ public class NavigationController {
 	}
 	
 	public ParkingSlot getClosetParkingSlot() throws ParseException {
-		ParkingSlot result = Navigation.closestParkingSlot(user, currentLocation, allAreas, destination);
-		if (result == null) showError("No free parking slots, try later.");
+		if (Navigation.closestParkingSlot(user, currentLocation, allAreas, destination) == null) showError("No free parking slots, try later.");
 		return null;
 	}
 	

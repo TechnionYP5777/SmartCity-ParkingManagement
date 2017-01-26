@@ -1,6 +1,5 @@
 package database;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.util.Date;
@@ -54,8 +53,8 @@ public class parkingAreaTest {
 			query = ParseQuery.getQuery("ParkingArea");
 			query.whereEqualTo("name", "t1");
 
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException ¢) {
+			¢.printStackTrace();
 		}
 	}
 
@@ -66,17 +65,17 @@ public class parkingAreaTest {
 			area.deleteParseObject();
 			slot1.deleteParseObject();
 			slot2.deleteParseObject();
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException ¢) {
+			¢.printStackTrace();
 		}
 	}
 
 	@Test
 	public void test0() {
 		try {
-			assertNotNull(area);
-		} catch (Exception e) {
-			e.printStackTrace();
+			assert area != null;
+		} catch (Exception ¢) {
+			¢.printStackTrace();
 			fail();
 		}
 	}
@@ -85,8 +84,8 @@ public class parkingAreaTest {
 	public void test1() {
 		try {
 			Assert.assertEquals(2, area.getNumOfParkingSlots());
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception ¢) {
+			¢.printStackTrace();
 			fail();
 		}
 	}
@@ -108,8 +107,8 @@ public class parkingAreaTest {
 			// Clean up DB
 			slot3.deleteParseObject();
 
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException ¢) {
+			¢.printStackTrace();
 			fail();
 		}
 
@@ -127,8 +126,8 @@ public class parkingAreaTest {
 				throw new RuntimeException("There should be a slots in area with areaId=" + 0);
 			Assert.assertEquals(2, allSlots.size());
 
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException ¢) {
+			¢.printStackTrace();
 			fail();
 		}
 	}
@@ -145,8 +144,8 @@ public class parkingAreaTest {
 				throw new RuntimeException("There should be a slots in area with areaId=" + 0);
 			Assert.assertEquals(2, (new ParkingArea(areaList.get(0)).convertToSlots(allSlots)).size());
 
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException ¢) {
+			¢.printStackTrace();
 			fail();
 		}
 	}
@@ -164,8 +163,8 @@ public class parkingAreaTest {
 				throw new RuntimeException("There should slots in area with areaId=" + 0);
 			Assert.assertEquals(2, slotsByStatus.size());
 
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException ¢) {
+			¢.printStackTrace();
 			fail();
 		}
 	}
@@ -182,8 +181,8 @@ public class parkingAreaTest {
 				throw new RuntimeException("There should slots in area with areaId=" + 0);
 			Assert.assertEquals(0, slotsByTakenStatus.size());
 
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException ¢) {
+			¢.printStackTrace();
 			fail();
 		}
 	}
@@ -196,8 +195,8 @@ public class parkingAreaTest {
 				throw new RuntimeException("There should be an area with areaId=" + 0);
 			Assert.assertEquals(2, area.getNumOfFreeSlots());
 			Assert.assertEquals(0, area.getNumOfTakenSlots());
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException ¢) {
+			¢.printStackTrace();
 			fail();
 		}
 	}
@@ -213,8 +212,8 @@ public class parkingAreaTest {
 			Assert.assertEquals(area.getObjectId(), returnedArea.getObjectId());
 			Assert.assertEquals(area.getColor(), returnedArea.getColor());
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception ¢) {
+			¢.printStackTrace();
 			Assert.fail();
 		}
 	}

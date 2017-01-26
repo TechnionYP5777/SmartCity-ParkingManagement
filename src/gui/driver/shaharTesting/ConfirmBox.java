@@ -38,8 +38,7 @@ public class ConfirmBox{
 		VBox layout = new VBox();
 		layout.getChildren().addAll(label, noButton, yesButton);
 		layout.setAlignment(Pos.CENTER);
-		Scene scene = new Scene(layout);
-		window.setScene(scene);
+		window.setScene(new Scene(layout));
 		window.showAndWait();
 		
 		return answer;

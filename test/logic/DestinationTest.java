@@ -14,8 +14,8 @@ public class DestinationTest {
 			Assert.assertEquals("taubTest123", d.getDestinationName());
 			d.deleteParseObject();
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception ¢) {
+			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -28,8 +28,8 @@ public class DestinationTest {
 			Assert.assertEquals(d.getEntrance().getLon(), 35.021935, 0);
 			d.deleteParseObject();
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception ¢) {
+			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -53,8 +53,8 @@ public class DestinationTest {
 			Assert.assertEquals(Destination.destinationExists("taubTest123"), true);
 			d.deleteParseObject();
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception ¢) {
+			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -96,8 +96,8 @@ public class DestinationTest {
 			Assert.assertEquals(Destination.destinationExists("taubTest124"), true);
 			d.deleteParseObject();
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception ¢) {
+			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -114,8 +114,8 @@ public class DestinationTest {
 			Assert.assertEquals(d1.getEntrance().getLat(), d2.getEntrance().getLat(), 0);
 			Assert.assertEquals(d1.getEntrance().getLon(), d2.getEntrance().getLon(), 0);
 			d1.deleteParseObject();
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception ¢) {
+			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -164,8 +164,8 @@ public class DestinationTest {
 			Assert.assertEquals(d.getEntrance().getLat(), d2.getEntrance().getLat(), 0);
 			Assert.assertEquals(d.getEntrance().getLon(), d2.getEntrance().getLon(), 0);
 			d.deleteParseObject();
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception ¢) {
+			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
@@ -183,14 +183,14 @@ public class DestinationTest {
 		try {
 			new Destination("taubTest123");
 			Assert.fail();
-		} catch (Exception e) {
-			Assert.assertEquals(e.getClass().getSimpleName(), "NotExists");
+		} catch (Exception ¢) {
+			Assert.assertEquals(¢.getClass().getSimpleName(), "NotExists");
 		}
 	}
 
 	@Test
 	public void getDestinationsTest() {
-		Assert.assertTrue(Destination.getDestinations().keySet().contains("Computer Science Faculty"));
+		assert Destination.getDestinations().keySet().contains("Computer Science Faculty");
 	}
 
 }
