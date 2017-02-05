@@ -66,9 +66,9 @@ class IntegerTextField extends JFXTextField {
 		});
 
 		// restrict key input to numerals.
-		this.addEventFilter(KeyEvent.KEY_TYPED, ¢ -> {
-			if (!"0123456789".contains(¢.getCharacter()))
-				¢.consume();
+		this.addEventFilter(KeyEvent.KEY_TYPED, λ -> {
+			if (!"0123456789".contains(λ.getCharacter()))
+				λ.consume();
 		});
 
 		// ensure any entered values lie inside the required range.

@@ -69,7 +69,7 @@ public class ManagerMainScreenContorller implements Initializable {
 	private void triggerNotifications() {
 		Notifications.create().title("Color has changed").text("In Taub, from RED to GRAY").owner(mainBorderPane)
 				.graphic(new ImageView(new Image(getClass().getResourceAsStream("project-logo-with-shadow.png"))))
-				.hideAfter(Duration.seconds(7)).position(Pos.BOTTOM_RIGHT).onAction($ -> System.out.println("Clicked")).show();
+				.hideAfter(Duration.seconds(7)).position(Pos.BOTTOM_RIGHT).onAction(λ -> System.out.println("Clicked")).show();
 	}
 
 	@FXML

@@ -17,7 +17,7 @@ public class NotificationsController {
 	void triggerParkingNotification(final ActionEvent $) {
 		final Notifications notificationBuilder = Notifications.create().title("Color has changed")
 				.text("In Taub, from RED to GRAY").owner(notificationsAnchor).graphic(null)
-				.hideAfter(Duration.seconds(5)).position(Pos.TOP_RIGHT).onAction($1 -> System.out.println("Clicked"));
+				.hideAfter(Duration.seconds(5)).position(Pos.TOP_RIGHT).onAction(λ -> System.out.println("Clicked"));
 		notificationBuilder.darkStyle();
 		notificationBuilder.showConfirm();
 	}

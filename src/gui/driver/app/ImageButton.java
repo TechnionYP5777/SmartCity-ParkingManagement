@@ -10,8 +10,8 @@ public class ImageButton extends Button {
 		final ImageView iv = new ImageView(selected);
 		getChildren().add(iv);
 
-		iv.setOnMousePressed(evt -> iv.setImage(unselected));
-		iv.setOnMouseReleased(evt -> iv.setImage(selected));
+		iv.setOnMousePressed(λ -> iv.setImage(unselected));
+		iv.setOnMouseReleased(λ -> iv.setImage(selected));
 
 		super.setGraphic(iv);
 	}
