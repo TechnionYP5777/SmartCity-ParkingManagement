@@ -30,7 +30,7 @@ public class ParkingSlot extends dbMember {
 
 	// The slot's default color
 	private StickersColor defaultColor;
-	
+
 	// The slot's endTime. if null the color permanent, else temporary
 	private Date endTime;
 
@@ -66,14 +66,14 @@ public class ParkingSlot extends dbMember {
 		this.objectId = this.parseObject.getObjectId();
 		this.parseObject.save();
 	}
-	
+
 	public ParkingSlot(String name) throws ParseException {
 		DBManager.initialize();
-		
+
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
 		query.whereEqualTo("name", name);
 		ParseObject parseObject = query.find().get(0);
-		
+
 		this.parseObject = parseObject;
 		this.name = this.parseObject.getString("name");
 		this.status = ParkingSlotStatus.values()[this.parseObject.getInt("status")];
@@ -86,10 +86,9 @@ public class ParkingSlot extends dbMember {
 		this.parseObject.save();
 	}
 
-	
-	public static String ParkingNameByLocation(MapLocation l){
+	public static String ParkingNameByLocation(MapLocation l) {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
-		query.whereNear("location", new ParseGeoPoint(l.getLat(),l.getLon()));
+		query.whereNear("location", new ParseGeoPoint(l.getLat(), l.getLon()));
 		query.limit(1);
 		try {
 			List<ParseObject> $ = query.find();
@@ -98,7 +97,7 @@ public class ParkingSlot extends dbMember {
 			return null;
 		}
 	}
-	
+
 	/* Getters */
 
 	public String getName() {
@@ -120,7 +119,7 @@ public class ParkingSlot extends dbMember {
 	public StickersColor getDefaultColor() {
 		return defaultColor;
 	}
-	
+
 	public Date getEndTime() {
 		return endTime;
 	}
@@ -156,7 +155,7 @@ public class ParkingSlot extends dbMember {
 		this.parseObject.put("defaultColor", defaultColor.ordinal());
 		this.parseObject.save();
 	}
-	
+
 	public void setEndTime(Date endTime) throws ParseException {
 		// TODO: check what happens if null (should be OK)
 		this.endTime = endTime;
@@ -191,7 +190,7 @@ public class ParkingSlot extends dbMember {
 	}
 
 	public String findContainingParkingArea() {
-		return (String)findContaingParkingArea().get("name");
+		return (String) findContaingParkingArea().get("name");
 	}
 
 	public void changeStatus(ParkingSlotStatus newStatus) {

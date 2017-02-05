@@ -178,7 +178,7 @@ public class DestinationTest {
 	@Test
 	public void constructorTest3() {
 
- 		Assert.assertEquals(Destination.destinationExists("taubTest123"), false);
+		Assert.assertEquals(Destination.destinationExists("taubTest123"), false);
 		try {
 			new Destination("taubTest123");
 			Assert.fail();

@@ -43,61 +43,61 @@ import javafx.util.Duration;
 import manager.logic.SelectAnArea;
 
 public class EditAreaController implements Initializable {
-	
-    @FXML
-    private Label areaLbl;
-    
-    @FXML
-    private VBox curbstoneView;
 
-    @FXML
-    private Slider slotsSlider;
+	@FXML
+	private Label areaLbl;
 
-    @FXML
-    private AnchorPane slotsInput;
+	@FXML
+	private VBox curbstoneView;
 
-    @FXML
-    private HBox radioHBox;
-    
-    @FXML
-    private JFXToggleButton tempToggle;
-    
-    @FXML
-    private BorderPane tempBp;
-    
-    @FXML
-    private HBox tempHBox;
-    
-    @FXML
-    private Double HBoxPrefHeight = 0.0d;
-    
-    @FXML
-    private JFXDatePicker untilDate;
+	@FXML
+	private Slider slotsSlider;
 
-    @FXML
-    private JFXDatePicker untilHour;
+	@FXML
+	private AnchorPane slotsInput;
 
-    @FXML
-    private JFXButton cancelBtn;
+	@FXML
+	private HBox radioHBox;
 
-    @FXML
-    private JFXButton ChngBtn;
-    
+	@FXML
+	private JFXToggleButton tempToggle;
+
+	@FXML
+	private BorderPane tempBp;
+
+	@FXML
+	private HBox tempHBox;
+
+	@FXML
+	private Double HBoxPrefHeight = 0.0d;
+
+	@FXML
+	private JFXDatePicker untilDate;
+
+	@FXML
+	private JFXDatePicker untilHour;
+
+	@FXML
+	private JFXButton cancelBtn;
+
+	@FXML
+	private JFXButton ChngBtn;
+
 	final IntegerTextField slotsField = new IntegerTextField(0, 250, 0);
-	
+
 	ToggleGroup group = new ToggleGroup();
 	String selectedColor;
 	DurationType durationType = DurationType.PERMANENTLY;
-	
+
 	@FXML
-	private void closeButtonAction(){
-	    ((Stage) cancelBtn.getScene().getWindow()).close();
+	private void closeButtonAction() {
+		((Stage) cancelBtn.getScene().getWindow()).close();
 	}
-	
+
 	@FXML
-	private void changeButtonAction(){
+	private void changeButtonAction() {
 		manager.logic.ManualUpdate manualUpdate = new manager.logic.ManualUpdate();
-		Date date=durationType != DurationType.TEMPORARY ? null
+		Date date = durationType != DurationType.TEMPORARY ? null
 				: Date.from(untilDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
 		System.out.println("Data sent to update is:");
 		System.out.println(parkingAreaElement.getAreaId());
@@ -106,15 +106,15 @@ public class EditAreaController implements Initializable {
 		System.out.println(durationType);
 		System.out.println(date);
 		try {
-			manualUpdate.updateArea(parkingAreaElement.getAreaId(), Integer.parseInt(slotsField.getText()), StickersColor.valueOf(selectedColor.toUpperCase()), durationType, date);
+			manualUpdate.updateArea(parkingAreaElement.getAreaId(), Integer.parseInt(slotsField.getText()),
+					StickersColor.valueOf(selectedColor.toUpperCase()), durationType, date);
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Update Succeeded");
 			alert.setHeaderText(null);
 			alert.setContentText("Update Succeeded");
 			alert.showAndWait();
 			((Stage) cancelBtn.getScene().getWindow()).close();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("An Error Occurred");
@@ -123,49 +123,51 @@ public class EditAreaController implements Initializable {
 			alert.showAndWait();
 		}
 	}
-    
-    private static ParkingArea parkingAreaElement;
-    
-    //Toggle Switch preparations
+
+	private static ParkingArea parkingAreaElement;
+
+	// Toggle Switch preparations
 	private SimpleBooleanProperty switchedOn = new SimpleBooleanProperty(false);
+
 	public SimpleBooleanProperty switchOnProperty() {
 		return switchedOn;
-		}
-	
-    public void initialize(URL location, ResourceBundle __) {
-    	areaLbl.setText(parkingAreaElement.getName());
-    	(new SelectAnArea()).getAllPossibleColors().forEach(c -> {
+	}
+
+	public void initialize(URL location, ResourceBundle __) {
+		areaLbl.setText(parkingAreaElement.getName());
+		(new SelectAnArea()).getAllPossibleColors().forEach(c -> {
 			JFXRadioButton rbtn = new JFXRadioButton(
 					(Character.toUpperCase(c.charAt(0)) + c.substring(1).toLowerCase()));
 			radioHBox.getChildren().addAll(rbtn);
 			rbtn.setToggleGroup(group);
 			if (c == parkingAreaElement.getColor().name())
 				rbtn.setSelected(true);
-				selectedColor=parkingAreaElement.getColor().name();
+			selectedColor = parkingAreaElement.getColor().name();
 		});
-    	
-    	group.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
-    	    public void changed(ObservableValue<? extends Toggle> ov, Toggle prev, Toggle next) {
+
+		group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+			public void changed(ObservableValue<? extends Toggle> ov, Toggle prev, Toggle next) {
 				if (group.getSelectedToggle() != null)
 					selectedColor = ((JFXRadioButton) next.getToggleGroup().getSelectedToggle()).getText();
-				System.out.println("Selected Radio Button - " + ((JFXRadioButton) next.getToggleGroup().getSelectedToggle()).getText());
-			} 
-    	});
-    	
-    	//Slider Initialization: Number of slots
-    	
-    	slotsField.valueProperty().bindBidirectional(slotsSlider.valueProperty());
-    	slotsField.setPrefWidth(45);
-    	slotsSlider.setMin(0);
-    	slotsSlider.setMax(250);
-      	slotsSlider.setValue(0);
-    	slotsInput.getChildren().add(slotsField);
-    	
-    	//Toggle switch initialization
-    	tempBp.setCenter(null);
-    	tempToggle.setOnAction(λ -> switchedOn.set(!switchedOn.get()));
-    	HBoxPrefHeight = 150.0d;   	
-		switchedOn.addListener((listener,prev,next) -> {
+				System.out.println("Selected Radio Button - "
+						+ ((JFXRadioButton) next.getToggleGroup().getSelectedToggle()).getText());
+			}
+		});
+
+		// Slider Initialization: Number of slots
+
+		slotsField.valueProperty().bindBidirectional(slotsSlider.valueProperty());
+		slotsField.setPrefWidth(45);
+		slotsSlider.setMin(0);
+		slotsSlider.setMax(250);
+		slotsSlider.setValue(0);
+		slotsInput.getChildren().add(slotsField);
+
+		// Toggle switch initialization
+		tempBp.setCenter(null);
+		tempToggle.setOnAction(λ -> switchedOn.set(!switchedOn.get()));
+		HBoxPrefHeight = 150.0d;
+		switchedOn.addListener((listener, prev, next) -> {
 			Timeline timeline = new Timeline();
 			if (next) {
 				durationType = DurationType.TEMPORARY;
@@ -175,8 +177,7 @@ public class EditAreaController implements Initializable {
 						new KeyFrame(Duration.ZERO, new KeyValue(tempHBox.prefHeightProperty(), 0)), new KeyFrame(
 								Duration.millis(300), new KeyValue(tempHBox.prefHeightProperty(), HBoxPrefHeight)));
 				timeline.play();
-			}
-			else {
+			} else {
 				durationType = DurationType.PERMANENTLY;
 				tempBp.setCenter(tempHBox);
 				timeline.getKeyFrames().addAll(
@@ -186,8 +187,8 @@ public class EditAreaController implements Initializable {
 				timeline.setOnFinished(λ -> tempBp.setCenter(null));
 			}
 		});
-    }
-    
+	}
+
 	public static void display(String parkingAreaID) throws IOException, ParseException {
 		parkingAreaElement = new ParkingArea(parkingAreaID);
 		Stage window = new Stage();

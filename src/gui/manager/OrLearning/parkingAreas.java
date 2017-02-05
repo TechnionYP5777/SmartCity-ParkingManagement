@@ -6,39 +6,42 @@ public class parkingAreas {
 	private String name;
 	private Color color;
 	private int spots;
-	
-	//Constructors
+
+	// Constructors
 	parkingAreas() {
-		this.name="";
-		this.color=Color.GRAY;
-		this.spots=0;
+		this.name = "";
+		this.color = Color.GRAY;
+		this.spots = 0;
 	}
-	
+
 	parkingAreas(String name, Color color, int spots) {
-		this.name=name;
-		this.color=color;
-		this.spots=spots;
+		this.name = name;
+		this.color = color;
+		this.spots = spots;
 	}
-	
-	//Getters & Setters
+
+	// Getters & Setters
 	public String getName() {
 		return this.name;
 	}
+
 	void setName(String name) {
-		this.name=name;
+		this.name = name;
 	}
-	
+
 	public Color getColor() {
 		return this.color;
 	}
+
 	void setColor(Color ¢) {
-		this.color=¢;
+		this.color = ¢;
 	}
-	
+
 	public int getSpots() {
 		return this.spots;
 	}
+
 	void setSpots(int spots) {
-		this.spots=spots;
+		this.spots = spots;
 	}
 }

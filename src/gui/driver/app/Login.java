@@ -29,15 +29,13 @@ import logic.NavigationController;
 
 public class Login extends AbstractWindow {
 
-	GridPane grid; 
+	GridPane grid;
 
 	public Login() {
 		windowEnum = WindowEnum.LOG_IN;
-		window = new Stage(); 
+		window = new Stage();
 		window.getIcons().add(new Image(getClass().getResourceAsStream("Smart_parking_icon.png")));
 	}
-	
-	
 
 	public void display(Stage primaryStage, WindowEnum __) {
 		window = primaryStage;
@@ -68,11 +66,11 @@ public class Login extends AbstractWindow {
 		Label pass = new Label("Password");
 		PasswordField passInput = new PasswordField();
 		passInput.setPromptText("password");
-		Hyperlink forgotPass = new Hyperlink(); 
-		
+		Hyperlink forgotPass = new Hyperlink();
+
 		forgotPass.setText("Forgot Password?");
 		forgotPass.setOnAction(λ -> (new GetPassByMail()).display(primaryStage, WindowEnum.LOG_IN));
-		
+
 		Button buttonMute = new Button("MUTE");
 		buttonMute.setOnAction(λ -> {
 			if (mediaPlayer.isMute()) {
@@ -88,7 +86,6 @@ public class Login extends AbstractWindow {
 			}
 		});
 		buttonMute.getStyleClass().add("button-muteOFF");
-		
 
 		Button loginButton = new Button("Login"), backButton = new Button();
 		backButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("back_button.png"))));
@@ -96,19 +93,19 @@ public class Login extends AbstractWindow {
 		backButton.setOnAction(λ -> {
 			// move to editing my details
 			this.window.close();
-			AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size()-1).window.show();
-			AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size()-1);
+			AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1).window.show();
+			AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size() - 1);
 		});
 		HBox hbox = new HBox(20);
-		hbox.setPadding( new Insets(10,10,10,10));
+		hbox.setPadding(new Insets(10, 10, 10, 10));
 		GridPane.setConstraints(title, 0, 0);
 		GridPane.setColumnSpan(title, 2);
 		GridPane.setConstraints(user, 0, 1);
 		GridPane.setConstraints(nameInput, 1, 1);
 		GridPane.setConstraints(pass, 0, 2);
 		GridPane.setConstraints(passInput, 1, 2);
-//		GridPane.setConstraints(loginButton, 1, 3);
-//		GridPane.setConstraints(backButton,2,3);  
+		// GridPane.setConstraints(loginButton, 1, 3);
+		// GridPane.setConstraints(backButton,2,3);
 		GridPane.setConstraints(hbox, 1, 3);
 		GridPane.setConstraints(forgotPass, 2, 4);
 
@@ -118,14 +115,14 @@ public class Login extends AbstractWindow {
 			if (!login.userLogin(nameInput.getText(), passInput.getText()))
 				(new AlertBox()).display("Login failed", "Car Number/Password is incorrect.");
 			else {
-				
+
 				AlertBox MB = new AlertBox();
-				MB.display("Please Wait", "Connecting to server. \nThis might take a Few seconds. \nPlease confirm and wait patiently");
+				MB.display("Please Wait",
+						"Connecting to server. \nThis might take a Few seconds. \nPlease confirm and wait patiently");
 				navigate = new NavigationController(login.getUser());
 				MB.window.close();
-				 
+
 				this.window.close();
-				
 
 				(new AlertBox()).display("Successful", "You have successfuly logged in");
 				Opening.getCAObject(prevWindows).buttonLogin.setDisable(true);
@@ -145,7 +142,7 @@ public class Login extends AbstractWindow {
 		window.setScene(scene);
 		window.setTitle("Login");
 		window.show();
-		
+
 	}
-	
+
 }

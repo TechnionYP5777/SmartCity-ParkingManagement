@@ -11,7 +11,6 @@ import org.parse4j.ParseQuery;
 import Exceptions.LoginException;
 import data.management.DBManager;
 
-
 /**
  * @author DavidCohen55
  * @author sefialbo
@@ -40,7 +39,7 @@ public class User extends dbMember {
 
 	// saves the parking slot of a user if he parked
 	private ParkingSlot currentParking;
-	
+
 	// last log in time
 	private Date lastLoginTime;
 
@@ -161,8 +160,8 @@ public class User extends dbMember {
 	public String getEmail() {
 		return email;
 	}
-	
-	public Date getLastLoginTime(){
+
+	public Date getLastLoginTime() {
 		return lastLoginTime;
 	}
 
@@ -202,7 +201,7 @@ public class User extends dbMember {
 		this.currentParking = new ParkingSlot(currentParking);
 		this.parseObject.save();
 	}
-	
+
 	public void setLastLoginTime(Date lastLoginTime) throws ParseException {
 		this.lastLoginTime = lastLoginTime;
 		if (lastLoginTime == null)

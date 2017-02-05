@@ -12,17 +12,17 @@ public class App extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("ManagerMainScreen.fxml"));
-        primaryStage.setTitle("Manage Parking");
-        Scene scene = new Scene(root,1200,670);
-        URL url = this.getClass().getResource("NotificationStyle.css");
-        if (url == null) {
-            System.out.println("Resource not found. Aborting.");
-            System.exit(-1);
-        }
-        scene.getStylesheets().add(url.toExternalForm());
-        primaryStage.setScene(scene);
-        primaryStage.show();
+		Parent root = FXMLLoader.load(getClass().getResource("ManagerMainScreen.fxml"));
+		primaryStage.setTitle("Manage Parking");
+		Scene scene = new Scene(root, 1200, 670);
+		URL url = this.getClass().getResource("NotificationStyle.css");
+		if (url == null) {
+			System.out.println("Resource not found. Aborting.");
+			System.exit(-1);
+		}
+		scene.getStylesheets().add(url.toExternalForm());
+		primaryStage.setScene(scene);
+		primaryStage.show();
 	}
 
 	public static void main(String[] args) {

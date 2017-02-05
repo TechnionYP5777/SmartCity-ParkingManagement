@@ -52,17 +52,18 @@ public class NavigationTest {
 
 			location = new MapLocation(32.777466, 35.021094);
 			Destination destination = null;
-			try{
+			try {
 				destination = new Destination("Taub-NavigationTest", location);
-			} catch (AlreadyExists ¢){
+			} catch (AlreadyExists ¢) {
 				¢.printStackTrace();
 				Assert.fail();
 			}
 
-			ParkingArea upperTaubArea = new ParkingArea(100,"t1", new MapLocation(0, 0),taubSlots, StickersColor.RED);
+			ParkingArea upperTaubArea = new ParkingArea(100, "t1", new MapLocation(0, 0), taubSlots, StickersColor.RED);
 			try {
 
-				User user = new User("Navigation Tester", "1234", "0547456382", "1188999"," tester@gmail.com", StickersColor.RED, null);
+				User user = new User("Navigation Tester", "1234", "0547456382", "1188999", " tester@gmail.com",
+						StickersColor.RED, null);
 				ParkingSlot result = Navigation.parkingSlotAtParkingArea(user, upperTaubArea, destination);
 				Assert.assertEquals(taubSlot3.getName(), result.getName());
 
@@ -80,7 +81,7 @@ public class NavigationTest {
 				destination.deleteParseObject();
 				user.deleteParseObject();
 
-			} catch (ParseException ¢){
+			} catch (ParseException ¢) {
 				¢.printStackTrace();
 				Assert.fail();
 			}
@@ -113,7 +114,7 @@ public class NavigationTest {
 			taubSlots.add(taubSlot2);
 			taubSlots.add(taubSlot3);
 
-			ParkingArea upperTaubArea = new ParkingArea(100,"t1", new MapLocation(0, 0), taubSlots, StickersColor.RED);
+			ParkingArea upperTaubArea = new ParkingArea(100, "t1", new MapLocation(0, 0), taubSlots, StickersColor.RED);
 
 			// nesher area + slots
 
@@ -124,7 +125,8 @@ public class NavigationTest {
 			Set<ParkingSlot> nesherSlots = new HashSet<ParkingSlot>();
 			nesherSlots.add(nesherSlot1);
 
-			ParkingArea nesherArea = new ParkingArea(101, "t1",new MapLocation(0, 0), nesherSlots, StickersColor.WHITE);
+			ParkingArea nesherArea = new ParkingArea(101, "t1", new MapLocation(0, 0), nesherSlots,
+					StickersColor.WHITE);
 
 			// pool area + slots
 
@@ -139,7 +141,7 @@ public class NavigationTest {
 			poolSlots.add(poolSlot1);
 			poolSlots.add(poolSlot2);
 
-			ParkingArea poolArea = new ParkingArea(102, "t1",new MapLocation(0, 0), poolSlots, StickersColor.BLUE);
+			ParkingArea poolArea = new ParkingArea(102, "t1", new MapLocation(0, 0), poolSlots, StickersColor.BLUE);
 
 			Set<ParkingArea> areas = new HashSet<ParkingArea>();
 			areas.add(upperTaubArea);
@@ -150,20 +152,22 @@ public class NavigationTest {
 
 			location = new MapLocation(32.777466, 35.021094);
 			Destination destination = null;
-			try{
+			try {
 				destination = new Destination("Taub-NavigationTest", location);
-			} catch (AlreadyExists ¢){
+			} catch (AlreadyExists ¢) {
 				¢.printStackTrace();
 				Assert.fail();
 			}
 
 			try {
 
-				User user = new User("Navigation Tester", "1234", "0547456382", "1188999"," tester@gmail.com", StickersColor.BLUE, null);
-				
+				User user = new User("Navigation Tester", "1234", "0547456382", "1188999", " tester@gmail.com",
+						StickersColor.BLUE, null);
+
 				// taub slots are the closest but since the area is RED and
 				// user'S sticker is BLUE taub slots won't be checked
-				Assert.assertEquals(poolSlot2.getName(), Navigation.closestParkingSlot(user, location, parkingAreas, destination).getName());
+				Assert.assertEquals(poolSlot2.getName(),
+						Navigation.closestParkingSlot(user, location, parkingAreas, destination).getName());
 
 				upperTaubArea.deleteParseObject();
 				taubSlot1.deleteParseObject();
@@ -177,7 +181,7 @@ public class NavigationTest {
 				poolSlot1.deleteParseObject();
 				poolSlot2.deleteParseObject();
 				parkingAreas.deleteParseObject();
-				
+
 				destination.deleteParseObject();
 				user.deleteParseObject();
 
@@ -203,22 +207,25 @@ public class NavigationTest {
 			Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(taubSlot1);
 
-			ParkingArea upperTaubArea = new ParkingArea(100, "t1",new MapLocation(0, 0), slots, StickersColor.RED);
+			ParkingArea upperTaubArea = new ParkingArea(100, "t1", new MapLocation(0, 0), slots, StickersColor.RED);
 
 			location = new MapLocation(32.777466, 35.021094);
 			Destination destination = null;
-			try{
+			try {
 				destination = new Destination("Taub-NavigationTest", location);
-			} catch (AlreadyExists ¢){
+			} catch (AlreadyExists ¢) {
 				¢.printStackTrace();
 				Assert.fail();
 			}
 			User user = null;
 			try {
-				user = new User("Navigation Tester", "1234", "0547456382", "1188999"," tester@gmail.com", StickersColor.RED, null);
+				user = new User("Navigation Tester", "1234", "0547456382", "1188999", " tester@gmail.com",
+						StickersColor.RED, null);
 				Navigation.parkAtArea(user, upperTaubArea, destination);
-				Assert.assertEquals(user.getCurrentParking().getLocation().getLat(), taubSlot1.getLocation().getLat(), 0);
-				Assert.assertEquals(user.getCurrentParking().getLocation().getLon(), taubSlot1.getLocation().getLon(), 0);
+				Assert.assertEquals(user.getCurrentParking().getLocation().getLat(), taubSlot1.getLocation().getLat(),
+						0);
+				Assert.assertEquals(user.getCurrentParking().getLocation().getLon(), taubSlot1.getLocation().getLon(),
+						0);
 				Assert.assertEquals(user.getCurrentParking().getStatus().ordinal(), taubSlot1.getStatus().ordinal());
 				Assert.assertEquals(user.getCurrentParking().getStatus(), ParkingSlotStatus.TAKEN);
 			} catch (Exception ¢) {
@@ -236,7 +243,7 @@ public class NavigationTest {
 				destination.deleteParseObject();
 				upperTaubArea.deleteParseObject();
 				taubSlot1.deleteParseObject();
-				user.deleteParseObject();	
+				user.deleteParseObject();
 			}
 
 		} catch (ParseException ¢) {

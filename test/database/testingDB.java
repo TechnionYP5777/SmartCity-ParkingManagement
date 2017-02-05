@@ -82,7 +82,7 @@ public class testingDB {
 
 			test.put("subClass", subTest);
 			test.save();
-			
+
 			test.delete();
 			subTest.delete();
 		} catch (ParseException ¢) {
@@ -111,7 +111,7 @@ public class testingDB {
 
 			test.put("subClass", returnedO);
 			test.save();
-			
+
 			test.delete();
 			subTest.delete();
 		} catch (ParseException ¢) {
@@ -146,7 +146,7 @@ public class testingDB {
 			test.put("subClassArray", values);
 
 			test.save();
-			
+
 			test.delete();
 			subTest1.delete();
 			subTest2.delete();

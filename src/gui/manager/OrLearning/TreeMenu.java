@@ -9,47 +9,48 @@ import javafx.stage.Stage;
 
 public class TreeMenu extends Application {
 	Stage window;
+
 	public static void main(String[] args) {
 		launch(args);
 	}
+
 	@Override
 	public void start(Stage primaryStage) {
 		window = primaryStage;
 		window.setTitle("Tree Menu");
-		
-		//Tree
+
+		// Tree
 		TreeItem<String> root = new TreeItem<>();
 		root.setExpanded(true);
-		
-		//Parking colors
-		TreeItem<String> colors = makeBranch("Colors",root);
-		makeBranch("Blue",colors);
-		makeBranch("Red",colors);
-		makeBranch("Green",colors);
-		
-		//Parking areas
-		TreeItem<String> areas = makeBranch("Areas",root);
-		makeBranch("Dorms",areas);
-		makeBranch("All around",areas);
-		makeBranch("Taub",areas);
+
+		// Parking colors
+		TreeItem<String> colors = makeBranch("Colors", root);
+		makeBranch("Blue", colors);
+		makeBranch("Red", colors);
+		makeBranch("Green", colors);
+
+		// Parking areas
+		TreeItem<String> areas = makeBranch("Areas", root);
+		makeBranch("Dorms", areas);
+		makeBranch("All around", areas);
+		makeBranch("Taub", areas);
 		areas.setExpanded(false);
-		
-		//Set Tree
+
+		// Set Tree
 		TreeView<String> tree = new TreeView<>(root);
 		tree.setShowRoot(false);
-		tree.getSelectionModel().selectedItemProperty()
-		.addListener((v, oldValue, newValue) -> {
+		tree.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
 			if (newValue != null)
 				System.out.println(newValue);
 		});
-		
-		//Layout
+
+		// Layout
 		StackPane layout = new StackPane();
 		layout.getChildren().add(tree);
 		window.setScene(new Scene(layout, 300, 300));
 		window.show();
 	}
-	
+
 	public TreeItem<String> makeBranch(String title, TreeItem<String> parent) {
 		TreeItem<String> $ = new TreeItem<>(title);
 		$.setExpanded(true);

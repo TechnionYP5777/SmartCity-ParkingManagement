@@ -7,21 +7,23 @@ import com.lynden.gmapsfx.javascript.object.MarkerOptions;
 /*
  * @Autor Shay Segal
  */
-public class MyMarker extends Marker{
+public class MyMarker extends Marker {
 	public LatLong lat;
 	private String myTitle;
+
 	private MyMarker(MarkerOptions markerOptions) {
 		super(markerOptions);
 		// TODO Auto-generated constructor stub
 	}
-	public MyMarker(MarkerOptions markerOptions,String title, LatLong lat){
+
+	public MyMarker(MarkerOptions markerOptions, String title, LatLong lat) {
 		this(markerOptions);
-		myTitle=title;
-		this.lat=lat;
+		myTitle = title;
+		this.lat = lat;
 	}
-	public boolean isTitle(String title){
+
+	public boolean isTitle(String title) {
 		return myTitle.equals(title);
 	}
-	
 
 }

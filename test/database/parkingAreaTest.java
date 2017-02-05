@@ -186,7 +186,7 @@ public class parkingAreaTest {
 			fail();
 		}
 	}
-	
+
 	@Test
 	public void testNumberOfStatusSlots() {
 		try {

@@ -3,7 +3,6 @@
  */
 package gui.map;
 
-
 import org.parse4j.ParseException;
 
 import com.lynden.gmapsfx.service.directions.DirectionStatus;
@@ -25,6 +24,7 @@ public class DriverMap extends PmMap {
 	private MapLocation to;
 	private MapLocation realto;
 	private boolean SeconedCall;
+
 	public DriverMap(MapLocation fromLogic, MapLocation toLogic, MapLocation realtoLogic) {
 		this(fromLogic.getLat() + ", " + fromLogic.getLon(), toLogic.getLat() + ", " + toLogic.getLon()); // till
 																											// DB
@@ -33,7 +33,7 @@ public class DriverMap extends PmMap {
 
 		from = fromLogic;
 		to = toLogic;
-		realto=realtoLogic;
+		realto = realtoLogic;
 		// this(StubFrom,StubTo);
 	}
 
@@ -53,8 +53,8 @@ public class DriverMap extends PmMap {
 		if (fromLogic == null && toLogic == null)
 			return;
 		if (from == null || to == null) {
-			directionsService.getRoute(new DirectionsRequest("technion", "haifa university", TravelModes.DRIVING),
-					this, new DirectionsRenderer(true, mapComponent.getMap(), directionsPane));
+			directionsService.getRoute(new DirectionsRequest("technion", "haifa university", TravelModes.DRIVING), this,
+					new DirectionsRenderer(true, mapComponent.getMap(), directionsPane));
 			tb.getItems().addAll(new Label("Origin:" + fromLogic), new Label("Destination:" + toLogic));
 		} else
 			try {
@@ -67,7 +67,9 @@ public class DriverMap extends PmMap {
 				¢.printStackTrace();
 			}
 		scene.getWindow().sizeToScene();
-	}@Override
+	}
+
+	@Override
 	public void directionsReceived(DirectionsResult __, DirectionStatus s) {
 		// TODO Auto-generated method stub
 		super.directionsReceived(__, s);

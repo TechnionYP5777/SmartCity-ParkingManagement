@@ -9,35 +9,35 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class ConfirmBox{
-	
+public class ConfirmBox {
+
 	static boolean answer;
-	static Button yesButton,noButton;
-	
-	public boolean display(String title, String message){
+	static Button yesButton, noButton;
+
+	public boolean display(String title, String message) {
 		Stage window = new Stage();
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.setTitle(title);
 		window.setMinWidth(250);
 		window.setMinHeight(150);
 		window.getIcons().add(new Image(getClass().getResourceAsStream("Smart_parking_icon.png")));
-		
+
 		Label label = new Label();
 		label.setText(message);
-		
+
 		yesButton = new Button("Yes");
-		yesButton.setOnAction(λ-> {
-			
+		yesButton.setOnAction(λ -> {
+
 			answer = true;
 			window.close();
 		});
-		
+
 		noButton = new Button("No");
-		noButton.setOnAction(λ-> {
-		answer = false;	
-		window.close();
+		noButton.setOnAction(λ -> {
+			answer = false;
+			window.close();
 		});
-		
+
 		VBox layout = new VBox();
 		layout.getChildren().addAll(label, noButton, yesButton);
 		layout.setAlignment(Pos.CENTER);
@@ -45,7 +45,7 @@ public class ConfirmBox{
 		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());
 		window.setScene(scene);
 		window.showAndWait();
-		
+
 		return answer;
 	}
 

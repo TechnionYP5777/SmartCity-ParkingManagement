@@ -44,13 +44,13 @@ import netscape.javascript.JSObject;
 /*
  * @Autor Shay Segal
  */
-public class PmMap extends  AbstractWindow implements MapComponentInitializedListener, DirectionsServiceCallback {
-//extends Application
+public class PmMap extends AbstractWindow implements MapComponentInitializedListener, DirectionsServiceCallback {
+	// extends Application
 
 	protected GoogleMapView mapComponent;
 	protected GoogleMap map;
 
-	//protected Label lblCenter;
+	// protected Label lblCenter;
 	protected Label lblClick;
 	protected ComboBox<String> fromLocation;
 	protected ComboBox<String> toLocation;
@@ -68,25 +68,28 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 	protected VBox routeVbox;
 	Polyline poly;
 	protected DirectionsService directionsService;
-    protected DirectionsPane directionsPane;
-    protected String fromLogic;
-    protected String toLogic;
-    protected  BorderPane bp;
-	protected ToolBar tb ;
-    public PmMap(String fromLogic,String toLogic){
-    	this.fromLogic=fromLogic;
-    	this.toLogic=toLogic;
-    }
-    public PmMap() {
-    	this.fromLogic=null;
-    	this.toLogic=null;
-    }
-    public PmMap(MapLocation from, MapLocation to) {
-    	this.fromLogic=null;
-    	this.toLogic=null;
-    }
-    
-    public BorderPane getMapBorderPane() {
+	protected DirectionsPane directionsPane;
+	protected String fromLogic;
+	protected String toLogic;
+	protected BorderPane bp;
+	protected ToolBar tb;
+
+	public PmMap(String fromLogic, String toLogic) {
+		this.fromLogic = fromLogic;
+		this.toLogic = toLogic;
+	}
+
+	public PmMap() {
+		this.fromLogic = null;
+		this.toLogic = null;
+	}
+
+	public PmMap(MapLocation from, MapLocation to) {
+		this.fromLogic = null;
+		this.toLogic = null;
+	}
+
+	public BorderPane getMapBorderPane() {
 		btns = new ArrayList<Button>();
 		markers = new ArrayList<Marker>();
 		mapComponent = new GoogleMapView(Locale.getDefault().getLanguage(), null);
@@ -94,7 +97,7 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 		BorderPane $ = new BorderPane();
 		ToolBar tb = new ToolBar();
 
-		//lblCenter = new Label();
+		// lblCenter = new Label();
 		lblClick = new Label();
 
 		mapTypeCombo = new ComboBox<>();
@@ -108,20 +111,21 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 
 		btnDeleteMarker = new Button("Delete Marker");
 		btnDeleteMarker.setOnAction(λ -> deleteMarker());
-		
+
 		btnShowMarkers = new Button("Show/Hide markers");
 		btnShowMarkers.setOnAction(λ -> {
-			if($.getRight()!=null)
+			if ($.getRight() != null)
 				btnSelectRoute.fire();
 			$.setLeft($.getLeft() == null ? sp : null);
 		});
 		btnSelectRoute = new Button("Select Route");
 		btnSelectRoute.setOnAction(λ -> {
-			if($.getLeft()!=null)
+			if ($.getLeft() != null)
 				btnShowMarkers.fire();
 			$.setRight($.getRight() != null ? null : routeVbox);
 		});
-		tb.getItems().addAll(new Label("MapType: "), mapTypeCombo, btnHideMarker, btnDeleteMarker, btnShowMarkers, btnSelectRoute);
+		tb.getItems().addAll(new Label("MapType: "), mapTypeCombo, btnHideMarker, btnDeleteMarker, btnShowMarkers,
+				btnSelectRoute);
 		markerVbox = addVBox("Markers");
 		markerVbox.setVisible(true);
 		sp = new ScrollPane();
@@ -131,9 +135,8 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 		$.setCenter(mapComponent);
 		return $;
 	}
-    
-    
-	public void display( Stage s) {
+
+	public void display(Stage s) {
 		s.setTitle("Navigate");
 		btns = new ArrayList<Button>();
 		markers = new ArrayList<Marker>();
@@ -142,7 +145,7 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 		bp = new BorderPane();
 		tb = new ToolBar();
 
-		//lblCenter = new Label();
+		// lblCenter = new Label();
 		lblClick = new Label();
 
 		mapTypeCombo = new ComboBox<>();
@@ -158,27 +161,28 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 		btnDeleteMarker.setOnAction(λ -> deleteMarker());
 
 		btnReturn = new Button("Back");
-//		ImageView ivBack= new ImageView(new Image(getClass().getResourceAsStream("back_button.png")));
-//		btnReturn.setGraphic(ivBack);
-//		btnReturn.getStyleClass().add("button-go");
+		// ImageView ivBack= new ImageView(new
+		// Image(getClass().getResourceAsStream("back_button.png")));
+		// btnReturn.setGraphic(ivBack);
+		// btnReturn.getStyleClass().add("button-go");
 		btnReturn.setOnAction(λ -> {
 			s.close();
-			AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size()-1).window.show();
-			AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size()-1);
+			AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1).window.show();
+			AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size() - 1);
 		});
 		btnShowMarkers = new Button("Show/Hide markers");
 		btnShowMarkers.setOnAction(λ -> {
-			if(bp.getRight()!=null)
+			if (bp.getRight() != null)
 				btnSelectRoute.fire();
 			bp.setLeft(bp.getLeft() == null ? sp : null);
 		});
 		btnSelectRoute = new Button("Select Route");
 		btnSelectRoute.setOnAction(λ -> {
-			if(bp.getLeft()!=null)
+			if (bp.getLeft() != null)
 				btnShowMarkers.fire();
 			bp.setRight(bp.getRight() != null ? null : routeVbox);
 		});
-		tb.getItems().addAll(new Label("MapType: "), mapTypeCombo,new Label("Click: "), btnReturn);
+		tb.getItems().addAll(new Label("MapType: "), mapTypeCombo, new Label("Click: "), btnReturn);
 		markerVbox = addVBox("Markers");
 		markerVbox.setVisible(true);
 		sp = new ScrollPane();
@@ -199,32 +203,32 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 		LatLong center = new LatLong(32.777, 35.0225);
 		System.out.println("got here");
 		mapComponent.addMapReadyListener(() -> checkCenter(center));
-		//lblClick.setText((center + ""));
+		// lblClick.setText((center + ""));
 		MapOptions options = new MapOptions();
 		options.center(center).zoom(12).overviewMapControl(false).panControl(false).rotateControl(false)
 				.scaleControl(true).streetViewControl(true).zoomControl(true).mapType(MapTypeIdEnum.ROADMAP);
-		
+
 		map = mapComponent.createMap(options, false);
 		map.setHeading(123.2);
 		map.fitBounds(new LatLongBounds(center, new LatLong(32.779032, 35.024663)));
 		map.addUIEventHandler(UIEventType.click, (JSObject obj) -> {
 			LatLong newLat = new LatLong((JSObject) obj.getMember("latLng"));
-			newLat = new LatLong(newLat.getLatitude(),newLat.getLongitude());
+			newLat = new LatLong(newLat.getLatitude(), newLat.getLongitude());
 			lblClick.setText(newLat + "");
 			map.addMarker(createMarker(newLat, "marker at " + newLat));
 		});
 		mapTypeCombo.setDisable(false);
 
 		mapTypeCombo.getItems().addAll(MapTypeIdEnum.ALL);
-        directionsService = new DirectionsService();
-        directionsPane = mapComponent.getDirec();
+		directionsService = new DirectionsService();
+		directionsPane = mapComponent.getDirec();
 		scene.getWindow().sizeToScene();
 	}
 
 	protected Marker createMarker(LatLong lat, String title) {
 		MarkerOptions options = new MarkerOptions();
 		options.position(lat).title(title).visible(true);
-		Marker $ = new MyMarker(options,title,lat);
+		Marker $ = new MyMarker(options, title, lat);
 		markers.add($);
 		fromLocation.getItems().add(title);
 		toLocation.getItems().add(title);
@@ -264,7 +268,6 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 				+ mapComponent.getHeight() / 2);
 	}
 
-
 	public VBox addVBox(String head) {
 		VBox $ = new VBox();
 		$.setPadding(new Insets(10, 10, 50, 10));
@@ -282,24 +285,26 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 		fromLocation.setOnAction(λ -> map.hideDirectionsPane());
 		toLocation = new ComboBox<String>();
 		toLocation.setOnAction(λ -> map.hideDirectionsPane());
-		Button btn =new Button("draw");
-		btn.setOnAction(e->{
-			if(toLocation.getSelectionModel().getSelectedItem()==null || fromLocation.getSelectionModel().getSelectedItem()==null)
+		Button btn = new Button("draw");
+		btn.setOnAction(e -> {
+			if (toLocation.getSelectionModel().getSelectedItem() == null
+					|| fromLocation.getSelectionModel().getSelectedItem() == null)
 				return;
 			MyMarker to = getMarkerByTitle(toLocation.getSelectionModel().getSelectedItem()),
 					from = getMarkerByTitle(fromLocation.getSelectionModel().getSelectedItem());
-			directionsService.getRoute(new DirectionsRequest(from.lat.getLatitude() + ", " + from.lat.getLongitude(),
-					to.lat.getLatitude() + ", " + to.lat.getLongitude(), TravelModes.DRIVING), this,
-					new DirectionsRenderer(true, mapComponent.getMap(), directionsPane));
+			directionsService.getRoute(
+					new DirectionsRequest(from.lat.getLatitude() + ", " + from.lat.getLongitude(),
+							to.lat.getLatitude() + ", " + to.lat.getLongitude(), TravelModes.DRIVING),
+					this, new DirectionsRenderer(true, mapComponent.getMap(), directionsPane));
 		});
 		Button removeBtn = new Button("remove line");
 		removeBtn.setOnAction(λ -> map.hideDirectionsPane());
-		routeVbox.getChildren().addAll(fromLocation, toLocation,btn,removeBtn);
-		
+		routeVbox.getChildren().addAll(fromLocation, toLocation, btn, removeBtn);
+
 	}
 
-	public MyMarker getMarkerByTitle(String title){
-		for(Marker $ : markers)
+	public MyMarker getMarkerByTitle(String title) {
+		for (Marker $ : markers)
 			if (((MyMarker) $).isTitle(title))
 				return ((MyMarker) $);
 		return null;
@@ -307,7 +312,7 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 
 	@Override
 	public void directionsReceived(DirectionsResult __, DirectionStatus s) {
-		
+
 	}
 
 }

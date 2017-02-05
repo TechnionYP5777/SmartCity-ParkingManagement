@@ -16,8 +16,8 @@ import data.members.StickersColor;
 
 public class SelectAnArea {
 	private Queries queries;
-	
-	public SelectAnArea(){
+
+	public SelectAnArea() {
 		this.queries = new Queries();
 	}
 
@@ -52,9 +52,9 @@ public class SelectAnArea {
 		ParkingArea $ = this.queries.returnArea(areaId);
 		return $ == null ? null : $.getColor();
 	}
-	
-	public List<String> getAllPossibleColors(){
-		List<String> $=new ArrayList<String>();
+
+	public List<String> getAllPossibleColors() {
+		List<String> $ = new ArrayList<String>();
 		for (StickersColor ¢ : StickersColor.values())
 			$.add(¢.name());
 		return $;

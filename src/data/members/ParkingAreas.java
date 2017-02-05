@@ -18,15 +18,15 @@ import java.util.List;
  * @author Toma
  * @since 12.12.16
  * 
- *  This class represent all parking areas on Technion's site
+ *        This class represent all parking areas on Technion's site
  */
 
 public class ParkingAreas extends dbMember {
 	private Set<ParkingArea> parkingAreas;
 
 	/* Constructors */
-	
-	public ParkingAreas(Set<ParkingArea> parkingAreas) throws ParseException{
+
+	public ParkingAreas(Set<ParkingArea> parkingAreas) throws ParseException {
 		DBManager.initialize();
 		this.parseObject = new ParseObject("ParkingAreas");
 		this.setParkingAreas(parkingAreas);
@@ -43,29 +43,28 @@ public class ParkingAreas extends dbMember {
 			List<ParseObject> areaList = query.find();
 			if (areaList == null || areaList.isEmpty())
 				throw new RuntimeException("There was a problem - ParkingArea table doesnt found");
-			for (ParseObject ¢: areaList)
+			for (ParseObject ¢ : areaList)
 				this.parkingAreas.add(new ParkingArea(¢));
-		}
-		catch (ParseException ¢) {
+		} catch (ParseException ¢) {
 			¢.printStackTrace();
 		}
 	}
 
 	/* Getters */
-	
+
 	public Set<ParkingArea> getParkingAreas() {
 		return parkingAreas;
 	}
 
 	/* Setters */
-	
+
 	public void setParkingAreas(Set<ParkingArea> ¢) throws ParseException {
 		this.parkingAreas = ¢;
 		updateAreasArray();
 	}
-	
+
 	/* Methods */
-	
+
 	public void addParkingArea(ParkingArea ¢) throws ParseException {
 		this.parkingAreas.add(¢);
 
@@ -78,9 +77,9 @@ public class ParkingAreas extends dbMember {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
 		query.whereEqualTo("areaId", a.getAreaId());
 		if (query.find().size() != 1 || this.parkingAreas == null) {
-				System.out.format("The area %d doest exist", a.getAreaId());
-				return;
-		}			
+			System.out.format("The area %d doest exist", a.getAreaId());
+			return;
+		}
 
 		// remove the are
 		for (ParkingArea ¢ : this.parkingAreas)
@@ -94,7 +93,7 @@ public class ParkingAreas extends dbMember {
 	public int getNumOfTakenByArea(ParkingArea a) {
 		int $ = 0;
 		for (ParkingArea currentArea : this.parkingAreas)
-			if (currentArea.getAreaId()==(a.getAreaId()))
+			if (currentArea.getAreaId() == (a.getAreaId()))
 				$ = currentArea.getNumOfTakenSlots();
 		return $;
 	}
@@ -103,7 +102,7 @@ public class ParkingAreas extends dbMember {
 	public int getNumOfFreeByArea(ParkingArea a) {
 		int $ = 0;
 		for (ParkingArea currentArea : this.parkingAreas)
-			if (currentArea.getAreaId()==(a.getAreaId()))
+			if (currentArea.getAreaId() == (a.getAreaId()))
 				$ = currentArea.getNumOfFreeSlots();
 		return $;
 	}
@@ -124,57 +123,55 @@ public class ParkingAreas extends dbMember {
 		return $;
 	}
 
-
 	// Return parking slots per area
 	public int getNumOfSlotsByArea(ParkingArea a) {
 		int $ = 0;
 		for (ParkingArea currentArea : this.parkingAreas)
-			if (currentArea.getAreaId()==(a.getAreaId()))
+			if (currentArea.getAreaId() == (a.getAreaId()))
 				$ = currentArea.getNumOfParkingSlots();
 		return $;
 	}
 
-	
 	// Return a free parking slot by a given area
 	public ParkingSlot getParkingslotByArea(ParkingArea a) throws ParseException {
 		ParkingSlot $ = null;
 		for (ParkingArea currentArea : this.parkingAreas)
-			if (currentArea.getAreaId()==(a.getAreaId()))
+			if (currentArea.getAreaId() == (a.getAreaId()))
 				for (ParkingSlot currentSlot : currentArea.getFreeSlots())
 					$ = currentSlot;
 		return $;
 	}
-	
-	public List<String> getParkingAreasNames() throws ParseException{
-		List<String> $=new ArrayList<String>();
+
+	public List<String> getParkingAreasNames() throws ParseException {
+		List<String> $ = new ArrayList<String>();
 		for (ParkingArea currentArea : this.parkingAreas)
 			$.add(currentArea.getName());
 		return $;
 	}
-	
-	public HashMap<String,StickersColor> getParkingAreasColor() throws ParseException{
-		 HashMap<String,StickersColor> $ = new  HashMap<String,StickersColor>();
-		for (ParkingArea currentArea : this.parkingAreas)
-			$.put(currentArea.getName(),currentArea.getColor());
-		return $;
-	}
-	
-	public HashMap<String,MapLocation> getParkingAreasLocation() throws ParseException{
-		 HashMap<String,MapLocation> $ = new  HashMap<String,MapLocation>();
-		for (ParkingArea currentArea : this.parkingAreas)
-			$.put(currentArea.getName(),currentArea.getLocation());
-		return $;
-	}
-	
-	// Update the areas array in the DB according to the last update
-		private void updateAreasArray() throws ParseException {
-			List<ParseObject> areas = new ArrayList<ParseObject>();
-			if (!this.parkingAreas.isEmpty())
-				for (ParkingArea ¢ : this.parkingAreas)
-					areas.add(¢.getParseObject()); 
 
-			this.parseObject.put("areas", areas);
-			this.parseObject.save();
-		}
+	public HashMap<String, StickersColor> getParkingAreasColor() throws ParseException {
+		HashMap<String, StickersColor> $ = new HashMap<String, StickersColor>();
+		for (ParkingArea currentArea : this.parkingAreas)
+			$.put(currentArea.getName(), currentArea.getColor());
+		return $;
+	}
+
+	public HashMap<String, MapLocation> getParkingAreasLocation() throws ParseException {
+		HashMap<String, MapLocation> $ = new HashMap<String, MapLocation>();
+		for (ParkingArea currentArea : this.parkingAreas)
+			$.put(currentArea.getName(), currentArea.getLocation());
+		return $;
+	}
+
+	// Update the areas array in the DB according to the last update
+	private void updateAreasArray() throws ParseException {
+		List<ParseObject> areas = new ArrayList<ParseObject>();
+		if (!this.parkingAreas.isEmpty())
+			for (ParkingArea ¢ : this.parkingAreas)
+				areas.add(¢.getParseObject());
+
+		this.parseObject.put("areas", areas);
+		this.parseObject.save();
+	}
 
 }

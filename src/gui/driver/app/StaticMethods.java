@@ -33,16 +33,17 @@ public class StaticMethods {
 	// button
 	public static void dealWithMute(MediaPlayer p, ArrayList<Button> muteButtonsAL) {
 		for (Button currButton : muteButtonsAL)
-			currButton.setGraphic(
-					new ImageView(new Image(StaticMethods.class.getResourceAsStream(!p.isMute() ? "mute_button.png" : "unmute_button.png"))));
+			currButton.setGraphic(new ImageView(new Image(
+					StaticMethods.class.getResourceAsStream(!p.isMute() ? "mute_button.png" : "unmute_button.png"))));
 		p.setMute(!p.isMute());
 	}
 
 	public static Button cloneButton(Button firstButton) {
 		Button $ = new Button();
 		$.setText(firstButton.getText());
-//		System.out.println("firstButton.getOnAction(): " + firstButton.getOnAction());
-//		System.out.println(firstButton.getStyleClass().toString());
+		// System.out.println("firstButton.getOnAction(): " +
+		// firstButton.getOnAction());
+		// System.out.println(firstButton.getStyleClass().toString());
 		$.getStyleClass().addAll(firstButton.getStyleClass());
 		$.setOnAction(λ -> StaticMethods.dealWithMute(AbstractWindow.mediaPlayer, AbstractWindow.muteButtonsAL));
 		return $;

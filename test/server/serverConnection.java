@@ -8,6 +8,7 @@ import org.parse4j.ParseObject;
 import org.parse4j.ParseQuery;
 
 import data.management.DBManager;
+
 /* @author Shay Segal
  * @since 14-12-2016
  */
@@ -31,7 +32,7 @@ public class serverConnection {
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
-		String id=testConnectionObject.getObjectId();
+		String id = testConnectionObject.getObjectId();
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("testConnectionObject");
 		ParseObject ret;
 		try {

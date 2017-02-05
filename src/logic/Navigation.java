@@ -84,8 +84,8 @@ public class Navigation {
 		return -1;
 	}
 
-	public static ParkingSlot closestParkingSlot(User u, MapLocation currentLocation, ParkingAreas a,
-			Destination d) throws org.parse4j.ParseException {
+	public static ParkingSlot closestParkingSlot(User u, MapLocation currentLocation, ParkingAreas a, Destination d)
+			throws org.parse4j.ParseException {
 
 		ParkingSlot $ = null;
 		long minDuration = Integer.MAX_VALUE;
@@ -129,16 +129,15 @@ public class Navigation {
 		return $;
 	}
 
-	public static void parkAtSlot(User u, ParkingSlot s)
-			throws NoSlotAvailable, org.parse4j.ParseException {
+	public static void parkAtSlot(User u, ParkingSlot s) throws NoSlotAvailable, org.parse4j.ParseException {
 		if (s == null)
 			throw new NoSlotAvailable("No Slot Available");
 		s.changeStatus(ParkingSlotStatus.TAKEN);
 		u.setCurrentParking(s);
 	}
 
-	public static ParkingSlot parkAtClosestSlot(User u, MapLocation currentLocation, ParkingAreas a,
-			Destination d) throws NoSlotAvailable, org.parse4j.ParseException {
+	public static ParkingSlot parkAtClosestSlot(User u, MapLocation currentLocation, ParkingAreas a, Destination d)
+			throws NoSlotAvailable, org.parse4j.ParseException {
 		ParkingSlot $ = closestParkingSlot(u, currentLocation, a, d);
 		parkAtSlot(u, $);
 		return $;

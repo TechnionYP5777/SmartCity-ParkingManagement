@@ -82,7 +82,7 @@ public class MyDetails extends AbstractWindow {
 			values.add(lastLogin);
 
 		}
-		//System.out.println("MD size: " + values.size() + " : " + values);
+		// System.out.println("MD size: " + values.size() + " : " + values);
 		int i = 0;
 		for (; i < values.size(); ++i) {
 			// System.out.println(i + " labels: " + labels.get(i) + "values: " +

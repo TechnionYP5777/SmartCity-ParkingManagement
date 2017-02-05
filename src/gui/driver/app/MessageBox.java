@@ -9,9 +9,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MessageBox {
-	
+
 	public Stage window;
-	public void display(String title, String message){
+
+	public void display(String title, String message) {
 		window = new Stage();
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.setTitle(title);
@@ -25,12 +26,11 @@ public class MessageBox {
 		VBox layout = new VBox();
 		layout.getChildren().addAll(label);
 		layout.setAlignment(Pos.CENTER);
-		
+
 		Scene scene = new Scene(layout);
 		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());
 		window.setScene(scene);
-		window.showAndWait();		
-		
+		window.showAndWait();
+
 	}
 }
-

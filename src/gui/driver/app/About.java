@@ -50,20 +50,20 @@ public class About extends AbstractWindow {
 		VBox vbox = new VBox(10);
 		vbox.setStyle("-fx-background-color: null; -fx-padding: 10px;");
 		// System.out.println("HERE IS BUTTONMUTE: "+ buttonMute.toString());
-		
+
 		if (!isLinuxOS) {
 			Button AboutMute = StaticMethods.cloneButton(buttonMute);
 			muteButtonsAL.add(AboutMute);
 			vbox.getChildren().add(AboutMute);
 		}
-		
+
 		Button backButton = new Button();
 		backButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("back_button.png"))));
 		backButton.getStyleClass().add("button-go");
 		backButton.setOnAction(λ -> {
 			this.window.close();
-//			if (!isLinuxOS)
-//				StaticMethods.dealWithMute(mediaPlayer, buttonMute, true);
+			// if (!isLinuxOS)
+			// StaticMethods.dealWithMute(mediaPlayer, buttonMute, true);
 			prevWindows.get(prevWindows.size() - 1).window.show();
 			prevWindows.remove(prevWindows.size() - 1);
 		});

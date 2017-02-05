@@ -28,108 +28,117 @@ public class ManualUpdateArea {
 	private StickersColor demandColor;
 	private DurationType duration;
 	private Date endDate;
-	
-	public ManualUpdateArea(){
+
+	public ManualUpdateArea() {
 	}
-	
-	public ManualUpdateArea(ParkingArea area, int slotsAmount, StickersColor demandColor, 
-			DurationType duration, Date untilDate){
-		this.area=area;
-		this.demandColor=demandColor;
-		this.duration=duration;
-		this.slotsAmount=slotsAmount;
-		this.endDate=untilDate;
+
+	public ManualUpdateArea(ParkingArea area, int slotsAmount, StickersColor demandColor, DurationType duration,
+			Date untilDate) {
+		this.area = area;
+		this.demandColor = demandColor;
+		this.duration = duration;
+		this.slotsAmount = slotsAmount;
+		this.endDate = untilDate;
 	}
+
 	public ParkingArea getAreaId() {
 		return area;
 	}
+
 	public void setAreaId(ParkingArea ¢) {
 		this.area = ¢;
 	}
+
 	public int getSlotsAmount() {
 		return slotsAmount;
 	}
+
 	public void setSlotsAmount(int slotsAmount) {
 		this.slotsAmount = slotsAmount;
 	}
+
 	public StickersColor getDemandColor() {
 		return demandColor;
 	}
+
 	public void setDemandColor(StickersColor demandColor) {
 		this.demandColor = demandColor;
 	}
+
 	public DurationType getDuration() {
 		return duration;
 	}
+
 	public void setDuration(DurationType ¢) {
 		this.duration = ¢;
 	}
+
 	public Date getUntilDate() {
 		return endDate;
 	}
+
 	public void setUntilDate(Date untilDate) {
 		this.endDate = untilDate;
-	}	
+	}
 
-
-	public void updateArea(){
-		//update area details
+	public void updateArea() {
+		// update area details
 		updateAreaDetails();
 		Set<ParkingSlot> slots = area.getSlotsByStatus(ParkingSlotStatus.FREE);
-		//change randomly amount of slots in the area to the demand color
-		//update slots
-		int counter=1;
-		for (ParkingSlot ¢: slots){
-			if (counter>this.slotsAmount)
+		// change randomly amount of slots in the area to the demand color
+		// update slots
+		int counter = 1;
+		for (ParkingSlot ¢ : slots) {
+			if (counter > this.slotsAmount)
 				break;
 			updateParkingSlot(¢, this.demandColor, this.endDate, this.duration);
 			++counter;
-		}	
+		}
 	}
-	
-	void updateAreaDetails(){
+
+	void updateAreaDetails() {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
 		query.whereEqualTo("areaId", this.area.getAreaId());
 		try {
 
 			List<ParseObject> areaList = query.find();
 			if (areaList != null && !areaList.isEmpty())
-				//update those slots information
-				//note- its promise that there are at least slotsAmount of free parkingSlots
-				
+				// update those slots information
+				// note- its promise that there are at least slotsAmount of free
+				// parkingSlots
+
 				areaList.get(0).put("color", this.demandColor.ordinal());
-				//check if the duration is permanent or temporary
-				if (!this.duration.equals(DurationType.PERMANENTLY))
-					//if temporary - insert the given endDate, change color
-					areaList.get(0).put("endDate", this.endDate);
-				else {
-					areaList.get(0).put("endDate", (new SimpleDateFormat("yyyy-MM-dd")).parse("9999-12-31"));
-					areaList.get(0).put("defaultColor", this.demandColor.ordinal());
-				}
-				areaList.get(0).save();
+			// check if the duration is permanent or temporary
+			if (!this.duration.equals(DurationType.PERMANENTLY))
+				// if temporary - insert the given endDate, change color
+				areaList.get(0).put("endDate", this.endDate);
+			else {
+				areaList.get(0).put("endDate", (new SimpleDateFormat("yyyy-MM-dd")).parse("9999-12-31"));
+				areaList.get(0).put("defaultColor", this.demandColor.ordinal());
+			}
+			areaList.get(0).save();
 		} catch (Exception e) {
 			System.out.format("something went wrong looking for areaId: " + this.area.getAreaId());
 		}
-		
+
 	}
 
-	void updateParkingSlot(ParkingSlot s, StickersColor demandColor, Date endDate, DurationType t){
+	void updateParkingSlot(ParkingSlot s, StickersColor demandColor, Date endDate, DurationType t) {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
 		query.whereEqualTo("name", s.getName());
 		try {
 			List<ParseObject> slotList = query.find();
-			if (slotList != null && !slotList.isEmpty()){
+			if (slotList != null && !slotList.isEmpty()) {
 				slotList.get(0).put("color", demandColor.ordinal());
-				//check if the duration is permanent or temporary
+				// check if the duration is permanent or temporary
 				if (!t.equals(DurationType.PERMANENTLY))
 					slotList.get(0).put("endDate", endDate);
 				else
 					slotList.get(0).put("endTime", (new SimpleDateFormat("yyyy-MM-dd")).parse("9999-12-31"));
 				slotList.get(0).save();
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			System.out.format("something went wrong looking for slot name: " + s.getName());
 		}
 	}
 }
-

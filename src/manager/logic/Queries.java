@@ -13,17 +13,17 @@ import data.members.User;
  * @author Inbal Matityahu
  * @since 12.13.16
  * 
- *       The management's system can send or receive data by queries to the databases.
- *       This class holds the possible queries.
+ *        The management's system can send or receive data by queries to the
+ *        databases. This class holds the possible queries.
  */
 
 public class Queries {
 	private Management managment;
 
-	public Queries(){
+	public Queries() {
 		this.managment = new Management();
 	}
-	
+
 	public Management getManagment() {
 		return managment;
 	}
@@ -31,7 +31,7 @@ public class Queries {
 	public void setManagment(Management managment) {
 		this.managment = managment;
 	}
-	
+
 	// Return sticker type of a given user
 	public StickersColor getColorByUser(User ¢) {
 		return this.managment.getColorByUser(¢);
@@ -76,79 +76,79 @@ public class Queries {
 	public ParkingSlot getParkingslotByArea(ParkingArea ¢) throws ParseException {
 		return this.managment.getParkingslotByArea(¢);
 	}
-	
-	//Return user according to user carNum
-	public User returnUser(String carNum){
+
+	// Return user according to user carNum
+	public User returnUser(String carNum) {
 		for (User $ : this.managment.getUsers())
 			if ($.getCarNumber().equals(carNum))
 				return $;
 		return null;
 	}
-	
-	//Return user userName according to user carNum
-	public String returnUserName(String carNum){
+
+	// Return user userName according to user carNum
+	public String returnUserName(String carNum) {
 		User $ = this.returnUser(carNum);
 		return $ == null ? null : $.getName();
 	}
-	
-	//Return user password according to user carNum
-	public String returnUserPassword(String carNum){
+
+	// Return user password according to user carNum
+	public String returnUserPassword(String carNum) {
 		User $ = this.returnUser(carNum);
 		return $ == null ? null : $.getPassword();
 	}
-	
-	//Return user phoneNum according to user carNum
-	public String returnUserPhoneNum(String carNum){
+
+	// Return user phoneNum according to user carNum
+	public String returnUserPhoneNum(String carNum) {
 		User $ = this.returnUser(carNum);
 		return $ == null ? null : $.getPhoneNumber();
 	}
-	
-	//Return user sticker according to user carNum
-	public StickersColor returnUserSticker(String carNum){
+
+	// Return user sticker according to user carNum
+	public StickersColor returnUserSticker(String carNum) {
 		User $ = this.returnUser(carNum);
 		return $ == null ? null : $.getSticker();
 	}
-	
-	//Return user current parking according to user carNum
-	public ParkingSlot returnUserCurrentParking(String carNum){
+
+	// Return user current parking according to user carNum
+	public ParkingSlot returnUserCurrentParking(String carNum) {
 		User $ = this.returnUser(carNum);
 		return $ == null ? null : $.getCurrentParking();
 	}
 
-	//Return parking slot according to given location
-	public ParkingSlot returnParkingSlot(MapLocation ¢){
+	// Return parking slot according to given location
+	public ParkingSlot returnParkingSlot(MapLocation ¢) {
 		for (ParkingSlot $ : this.managment.getParkingSlots())
-			if ($.getLocation().getLat()==(¢.getLat()) && $.getLocation().getLon()==(¢.getLon()))
+			if ($.getLocation().getLat() == (¢.getLat()) && $.getLocation().getLon() == (¢.getLon()))
 				return $;
 		return null;
 	}
-	
-	//Return parking slot's status according to given location
-	public ParkingSlotStatus returnParkingSlotStatus(MapLocation ¢){
+
+	// Return parking slot's status according to given location
+	public ParkingSlotStatus returnParkingSlotStatus(MapLocation ¢) {
 		ParkingSlot $ = this.returnParkingSlot(¢);
 		return $ == null ? null : $.getStatus();
 	}
-	
-	//Return parking slot's color according to given location
-	public StickersColor returnParkingSlotColor(MapLocation ¢){
+
+	// Return parking slot's color according to given location
+	public StickersColor returnParkingSlotColor(MapLocation ¢) {
 		ParkingSlot $ = this.returnParkingSlot(¢);
 		return $ == null ? null : $.getColor();
 	}
-	
-	//Return parking slot's current user according to given location
-	public User returnParkingSlotCurrentUser(MapLocation l){
-		ParkingSlot currentSlot=this.returnParkingSlot(l);
+
+	// Return parking slot's current user according to given location
+	public User returnParkingSlotCurrentUser(MapLocation l) {
+		ParkingSlot currentSlot = this.returnParkingSlot(l);
 		for (User $ : this.managment.getUsers())
 			if ($.getCurrentParking() != null && $.getCurrentParking().getName().equals(currentSlot.getName()))
 				return $;
 		return null;
 	}
-	
-	//Return parkingArea according to areaId
-	public ParkingArea returnArea(int areaID){
+
+	// Return parkingArea according to areaId
+	public ParkingArea returnArea(int areaID) {
 		for (ParkingArea $ : this.managment.getParkingAreas().getParkingAreas())
 			if ($.getAreaId() == areaID)
 				return $;
-		throw new RuntimeException("There is no area with "+areaID+" on DB"); 
+		throw new RuntimeException("There is no area with " + areaID + " on DB");
 	}
 }

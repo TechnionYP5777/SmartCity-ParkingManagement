@@ -33,7 +33,7 @@ public class LoginManager {
 	public boolean userLogin(String carNumber, String $) {
 		try {
 			User tmp = new User(carNumber);
-			if (tmp.getPassword().equals($)){
+			if (tmp.getPassword().equals($)) {
 				this.user = tmp;
 				this.user.setLastLoginTime(new Date());
 			}
@@ -115,8 +115,8 @@ public class LoginManager {
 	 *             is thrown if there is a problem with the user value according
 	 *             to the UserValueCheck function
 	 */
-	public boolean userUpdate(String carNumber, String name, String phoneNumber, String email, String newCar, StickersColor type)
-			throws LoginException {
+	public boolean userUpdate(String carNumber, String name, String phoneNumber, String email, String newCar,
+			StickersColor type) throws LoginException {
 		try {
 			String s = userValueCheck(name, phoneNumber, email, newCar.equals(carNumber) ? null : newCar);
 			if (!"Good Params".equals(s))
@@ -152,15 +152,15 @@ public class LoginManager {
 	public void deleteUser() throws ParseException {
 		user.deleteParseObject();
 	}
-	
+
 	public String getPhoneNumber() {
 		return this.user.getPhoneNumber();
 	}
-	
+
 	public StickersColor getSticker() {
 		return this.user.getSticker();
 	}
-	
+
 	public User getUser() {
 		return this.user;
 	}

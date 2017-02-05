@@ -84,7 +84,8 @@ public class UserTest {
 				user.setCurrentParking(new ParkingSlot("DavidSlot3", ParkingSlotStatus.FREE, StickersColor.RED,
 						StickersColor.RED, new MapLocation(32.778153, 35.021855), new Date()));
 			Assert.assertEquals(user.getCurrentParking().getName(), "DavidSlot3");
-			ParseObject park = ParseQuery.getQuery("ParkingSlot").get((user.getCurrentParking().getParseObject()).getObjectId());
+			ParseObject park = ParseQuery.getQuery("ParkingSlot")
+					.get((user.getCurrentParking().getParseObject()).getObjectId());
 			Assert.assertEquals(StickersColor.values()[park.getInt("color")], StickersColor.RED);
 			Assert.assertEquals(park.getString("name"), "DavidSlot3");
 			park.put("name", "DavidSlot4");
@@ -172,7 +173,6 @@ public class UserTest {
 			Assert.fail();
 		}
 	}
-
 
 	@After
 	public void AfterUserTest() {

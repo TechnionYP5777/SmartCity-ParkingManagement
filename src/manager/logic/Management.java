@@ -14,7 +14,6 @@ import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
 import org.parse4j.ParseQuery;
 
-
 /**
  * @author Inbal Matityahu
  * @since 12.11.16
@@ -29,33 +28,30 @@ public class Management {
 	private Set<ParkingSlot> parkingSlots;
 	// all parking areas
 	private ParkingAreas parkingAreas;
-	
 
 	public Management() {
 		this.users = new HashSet<User>();
 		this.parkingSlots = new HashSet<ParkingSlot>();
-		//init set of users
+		// init set of users
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
 		try {
 			List<ParseObject> usersList = query.find();
 			if (usersList == null || usersList.isEmpty())
 				throw new RuntimeException("There was a problem - Users table doesnt found");
-			for (ParseObject ¢: usersList)
+			for (ParseObject ¢ : usersList)
 				this.users.add(new User(¢));
-		}
-		catch (ParseException ¢) {
+		} catch (ParseException ¢) {
 			¢.printStackTrace();
 		}
-		//init set of parking slots
+		// init set of parking slots
 		ParseQuery<ParseObject> query2 = ParseQuery.getQuery("ParkingSlot");
 		try {
 			List<ParseObject> slotList = query2.find();
 			if (slotList == null || slotList.isEmpty())
 				throw new RuntimeException("There was a problem - ParkingSlot table doesnt found");
-			for (ParseObject ¢: slotList)
+			for (ParseObject ¢ : slotList)
 				this.parkingSlots.add(new ParkingSlot(¢));
-		}
-		catch (ParseException ¢) {
+		} catch (ParseException ¢) {
 			¢.printStackTrace();
 		}
 		this.parkingAreas = new ParkingAreas();
@@ -81,7 +77,7 @@ public class Management {
 
 	public void setUsers(Set<User> ¢) {
 		this.users = ¢;
-		
+
 	}
 
 	public Set<ParkingSlot> getParkingSlots() {
@@ -90,28 +86,27 @@ public class Management {
 
 	public void setParkingSlots(Set<ParkingSlot> ¢) {
 		this.parkingSlots = ¢;
-		
+
 	}
 
 	public void addUser(User newUser) {
 		this.users.add(newUser);
-		
 
 	}
 
 	public void addParkingSlot(ParkingSlot newParkingSlot) {
 		this.parkingSlots.add(newParkingSlot);
-		
+
 	}
 
 	public void removeUser(User userToRemove) {
 		this.users.remove(userToRemove);
-		
+
 	}
 
 	public void removeParkingSlot(ParkingSlot slotToRemove) {
 		this.parkingSlots.remove(slotToRemove);
-		
+
 	}
 
 	// Return sticker type of a given user
@@ -173,11 +168,11 @@ public class Management {
 			return null;
 		}
 		User $ = null;
-		//search current user in parkingSlot
+		// search current user in parkingSlot
 		for (User ¢ : this.getUsers())
 			if (¢.getCurrentParking() != null && ¢.getCurrentParking().getName().equals(parkinSlot.getName()))
 				return ¢;
-			
+
 		return $;
 	}
 

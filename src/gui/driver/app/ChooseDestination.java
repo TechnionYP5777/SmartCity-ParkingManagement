@@ -24,7 +24,6 @@ import javafx.stage.Stage;
 import logic.Navigation;
 import org.parse4j.ParseException;
 
-
 public class ChooseDestination extends AbstractWindow {
 
 	ChooseDestination() {
@@ -75,7 +74,7 @@ public class ChooseDestination extends AbstractWindow {
 
 		Button buttonBack = new Button();
 		buttonBack.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("back_button.png"))));
-		
+
 		Button buttonGO = new Button();
 		buttonGO.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("go_button.png"))));
 
@@ -92,20 +91,19 @@ public class ChooseDestination extends AbstractWindow {
 			// ************Add navigation functionality************//
 			window.close();
 			ChooseAction.prevWindows.add(this);
-			//(new DriverMap("", "")).display(window);
-			
+			// (new DriverMap("", "")).display(window);
+
 			// TILL GET FIXED!!!
 			try {
 				(new DriverMap(navigate.getDestination(fromValue.getValue()).getEntrance(),
-						Navigation
-								.closestParkingSlot(login.getUser(),
-										navigate.getDestination(fromValue.getValue()).getEntrance(),
-										navigate.getAreas(), navigate.getDestination(toValue.getValue()))
-								.getLocation(),navigate.getDestination(toValue.getValue()).getEntrance())).display(window);
+						Navigation.closestParkingSlot(login.getUser(),
+								navigate.getDestination(fromValue.getValue()).getEntrance(), navigate.getAreas(),
+								navigate.getDestination(toValue.getValue())).getLocation(),
+						navigate.getDestination(toValue.getValue()).getEntrance())).display(window);
 			} catch (ParseException e1) {
 				e1.printStackTrace();
 			}
-			//TILL HERE
+			// TILL HERE
 		});
 		GridPane.setConstraints(buttonGO, 1, currIdx++);
 		grid.getChildren().addAll(title, from, fromValue, to, toValue, buttonBack, buttonGO);

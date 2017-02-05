@@ -21,7 +21,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.*;
 import javafx.util.Duration;
 
-
 public class Opening extends Application {
 	public static final String SPLASH_IMAGE = "https://s23.postimg.org/ecvvaduyz/smart_parking.png";
 
@@ -31,9 +30,7 @@ public class Opening extends Application {
 	private Stage primaryStage;
 	private static final int SPLASH_WIDTH = 274;
 	private static final int SPLASH_HEIGHT = 266;
-	
-	
-	
+
 	public static void main(String[] args) throws Exception {
 		launch(args);
 	}
@@ -43,10 +40,10 @@ public class Opening extends Application {
 		ImageView logo = new ImageView(new Image(getClass().getResourceAsStream("smart_parking_icon.png")));
 		loadProgress = new ProgressBar();
 		loadProgress.setPrefWidth(SPLASH_WIDTH);
-		
+
 		progressText = new Label("Opening the system . . .");
 		progressText.setAlignment(Pos.CENTER);
-		
+
 		openingLayout = new VBox();
 		openingLayout.getChildren().addAll(logo, loadProgress, progressText);
 	}
@@ -63,7 +60,7 @@ public class Opening extends Application {
 				for (int i = 0; i < team.size(); i++) {
 					Thread.sleep(400);
 					updateProgress(i + 1, team.size());
-					String nextMember= team.get(i);
+					String nextMember = team.get(i);
 					$.add(nextMember);
 					updateMessage("SmartParking - Made By " + nextMember);
 				}
@@ -80,8 +77,8 @@ public class Opening extends Application {
 
 	private void showMainMenu(ReadOnlyObjectProperty<ObservableList<String>> friends) {
 		ChooseAction chooseActionObject = new ChooseAction();
-		AbstractWindow.prevWindows = new ArrayList<AbstractWindow>(); 
-		primaryStage = new Stage(); 
+		AbstractWindow.prevWindows = new ArrayList<AbstractWindow>();
+		primaryStage = new Stage();
 		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("Smart_parking_icon.png")));
 		chooseActionObject.display(primaryStage, WindowEnum.NONE);
 	}
@@ -101,7 +98,7 @@ public class Opening extends Application {
 				fadeSplash.play();
 
 				h.complete();
-			} 
+			}
 		});
 
 		Scene openingScene = new Scene(openingLayout, Color.TRANSPARENT);
@@ -113,15 +110,15 @@ public class Opening extends Application {
 		initStage.setAlwaysOnTop(true);
 		initStage.show();
 	}
-	
-	public static ChooseAction getCAObject(ArrayList<AbstractWindow> ¢){
-//		Iterator<AbstractWindow> iterator = windows.iterator();
-//		while(iterator.hasNext()){
-//			if(iterator.getClass().equals(ChooseAction.class)){
-//				System.out.print("found CA object: "+);
-//			}
-//		}
-		for(AbstractWindow $ : ¢)
+
+	public static ChooseAction getCAObject(ArrayList<AbstractWindow> ¢) {
+		// Iterator<AbstractWindow> iterator = windows.iterator();
+		// while(iterator.hasNext()){
+		// if(iterator.getClass().equals(ChooseAction.class)){
+		// System.out.print("found CA object: "+);
+		// }
+		// }
+		for (AbstractWindow $ : ¢)
 			if ($.getClass().equals(ChooseAction.class)) {
 				System.out.print("found CA object: " + $);
 				return (ChooseAction) $;
@@ -129,16 +126,18 @@ public class Opening extends Application {
 
 		return null;
 	}
-	public static MyDetails getMDObject(ArrayList<AbstractWindow> ¢){	
-		for(AbstractWindow $ : ¢)
+
+	public static MyDetails getMDObject(ArrayList<AbstractWindow> ¢) {
+		for (AbstractWindow $ : ¢)
 			if ($.getClass().equals(MyDetails.class)) {
 				System.out.print("found CA object: " + $);
 				return (MyDetails) $;
 			}
 		return null;
 	}
-	public static MyDetailsEdit getMDEObject(ArrayList<AbstractWindow> ¢){	
-		for(AbstractWindow $ : ¢)
+
+	public static MyDetailsEdit getMDEObject(ArrayList<AbstractWindow> ¢) {
+		for (AbstractWindow $ : ¢)
 			if ($.getClass().equals(MyDetailsEdit.class)) {
 				System.out.print("found CA object: " + $);
 				return (MyDetailsEdit) $;
@@ -149,6 +148,5 @@ public class Opening extends Application {
 	public interface InitCompletionHandler {
 		void complete();
 	}
-	
-	
+
 }
