@@ -10,19 +10,19 @@ import javafx.stage.Stage;
 
 public class SaveDetailsButton {
 
-	public static void display(String title, String message) {
+	public static void display(final String title, final String message) {
 		Stage window;
-		Button button = new Button();
+		final Button button = new Button();
 		window = new Stage();
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.setTitle(title);
 		window.setMinWidth(250);
 
-		Label label = new Label();
+		final Label label = new Label();
 		label.setText(message);
 		button.setOnAction(λ -> window.close());
 
-		VBox layout = new VBox();
+		final VBox layout = new VBox();
 		layout.getChildren().addAll(label, button);
 		layout.setAlignment(Pos.CENTER);
 

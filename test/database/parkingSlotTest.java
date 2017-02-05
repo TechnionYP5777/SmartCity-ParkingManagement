@@ -23,11 +23,11 @@ public class parkingSlotTest {
 		// Please note that EVERY activation of this test will result in a new
 		// testSlot row in the DB
 		try {
-			ParkingSlot p = new ParkingSlot("testSlotA", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
+			final ParkingSlot p = new ParkingSlot("testSlotA", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
 					new MapLocation(32.778153, 35.021855), new Date());
 			assert p != null;
 			p.removeParkingSlotFromDB();
-		} catch (Exception ¢) {
+		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
 		}
@@ -37,17 +37,17 @@ public class parkingSlotTest {
 	public void testGetContainingArea() {
 		DBManager.initialize();
 		try {
-			ParkingSlot slot1 = new ParkingSlot("testS", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
+			final ParkingSlot slot1 = new ParkingSlot("testS", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
 					new MapLocation(0, 0), new Date());
-			Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
+			final Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
-			ParkingArea area = new ParkingArea(0, "t1", new MapLocation(0, 0), slots, StickersColor.RED);
+			final ParkingArea area = new ParkingArea(0, "t1", new MapLocation(0, 0), slots, StickersColor.RED);
 			Assert.assertEquals(area.getName(), slot1.findContainingParkingArea());
 
 			area.deleteParseObject();
 			slot1.deleteParseObject();
 
-		} catch (Exception ¢) {
+		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
 		}
@@ -58,17 +58,17 @@ public class parkingSlotTest {
 		DBManager.initialize();
 		try {
 			// Arrange
-			ParkingSlot slot1 = new ParkingSlot("testS1", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
+			final ParkingSlot slot1 = new ParkingSlot("testS1", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
 					new MapLocation(0, 0), new Date());
-			Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
+			final Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
-			ParkingArea area = new ParkingArea(12, "t1", new MapLocation(0, 0), slots, StickersColor.RED);
+			final ParkingArea area = new ParkingArea(12, "t1", new MapLocation(0, 0), slots, StickersColor.RED);
 
 			// Act + assert
 			slot1.removeParkingSlotFromAreaAndDB();
 
 			area.deleteParseObject();
-		} catch (Exception ¢) {
+		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
 		}
@@ -79,7 +79,7 @@ public class parkingSlotTest {
 		DBManager.initialize();
 		try {
 			// Arrange
-			ParkingSlot slot1 = new ParkingSlot("testS1", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
+			final ParkingSlot slot1 = new ParkingSlot("testS1", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
 					new MapLocation(0, 0), new Date());
 
 			// Assert
@@ -88,7 +88,7 @@ public class parkingSlotTest {
 			// Cleanup
 			slot1.deleteParseObject();
 
-		} catch (Exception ¢) {
+		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
 		}

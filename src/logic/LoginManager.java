@@ -30,33 +30,33 @@ public class LoginManager {
 	 * @throws LoginException
 	 *             is thrown if there is a problem
 	 */
-	public boolean userLogin(String carNumber, String $) {
+	public boolean userLogin(final String carNumber, final String $) {
 		try {
-			User tmp = new User(carNumber);
+			final User tmp = new User(carNumber);
 			if (tmp.getPassword().equals($)) {
-				this.user = tmp;
-				this.user.setLastLoginTime(new Date());
+				user = tmp;
+				user.setLastLoginTime(new Date());
 			}
 			return user.getPassword().equals($);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			return false;
 		}
 	}
 
-	public String userValueCheck(String $, String phone, String email, String car) {
+	public String userValueCheck(final String $, final String phone, final String email, final String car) {
 		try {
 			if (car != null) {
 				new User(car);
 				return "User already exist";
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 		}
 		return $ != null && $.matches(".*\\d.*") ? "User has integer"
 				: phone != null && phone.length() != 10 ? "Phone need to be in size 10"
 						: phone != null && !phone.startsWith("05") ? "Phone should start with 05"
 								: phone != null && phone.matches(".*[a-zA-z].*") ? "Phone contains only integers"
-										: (email != null && !email.matches(
-												"[\\d\\w\\.]+@(campus.technion.ac.il|gmail.com|walla.com|hotmail.com|t2.technion.ac.il)"))
+										: email != null && !email.matches(
+												"[\\d\\w\\.]+@(campus.technion.ac.il|gmail.com|walla.com|hotmail.com|t2.technion.ac.il)")
 														? "Invalid email address"
 														: car == null || car.length() == 7 ? "Good Params"
 																: "Car need to be in size 7";
@@ -82,16 +82,16 @@ public class LoginManager {
 	 *             is thrown if there is a problem with the user value according
 	 *             to the UserValueCheck function
 	 */
-	public String userSignUp(String name, String pass, String phone, String car, String email, StickersColor type)
+	public String userSignUp(final String name, final String pass, final String phone, final String car, final String email, final StickersColor type)
 			throws LoginException {
-		this.user = null;
+		user = null;
 		String $ = userValueCheck(name, phone, email, car);
 		if (!"Good Params".equals($))
 			throw new LoginException($);
 		try {
-			this.user = new User(name, pass, phone, car, email, type, null);
-			$ = this.user.getObjectId();
-		} catch (Exception e) {
+			user = new User(name, pass, phone, car, email, type, null);
+			$ = user.getObjectId();
+		} catch (final Exception e) {
 			$ = "";
 		}
 		return $;
@@ -115,38 +115,38 @@ public class LoginManager {
 	 *             is thrown if there is a problem with the user value according
 	 *             to the UserValueCheck function
 	 */
-	public boolean userUpdate(String carNumber, String name, String phoneNumber, String email, String newCar,
-			StickersColor type) throws LoginException {
+	public boolean userUpdate(final String carNumber, final String name, final String phoneNumber, final String email, final String newCar,
+			final StickersColor type) throws LoginException {
 		try {
-			String s = userValueCheck(name, phoneNumber, email, newCar.equals(carNumber) ? null : newCar);
+			final String s = userValueCheck(name, phoneNumber, email, newCar.equals(carNumber) ? null : newCar);
 			if (!"Good Params".equals(s))
 				throw new LoginException(s);
 			if (name != null)
-				this.user.setName(name);
+				user.setName(name);
 			if (phoneNumber != null)
-				this.user.setPhoneNumber(phoneNumber);
+				user.setPhoneNumber(phoneNumber);
 			if (email != null)
-				this.user.setEmail(email);
+				user.setEmail(email);
 			if (newCar != null)
-				this.user.setCarName(newCar);
+				user.setCarName(newCar);
 			if (type != null)
-				this.user.setSticker(type);
-		} catch (ParseException e) {
+				user.setSticker(type);
+		} catch (final ParseException e) {
 			throw new LoginException("connection problem with DB");
 		}
 		return true;
 	}
 
 	public String getEmail() {
-		return this.user.getEmail();
+		return user.getEmail();
 	}
 
 	public String getUserName() {
-		return this.user.getName();
+		return user.getName();
 	}
 
 	public String getCarNumber() {
-		return this.user.getCarNumber();
+		return user.getCarNumber();
 	}
 
 	public void deleteUser() throws ParseException {
@@ -154,14 +154,14 @@ public class LoginManager {
 	}
 
 	public String getPhoneNumber() {
-		return this.user.getPhoneNumber();
+		return user.getPhoneNumber();
 	}
 
 	public StickersColor getSticker() {
-		return this.user.getSticker();
+		return user.getSticker();
 	}
 
 	public User getUser() {
-		return this.user;
+		return user;
 	}
 }

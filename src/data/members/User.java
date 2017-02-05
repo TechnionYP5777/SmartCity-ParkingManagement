@@ -53,68 +53,68 @@ public class User extends dbMember {
 	private static final String LAST_LOGIN_TIME = "lastLoginTime";
 	private static final String TABLE_NAME = "PMUser";
 
-	public User(String name, String password, String phoneNumber, String carNumber, String email, StickersColor type,
-			ParkingSlot currentLocation) throws ParseException {
+	public User(final String name, final String password, final String phoneNumber, final String carNumber, final String email, final StickersColor type,
+			final ParkingSlot currentLocation) throws ParseException {
 		DBManager.initialize();
-		this.setParseObject(TABLE_NAME);
-		this.setName(name);
-		this.setPassword(password);
-		this.setPhoneNumber(phoneNumber);
-		this.setCarName(carNumber);
-		this.setSticker(type);
-		this.setEmail(email);
-		this.setCurrentParking(currentLocation);
-		this.setLastLoginTime(null);
-		this.setObjectId();
+		setParseObject(TABLE_NAME);
+		setName(name);
+		setPassword(password);
+		setPhoneNumber(phoneNumber);
+		setCarName(carNumber);
+		setSticker(type);
+		setEmail(email);
+		setCurrentParking(currentLocation);
+		setLastLoginTime(null);
+		setObjectId();
 	}
 
-	public User(String carNumber) throws LoginException {
+	public User(final String carNumber) throws LoginException {
 		DBManager.initialize();
-		this.parseObject = getDbUserObject(carNumber);
-		if (this.parseObject == null)
+		parseObject = getDbUserObject(carNumber);
+		if (parseObject == null)
 			throw new LoginException("user doesn't exist");
-		this.name = this.parseObject.getString(USER_NAME);
-		this.password = this.parseObject.getString(PASSWORD);
-		this.phoneNumber = this.parseObject.getString(PHONE_NUMBER);
-		this.carNumber = this.parseObject.getString(CAR_NUMBER);
-		this.sticker = StickersColor.values()[this.parseObject.getInt(STICKER)];
-		this.email = this.parseObject.getString(EMAIL);
-		this.lastLoginTime = this.parseObject.getDate(LAST_LOGIN_TIME);
-		this.objectId = this.parseObject.getObjectId();
-		if (this.parseObject.getParseObject(PARKING) == null)
+		name = parseObject.getString(USER_NAME);
+		password = parseObject.getString(PASSWORD);
+		phoneNumber = parseObject.getString(PHONE_NUMBER);
+		this.carNumber = parseObject.getString(CAR_NUMBER);
+		sticker = StickersColor.values()[parseObject.getInt(STICKER)];
+		email = parseObject.getString(EMAIL);
+		lastLoginTime = parseObject.getDate(LAST_LOGIN_TIME);
+		objectId = parseObject.getObjectId();
+		if (parseObject.getParseObject(PARKING) == null)
 			return;
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
+		final ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
 		try {
-			this.currentParking = new ParkingSlot(query.get(this.parseObject.getParseObject(PARKING).getObjectId()));
-		} catch (ParseException e) {
+			currentParking = new ParkingSlot(query.get(parseObject.getParseObject(PARKING).getObjectId()));
+		} catch (final ParseException e) {
 		}
 	}
 
-	public User(ParseObject obj) throws ParseException {
+	public User(final ParseObject obj) throws ParseException {
 		DBManager.initialize();
-		this.parseObject = obj;
-		this.name = this.parseObject.getString("username");
-		this.carNumber = this.parseObject.getString("carNumber");
-		this.email = this.parseObject.getString("email");
-		this.password = this.parseObject.getString("password");
-		this.phoneNumber = this.parseObject.getString("phoneNumber");
-		this.sticker = StickersColor.values()[this.parseObject.getInt("sticker")];
-		this.currentParking = this.parseObject.getParseObject("currentParking") == null ? null
-				: new ParkingSlot(this.parseObject.getParseObject("currentParking"));
-		this.lastLoginTime = this.parseObject.getDate(LAST_LOGIN_TIME);
+		parseObject = obj;
+		name = parseObject.getString("username");
+		carNumber = parseObject.getString("carNumber");
+		email = parseObject.getString("email");
+		password = parseObject.getString("password");
+		phoneNumber = parseObject.getString("phoneNumber");
+		sticker = StickersColor.values()[parseObject.getInt("sticker")];
+		currentParking = parseObject.getParseObject("currentParking") == null ? null
+				: new ParkingSlot(parseObject.getParseObject("currentParking"));
+		lastLoginTime = parseObject.getDate(LAST_LOGIN_TIME);
 
-		this.objectId = this.parseObject.getObjectId();
+		objectId = parseObject.getObjectId();
 	}
 
 	/* Get functions */
 
-	private static ParseObject getDbUserObject(String carNumber) {
-		ParseQuery<ParseObject> query = ParseQuery.getQuery(TABLE_NAME);
+	private static ParseObject getDbUserObject(final String carNumber) {
+		final ParseQuery<ParseObject> query = ParseQuery.getQuery(TABLE_NAME);
 		query.whereEqualTo(CAR_NUMBER, carNumber);
 		try {
-			List<ParseObject> $ = query.find();
+			final List<ParseObject> $ = query.find();
 			return $ == null || $.size() != 1 ? null : $.get(0);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			return null;
 		}
 	}
@@ -124,13 +124,13 @@ public class User extends dbMember {
 		if (currentParking != null)
 			try {
 				o = new ParseQuery<ParseObject>("ParkingSlot").get(currentParking.getObjectId());
-			} catch (ParseException e) {
+			} catch (final ParseException e) {
 				System.out.println("could'nt find");
 				return null;
 			}
 		try {
-			this.setParseCurrentParking(o);
-		} catch (ParseException e) {
+			setParseCurrentParking(o);
+		} catch (final ParseException e) {
 			System.out.println("error");
 			return null;
 		}
@@ -138,7 +138,7 @@ public class User extends dbMember {
 	}
 
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	public String getPassword() {
@@ -166,10 +166,10 @@ public class User extends dbMember {
 	}
 
 	/* Set functions */
-	public void setName(String name) throws ParseException {
+	public void setName(final String name) throws ParseException {
 		this.name = name;
-		this.parseObject.put(USER_NAME, name);
-		this.parseObject.save();
+		parseObject.put(USER_NAME, name);
+		parseObject.save();
 	}
 
 	/***
@@ -178,13 +178,13 @@ public class User extends dbMember {
 	 *            object from ParkingSlot class
 	 * @throws ParseException
 	 */
-	public void setCurrentParking(ParkingSlot currentParking) throws ParseException {
+	public void setCurrentParking(final ParkingSlot currentParking) throws ParseException {
 		this.currentParking = currentParking;
 		if (currentParking == null)
-			this.parseObject.remove(PARKING);
+			parseObject.remove(PARKING);
 		else
-			this.parseObject.put(PARKING, currentParking.getParseObject());
-		this.parseObject.save();
+			parseObject.put(PARKING, currentParking.getParseObject());
+		parseObject.save();
 	}
 
 	/***
@@ -193,52 +193,52 @@ public class User extends dbMember {
 	 *            object from Parse server
 	 * @throws ParseException
 	 */
-	public void setParseCurrentParking(ParseObject currentParking) throws ParseException {
+	public void setParseCurrentParking(final ParseObject currentParking) throws ParseException {
 		if (currentParking == null) {
-			this.setCurrentParking(null);
+			setCurrentParking(null);
 			return;
 		}
 		this.currentParking = new ParkingSlot(currentParking);
-		this.parseObject.save();
+		parseObject.save();
 	}
 
-	public void setLastLoginTime(Date lastLoginTime) throws ParseException {
+	public void setLastLoginTime(final Date lastLoginTime) throws ParseException {
 		this.lastLoginTime = lastLoginTime;
 		if (lastLoginTime == null)
-			this.parseObject.remove(LAST_LOGIN_TIME);
+			parseObject.remove(LAST_LOGIN_TIME);
 		else
-			this.parseObject.put(LAST_LOGIN_TIME, lastLoginTime);
-		this.parseObject.save();
+			parseObject.put(LAST_LOGIN_TIME, lastLoginTime);
+		parseObject.save();
 	}
 
-	public void setPassword(String password) throws ParseException {
+	public void setPassword(final String password) throws ParseException {
 		this.password = password;
-		this.parseObject.put(PASSWORD, password);
-		this.parseObject.save();
+		parseObject.put(PASSWORD, password);
+		parseObject.save();
 	}
 
-	public void setPhoneNumber(String phoneNumber) throws ParseException {
+	public void setPhoneNumber(final String phoneNumber) throws ParseException {
 		this.phoneNumber = phoneNumber;
-		this.parseObject.put(PHONE_NUMBER, phoneNumber);
-		this.parseObject.save();
+		parseObject.put(PHONE_NUMBER, phoneNumber);
+		parseObject.save();
 	}
 
-	public void setSticker(StickersColor type) throws ParseException {
-		this.sticker = type;
-		this.parseObject.put(STICKER, type.ordinal());
-		this.parseObject.save();
+	public void setSticker(final StickersColor type) throws ParseException {
+		sticker = type;
+		parseObject.put(STICKER, type.ordinal());
+		parseObject.save();
 	}
 
-	public void setCarName(String carNum) throws ParseException {
-		this.carNumber = carNum;
-		this.parseObject.put(CAR_NUMBER, carNum);
-		this.parseObject.save();
+	public void setCarName(final String carNum) throws ParseException {
+		carNumber = carNum;
+		parseObject.put(CAR_NUMBER, carNum);
+		parseObject.save();
 	}
 
-	public void setEmail(String email) throws ParseException {
+	public void setEmail(final String email) throws ParseException {
 		this.email = email;
-		this.parseObject.put(EMAIL, email);
-		this.parseObject.save();
+		parseObject.put(EMAIL, email);
+		parseObject.save();
 	}
 
 	/**
@@ -250,18 +250,18 @@ public class User extends dbMember {
 	 * @param phoneNumber
 	 * @throws ParseException
 	 */
-	public void updateUser(String name, String phoneNumber) throws ParseException {
-		this.setName(name);
-		this.setPhoneNumber(phoneNumber);
-		this.parseObject.save();
+	public void updateUser(final String name, final String phoneNumber) throws ParseException {
+		setName(name);
+		setPhoneNumber(phoneNumber);
+		parseObject.save();
 	}
 
-	public void updatePassword(String newPassword, String passwordVerify) throws ParseException {
+	public void updatePassword(final String newPassword, final String passwordVerify) throws ParseException {
 		if (!newPassword.equals(passwordVerify))
 			return;
-		this.password = newPassword;
-		this.parseObject.put(PASSWORD, password);
-		this.parseObject.save();
+		password = newPassword;
+		parseObject.put(PASSWORD, password);
+		parseObject.save();
 	}
 
 }

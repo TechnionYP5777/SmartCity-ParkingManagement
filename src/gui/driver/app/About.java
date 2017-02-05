@@ -36,7 +36,7 @@ public class About extends AbstractWindow {
 		window.getIcons().add(new Image(getClass().getResourceAsStream("Smart_parking_icon.png")));
 	}
 
-	public void display(Stage primaryStage, WindowEnum __, Button buttonMute) {
+	public void display(final Stage primaryStage, final WindowEnum __, final Button buttonMute) {
 		window = primaryStage;
 		window.setTitle("About");
 		window.setWidth(1350);
@@ -47,21 +47,21 @@ public class About extends AbstractWindow {
 		label.setStyle("-fx-background-color: white;\n" + "-fx-text-fill: black;\n" + "-fx-background-radius: 10px;\n"
 				+ "-fx-padding: 10px;\n" + "-fx-graphic-text-gap: 10px;\n" + "-fx-font-family: 'Arial';\n"
 				+ "-fx-font-size: 18px;");
-		VBox vbox = new VBox(10);
+		final VBox vbox = new VBox(10);
 		vbox.setStyle("-fx-background-color: null; -fx-padding: 10px;");
 		// System.out.println("HERE IS BUTTONMUTE: "+ buttonMute.toString());
 
 		if (!isLinuxOS) {
-			Button AboutMute = StaticMethods.cloneButton(buttonMute);
+			final Button AboutMute = StaticMethods.cloneButton(buttonMute);
 			muteButtonsAL.add(AboutMute);
 			vbox.getChildren().add(AboutMute);
 		}
 
-		Button backButton = new Button();
+		final Button backButton = new Button();
 		backButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("back_button.png"))));
 		backButton.getStyleClass().add("button-go");
 		backButton.setOnAction(λ -> {
-			this.window.close();
+			window.close();
 			// if (!isLinuxOS)
 			// StaticMethods.dealWithMute(mediaPlayer, buttonMute, true);
 			prevWindows.get(prevWindows.size() - 1).window.show();
@@ -69,7 +69,7 @@ public class About extends AbstractWindow {
 		});
 		vbox.getChildren().addAll(label, backButton);
 		vbox.setAlignment(Pos.CENTER);
-		Scene scene = new Scene(vbox);
+		final Scene scene = new Scene(vbox);
 		window.setScene(scene);
 		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());
 		window.show();

@@ -5,9 +5,9 @@ public class MapLocation {
 	private double lat;
 	private double lon;
 
-	public MapLocation(double latitude, double longitude) {
-		this.lat = latitude;
-		this.lon = longitude;
+	public MapLocation(final double latitude, final double longitude) {
+		lat = latitude;
+		lon = longitude;
 	}
 
 	public double getLat() {
@@ -18,11 +18,11 @@ public class MapLocation {
 		return lon;
 	}
 
-	public void setLat(double lat) {
+	public void setLat(final double lat) {
 		this.lat = lat;
 	}
 
-	public void setLon(double lon) {
+	public void setLon(final double lon) {
 		this.lon = lon;
 	}
 }

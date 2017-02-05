@@ -1,8 +1,6 @@
 package gui.manager.app;
 
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -71,12 +69,7 @@ public class ManagerMainScreenContorller implements Initializable {
 	private void triggerNotifications() {
 		Notifications.create().title("Color has changed").text("In Taub, from RED to GRAY").owner(mainBorderPane)
 				.graphic(new ImageView(new Image(getClass().getResourceAsStream("project-logo-with-shadow.png"))))
-				.hideAfter(Duration.seconds(7)).position(Pos.BOTTOM_RIGHT).onAction(new EventHandler<ActionEvent>() {
-					@Override
-					public void handle(ActionEvent $) {
-						System.out.println("Clicked");
-					}
-				}).show();
+				.hideAfter(Duration.seconds(7)).position(Pos.BOTTOM_RIGHT).onAction($ -> System.out.println("Clicked")).show();
 	}
 
 	@FXML
@@ -97,31 +90,31 @@ public class ManagerMainScreenContorller implements Initializable {
 	private int allTakenSlots;
 
 	@Override
-	public void initialize(URL location, ResourceBundle __) {
+	public void initialize(final URL location, final ResourceBundle __) {
 
 		editBtn.setDisable(true);
 
 		// Initialize parking areas list
-		ParkingAreas pa = new ParkingAreas();
+		final ParkingAreas pa = new ParkingAreas();
 		try {
 			parkingAreasListView.setItems(FXCollections.observableList((ArrayList<String>) pa.getParkingAreasNames()));
-		} catch (ParseException ¢) {
+		} catch (final ParseException ¢) {
 			¢.printStackTrace();
 		}
 
 		// Initialize map
-		ParkingAreas pareas = new ParkingAreas();
+		final ParkingAreas pareas = new ParkingAreas();
 		HashMap<String, MapLocation> locations = new HashMap<>();
-		HashMap<String, String> colors = new HashMap<>();
+		final HashMap<String, String> colors = new HashMap<>();
 		try {
 			locations = pareas.getParkingAreasLocation();
 			pareas.getParkingAreasColor().forEach((k, v) -> colors.put(k, v.name()));
-		} catch (ParseException e1) {
+		} catch (final ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		ManegerMap map = new ManegerMap(locations, colors);
-		GoogleMapView view = new GoogleMapView(Locale.getDefault().getLanguage(), null);
+		final ManegerMap map = new ManegerMap(locations, colors);
+		final GoogleMapView view = new GoogleMapView(Locale.getDefault().getLanguage(), null);
 		map.SetMapComponent(view);
 		System.out.println("View is now loading...");
 		view.setMaxHeight(Region.USE_COMPUTED_SIZE);
@@ -131,11 +124,11 @@ public class ManagerMainScreenContorller implements Initializable {
 		mapVBox.getChildren().addAll(view);
 
 		// Initialize total slots amount
-		ParkingAreas parkingAreas = new ParkingAreas();
+		final ParkingAreas parkingAreas = new ParkingAreas();
 		try {
 			allFreeSlots = parkingAreas.getNumOfFreeSlots();
 			allTakenSlots = parkingAreas.getNumOfTakenSlots();
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			allTakenSlots = allFreeSlots = 0;
 			freeSlotsLbl.setTextFill(Color.web("#cc3300"));
 			takenSlotsLbl.setTextFill(Color.web("#cc3300"));
@@ -163,7 +156,7 @@ public class ManagerMainScreenContorller implements Initializable {
 				freeSlotsLbl.setTextFill(Color.web("#000"));
 				takenSlotsLbl.setTextFill(Color.web("#000"));
 				totalSlotsLbl.setTextFill(Color.web("#000"));
-			} catch (Exception e) {
+			} catch (final Exception e) {
 				freeSlotsLbl.setTextFill(Color.web("#cc3300"));
 				takenSlotsLbl.setTextFill(Color.web("#cc3300"));
 				totalSlotsLbl.setTextFill(Color.web("#cc3300"));

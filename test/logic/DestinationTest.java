@@ -10,11 +10,11 @@ public class DestinationTest {
 	@Test
 	public void getDestinationNameTest() {
 		try {
-			Destination d = new Destination("taubTest123", new MapLocation(32.778069, 35.021935));
+			final Destination d = new Destination("taubTest123", new MapLocation(32.778069, 35.021935));
 			Assert.assertEquals("taubTest123", d.getDestinationName());
 			d.deleteParseObject();
 
-		} catch (Exception ¢) {
+		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
 		}
@@ -23,12 +23,12 @@ public class DestinationTest {
 	@Test
 	public void getEntranceTest() {
 		try {
-			Destination d = new Destination("taubTest123", new MapLocation(32.778069, 35.021935));
+			final Destination d = new Destination("taubTest123", new MapLocation(32.778069, 35.021935));
 			Assert.assertEquals(d.getEntrance().getLat(), 32.778069, 0);
 			Assert.assertEquals(d.getEntrance().getLon(), 35.021935, 0);
 			d.deleteParseObject();
 
-		} catch (Exception ¢) {
+		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
 		}
@@ -49,11 +49,11 @@ public class DestinationTest {
 
 		Assert.assertEquals(Destination.destinationExists("taubTest123"), false);
 		try {
-			Destination d = new Destination("taubTest123", new MapLocation(32.778069, 35.021935));
+			final Destination d = new Destination("taubTest123", new MapLocation(32.778069, 35.021935));
 			Assert.assertEquals(Destination.destinationExists("taubTest123"), true);
 			d.deleteParseObject();
 
-		} catch (Exception ¢) {
+		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
 		}
@@ -71,12 +71,12 @@ public class DestinationTest {
 			d2 = new Destination("taubTest124", new MapLocation(32.778069, 35.021935));
 			d1.setDestinationName("taubTest124");
 			Assert.fail();
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			Assert.assertEquals(e.getClass().getSimpleName(), "AlreadyExists");
 			try {
 				d1.deleteParseObject();
 				d2.deleteParseObject();
-			} catch (ParseException e2) {
+			} catch (final ParseException e2) {
 				e2.printStackTrace();
 				Assert.fail();
 			}
@@ -88,14 +88,14 @@ public class DestinationTest {
 	@Test
 	public void setDestinationNameTest2() {
 		try {
-			Destination d = new Destination("taubTest123", new MapLocation(32.778069, 35.021935));
+			final Destination d = new Destination("taubTest123", new MapLocation(32.778069, 35.021935));
 			d.setDestinationName("taubTest124");
 			Assert.assertEquals(d.getDestinationName(), "taubTest124");
 			Assert.assertEquals(Destination.destinationExists("taubTest123"), false);
 			Assert.assertEquals(Destination.destinationExists("taubTest124"), true);
 			d.deleteParseObject();
 
-		} catch (Exception ¢) {
+		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
 		}
@@ -105,15 +105,15 @@ public class DestinationTest {
 	public void setEntranceTest() {
 		try {
 
-			Destination d1 = new Destination("taubTest123", new MapLocation(32.777318, 35.021149));
+			final Destination d1 = new Destination("taubTest123", new MapLocation(32.777318, 35.021149));
 			d1.setEntrance(new MapLocation(32.778069, 35.021935));
 			Assert.assertEquals(d1.getEntrance().getLat(), 32.778069, 0);
 			Assert.assertEquals(d1.getEntrance().getLon(), 35.021935, 0);
-			Destination d2 = new Destination("taubTest123");
+			final Destination d2 = new Destination("taubTest123");
 			Assert.assertEquals(d1.getEntrance().getLat(), d2.getEntrance().getLat(), 0);
 			Assert.assertEquals(d1.getEntrance().getLon(), d2.getEntrance().getLon(), 0);
 			d1.deleteParseObject();
-		} catch (Exception ¢) {
+		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
 		}
@@ -135,11 +135,11 @@ public class DestinationTest {
 			d = new Destination("taubTest123", new MapLocation(32.778069, 35.021935));
 			Assert.fail();
 
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			Assert.assertEquals(e.getClass().getSimpleName(), "AlreadyExists");
 			try {
 				d.deleteParseObject();
-			} catch (ParseException e2) {
+			} catch (final ParseException e2) {
 				e2.printStackTrace();
 				Assert.fail();
 			}
@@ -157,13 +157,13 @@ public class DestinationTest {
 
 		Assert.assertEquals(Destination.destinationExists("taubTest123"), false);
 		try {
-			Destination d = new Destination("taubTest123", new MapLocation(32.778069, 35.021935)),
+			final Destination d = new Destination("taubTest123", new MapLocation(32.778069, 35.021935)),
 					d2 = new Destination("taubTest123");
 			Assert.assertEquals("taubTest123", d2.getDestinationName());
 			Assert.assertEquals(d.getEntrance().getLat(), d2.getEntrance().getLat(), 0);
 			Assert.assertEquals(d.getEntrance().getLon(), d2.getEntrance().getLon(), 0);
 			d.deleteParseObject();
-		} catch (Exception ¢) {
+		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
 		}
@@ -182,7 +182,7 @@ public class DestinationTest {
 		try {
 			new Destination("taubTest123");
 			Assert.fail();
-		} catch (Exception ¢) {
+		} catch (final Exception ¢) {
 			Assert.assertEquals(¢.getClass().getSimpleName(), "NotExists");
 		}
 	}

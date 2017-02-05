@@ -37,10 +37,10 @@ public class QueriesTest {
 
 			// test function
 
-			ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
+			final ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
 			query.whereEqualTo("carNumber", "60606060");
 
-			List<ParseObject> userList = query.find();
+			final List<ParseObject> userList = query.find();
 			if (userList == null || userList.isEmpty())
 				throw new RuntimeException("There should be an area with carNumber=606060");
 			Assert.assertEquals(StickersColor.BLUE, new Queries().getColorByUser(new User(userList.get(0))));
@@ -48,7 +48,7 @@ public class QueriesTest {
 			// remove new ParkingArea and ParkingSlots
 			new User(userList.get(0)).deleteParseObject();
 
-		} catch (ParseException e) {
+		} catch (final ParseException e) {
 			fail();
 		}
 	}
@@ -62,10 +62,10 @@ public class QueriesTest {
 
 			// test function
 
-			ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
+			final ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
 			query.whereEqualTo("carNumber", "60606060");
 
-			List<ParseObject> userList = query.find();
+			final List<ParseObject> userList = query.find();
 			if (userList == null || userList.isEmpty())
 				throw new RuntimeException("There should be an area with carNumber=606060");
 			Assert.assertEquals(null, new Queries().getParkingslotByUser(new User(userList.get(0))));
@@ -73,7 +73,7 @@ public class QueriesTest {
 			// remove new ParkingArea and ParkingSlots
 			new User(userList.get(0)).deleteParseObject();
 
-		} catch (ParseException e) {
+		} catch (final ParseException e) {
 			fail();
 		}
 	}
@@ -81,18 +81,18 @@ public class QueriesTest {
 	@Test
 	public void test3() throws ParseException {
 		DBManager.initialize();
-		ParkingSlot slot1 = new ParkingSlot("testS", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
+		final ParkingSlot slot1 = new ParkingSlot("testS", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
 				new MapLocation(0, 0), new Date());
 
 		try {
-			ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
+			final ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
 			query.whereEqualTo("name", "testS");
-			List<ParseObject> slotsList = query.find();
+			final List<ParseObject> slotsList = query.find();
 			if (slotsList == null || slotsList.isEmpty())
 				throw new RuntimeException("There should be parkingSlot named taub3");
 
 			Assert.assertEquals(null, new Queries().getUserByParkingslot(new ParkingSlot(slotsList.get(0))));
-		} catch (ParseException e) {
+		} catch (final ParseException e) {
 			fail();
 		}
 		slot1.deleteParseObject();
@@ -102,27 +102,27 @@ public class QueriesTest {
 	public void test4() {
 		DBManager.initialize();
 		try {
-			ParkingSlot slot1 = new ParkingSlot("testS1", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
+			final ParkingSlot slot1 = new ParkingSlot("testS1", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
 					new MapLocation(0, 0), new Date()),
 					slot2 = new ParkingSlot("testS2", ParkingSlotStatus.TAKEN, StickersColor.RED, StickersColor.RED,
 							new MapLocation(0, 0), new Date());
-			Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
+			final Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
 			slots.add(slot2);
 
-			ParkingArea area = new ParkingArea(20, "t1", new MapLocation(0, 0), slots, StickersColor.RED);
+			final ParkingArea area = new ParkingArea(20, "t1", new MapLocation(0, 0), slots, StickersColor.RED);
 
 			DBManager.initialize();
-			ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
+			final ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
 			query.whereEqualTo("areaId", 20);
-			List<ParseObject> areaList = query.find();
+			final List<ParseObject> areaList = query.find();
 			if (areaList == null || areaList.isEmpty())
 				throw new RuntimeException("There should be an area with areaId=1");
 			Assert.assertEquals(1, new Queries().getNumOfTakenByArea(new ParkingArea(areaList.get(0))));
 			area.deleteParseObject();
 			slot1.deleteParseObject();
 			slot2.deleteParseObject();
-		} catch (ParseException e) {
+		} catch (final ParseException e) {
 			fail();
 		}
 	}
@@ -131,27 +131,27 @@ public class QueriesTest {
 	public void test5() {
 		DBManager.initialize();
 		try {
-			ParkingSlot slot1 = new ParkingSlot("testS1", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
+			final ParkingSlot slot1 = new ParkingSlot("testS1", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
 					new MapLocation(0, 0), new Date()),
 					slot2 = new ParkingSlot("testS2", ParkingSlotStatus.TAKEN, StickersColor.RED, StickersColor.RED,
 							new MapLocation(0, 0), new Date());
-			Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
+			final Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
 			slots.add(slot2);
 
-			ParkingArea area = new ParkingArea(20, "t1", new MapLocation(0, 0), slots, StickersColor.RED);
+			final ParkingArea area = new ParkingArea(20, "t1", new MapLocation(0, 0), slots, StickersColor.RED);
 
 			DBManager.initialize();
-			ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
+			final ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
 			query.whereEqualTo("areaId", 20);
-			List<ParseObject> areaList = query.find();
+			final List<ParseObject> areaList = query.find();
 			if (areaList == null || areaList.isEmpty())
 				throw new RuntimeException("There should be an area with areaId=1");
 			Assert.assertEquals(1, new Queries().getNumOfFreeByArea(new ParkingArea(areaList.get(0))));
 			area.deleteParseObject();
 			slot1.deleteParseObject();
 			slot2.deleteParseObject();
-		} catch (ParseException e) {
+		} catch (final ParseException e) {
 			fail();
 		}
 	}
@@ -171,14 +171,14 @@ public class QueriesTest {
 	@Test
 	public void test8() {
 		DBManager.initialize();
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
+		final ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
 		query.whereEqualTo("areaId", 1);
 		try {
-			List<ParseObject> areaList = query.find();
+			final List<ParseObject> areaList = query.find();
 			if (areaList == null || areaList.isEmpty())
 				throw new RuntimeException("There should be an area with areaId=1");
 			Assert.assertEquals(10, new Queries().getNumOfSlotsByArea(new ParkingArea(areaList.get(0))));
-		} catch (ParseException e) {
+		} catch (final ParseException e) {
 			fail();
 		}
 	}
@@ -187,28 +187,28 @@ public class QueriesTest {
 	public void test9() throws ParseException {
 		DBManager.initialize();
 		try {
-			ParkingSlot slot1 = new ParkingSlot("testS1", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
+			final ParkingSlot slot1 = new ParkingSlot("testS1", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
 					new MapLocation(0, 0), new Date()),
 					slot2 = new ParkingSlot("testS2", ParkingSlotStatus.TAKEN, StickersColor.RED, StickersColor.RED,
 							new MapLocation(0, 0), new Date());
-			Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
+			final Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
 			slots.add(slot2);
 
-			ParkingArea area = new ParkingArea(20, "t1", new MapLocation(0, 0), slots, StickersColor.RED);
+			final ParkingArea area = new ParkingArea(20, "t1", new MapLocation(0, 0), slots, StickersColor.RED);
 
 			DBManager.initialize();
-			ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
+			final ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
 			query.whereEqualTo("areaId", 20);
-			List<ParseObject> areaList = query.find();
+			final List<ParseObject> areaList = query.find();
 			if (areaList == null || areaList.isEmpty())
 				throw new RuntimeException("There should be an area with areaId=1");
 			Assert.assertEquals("testS1",
-					(new Queries().getParkingslotByArea(new ParkingArea(areaList.get(0)))).getName());
+					new Queries().getParkingslotByArea(new ParkingArea(areaList.get(0))).getName());
 			area.deleteParseObject();
 			slot1.deleteParseObject();
 			slot2.deleteParseObject();
-		} catch (ParseException e) {
+		} catch (final ParseException e) {
 			fail();
 		}
 	}
@@ -219,17 +219,17 @@ public class QueriesTest {
 			DBManager.initialize();
 			// insert new User
 			new User("query1", "123456", "0541234567", "60606060", "test@gmail.com", StickersColor.BLUE, null);
-			ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
+			final ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
 			query.whereEqualTo("carNumber", "60606060");
 
-			List<ParseObject> userList = query.find();
+			final List<ParseObject> userList = query.find();
 			if (userList == null || userList.isEmpty())
 				throw new RuntimeException("There should be an area with carNumber=606060");
 
 			Assert.assertEquals("query1", new Queries().returnUser("60606060").getName());
 			// remove new ParkingArea and ParkingSlots
 			new User(userList.get(0)).deleteParseObject();
-		} catch (ParseException e) {
+		} catch (final ParseException e) {
 			fail();
 		}
 	}
@@ -240,17 +240,17 @@ public class QueriesTest {
 			DBManager.initialize();
 			// insert new User
 			new User("query1", "123456", "0541234567", "60606060", "test@gmail.com", StickersColor.BLUE, null);
-			ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
+			final ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
 			query.whereEqualTo("carNumber", "60606060");
 
-			List<ParseObject> userList = query.find();
+			final List<ParseObject> userList = query.find();
 			if (userList == null || userList.isEmpty())
 				throw new RuntimeException("There should be an area with carNumber=606060");
 			Assert.assertEquals("query1", new Queries().returnUserName("60606060"));
 
 			// remove new ParkingArea and ParkingSlots
 			new User(userList.get(0)).deleteParseObject();
-		} catch (ParseException e) {
+		} catch (final ParseException e) {
 			fail();
 		}
 	}
@@ -261,17 +261,17 @@ public class QueriesTest {
 			DBManager.initialize();
 			// insert new User
 			new User("query1", "123456", "0541234567", "60606060", "test@gmail.com", StickersColor.BLUE, null);
-			ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
+			final ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
 			query.whereEqualTo("carNumber", "60606060");
 
-			List<ParseObject> userList = query.find();
+			final List<ParseObject> userList = query.find();
 			if (userList == null || userList.isEmpty())
 				throw new RuntimeException("There should be an area with carNumber=60606060");
 			Assert.assertEquals("123456", new Queries().returnUserPassword("60606060"));
 
 			// remove new ParkingArea and ParkingSlots
 			new User(userList.get(0)).deleteParseObject();
-		} catch (ParseException e) {
+		} catch (final ParseException e) {
 			fail();
 		}
 	}
@@ -282,17 +282,17 @@ public class QueriesTest {
 			DBManager.initialize();
 			// insert new User
 			new User("query1", "123456", "0541234567", "60606060", "test@gmail.com", StickersColor.BLUE, null);
-			ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
+			final ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
 			query.whereEqualTo("carNumber", "60606060");
 
-			List<ParseObject> userList = query.find();
+			final List<ParseObject> userList = query.find();
 			if (userList == null || userList.isEmpty())
 				throw new RuntimeException("There should be an area with carNumber=60606060");
 			Assert.assertEquals("0541234567", new Queries().returnUserPhoneNum("60606060"));
 
 			// remove new ParkingArea and ParkingSlots
 			new User(userList.get(0)).deleteParseObject();
-		} catch (ParseException e) {
+		} catch (final ParseException e) {
 			fail();
 		}
 	}
@@ -303,17 +303,17 @@ public class QueriesTest {
 			DBManager.initialize();
 			// insert new User
 			new User("query1", "123456", "0541234567", "60606060", "test@gmail.com", StickersColor.BLUE, null);
-			ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
+			final ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
 			query.whereEqualTo("carNumber", "60606060");
 
-			List<ParseObject> userList = query.find();
+			final List<ParseObject> userList = query.find();
 			if (userList == null || userList.isEmpty())
 				throw new RuntimeException("There should be an area with carNumber=60606060");
 			Assert.assertEquals(StickersColor.BLUE, new Queries().returnUserSticker("60606060"));
 
 			// remove new ParkingArea and ParkingSlots
 			new User(userList.get(0)).deleteParseObject();
-		} catch (ParseException e) {
+		} catch (final ParseException e) {
 			fail();
 		}
 	}
@@ -322,14 +322,14 @@ public class QueriesTest {
 	public void test15() {
 		DBManager.initialize();
 		try {
-			ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
+			final ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
 			query.whereEqualTo("name", "taub3");
-			List<ParseObject> slotsList = query.find();
+			final List<ParseObject> slotsList = query.find();
 			if (slotsList == null || slotsList.isEmpty())
 				throw new RuntimeException("There should be parkingSlot named taub3");
 			Assert.assertNull(new Queries().returnUserCurrentParking("6060"));
 
-		} catch (ParseException e) {
+		} catch (final ParseException e) {
 			fail();
 		}
 
@@ -364,14 +364,14 @@ public class QueriesTest {
 	@Test
 	public void test20() {
 		DBManager.initialize();
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
+		final ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
 		query.whereEqualTo("areaId", 1);
 		try {
-			List<ParseObject> areaList = query.find();
+			final List<ParseObject> areaList = query.find();
 			if (areaList == null || areaList.isEmpty())
 				throw new RuntimeException("There should be an area with areaId=1");
 			Assert.assertEquals(1, new Queries().returnArea(1).getAreaId());
-		} catch (ParseException e) {
+		} catch (final ParseException e) {
 			fail();
 		}
 	}

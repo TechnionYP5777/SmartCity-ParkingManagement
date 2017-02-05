@@ -11,11 +11,11 @@ import javafx.stage.Stage;
 public class App extends Application {
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("ManagerMainScreen.fxml"));
+	public void start(final Stage primaryStage) throws Exception {
+		final Parent root = FXMLLoader.load(getClass().getResource("ManagerMainScreen.fxml"));
 		primaryStage.setTitle("Manage Parking");
-		Scene scene = new Scene(root, 1200, 670);
-		URL url = this.getClass().getResource("NotificationStyle.css");
+		final Scene scene = new Scene(root, 1200, 670);
+		final URL url = this.getClass().getResource("NotificationStyle.css");
 		if (url == null) {
 			System.out.println("Resource not found. Aborting.");
 			System.exit(-1);
@@ -25,7 +25,7 @@ public class App extends Application {
 		primaryStage.show();
 	}
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		launch(args);
 	}
 }

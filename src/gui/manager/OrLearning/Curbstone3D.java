@@ -20,29 +20,29 @@ import javafx.util.Duration;
 public class Curbstone3D extends Application {
 
 	@Override
-	public void start(Stage s) throws Exception {
+	public void start(final Stage s) throws Exception {
 		s.setTitle("Curbstone 3D");
-		Curbstone c = new Curbstone(50, Color.web("#DC143C"), 1);
+		final Curbstone c = new Curbstone(50, Color.web("#DC143C"), 1);
 		c.setTranslateX(0);
 		c.rx.setAngle(25);
 		c.ry.setAngle(45);
 
-		Timeline animation = new Timeline();
+		final Timeline animation = new Timeline();
 		animation.getKeyFrames().addAll(new KeyFrame(Duration.ZERO, new KeyValue(c.ry.angleProperty(), 0d)),
 				new KeyFrame(Duration.valueOf("20000ms"), new KeyValue(c.ry.angleProperty(), 360d)));
 		animation.setCycleCount(Animation.INDEFINITE);
 		// create root group
-		Parent root = c;
+		final Parent root = c;
 		// translate and rotate group so that origin is center and +Y is up
 		root.setTranslateX(200);
 		root.setTranslateY(75);
-		Line line = new Line(200, 200, 200, 200);
-		Rotate rotation = new Rotate(1, Rotate.Y_AXIS);
+		final Line line = new Line(200, 200, 200, 200);
+		final Rotate rotation = new Rotate(1, Rotate.Y_AXIS);
 		rotation.pivotXProperty().bind(line.startXProperty());
 		rotation.pivotYProperty().bind(line.startYProperty());
 		root.getTransforms().add(rotation);
 		// create scene
-		Scene scene = new Scene(root, 400, 150);
+		final Scene scene = new Scene(root, 400, 150);
 		scene.setCamera(new PerspectiveCamera());
 		s.setScene(scene);
 		s.show();
@@ -50,7 +50,7 @@ public class Curbstone3D extends Application {
 		animation.play();
 	}
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		launch(args);
 	}
 
@@ -59,7 +59,7 @@ public class Curbstone3D extends Application {
 		final Rotate ry = new Rotate(0, Rotate.Y_AXIS);
 		final Rotate rz = new Rotate(0, Rotate.Z_AXIS);
 
-		public Curbstone(double size, Color color, double shade) {
+		public Curbstone(final double size, final Color color, final double shade) {
 			getTransforms().addAll(rz, ry, rx);
 			getChildren().addAll(
 					RectangleBuilder.create() // back face

@@ -13,9 +13,9 @@ import javafx.stage.Stage;
 
 public class ChooseAction extends AbstractWindow {
 
-	public void display(Stage primaryStage, WindowEnum prevWindow, ArrayList<AbstractWindow> prevWindows) {
-		String title = "Next Action", message = "Choose next action";
-		GridPane layout = new GridPane();
+	public void display(final Stage primaryStage, final WindowEnum prevWindow, final ArrayList<AbstractWindow> prevWindows) {
+		final String title = "Next Action", message = "Choose next action";
+		final GridPane layout = new GridPane();
 		layout.setHgap(10);
 		layout.setVgap(10);
 		layout.setPadding(new Insets(10, 10, 10, 10));
@@ -25,31 +25,31 @@ public class ChooseAction extends AbstractWindow {
 		window.setTitle(title);
 		window.setMinWidth(250);
 
-		Label label = new Label();
+		final Label label = new Label();
 		label.setText(message);
 		GridPane.setConstraints(label, 0, 0);
 
-		Button button1 = new Button("Get Password");
+		final Button button1 = new Button("Get Password");
 		button1.setOnAction(e -> {
 			window.close();
-			GetPassByMail GPBM = new GetPassByMail();
+			final GetPassByMail GPBM = new GetPassByMail();
 			prevWindows.add(this);
 			GPBM.display(primaryStage, WindowEnum.CHOOSE_ACTION, prevWindows);
 
 		});
 		GridPane.setConstraints(button1, 0, 1);
 
-		Button button3 = new Button("My Details");
+		final Button button3 = new Button("My Details");
 		button3.setOnAction(e -> {
 			window.close();
-			MyDetails MD = new MyDetails();
+			final MyDetails MD = new MyDetails();
 			prevWindows.add(this);
 			MD.display(primaryStage, WindowEnum.CHOOSE_ACTION, null, null, prevWindows);
 
 		});
 		GridPane.setConstraints(button3, 2, 1);
 
-		Button button2 = new Button("Close Program");
+		final Button button2 = new Button("Close Program");
 		button2.setOnAction(λ -> {
 			if (prevWindow == WindowEnum.NONE && ConfirmBox.display("Confirmation", "Are you sure you want to exit?"))
 				window.close();

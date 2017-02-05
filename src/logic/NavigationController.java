@@ -20,44 +20,44 @@ import data.members.User;
 
 public class NavigationController {
 
-	private User user;
+	private final User user;
 
 	private MapLocation currentLocation;
 
 	private Destination destination;
 
-	private Map<String, Destination> destinations;
+	private final Map<String, Destination> destinations;
 
 	private Map<Integer, ParkingArea> parkingAreas;
 
 	private boolean walking;
 
-	private ParkingAreas allAreas;
+	private final ParkingAreas allAreas;
 
-	public NavigationController(User user) {
+	public NavigationController(final User user) {
 		this.user = user;
-		this.walking = false;
-		this.destinations = Destination.getDestinations();
-		this.allAreas = new ParkingAreas();
+		walking = false;
+		destinations = Destination.getDestinations();
+		allAreas = new ParkingAreas();
 	}
 
-	public NavigationController(User user, MapLocation currentLocation, List<Destination> faculties, boolean walking) {
+	public NavigationController(final User user, final MapLocation currentLocation, final List<Destination> faculties, final boolean walking) {
 		this.user = user;
-		this.destinations = new HashMap<String, Destination>();
-		this.allAreas = new ParkingAreas();
+		destinations = new HashMap<String, Destination>();
+		allAreas = new ParkingAreas();
 		this.walking = walking;
 		this.currentLocation = currentLocation;
-		for (Destination ¢ : faculties)
-			this.destinations.put(¢.getDestinationName(), ¢);
-		for (ParkingArea ¢ : allAreas.getParkingAreas())
-			this.parkingAreas.put(¢.getAreaId(), ¢);
+		for (final Destination ¢ : faculties)
+			destinations.put(¢.getDestinationName(), ¢);
+		for (final ParkingArea ¢ : allAreas.getParkingAreas())
+			parkingAreas.put(¢.getAreaId(), ¢);
 	}
 
 	public Set<String> getLocations() {
 		return destinations.keySet();
 	}
 
-	public Destination getDestination(String key) {
+	public Destination getDestination(final String key) {
 		return destinations.get(key);
 	}
 
@@ -71,21 +71,21 @@ public class NavigationController {
 		return null;
 	}
 
-	public void chooseDestination(String name) {
+	public void chooseDestination(final String name) {
 		if (name == null || !destinations.containsKey(name))
 			showError("No such Faculy exists.");
-		this.destination = destinations.get(name);
+		destination = destinations.get(name);
 	}
 
-	public void setLocation(MapLocation newLocation) {
-		this.currentLocation = newLocation;
+	public void setLocation(final MapLocation newLocation) {
+		currentLocation = newLocation;
 	}
 
 	public MapLocation getLocation() {
 		return currentLocation;
 	}
 
-	public void setWalking(boolean walking) {
+	public void setWalking(final boolean walking) {
 		this.walking = walking;
 	}
 
@@ -94,7 +94,7 @@ public class NavigationController {
 	}
 
 	// TODO: replace all System.out.println to GUI
-	private void showError(String msg) {
+	private void showError(final String msg) {
 		System.out.println(msg);
 	}
 }

@@ -39,7 +39,7 @@ public class Register extends AbstractWindow {
 		window.getIcons().add(new Image(getClass().getResourceAsStream("Smart_parking_icon.png")));
 	}
 
-	public void display(Stage primaryStage, WindowEnum __) {
+	public void display(final Stage primaryStage, final WindowEnum __) {
 
 		/*
 		 * System.out.println("Sound the music!"); URL resource =
@@ -51,7 +51,7 @@ public class Register extends AbstractWindow {
 
 		window = primaryStage;
 		window.getIcons().add(new Image(getClass().getResourceAsStream("Smart_parking_icon.png")));
-		GridPane grid = new GridPane();
+		final GridPane grid = new GridPane();
 		grid.setPadding(new Insets(20, 20, 20, 20));
 		grid.setVgap(8);
 		grid.setHgap(10);
@@ -59,10 +59,10 @@ public class Register extends AbstractWindow {
 		window.setHeight(480);
 
 		// title
-		DropShadow shadow = new DropShadow();
+		final DropShadow shadow = new DropShadow();
 		shadow.setOffsetY(4.0);
 		shadow.setColor(Color.color(0.4f, 0.4f, 0.4f));
-		Label title = new Label();
+		final Label title = new Label();
 		title.setEffect(shadow);
 		title.setTextFill(Color.ROYALBLUE);
 		title.setTextAlignment(TextAlignment.CENTER);
@@ -71,62 +71,62 @@ public class Register extends AbstractWindow {
 		title.getStyleClass().add("label-title");
 
 		// user
-		Label user = new Label("Username");
-		TextField nameInput = new TextField();
+		final Label user = new Label("Username");
+		final TextField nameInput = new TextField();
 		nameInput.setPromptText("username");
 
 		// password
-		Label pass = new Label("Password");
-		PasswordField passInput = new PasswordField();
+		final Label pass = new Label("Password");
+		final PasswordField passInput = new PasswordField();
 		passInput.setPromptText("password");
 
 		// phone number
-		HBox hboxPhone = new HBox();
-		Label phoneNumber = new Label("Phone Number");
-		ChoiceBox<String> prefixNumber = new ChoiceBox<>();
+		final HBox hboxPhone = new HBox();
+		final Label phoneNumber = new Label("Phone Number");
+		final ChoiceBox<String> prefixNumber = new ChoiceBox<>();
 		prefixNumber.getItems().addAll("050", "052", "053", "054", "057");
 		prefixNumber.setValue("050");
 		prefixNumber.getStyleClass().add("cb");
-		TextField phoneNumberInput = new TextField();
+		final TextField phoneNumberInput = new TextField();
 		phoneNumberInput.setMaxWidth(95);
 		// phoneNumberInput.setMaxWidth(50);
 		phoneNumberInput.setPromptText("phone number");
 		hboxPhone.getChildren().addAll(prefixNumber, phoneNumberInput);
 
 		// car number
-		Label carNumber = new Label("Car Number");
-		TextField carNumberInput = new TextField();
+		final Label carNumber = new Label("Car Number");
+		final TextField carNumberInput = new TextField();
 		carNumberInput.setPromptText("car number");
 
 		// email
-		Label mail = new Label("E-Mail");
-		TextField mailInput = new TextField();
+		final Label mail = new Label("E-Mail");
+		final TextField mailInput = new TextField();
 		mailInput.setPromptText("e-mail");
 
-		Label sticker = new Label("Sticker Color");
-		ChoiceBox<String> stickerColor = new ChoiceBox<>();
+		final Label sticker = new Label("Sticker Color");
+		final ChoiceBox<String> stickerColor = new ChoiceBox<>();
 		stickerColor.getItems().addAll("Blue", "Green", "White", "Red", "Bordeaux", "Yellow");
 		stickerColor.setValue("Blue");
 		stickerColor.getStyleClass().add("cb");
-		Hyperlink wantLogin = new Hyperlink();
+		final Hyperlink wantLogin = new Hyperlink();
 		wantLogin.setText("Already Registered?");
 		wantLogin.setOnAction(λ -> {
 			// AbstractWindow.prevWindows.add(this); --> will return to login
 			// instead of mainMenu
 			window.close();
-			(new Login()).display(primaryStage, WindowEnum.SIGN_UP);
+			new Login().display(primaryStage, WindowEnum.SIGN_UP);
 		});
 
-		Button registerButton = new Button("Register"), backButton = new Button();
+		final Button registerButton = new Button("Register"), backButton = new Button();
 		backButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("back_button.png"))));
 		backButton.getStyleClass().add("button-go");
 		backButton.setOnAction(λ -> {
 			// move to editing my details
-			this.window.close();
+			window.close();
 			AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1).window.show();
 			AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size() - 1);
 		});
-		HBox hbox = new HBox(20);
+		final HBox hbox = new HBox(20);
 		GridPane.setConstraints(title, 0, 0);
 		GridPane.setColumnSpan(title, 3);
 		GridPane.setConstraints(user, 0, 1);
@@ -152,25 +152,25 @@ public class Register extends AbstractWindow {
 				carNumberInput, mail, mailInput, sticker, stickerColor, hbox, wantLogin);
 		registerButton.setOnAction(e -> {
 			try {
-				String name = nameInput.getText(), password = passInput.getText(),
+				final String name = nameInput.getText(), password = passInput.getText(),
 						phone = prefixNumber.getSelectionModel().getSelectedItem() + phoneNumberInput.getText(),
 						car = carNumberInput.getText(), eMail = mailInput.getText();
-				StickersColor type = StickersColor
+				final StickersColor type = StickersColor
 						.valueOf(stickerColor.getSelectionModel().getSelectedItem().toUpperCase());
 				if ("".equals(name) || "".equals(password) || phone.length() == 3 || "".equals(car) || "".equals(eMail))
 					throw new LoginException("All of the fields should be full");
 				login.userSignUp(name, password, phone, car, eMail, type);
-				(new AlertBox()).display("Sign Up", "You Successfully Signed Up!");
-				this.window.close();
+				new AlertBox().display("Sign Up", "You Successfully Signed Up!");
+				window.close();
 				AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1).window.show();
 				AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size() - 1);
-			} catch (LoginException e1) {
-				(new AlertBox()).display("Sign Up", e1 + "");
+			} catch (final LoginException e1) {
+				new AlertBox().display("Sign Up", e1 + "");
 			}
 		});
 		grid.setBackground(
 				new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2, 2, 2, 2))));
-		Scene scene = new Scene(grid);
+		final Scene scene = new Scene(grid);
 		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());
 		window.setScene(scene);
 		window.setTitle("Register");

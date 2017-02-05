@@ -18,26 +18,26 @@ public class serverConnection {
 		DBManager.initialize();
 		Assert.assertEquals("parkingmanagment", Parse.getApplicationId());
 		Assert.assertEquals("2139d-231cb2-738aa", Parse.getRestAPIKey());
-		ParseObject testConnectionObject = new ParseObject("testConnectionObject");
+		final ParseObject testConnectionObject = new ParseObject("testConnectionObject");
 		testConnectionObject.put("integerCheck", 9999);
 		testConnectionObject.put("stringCheck", "John Dow");
 		testConnectionObject.put("boolCheck", false);
 		try {
 			testConnectionObject.save();
-		} catch (ParseException e) {
+		} catch (final ParseException e) {
 			Assert.assertEquals(true, false);
 		}
 		try {
 			Thread.sleep(100);
-		} catch (InterruptedException e1) {
+		} catch (final InterruptedException e1) {
 			e1.printStackTrace();
 		}
-		String id = testConnectionObject.getObjectId();
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("testConnectionObject");
+		final String id = testConnectionObject.getObjectId();
+		final ParseQuery<ParseObject> query = ParseQuery.getQuery("testConnectionObject");
 		ParseObject ret;
 		try {
 			ret = query.get(id);
-		} catch (ParseException e) {
+		} catch (final ParseException e) {
 			Assert.assertEquals(true, false);
 			return;
 		}
@@ -49,7 +49,7 @@ public class serverConnection {
 			testConnectionObject.delete();
 			ret = query.get(id);
 			Assert.assertEquals(ret, null);
-		} catch (ParseException e) {
+		} catch (final ParseException e) {
 			Assert.assertEquals(true, false);
 		}
 

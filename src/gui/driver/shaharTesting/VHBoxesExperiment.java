@@ -12,29 +12,29 @@ public class VHBoxesExperiment {
 	static Stage window;
 	static Scene scene;
 
-	public static void display(Stage primaryStage) {
+	public static void display(final Stage primaryStage) {
 
 		window = primaryStage;
 		window.setTitle("Main Screen");
 		window.setOnCloseRequest(λ -> closeProgram());
 
-		HBox topMenu = new HBox();
-		Button buttonA = new Button("buttonA"), buttonB = new Button("buttonB");
+		final HBox topMenu = new HBox();
+		final Button buttonA = new Button("buttonA"), buttonB = new Button("buttonB");
 		topMenu.getChildren().addAll(buttonA, buttonB, new Button("buttonC"));
 
-		VBox leftMenu = new VBox();
-		Button buttonD = new Button("buttonD"), buttonE = new Button("buttonE");
+		final VBox leftMenu = new VBox();
+		final Button buttonD = new Button("buttonD"), buttonE = new Button("buttonE");
 		leftMenu.getChildren().addAll(buttonD, buttonE, new Button("buttonF"));
 
-		HBox middleMenu = new HBox();
-		Button button = new Button("Close Program");
+		final HBox middleMenu = new HBox();
+		final Button button = new Button("Close Program");
 		button.setOnAction(λ -> {
 			λ.consume(); // Hey, I'm gonna take care of this event manually.
 			closeProgram();
 		});
 		middleMenu.getChildren().addAll(button);
 
-		BorderPane borderPane = new BorderPane();
+		final BorderPane borderPane = new BorderPane();
 		borderPane.setTop(topMenu);
 		borderPane.setLeft(leftMenu);
 		borderPane.setBottom(middleMenu);

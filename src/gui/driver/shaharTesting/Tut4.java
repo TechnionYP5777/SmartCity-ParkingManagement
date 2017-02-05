@@ -21,14 +21,14 @@ public class Tut4 extends Application {
 	 */
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(final Stage primaryStage) throws Exception {
 		window = primaryStage;
-		Label label = new Label("Welcome to the 1st scene");
-		String message = String.valueOf("Are you sure you want to send the pictures?");
-		Button button = new Button("click me!");
+		final Label label = new Label("Welcome to the 1st scene");
+		final String message = String.valueOf("Are you sure you want to send the pictures?");
+		final Button button = new Button("click me!");
 		button.setOnAction(λ -> System.out.println(ConfirmBox.display("Sending pics", message)));
 
-		VBox layout = new VBox(20);
+		final VBox layout = new VBox(20);
 		layout.getChildren().addAll(label, button);
 		scene = new Scene(layout, 300, 200);
 		window.setScene(scene);

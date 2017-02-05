@@ -12,7 +12,7 @@ public class Main extends Application {
 	static Scene scene;
 	Stage window;
 
-	public static Class<? extends AbstractWindow> getLastWindowClass(ArrayList<AbstractWindow> prevWindows) {
+	public static Class<? extends AbstractWindow> getLastWindowClass(final ArrayList<AbstractWindow> prevWindows) {
 		switch (prevWindows.get(prevWindows.size() - 1).windowEnum) {
 		case CHOOSE_ACTION:
 			return ChooseAction.class;
@@ -27,23 +27,23 @@ public class Main extends Application {
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		launch(args);
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(final Stage primaryStage) throws Exception {
 
-		ChooseAction chooseActionObject = new ChooseAction();
-		ArrayList<AbstractWindow> prevWindows = new ArrayList<AbstractWindow>();
+		final ChooseAction chooseActionObject = new ChooseAction();
+		final ArrayList<AbstractWindow> prevWindows = new ArrayList<AbstractWindow>();
 		prevWindows.add(chooseActionObject);
 
 		final Task<Object> task = new Task<Object>() {
 
 			@Override
 			protected Object call() throws Exception {
-				int s = 100;
-				AudioClip audio = new AudioClip(getClass().getResource("sound.mp3").toExternalForm());
+				final int s = 100;
+				final AudioClip audio = new AudioClip(getClass().getResource("sound.mp3").toExternalForm());
 				audio.setVolume(0.5f);
 				audio.setCycleCount(s);
 				audio.play();

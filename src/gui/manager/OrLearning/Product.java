@@ -7,11 +7,11 @@ public class Product {
 	private int quantity;
 
 	public Product() {
-		this.name = "";
-		this.price = this.quantity = 0;
+		name = "";
+		price = quantity = 0;
 	}
 
-	public Product(String name, double price, int quantity) {
+	public Product(final String name, final double price, final int quantity) {
 		this.name = name;
 		this.price = price;
 		this.quantity = quantity;
@@ -21,7 +21,7 @@ public class Product {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -29,7 +29,7 @@ public class Product {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(final double price) {
 		this.price = price;
 	}
 
@@ -37,7 +37,7 @@ public class Product {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(final int quantity) {
 		this.quantity = quantity;
 	}
 

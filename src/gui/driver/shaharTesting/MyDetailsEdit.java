@@ -20,18 +20,18 @@ public class MyDetailsEdit extends AbstractWindow {
 		windowEnum = WindowEnum.MY_DETAILS_EDIT;
 	}
 
-	public void display(Stage primaryStage, WindowEnum prevWindow, ArrayList<Label> ls, ArrayList<Label> values,
-			ArrayList<AbstractWindow> prevWindows) {
+	public void display(final Stage primaryStage, final WindowEnum prevWindow, final ArrayList<Label> ls, final ArrayList<Label> values,
+			final ArrayList<AbstractWindow> prevWindows) {
 		window = primaryStage;
 		window.setTitle("Edit My Details");
-		GridPane grid = new GridPane();
+		final GridPane grid = new GridPane();
 		grid.setPadding(new Insets(20, 20, 20, 20));
 		grid.setVgap(8);
 		grid.setHgap(10);
 		grid.setBackground(
 				new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2, 2, 2, 2))));
 
-		ArrayList<TextField> newValues = new ArrayList<TextField>();
+		final ArrayList<TextField> newValues = new ArrayList<TextField>();
 		int i = 0;
 		for (; i < ls.size(); ++i) {
 			newValues.add(new TextField(values.get(i).getText()));
@@ -40,17 +40,17 @@ public class MyDetailsEdit extends AbstractWindow {
 			grid.getChildren().addAll(ls.get(i), newValues.get(i));
 		}
 
-		Button doneButton = new Button();
+		final Button doneButton = new Button();
 		doneButton.setText("Done");
 		doneButton.setOnAction(e -> {
 			// Save edits
 			if (checkChangesLegality(newValues)) {
-				ArrayList<Label> correctedValues = new ArrayList<Label>();
+				final ArrayList<Label> correctedValues = new ArrayList<Label>();
 				for (int j = 0; j < newValues.size(); ++j)
 					correctedValues.add(new Label(newValues.get(j).getText()));
 				// You can only get here id the last prevWindows is
 				// 'MyDetails'!!
-				MyDetails MD = (MyDetails) prevWindows.get(prevWindows.size() - 1);
+				final MyDetails MD = (MyDetails) prevWindows.get(prevWindows.size() - 1);
 				prevWindows.remove(prevWindows.size() - 1);
 				MD.display(primaryStage, prevWindow, ls, correctedValues, prevWindows);
 			}
@@ -64,7 +64,7 @@ public class MyDetailsEdit extends AbstractWindow {
 
 	}
 
-	public static boolean checkChangesLegality(ArrayList<TextField> newValues) {
+	public static boolean checkChangesLegality(final ArrayList<TextField> newValues) {
 
 		return true;
 	}

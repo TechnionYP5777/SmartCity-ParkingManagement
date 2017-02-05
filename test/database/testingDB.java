@@ -35,12 +35,12 @@ public class testingDB {
 	@Test
 	public void test1() {
 		// initialize();
-		ParseObject test = new ParseObject("test");
+		final ParseObject test = new ParseObject("test");
 		test.put("testValue0", 1);
 		try {
 			test.save();
 			test.delete();
-		} catch (ParseException ¢) {
+		} catch (final ParseException ¢) {
 			¢.printStackTrace();
 			Assert.fail();
 		}
@@ -50,9 +50,9 @@ public class testingDB {
 	@Test
 	public void test2() {
 		// initialize();
-		ParseObject test = new ParseObject("test");
+		final ParseObject test = new ParseObject("test");
 		test.put("testValue0", 2);
-		List<String> types = new ArrayList<String>();
+		final List<String> types = new ArrayList<String>();
 		types.add("type1");
 		types.add("type2");
 		types.add("type3");
@@ -61,7 +61,7 @@ public class testingDB {
 		try {
 			test.save();
 			test.delete();
-		} catch (ParseException ¢) {
+		} catch (final ParseException ¢) {
 			¢.printStackTrace();
 			Assert.fail();
 		}
@@ -71,10 +71,10 @@ public class testingDB {
 	@Test
 	public void test3() {
 		// initialize();
-		ParseObject test = new ParseObject("test");
+		final ParseObject test = new ParseObject("test");
 		test.put("testValue0", 3);
 
-		ParseObject subTest = new ParseObject("subTest");
+		final ParseObject subTest = new ParseObject("subTest");
 		subTest.put("value", 3);
 
 		try {
@@ -85,7 +85,7 @@ public class testingDB {
 
 			test.delete();
 			subTest.delete();
-		} catch (ParseException ¢) {
+		} catch (final ParseException ¢) {
 			¢.printStackTrace();
 			Assert.fail();
 		}
@@ -96,16 +96,16 @@ public class testingDB {
 	@Test
 	public void test4() {
 		// initialize();
-		ParseObject test = new ParseObject("test");
+		final ParseObject test = new ParseObject("test");
 		test.put("testValue0", 4);
 
-		ParseObject subTest = new ParseObject("subTest");
+		final ParseObject subTest = new ParseObject("subTest");
 		subTest.put("value", 4);
 		int val = 0;
 		try {
 			subTest.save();
 
-			ParseObject returnedO = ParseQuery.getQuery("subTest").get(subTest.getObjectId());
+			final ParseObject returnedO = ParseQuery.getQuery("subTest").get(subTest.getObjectId());
 			val = returnedO.getInt("value");
 			Assert.assertEquals(4, val);
 
@@ -114,7 +114,7 @@ public class testingDB {
 
 			test.delete();
 			subTest.delete();
-		} catch (ParseException ¢) {
+		} catch (final ParseException ¢) {
 			// TODO Auto-generated catch block
 			¢.printStackTrace();
 			Assert.fail();
@@ -125,15 +125,15 @@ public class testingDB {
 	@Test
 	public void test5() {
 		// initialize();
-		ParseObject test = new ParseObject("test");
+		final ParseObject test = new ParseObject("test");
 		test.put("testValue0", 5);
 
-		List<ParseObject> values = new ArrayList<ParseObject>();
-		ParseObject subTest1 = new ParseObject("subTest");
+		final List<ParseObject> values = new ArrayList<ParseObject>();
+		final ParseObject subTest1 = new ParseObject("subTest");
 		subTest1.put("value", 5.1);
-		ParseObject subTest2 = new ParseObject("subTest");
+		final ParseObject subTest2 = new ParseObject("subTest");
 		subTest2.put("value", 5.2);
-		ParseObject subTest3 = new ParseObject("subTest");
+		final ParseObject subTest3 = new ParseObject("subTest");
 		subTest3.put("value", 5.3);
 		values.add(subTest1);
 		values.add(subTest2);
@@ -151,7 +151,7 @@ public class testingDB {
 			subTest1.delete();
 			subTest2.delete();
 			subTest3.delete();
-		} catch (ParseException ¢) {
+		} catch (final ParseException ¢) {
 			// TODO Auto-generated catch block
 			¢.printStackTrace();
 			Assert.fail();

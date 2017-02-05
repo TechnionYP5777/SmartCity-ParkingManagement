@@ -14,15 +14,15 @@ public class ConfirmBox {
 	static boolean answer;
 	static Button yesButton, noButton;
 
-	public boolean display(String title, String message) {
-		Stage window = new Stage();
+	public boolean display(final String title, final String message) {
+		final Stage window = new Stage();
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.setTitle(title);
 		window.setMinWidth(250);
 		window.setMinHeight(150);
 		window.getIcons().add(new Image(getClass().getResourceAsStream("Smart_parking_icon.png")));
 
-		Label label = new Label();
+		final Label label = new Label();
 		label.setText(message);
 
 		yesButton = new Button("Yes");
@@ -38,10 +38,10 @@ public class ConfirmBox {
 			window.close();
 		});
 
-		VBox layout = new VBox();
+		final VBox layout = new VBox();
 		layout.getChildren().addAll(label, noButton, yesButton);
 		layout.setAlignment(Pos.CENTER);
-		Scene scene = new Scene(layout);
+		final Scene scene = new Scene(layout);
 		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());
 		window.setScene(scene);
 		window.showAndWait();

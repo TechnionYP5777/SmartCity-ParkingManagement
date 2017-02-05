@@ -20,23 +20,23 @@ import data.members.StickersColor;
 
 public class populateDB {
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		System.out.println("Start Populating DB");
 		try {
 			insertParkingSlots();
-		} catch (Exception ¢) {
+		} catch (final Exception ¢) {
 			System.out.println("Something went wrong. Could not add the parking slots");
 			¢.printStackTrace();
 		}
 		try {
 			insertParkingArea();
-		} catch (Exception ¢) {
+		} catch (final Exception ¢) {
 			System.out.println("Something went wrong. Could not add the parking area");
 			¢.printStackTrace();
 		}
 		try {
 			insertParkingAreas();
-		} catch (Exception ¢) {
+		} catch (final Exception ¢) {
 			System.out.println("Something went wrong. Could not add the parking areas");
 			¢.printStackTrace();
 		}
@@ -45,10 +45,10 @@ public class populateDB {
 	}
 
 	private static void insertParkingSlots() throws Exception {
-		for (String line : getLinesFromFile((new File("src/util/parkingSlots.txt")).toPath())) {
+		for (final String line : getLinesFromFile(new File("src/util/parkingSlots.txt").toPath())) {
 			System.out.println("Inserting the following slot:");
 			System.out.println(line);
-			String[] input = line.split(" ");
+			final String[] input = line.split(" ");
 			if (input.length != 6)
 				throw new IllegalArgumentException(
 						"Input line should look like this: [name] [status] [currentColor] [defaultColor] [lat] [lon]");
@@ -58,10 +58,10 @@ public class populateDB {
 	}
 
 	private static void insertParkingArea() throws Exception {
-		for (String line : getLinesFromFile((new File("src/util/parkingArea.txt")).toPath())) {
+		for (final String line : getLinesFromFile(new File("src/util/parkingArea.txt").toPath())) {
 			System.out.println("Inserting the following area:");
 			System.out.println(line);
-			String[] input = line.split(" ");
+			final String[] input = line.split(" ");
 			if (input.length < 5)
 				throw new IllegalArgumentException(
 						"Input line should look like this: [id] [name] [defaultColor] [slot0] [slot1] ... [slotn]");
@@ -72,10 +72,10 @@ public class populateDB {
 	}
 
 	private static void insertParkingAreas() throws Exception {
-		for (String line : getLinesFromFile((new File("src/util/parkingAreas.txt")).toPath())) {
+		for (final String line : getLinesFromFile(new File("src/util/parkingAreas.txt").toPath())) {
 			System.out.println("Inserting the following areas:");
 			System.out.println(line);
-			String[] input = line.split(" ");
+			final String[] input = line.split(" ");
 			if (input.length < 1)
 				throw new IllegalArgumentException("Input line should look like this: [area0] [area1] ... [arean]");
 			if (!insertAreasToDB(input))
@@ -84,24 +84,24 @@ public class populateDB {
 
 	}
 
-	private static List<String> getLinesFromFile(Path p) throws IOException {
-		Object[] fileArray = Files.readAllLines(p).toArray();
-		List<String> $ = new ArrayList<String>();
-		for (Object ¢ : fileArray)
+	private static List<String> getLinesFromFile(final Path p) throws IOException {
+		final Object[] fileArray = Files.readAllLines(p).toArray();
+		final List<String> $ = new ArrayList<String>();
+		for (final Object ¢ : fileArray)
 			$.add((String) ¢);
 		return $;
 	}
 
 	@SuppressWarnings("unused")
-	private static Boolean insertSlotToDB(String[] args) {
-		String name = args[0];
-		ParkingSlotStatus status = ParkingSlotStatus.valueOf(args[1]);
-		StickersColor currentColor = StickersColor.valueOf(args[2]), defaultColor = StickersColor.valueOf(args[3]);
-		double lat = Double.parseDouble(args[4]), lon = Double.parseDouble(args[5]);
+	private static Boolean insertSlotToDB(final String[] args) {
+		final String name = args[0];
+		final ParkingSlotStatus status = ParkingSlotStatus.valueOf(args[1]);
+		final StickersColor currentColor = StickersColor.valueOf(args[2]), defaultColor = StickersColor.valueOf(args[3]);
+		final double lat = Double.parseDouble(args[4]), lon = Double.parseDouble(args[5]);
 		try {
-			ParkingSlot slot1 = new ParkingSlot(name, status, currentColor, defaultColor, new MapLocation(lat, lon),
+			final ParkingSlot slot1 = new ParkingSlot(name, status, currentColor, defaultColor, new MapLocation(lat, lon),
 					new Date());
-		} catch (ParseException ¢) {
+		} catch (final ParseException ¢) {
 			¢.printStackTrace();
 			return false;
 		}
@@ -109,23 +109,23 @@ public class populateDB {
 	}
 
 	@SuppressWarnings("unused")
-	private static Boolean insertAreaToDB(String[] args) {
-		int id = Integer.parseInt(args[0]);
-		String name = args[1];
-		StickersColor defaultColor = StickersColor.valueOf(args[2]);
-		double lat = Double.parseDouble(args[3]), lon = Double.parseDouble(args[4]);
-		Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
+	private static Boolean insertAreaToDB(final String[] args) {
+		final int id = Integer.parseInt(args[0]);
+		final String name = args[1];
+		final StickersColor defaultColor = StickersColor.valueOf(args[2]);
+		final double lat = Double.parseDouble(args[3]), lon = Double.parseDouble(args[4]);
+		final Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 		for (int nameIndex = 5; nameIndex < args.length; ++nameIndex)
 			try {
 				slots.add(new ParkingSlot(args[nameIndex]));
-			} catch (ParseException ¢) {
+			} catch (final ParseException ¢) {
 				System.out.println("Something went wrong. Could not find the last slot in DB");
 				¢.printStackTrace();
 			}
 
 		try {
-			ParkingArea area = new ParkingArea(id, name, new MapLocation(lat, lon), slots, defaultColor);
-		} catch (ParseException ¢) {
+			final ParkingArea area = new ParkingArea(id, name, new MapLocation(lat, lon), slots, defaultColor);
+		} catch (final ParseException ¢) {
 			¢.printStackTrace();
 			return false;
 		}
@@ -133,19 +133,19 @@ public class populateDB {
 	}
 
 	@SuppressWarnings("unused")
-	private static Boolean insertAreasToDB(String[] args) {
-		Set<ParkingArea> area = new HashSet<ParkingArea>();
-		for (int idIndex = 0; idIndex < args.length; ++idIndex)
+	private static Boolean insertAreasToDB(final String[] args) {
+		final Set<ParkingArea> area = new HashSet<ParkingArea>();
+		for (final String arg : args)
 			try {
-				area.add(new ParkingArea(args[idIndex]));
-			} catch (ParseException ¢) {
+				area.add(new ParkingArea(arg));
+			} catch (final ParseException ¢) {
 				System.out.println("Something went wrong. Could not find the last area in DB");
 				¢.printStackTrace();
 			}
 
 		try {
-			ParkingAreas areas = new ParkingAreas(area);
-		} catch (ParseException ¢) {
+			final ParkingAreas areas = new ParkingAreas(area);
+		} catch (final ParseException ¢) {
 			¢.printStackTrace();
 			return false;
 		}

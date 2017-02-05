@@ -9,12 +9,12 @@ public class parkingAreas {
 
 	// Constructors
 	parkingAreas() {
-		this.name = "";
-		this.color = Color.GRAY;
-		this.spots = 0;
+		name = "";
+		color = Color.GRAY;
+		spots = 0;
 	}
 
-	parkingAreas(String name, Color color, int spots) {
+	parkingAreas(final String name, final Color color, final int spots) {
 		this.name = name;
 		this.color = color;
 		this.spots = spots;
@@ -22,26 +22,26 @@ public class parkingAreas {
 
 	// Getters & Setters
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
-	void setName(String name) {
+	void setName(final String name) {
 		this.name = name;
 	}
 
 	public Color getColor() {
-		return this.color;
+		return color;
 	}
 
-	void setColor(Color ¢) {
-		this.color = ¢;
+	void setColor(final Color ¢) {
+		color = ¢;
 	}
 
 	public int getSpots() {
-		return this.spots;
+		return spots;
 	}
 
-	void setSpots(int spots) {
+	void setSpots(final int spots) {
 		this.spots = spots;
 	}
 }

@@ -6,15 +6,15 @@ import javafx.stage.Stage;
 
 public class Opening extends Application {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(final String[] args) throws Exception {
 		launch(args);
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(final Stage primaryStage) throws Exception {
 
-		ManagerEdit1 ME1 = new ManagerEdit1();
-		ArrayList<AbstractWindow> prevWindows = new ArrayList<AbstractWindow>();
+		final ManagerEdit1 ME1 = new ManagerEdit1();
+		final ArrayList<AbstractWindow> prevWindows = new ArrayList<AbstractWindow>();
 		prevWindows.add(ME1);
 		ME1.display(primaryStage, WindowEnum.NONE, prevWindows);
 

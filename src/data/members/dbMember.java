@@ -15,7 +15,7 @@ public abstract class dbMember {
 		return parseObject;
 	}
 
-	public void setParseObject(String tableName) {
+	public void setParseObject(final String tableName) {
 		parseObject = new ParseObject(tableName);
 	}
 
@@ -25,6 +25,6 @@ public abstract class dbMember {
 
 	public void deleteParseObject() throws ParseException {
 		parseObject.delete();
-		this.objectId = "";
+		objectId = "";
 	}
 }

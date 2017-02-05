@@ -25,7 +25,7 @@ public class DriverMap extends PmMap {
 	private MapLocation realto;
 	private boolean SeconedCall;
 
-	public DriverMap(MapLocation fromLogic, MapLocation toLogic, MapLocation realtoLogic) {
+	public DriverMap(final MapLocation fromLogic, final MapLocation toLogic, final MapLocation realtoLogic) {
 		this(fromLogic.getLat() + ", " + fromLogic.getLon(), toLogic.getLat() + ", " + toLogic.getLon()); // till
 																											// DB
 																											// works
@@ -37,7 +37,7 @@ public class DriverMap extends PmMap {
 		// this(StubFrom,StubTo);
 	}
 
-	public DriverMap(String fromLogic, String toLogic) {
+	public DriverMap(final String fromLogic, final String toLogic) {
 		super(fromLogic, toLogic);
 	}
 
@@ -58,7 +58,7 @@ public class DriverMap extends PmMap {
 			tb.getItems().addAll(new Label("Origin:" + fromLogic), new Label("Destination:" + toLogic));
 		} else
 			try {
-				Destination dStart = new Destination(from);
+				final Destination dStart = new Destination(from);
 				directionsService.getRoute(new DirectionsRequest(fromLogic, toLogic, TravelModes.DRIVING), this,
 						new DirectionsRenderer(true, mapComponent.getMap(), directionsPane));
 				tb.getItems().addAll(new Label("Origin:" + dStart.getDestinationName() + " " + fromLogic),
@@ -70,7 +70,7 @@ public class DriverMap extends PmMap {
 	}
 
 	@Override
-	public void directionsReceived(DirectionsResult __, DirectionStatus s) {
+	public void directionsReceived(final DirectionsResult __, final DirectionStatus s) {
 		// TODO Auto-generated method stub
 		super.directionsReceived(__, s);
 		if (SeconedCall)

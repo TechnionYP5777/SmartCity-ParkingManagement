@@ -74,19 +74,19 @@ public class PmMap extends AbstractWindow implements MapComponentInitializedList
 	protected BorderPane bp;
 	protected ToolBar tb;
 
-	public PmMap(String fromLogic, String toLogic) {
+	public PmMap(final String fromLogic, final String toLogic) {
 		this.fromLogic = fromLogic;
 		this.toLogic = toLogic;
 	}
 
 	public PmMap() {
-		this.fromLogic = null;
-		this.toLogic = null;
+		fromLogic = null;
+		toLogic = null;
 	}
 
-	public PmMap(MapLocation from, MapLocation to) {
-		this.fromLogic = null;
-		this.toLogic = null;
+	public PmMap(final MapLocation from, final MapLocation to) {
+		fromLogic = null;
+		toLogic = null;
 	}
 
 	public BorderPane getMapBorderPane() {
@@ -94,8 +94,8 @@ public class PmMap extends AbstractWindow implements MapComponentInitializedList
 		markers = new ArrayList<Marker>();
 		mapComponent = new GoogleMapView(Locale.getDefault().getLanguage(), null);
 		mapComponent.addMapInializedListener(this);
-		BorderPane $ = new BorderPane();
-		ToolBar tb = new ToolBar();
+		final BorderPane $ = new BorderPane();
+		final ToolBar tb = new ToolBar();
 
 		// lblCenter = new Label();
 		lblClick = new Label();
@@ -136,7 +136,7 @@ public class PmMap extends AbstractWindow implements MapComponentInitializedList
 		return $;
 	}
 
-	public void display(Stage s) {
+	public void display(final Stage s) {
 		s.setTitle("Navigate");
 		btns = new ArrayList<Button>();
 		markers = new ArrayList<Marker>();
@@ -200,18 +200,18 @@ public class PmMap extends AbstractWindow implements MapComponentInitializedList
 	public void mapInitialized() {
 		// Once the map has been loaded by the Webview, initialize the map
 		// details.
-		LatLong center = new LatLong(32.777, 35.0225);
+		final LatLong center = new LatLong(32.777, 35.0225);
 		System.out.println("got here");
 		mapComponent.addMapReadyListener(() -> checkCenter(center));
 		// lblClick.setText((center + ""));
-		MapOptions options = new MapOptions();
+		final MapOptions options = new MapOptions();
 		options.center(center).zoom(12).overviewMapControl(false).panControl(false).rotateControl(false)
 				.scaleControl(true).streetViewControl(true).zoomControl(true).mapType(MapTypeIdEnum.ROADMAP);
 
 		map = mapComponent.createMap(options, false);
 		map.setHeading(123.2);
 		map.fitBounds(new LatLongBounds(center, new LatLong(32.779032, 35.024663)));
-		map.addUIEventHandler(UIEventType.click, (JSObject obj) -> {
+		map.addUIEventHandler(UIEventType.click, (final JSObject obj) -> {
 			LatLong newLat = new LatLong((JSObject) obj.getMember("latLng"));
 			newLat = new LatLong(newLat.getLatitude(), newLat.getLongitude());
 			lblClick.setText(newLat + "");
@@ -225,18 +225,18 @@ public class PmMap extends AbstractWindow implements MapComponentInitializedList
 		scene.getWindow().sizeToScene();
 	}
 
-	protected Marker createMarker(LatLong lat, String title) {
-		MarkerOptions options = new MarkerOptions();
+	protected Marker createMarker(final LatLong lat, final String title) {
+		final MarkerOptions options = new MarkerOptions();
 		options.position(lat).title(title).visible(true);
-		Marker $ = new MyMarker(options, title, lat);
+		final Marker $ = new MyMarker(options, title, lat);
 		markers.add($);
 		fromLocation.getItems().add(title);
 		toLocation.getItems().add(title);
-		HBox hbox = new HBox();
+		final HBox hbox = new HBox();
 		hbox.setPadding(new Insets(8, 5, 8, 5));
 		hbox.setSpacing(8);
-		Label l = new Label(title);
-		Button btn = new Button("remove");
+		final Label l = new Label(title);
+		final Button btn = new Button("remove");
 		btn.setOnAction(λ -> {
 			map.removeMarker($);
 			markerVbox.getChildren().remove(hbox);
@@ -252,28 +252,28 @@ public class PmMap extends AbstractWindow implements MapComponentInitializedList
 	}
 
 	protected void hideMarker() {
-		for (Marker ¢ : markers)
+		for (final Marker ¢ : markers)
 			¢.setVisible(!¢.getVisible());
 	}
 
 	protected void deleteMarker() {
-		for (Button bt : btns)
+		for (final Button bt : btns)
 			bt.fire();
 	}
 
-	protected void checkCenter(LatLong center) {
+	protected void checkCenter(final LatLong center) {
 		System.out.println("Testing fromLatLngToPoint using: " + center);
 		System.out.println("Testing fromLatLngToPoint result: " + map.fromLatLngToPoint(center));
 		System.out.println("Testing fromLatLngToPoint expected: " + mapComponent.getWidth() / 2 + ", "
 				+ mapComponent.getHeight() / 2);
 	}
 
-	public VBox addVBox(String head) {
-		VBox $ = new VBox();
+	public VBox addVBox(final String head) {
+		final VBox $ = new VBox();
 		$.setPadding(new Insets(10, 10, 50, 10));
 		$.setSpacing(8);
 
-		Text title = new Text(head);
+		final Text title = new Text(head);
 		title.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 		$.getChildren().add(title);
 		return $;
@@ -285,33 +285,33 @@ public class PmMap extends AbstractWindow implements MapComponentInitializedList
 		fromLocation.setOnAction(λ -> map.hideDirectionsPane());
 		toLocation = new ComboBox<String>();
 		toLocation.setOnAction(λ -> map.hideDirectionsPane());
-		Button btn = new Button("draw");
+		final Button btn = new Button("draw");
 		btn.setOnAction(e -> {
 			if (toLocation.getSelectionModel().getSelectedItem() == null
 					|| fromLocation.getSelectionModel().getSelectedItem() == null)
 				return;
-			MyMarker to = getMarkerByTitle(toLocation.getSelectionModel().getSelectedItem()),
+			final MyMarker to = getMarkerByTitle(toLocation.getSelectionModel().getSelectedItem()),
 					from = getMarkerByTitle(fromLocation.getSelectionModel().getSelectedItem());
 			directionsService.getRoute(
 					new DirectionsRequest(from.lat.getLatitude() + ", " + from.lat.getLongitude(),
 							to.lat.getLatitude() + ", " + to.lat.getLongitude(), TravelModes.DRIVING),
 					this, new DirectionsRenderer(true, mapComponent.getMap(), directionsPane));
 		});
-		Button removeBtn = new Button("remove line");
+		final Button removeBtn = new Button("remove line");
 		removeBtn.setOnAction(λ -> map.hideDirectionsPane());
 		routeVbox.getChildren().addAll(fromLocation, toLocation, btn, removeBtn);
 
 	}
 
-	public MyMarker getMarkerByTitle(String title) {
-		for (Marker $ : markers)
+	public MyMarker getMarkerByTitle(final String title) {
+		for (final Marker $ : markers)
 			if (((MyMarker) $).isTitle(title))
-				return ((MyMarker) $);
+				return (MyMarker) $;
 		return null;
 	}
 
 	@Override
-	public void directionsReceived(DirectionsResult __, DirectionStatus s) {
+	public void directionsReceived(final DirectionsResult __, final DirectionStatus s) {
 
 	}
 

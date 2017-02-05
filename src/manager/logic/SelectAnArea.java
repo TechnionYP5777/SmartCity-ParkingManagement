@@ -18,44 +18,44 @@ public class SelectAnArea {
 	private Queries queries;
 
 	public SelectAnArea() {
-		this.queries = new Queries();
+		queries = new Queries();
 	}
 
 	public Queries getQueries() {
 		return queries;
 	}
 
-	public void setQueries(Queries ¢) {
-		this.queries = ¢;
+	public void setQueries(final Queries ¢) {
+		queries = ¢;
 	}
 
 	// return the number of free slots in a given area
-	public int getNumOfFreeSlotsPerArea(int areaId) {
-		ParkingArea $ = this.queries.returnArea(areaId);
-		return $ == null ? -1 : this.queries.getNumOfFreeByArea($);
+	public int getNumOfFreeSlotsPerArea(final int areaId) {
+		final ParkingArea $ = queries.returnArea(areaId);
+		return $ == null ? -1 : queries.getNumOfFreeByArea($);
 	}
 
 	// return the number of taken slots in a given area
-	public int getNumOfTakenSlotsPerArea(int areaId) {
-		ParkingArea $ = this.queries.returnArea(areaId);
-		return $ == null ? -1 : this.queries.getNumOfTakenByArea($);
+	public int getNumOfTakenSlotsPerArea(final int areaId) {
+		final ParkingArea $ = queries.returnArea(areaId);
+		return $ == null ? -1 : queries.getNumOfTakenByArea($);
 	}
 
 	// return the total number of slots in a given area
-	public int getTotalNumOfSlotsPerArea(int areaId) {
-		ParkingArea $ = this.queries.returnArea(areaId);
+	public int getTotalNumOfSlotsPerArea(final int areaId) {
+		final ParkingArea $ = queries.returnArea(areaId);
 		return $ == null ? -1 : $.getNumOfParkingSlots();
 	}
 
 	// return the color of slots in a given area
-	public StickersColor getColorOfArea(int areaId) {
-		ParkingArea $ = this.queries.returnArea(areaId);
+	public StickersColor getColorOfArea(final int areaId) {
+		final ParkingArea $ = queries.returnArea(areaId);
 		return $ == null ? null : $.getColor();
 	}
 
 	public List<String> getAllPossibleColors() {
-		List<String> $ = new ArrayList<String>();
-		for (StickersColor ¢ : StickersColor.values())
+		final List<String> $ = new ArrayList<String>();
+		for (final StickersColor ¢ : StickersColor.values())
 			$.add(¢.name());
 		return $;
 	}

@@ -41,22 +41,18 @@ public class ChooseAction extends AbstractWindow {
 		window.initModality(Modality.APPLICATION_MODAL);
 	}
 
-	public void display(Stage primaryStage, WindowEnum prevWindow) {
+	public void display(final Stage primaryStage, final WindowEnum prevWindow) {
 		window.setTitle("What Would you like to do?");
 		window.setMinWidth(750);
-		VBox vbox = new VBox(8);
+		final VBox vbox = new VBox(8);
 		vbox.setPadding(new Insets(10, 10, 10, 10));
 		isLinuxOS = "Linux".equals(System.getProperty("os.name"));
 		if (!isLinuxOS) {
 			// System.out.println("Sound the music!");
 
-			URL resource = getClass().getResource("sound.mp3");
+			final URL resource = getClass().getResource("sound.mp3");
 			mediaPlayer = new MediaPlayer(new Media(resource + ""));
-			mediaPlayer.setOnEndOfMedia(new Runnable() {
-				public void run() {
-					mediaPlayer.seek(Duration.ZERO);
-				}
-			});
+			mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.seek(Duration.ZERO));
 			mediaPlayer.play();
 			buttonMute = new Button();
 			buttonMute.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("unmute_button.png"))));
@@ -70,11 +66,11 @@ public class ChooseAction extends AbstractWindow {
 		}
 
 		// TODO: get a better way to check logged in
-		HBox mute = new HBox(1);
+		final HBox mute = new HBox(1);
 		welcomeLabel = new Label();
 		try {
 			welcomeLabel.setText("Welcome " + login.getUserName() + "!");
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			welcomeLabel.setText("Welcome! You are not logged in");
 		}
 		welcomeLabel.getStyleClass().add("label-welcome");
@@ -85,7 +81,7 @@ public class ChooseAction extends AbstractWindow {
 		buttonAbout.setOnAction(λ -> {
 			window.close();
 			prevWindows.add(this);
-			(new About()).display(primaryStage, WindowEnum.CHOOSE_ACTION, buttonMute);
+			new About().display(primaryStage, WindowEnum.CHOOSE_ACTION, buttonMute);
 		});
 		// buttonAbout.getStyleClass().add("button-menu");
 
@@ -94,8 +90,8 @@ public class ChooseAction extends AbstractWindow {
 		buttonLogin.getStyleClass().add("button-go");
 		buttonLogin.setOnAction(e -> {
 			window.close();
-			Login login = new Login();
-			ChooseAction.prevWindows.add(this);
+			final Login login = new Login();
+			AbstractWindow.prevWindows.add(this);
 			login.display(primaryStage, WindowEnum.CHOOSE_ACTION);
 		});
 		// buttonLogin.getStyleClass().add("button-menu");
@@ -105,8 +101,8 @@ public class ChooseAction extends AbstractWindow {
 		buttonRegister.getStyleClass().add("button-go");
 		buttonRegister.setOnAction(λ -> {
 			window.close();
-			ChooseAction.prevWindows.add(this);
-			(new Register()).display(primaryStage, WindowEnum.CHOOSE_ACTION);
+			AbstractWindow.prevWindows.add(this);
+			new Register().display(primaryStage, WindowEnum.CHOOSE_ACTION);
 		});
 
 		// buttonRegister.getStyleClass().add("button-menu");
@@ -116,8 +112,8 @@ public class ChooseAction extends AbstractWindow {
 		buttonMap.getStyleClass().add("button-go");
 		buttonMap.setOnAction(λ -> {
 			window.close();
-			ChooseAction.prevWindows.add(this);
-			(new DriverMap("32.777789, 35.022054", "32.761565, 35.019438")).display(primaryStage);
+			AbstractWindow.prevWindows.add(this);
+			new DriverMap("32.777789, 35.022054", "32.761565, 35.019438").display(primaryStage);
 		});
 
 		// buttonMap.getStyleClass().add("button-menu");
@@ -127,8 +123,8 @@ public class ChooseAction extends AbstractWindow {
 		buttonMyDetails.getStyleClass().add("button-go");
 		buttonMyDetails.setOnAction(e -> {
 			window.close();
-			MyDetails MD = new MyDetails();
-			ChooseAction.prevWindows.add(this);
+			final MyDetails MD = new MyDetails();
+			AbstractWindow.prevWindows.add(this);
 			MD.display(primaryStage, WindowEnum.CHOOSE_ACTION, null, null);
 
 		});
@@ -141,20 +137,20 @@ public class ChooseAction extends AbstractWindow {
 		buttonChooseDestination.getStyleClass().add("button-go");
 		buttonChooseDestination.setOnAction(e -> {
 			window.close();
-			ChooseDestination CD = new ChooseDestination();
-			ChooseAction.prevWindows.add(this);
+			final ChooseDestination CD = new ChooseDestination();
+			AbstractWindow.prevWindows.add(this);
 			CD.display(primaryStage);
 
 		});
 		buttonChooseDestination.setDisable(true);
 		// buttonChooseDestination.getStyleClass().add("button-menu");
 
-		Button buttonClose = new Button("Exit");
+		final Button buttonClose = new Button("Exit");
 		buttonClose.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("exit_button.png"))));
 		buttonClose.getStyleClass().add("button-go");
 		buttonClose.setOnAction(λ -> {
 			if (prevWindow == WindowEnum.NONE
-					&& (new ConfirmBox()).display("Confirmation", "Are you sure you want to exit?"))
+					&& new ConfirmBox().display("Confirmation", "Are you sure you want to exit?"))
 				window.close();
 		});
 		// buttonClose.getStyleClass().add("button-menu");
@@ -164,7 +160,7 @@ public class ChooseAction extends AbstractWindow {
 		buttonLogOut.getStyleClass().add("button-go");
 		buttonLogOut.setOnAction(λ -> {
 			if (prevWindow == WindowEnum.NONE
-					&& (new ConfirmBox()).display("Confirmation", "Are you sure you want to log out?")) {
+					&& new ConfirmBox().display("Confirmation", "Are you sure you want to log out?")) {
 				welcomeLabel.setText("Welcome. You are not logged in");
 				login = new LoginManager();
 				setButtonsDefaultValues();
@@ -178,12 +174,12 @@ public class ChooseAction extends AbstractWindow {
 			mute.getChildren().add(buttonMute);
 		mute.setAlignment(Pos.TOP_RIGHT);
 
-		HBox hbox1 = new HBox(5), hbox2 = new HBox(5);
+		final HBox hbox1 = new HBox(5), hbox2 = new HBox(5);
 		hbox1.getChildren().addAll(buttonAbout, buttonLogin, buttonRegister, buttonChooseDestination);
 		hbox2.getChildren().addAll(buttonMap, buttonMyDetails, buttonLogOut, buttonClose);
 		vbox.getChildren().addAll(mute, welcomeLabel, hbox1, hbox2);
 		vbox.setAlignment(Pos.CENTER);
-		Scene scene = new Scene(vbox);
+		final Scene scene = new Scene(vbox);
 		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());
 		window.setScene(scene);
 		window.showAndWait();

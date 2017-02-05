@@ -21,7 +21,6 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -96,8 +95,8 @@ public class EditAreaController implements Initializable {
 
 	@FXML
 	private void changeButtonAction() {
-		manager.logic.ManualUpdate manualUpdate = new manager.logic.ManualUpdate();
-		Date date = durationType != DurationType.TEMPORARY ? null
+		final manager.logic.ManualUpdate manualUpdate = new manager.logic.ManualUpdate();
+		final Date date = durationType != DurationType.TEMPORARY ? null
 				: Date.from(untilDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
 		System.out.println("Data sent to update is:");
 		System.out.println(parkingAreaElement.getAreaId());
@@ -108,15 +107,15 @@ public class EditAreaController implements Initializable {
 		try {
 			manualUpdate.updateArea(parkingAreaElement.getAreaId(), Integer.parseInt(slotsField.getText()),
 					StickersColor.valueOf(selectedColor.toUpperCase()), durationType, date);
-			Alert alert = new Alert(AlertType.INFORMATION);
+			final Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Update Succeeded");
 			alert.setHeaderText(null);
 			alert.setContentText("Update Succeeded");
 			alert.showAndWait();
 			((Stage) cancelBtn.getScene().getWindow()).close();
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			System.out.println(e.getMessage());
-			Alert alert = new Alert(AlertType.ERROR);
+			final Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("An Error Occurred");
 			alert.setHeaderText(null);
 			alert.setContentText(e.getMessage());
@@ -127,17 +126,18 @@ public class EditAreaController implements Initializable {
 	private static ParkingArea parkingAreaElement;
 
 	// Toggle Switch preparations
-	private SimpleBooleanProperty switchedOn = new SimpleBooleanProperty(false);
+	private final SimpleBooleanProperty switchedOn = new SimpleBooleanProperty(false);
 
 	public SimpleBooleanProperty switchOnProperty() {
 		return switchedOn;
 	}
 
-	public void initialize(URL location, ResourceBundle __) {
+	@Override
+	public void initialize(final URL location, final ResourceBundle __) {
 		areaLbl.setText(parkingAreaElement.getName());
-		(new SelectAnArea()).getAllPossibleColors().forEach(c -> {
-			JFXRadioButton rbtn = new JFXRadioButton(
-					(Character.toUpperCase(c.charAt(0)) + c.substring(1).toLowerCase()));
+		new SelectAnArea().getAllPossibleColors().forEach(c -> {
+			final JFXRadioButton rbtn = new JFXRadioButton(
+					Character.toUpperCase(c.charAt(0)) + c.substring(1).toLowerCase());
 			radioHBox.getChildren().addAll(rbtn);
 			rbtn.setToggleGroup(group);
 			if (c == parkingAreaElement.getColor().name())
@@ -145,13 +145,11 @@ public class EditAreaController implements Initializable {
 			selectedColor = parkingAreaElement.getColor().name();
 		});
 
-		group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-			public void changed(ObservableValue<? extends Toggle> ov, Toggle prev, Toggle next) {
-				if (group.getSelectedToggle() != null)
-					selectedColor = ((JFXRadioButton) next.getToggleGroup().getSelectedToggle()).getText();
-				System.out.println("Selected Radio Button - "
-						+ ((JFXRadioButton) next.getToggleGroup().getSelectedToggle()).getText());
-			}
+		group.selectedToggleProperty().addListener((ChangeListener<Toggle>) (ov, prev, next) -> {
+			if (group.getSelectedToggle() != null)
+				selectedColor = ((JFXRadioButton) next.getToggleGroup().getSelectedToggle()).getText();
+			System.out.println("Selected Radio Button - "
+					+ ((JFXRadioButton) next.getToggleGroup().getSelectedToggle()).getText());
 		});
 
 		// Slider Initialization: Number of slots
@@ -168,7 +166,7 @@ public class EditAreaController implements Initializable {
 		tempToggle.setOnAction(λ -> switchedOn.set(!switchedOn.get()));
 		HBoxPrefHeight = 150.0d;
 		switchedOn.addListener((listener, prev, next) -> {
-			Timeline timeline = new Timeline();
+			final Timeline timeline = new Timeline();
 			if (next) {
 				durationType = DurationType.TEMPORARY;
 				tempHBox.setPrefHeight(0.0d);
@@ -189,10 +187,10 @@ public class EditAreaController implements Initializable {
 		});
 	}
 
-	public static void display(String parkingAreaID) throws IOException, ParseException {
+	public static void display(final String parkingAreaID) throws IOException, ParseException {
 		parkingAreaElement = new ParkingArea(parkingAreaID);
-		Stage window = new Stage();
-		Parent editAreaParent = FXMLLoader.load(EditAreaController.class.getResource("EditArea.fxml"));
+		final Stage window = new Stage();
+		final Parent editAreaParent = FXMLLoader.load(EditAreaController.class.getResource("EditArea.fxml"));
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.setTitle("Edit Parking Area: " + parkingAreaElement.getName());
 		window.setScene(new Scene(editAreaParent));

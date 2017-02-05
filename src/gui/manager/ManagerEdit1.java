@@ -20,16 +20,16 @@ public class ManagerEdit1 extends AbstractWindow {
 		window.initModality(Modality.APPLICATION_MODAL);
 	}
 
-	public void display(Stage primaryStage, gui.manager.WindowEnum none, ArrayList<AbstractWindow> prevWindows) {
+	public void display(final Stage primaryStage, final gui.manager.WindowEnum none, final ArrayList<AbstractWindow> prevWindows) {
 		window.setTitle("ManagerEdit1");
 		window.setWidth(400);
 		window.setHeight(100);
-		VBox vbox = new VBox(8);
+		final VBox vbox = new VBox(8);
 		vbox.setPadding(new Insets(10, 10, 10, 10));
 		vbox.setAlignment(Pos.CENTER);
-		Scene scene = new Scene(vbox);
+		final Scene scene = new Scene(vbox);
 
-		Button editButton = new Button("View & Edit");
+		final Button editButton = new Button("View & Edit");
 		editButton.setOnAction(λ -> {
 
 		});

@@ -13,7 +13,7 @@ public class Main {
 	static Scene scene;
 	Stage window;
 
-	public static Class<? extends AbstractWindow> getWindowClass(WindowEnum ¢) {
+	public static Class<? extends AbstractWindow> getWindowClass(final WindowEnum ¢) {
 		switch (¢) {
 		case CHOOSE_ACTION:
 			return ChooseAction.class;

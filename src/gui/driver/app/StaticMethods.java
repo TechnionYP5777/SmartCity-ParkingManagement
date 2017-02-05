@@ -10,7 +10,7 @@ import javafx.scene.media.MediaPlayer;
 
 public class StaticMethods {
 
-	public static String getStickerClolorFromEnum(StickersColor ¢) {
+	public static String getStickerClolorFromEnum(final StickersColor ¢) {
 		switch (¢) {
 		case BLUE:
 			return "Blue";
@@ -31,15 +31,15 @@ public class StaticMethods {
 
 	// onEntry checks if you just entered the window or you clicked on the mute
 	// button
-	public static void dealWithMute(MediaPlayer p, ArrayList<Button> muteButtonsAL) {
-		for (Button currButton : muteButtonsAL)
+	public static void dealWithMute(final MediaPlayer p, final ArrayList<Button> muteButtonsAL) {
+		for (final Button currButton : muteButtonsAL)
 			currButton.setGraphic(new ImageView(new Image(
 					StaticMethods.class.getResourceAsStream(!p.isMute() ? "mute_button.png" : "unmute_button.png"))));
 		p.setMute(!p.isMute());
 	}
 
-	public static Button cloneButton(Button firstButton) {
-		Button $ = new Button();
+	public static Button cloneButton(final Button firstButton) {
+		final Button $ = new Button();
 		$.setText(firstButton.getText());
 		// System.out.println("firstButton.getOnAction(): " +
 		// firstButton.getOnAction());

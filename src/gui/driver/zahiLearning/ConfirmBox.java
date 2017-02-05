@@ -19,15 +19,15 @@ public class ConfirmBox {
 
 	static boolean answer;
 
-	public static boolean display(String title, String message) {
-		Stage window = new Stage();
+	public static boolean display(final String title, final String message) {
+		final Stage window = new Stage();
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.setTitle(title);
 		window.setMinWidth(250);
 		window.setMinHeight(50);
-		Label label = new Label(message);
+		final Label label = new Label(message);
 
-		Button yesButton = new Button("Yes"), noButton = new Button("No");
+		final Button yesButton = new Button("Yes"), noButton = new Button("No");
 		yesButton.setOnAction(λ -> {
 			answer = true;
 			window.close();
@@ -38,7 +38,7 @@ public class ConfirmBox {
 			window.close();
 		});
 
-		VBox layout = new VBox(10);
+		final VBox layout = new VBox(10);
 		layout.getChildren().addAll(label, yesButton, noButton);
 		layout.setAlignment(Pos.CENTER);
 

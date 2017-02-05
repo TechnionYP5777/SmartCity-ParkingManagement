@@ -5,7 +5,7 @@ public enum WindowEnum {
 	OPENING(0), CHOOSE_ACTION(1), GET_PASS_BY_MAIL(2), MY_DETAILS(3), MY_DETAILS_EDIT(4), MAIN(5), SIGN_UP(6), LOG_IN(
 			7), CHOOSE_DESTINATION(8), REGISTER(9), ABOUT(10), NONE(11);
 
-	WindowEnum(int __) {
+	WindowEnum(final int __) {
 
 	}
 }

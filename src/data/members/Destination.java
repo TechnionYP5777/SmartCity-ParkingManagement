@@ -28,112 +28,112 @@ public class Destination extends dbMember {
 	private static final String ENTRANCE = "entrance";
 	private static final String TABLE_NAME = "Destination";
 
-	private static ParseObject getDbDestinationObject(String name) {
-		ParseQuery<ParseObject> query = ParseQuery.getQuery(TABLE_NAME);
+	private static ParseObject getDbDestinationObject(final String name) {
+		final ParseQuery<ParseObject> query = ParseQuery.getQuery(TABLE_NAME);
 		query.whereEqualTo(NAME, name);
 		query.limit(1);
 		try {
-			List<ParseObject> $ = query.find();
+			final List<ParseObject> $ = query.find();
 			return $ == null || $.isEmpty() ? null : $.get(0);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			return null;
 		}
 	}
 
 	public static Map<String, Destination> getDestinations() {
-		ParseQuery<ParseObject> query = ParseQuery.getQuery(TABLE_NAME);
-		Map<String, Destination> $ = new HashMap<String, Destination>();
+		final ParseQuery<ParseObject> query = ParseQuery.getQuery(TABLE_NAME);
+		final Map<String, Destination> $ = new HashMap<String, Destination>();
 		try {
-			List<ParseObject> result = query.find();
+			final List<ParseObject> result = query.find();
 			if (result == null)
 				return $;
-			for (ParseObject dest : result) {
-				String destName = dest.getString(NAME);
+			for (final ParseObject dest : result) {
+				final String destName = dest.getString(NAME);
 				$.put(destName, new Destination(destName));
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 		}
 		return $;
 	}
 
-	public static boolean destinationExists(String name) {
+	public static boolean destinationExists(final String name) {
 		return getDbDestinationObject(name) != null;
 	}
 
-	public Destination(String name, MapLocation location) throws ParseException, AlreadyExists {
+	public Destination(final String name, final MapLocation location) throws ParseException, AlreadyExists {
 		DBManager.initialize();
-		this.setParseObject(TABLE_NAME);
+		setParseObject(TABLE_NAME);
 
 		if (destinationExists(name))
 			throw new AlreadyExists("already exists");
 
 		this.setEntrance(location);
-		this.setDestinationName(name);
-		this.setObjectId();
+		setDestinationName(name);
+		setObjectId();
 	}
 
-	public Destination(String name, double latitude, double longitude) throws ParseException, AlreadyExists {
+	public Destination(final String name, final double latitude, final double longitude) throws ParseException, AlreadyExists {
 		DBManager.initialize();
-		this.setParseObject(TABLE_NAME);
+		setParseObject(TABLE_NAME);
 
 		if (destinationExists(name))
 			throw new AlreadyExists("already exists");
 
 		this.setEntrance(new MapLocation(latitude, longitude));
-		this.setDestinationName(name);
-		this.setObjectId();
+		setDestinationName(name);
+		setObjectId();
 	}
 
-	public Destination(String name) throws ParseException, NotExists {
+	public Destination(final String name) throws ParseException, NotExists {
 		DBManager.initialize();
-		this.parseObject = getDbDestinationObject(name);
-		if (this.parseObject == null)
+		parseObject = getDbDestinationObject(name);
+		if (parseObject == null)
 			throw new NotExists("not exists");
-		this.name = this.parseObject.getString(NAME);
-		ParseGeoPoint geo = this.parseObject.getParseGeoPoint(ENTRANCE);
-		this.entrance = new MapLocation(geo.getLatitude(), geo.getLongitude());
+		this.name = parseObject.getString(NAME);
+		final ParseGeoPoint geo = parseObject.getParseGeoPoint(ENTRANCE);
+		entrance = new MapLocation(geo.getLatitude(), geo.getLongitude());
 	}
 
-	public Destination(MapLocation location) throws ParseException, NotExists {
+	public Destination(final MapLocation location) throws ParseException, NotExists {
 		DBManager.initialize();
 
-		ParseQuery<ParseObject> query = ParseQuery.getQuery(TABLE_NAME);
+		final ParseQuery<ParseObject> query = ParseQuery.getQuery(TABLE_NAME);
 		query.whereNear(ENTRANCE, new ParseGeoPoint(location.getLat(), location.getLon()));
 		query.limit(1);
-		List<ParseObject> result = query.find();
-		this.parseObject = result == null || result.isEmpty() ? null : result.get(0);
-		if (this.parseObject == null)
+		final List<ParseObject> result = query.find();
+		parseObject = result == null || result.isEmpty() ? null : result.get(0);
+		if (parseObject == null)
 			throw new NotExists("not exists");
-		this.name = this.parseObject.getString(NAME);
-		ParseGeoPoint geo = this.parseObject.getParseGeoPoint(ENTRANCE);
-		this.entrance = new MapLocation(geo.getLatitude(), geo.getLongitude());
+		name = parseObject.getString(NAME);
+		final ParseGeoPoint geo = parseObject.getParseGeoPoint(ENTRANCE);
+		entrance = new MapLocation(geo.getLatitude(), geo.getLongitude());
 	}
 
 	public String getDestinationName() {
-		return this.name;
+		return name;
 	}
 
 	public MapLocation getEntrance() {
-		return this.entrance;
+		return entrance;
 	}
 
-	public void setDestinationName(String name) throws ParseException, AlreadyExists {
+	public void setDestinationName(final String name) throws ParseException, AlreadyExists {
 
 		if (destinationExists(name))
 			throw new AlreadyExists("already exists");
 
 		this.name = name;
-		this.parseObject.put(NAME, name);
-		this.parseObject.save();
+		parseObject.put(NAME, name);
+		parseObject.save();
 	}
 
-	public void setEntrance(MapLocation ¢) throws ParseException {
-		this.entrance = ¢;
-		this.parseObject.put(ENTRANCE, new ParseGeoPoint(¢.getLat(), ¢.getLon()));
-		this.parseObject.save();
+	public void setEntrance(final MapLocation ¢) throws ParseException {
+		entrance = ¢;
+		parseObject.put(ENTRANCE, new ParseGeoPoint(¢.getLat(), ¢.getLon()));
+		parseObject.save();
 	}
 
-	public void setEntrance(double latitude, double longitude) throws ParseException {
+	public void setEntrance(final double latitude, final double longitude) throws ParseException {
 		setEntrance(new MapLocation(latitude, longitude));
 	}
 }

@@ -30,34 +30,34 @@ public class Management {
 	private ParkingAreas parkingAreas;
 
 	public Management() {
-		this.users = new HashSet<User>();
-		this.parkingSlots = new HashSet<ParkingSlot>();
+		users = new HashSet<User>();
+		parkingSlots = new HashSet<ParkingSlot>();
 		// init set of users
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
+		final ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
 		try {
-			List<ParseObject> usersList = query.find();
+			final List<ParseObject> usersList = query.find();
 			if (usersList == null || usersList.isEmpty())
 				throw new RuntimeException("There was a problem - Users table doesnt found");
-			for (ParseObject ¢ : usersList)
-				this.users.add(new User(¢));
-		} catch (ParseException ¢) {
+			for (final ParseObject ¢ : usersList)
+				users.add(new User(¢));
+		} catch (final ParseException ¢) {
 			¢.printStackTrace();
 		}
 		// init set of parking slots
-		ParseQuery<ParseObject> query2 = ParseQuery.getQuery("ParkingSlot");
+		final ParseQuery<ParseObject> query2 = ParseQuery.getQuery("ParkingSlot");
 		try {
-			List<ParseObject> slotList = query2.find();
+			final List<ParseObject> slotList = query2.find();
 			if (slotList == null || slotList.isEmpty())
 				throw new RuntimeException("There was a problem - ParkingSlot table doesnt found");
-			for (ParseObject ¢ : slotList)
-				this.parkingSlots.add(new ParkingSlot(¢));
-		} catch (ParseException ¢) {
+			for (final ParseObject ¢ : slotList)
+				parkingSlots.add(new ParkingSlot(¢));
+		} catch (final ParseException ¢) {
 			¢.printStackTrace();
 		}
-		this.parkingAreas = new ParkingAreas();
+		parkingAreas = new ParkingAreas();
 	}
 
-	public Management(Set<User> users, Set<ParkingSlot> parkingSlots, ParkingAreas parkingAreas) throws ParseException {
+	public Management(final Set<User> users, final Set<ParkingSlot> parkingSlots, final ParkingAreas parkingAreas) throws ParseException {
 		this.parkingAreas = parkingAreas;
 		this.parkingSlots = parkingSlots;
 		this.users = users;
@@ -67,16 +67,16 @@ public class Management {
 		return parkingAreas;
 	}
 
-	public void setParkingAreas(ParkingAreas ¢) {
-		this.parkingAreas = ¢;
+	public void setParkingAreas(final ParkingAreas ¢) {
+		parkingAreas = ¢;
 	}
 
 	public Set<User> getUsers() {
 		return users;
 	}
 
-	public void setUsers(Set<User> ¢) {
-		this.users = ¢;
+	public void setUsers(final Set<User> ¢) {
+		users = ¢;
 
 	}
 
@@ -84,35 +84,35 @@ public class Management {
 		return parkingSlots;
 	}
 
-	public void setParkingSlots(Set<ParkingSlot> ¢) {
-		this.parkingSlots = ¢;
+	public void setParkingSlots(final Set<ParkingSlot> ¢) {
+		parkingSlots = ¢;
 
 	}
 
-	public void addUser(User newUser) {
-		this.users.add(newUser);
+	public void addUser(final User newUser) {
+		users.add(newUser);
 
 	}
 
-	public void addParkingSlot(ParkingSlot newParkingSlot) {
-		this.parkingSlots.add(newParkingSlot);
+	public void addParkingSlot(final ParkingSlot newParkingSlot) {
+		parkingSlots.add(newParkingSlot);
 
 	}
 
-	public void removeUser(User userToRemove) {
-		this.users.remove(userToRemove);
+	public void removeUser(final User userToRemove) {
+		users.remove(userToRemove);
 
 	}
 
-	public void removeParkingSlot(ParkingSlot slotToRemove) {
-		this.parkingSlots.remove(slotToRemove);
+	public void removeParkingSlot(final ParkingSlot slotToRemove) {
+		parkingSlots.remove(slotToRemove);
 
 	}
 
 	// Return sticker type of a given user
-	public StickersColor getColorByUser(User u) {
+	public StickersColor getColorByUser(final User u) {
 		// search the given user
-		ParseQuery<ParseObject> query2 = ParseQuery.getQuery("PMUser");
+		final ParseQuery<ParseObject> query2 = ParseQuery.getQuery("PMUser");
 		query2.whereEqualTo("carNumber", u.getCarNumber());
 		try {
 			if (query2.find().size() != 1) {
@@ -120,21 +120,21 @@ public class Management {
 				return null;
 			}
 
-		} catch (ParseException ¢) {
+		} catch (final ParseException ¢) {
 			¢.printStackTrace();
 			return null;
 		}
 		StickersColor $ = null;
-		for (User currentUser : this.users)
+		for (final User currentUser : users)
 			if (currentUser.getCarNumber().equals(u.getCarNumber()))
 				$ = currentUser.getSticker();
 		return $;
 	}
 
 	// Return parking slot id by a given user
-	public ParkingSlot getParkingslotByUser(User u) {
+	public ParkingSlot getParkingslotByUser(final User u) {
 		// search the given user
-		ParseQuery<ParseObject> query2 = ParseQuery.getQuery("PMUser");
+		final ParseQuery<ParseObject> query2 = ParseQuery.getQuery("PMUser");
 		query2.whereEqualTo("carNumber", u.getCarNumber());
 		try {
 			if (query2.find().size() != 1) {
@@ -142,20 +142,20 @@ public class Management {
 				return null;
 			}
 
-		} catch (ParseException ¢) {
+		} catch (final ParseException ¢) {
 			¢.printStackTrace();
 			return null;
 		}
 		ParkingSlot $ = null;
-		for (User currentUser : this.users)
+		for (final User currentUser : users)
 			if (currentUser.getCarNumber().equals(u.getCarNumber()))
 				$ = currentUser.getCurrentParking();
 		return $;
 	}
 
 	// Return parking slot id by a given user
-	public User getUserByParkingslot(ParkingSlot parkinSlot) {
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
+	public User getUserByParkingslot(final ParkingSlot parkinSlot) {
+		final ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
 		query.whereEqualTo("name", parkinSlot.getName());
 		try {
 			if (query.find().size() != 1) {
@@ -163,13 +163,13 @@ public class Management {
 				return null;
 			}
 
-		} catch (ParseException ¢) {
+		} catch (final ParseException ¢) {
 			¢.printStackTrace();
 			return null;
 		}
-		User $ = null;
+		final User $ = null;
 		// search current user in parkingSlot
-		for (User ¢ : this.getUsers())
+		for (final User ¢ : getUsers())
 			if (¢.getCurrentParking() != null && ¢.getCurrentParking().getName().equals(parkinSlot.getName()))
 				return ¢;
 
@@ -177,33 +177,33 @@ public class Management {
 	}
 
 	// Return num of taken parking slots by a given area
-	public int getNumOfTakenByArea(ParkingArea ¢) {
-		return this.parkingAreas.getNumOfTakenByArea(¢);
+	public int getNumOfTakenByArea(final ParkingArea ¢) {
+		return parkingAreas.getNumOfTakenByArea(¢);
 	}
 
 	// Return num of free parking slots by given area
-	public int getNumOfFreeByArea(ParkingArea ¢) {
-		return this.parkingAreas.getNumOfFreeByArea(¢);
+	public int getNumOfFreeByArea(final ParkingArea ¢) {
+		return parkingAreas.getNumOfFreeByArea(¢);
 	}
 
 	// Return num of free parking slots
 	public int getNumOfFreeSlots() {
-		return this.parkingAreas.getNumOfFreeSlots();
+		return parkingAreas.getNumOfFreeSlots();
 	}
 
 	// Return num of taken parking slots
 	public int getNumOfTakenSlots() {
-		return this.parkingAreas.getNumOfTakenSlots();
+		return parkingAreas.getNumOfTakenSlots();
 	}
 
 	// Return parking slots per area
-	public int getNumOfSlotsByArea(ParkingArea ¢) {
-		return this.parkingAreas.getNumOfSlotsByArea(¢);
+	public int getNumOfSlotsByArea(final ParkingArea ¢) {
+		return parkingAreas.getNumOfSlotsByArea(¢);
 	}
 
 	// Return a free parking slot by a given area
-	public ParkingSlot getParkingslotByArea(ParkingArea ¢) throws ParseException {
-		return this.parkingAreas.getParkingslotByArea(¢);
+	public ParkingSlot getParkingslotByArea(final ParkingArea ¢) throws ParseException {
+		return parkingAreas.getParkingslotByArea(¢);
 	}
 
 }

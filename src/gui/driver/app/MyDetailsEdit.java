@@ -28,11 +28,11 @@ public class MyDetailsEdit extends AbstractWindow {
 		window.getIcons().add(new Image(getClass().getResourceAsStream("Smart_parking_icon.png")));
 	}
 
-	public void display(Stage primaryStage, WindowEnum prevWindow, final ArrayList<Label> ls,
+	public void display(final Stage primaryStage, final WindowEnum prevWindow, final ArrayList<Label> ls,
 			final ArrayList<Label> values) {
 		// window = primaryStage;
 		window.setTitle("Edit My Details");
-		GridPane grid = new GridPane();
+		final GridPane grid = new GridPane();
 		grid.setPadding(new Insets(20, 20, 20, 20));
 		grid.setVgap(8);
 		grid.setHgap(10);
@@ -40,8 +40,9 @@ public class MyDetailsEdit extends AbstractWindow {
 				new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2, 2, 2, 2))));
 		window.setWidth(350);
 		window.setHeight(340);
-		ArrayList<TextField> newValues = new ArrayList<TextField>();
-		int i = 0, stickerIdx = 4;
+		final ArrayList<TextField> newValues = new ArrayList<TextField>();
+		int i = 0;
+		final int stickerIdx = 4;
 		// System.out.println("DME labels.size(): " + labels.size());
 		for (; i <= 2; ++i) {
 
@@ -53,14 +54,14 @@ public class MyDetailsEdit extends AbstractWindow {
 			grid.getChildren().addAll(ls.get(i), newValues.get(i));
 		}
 
-		String prePN = login.getPhoneNumber().substring(0, 3), endPN = login.getPhoneNumber().substring(3, 10);
-		HBox hboxPhone = new HBox();
-		Label phoneNumber = new Label("Phone Number:");
-		ChoiceBox<String> prefixNumber = new ChoiceBox<>();
+		final String prePN = login.getPhoneNumber().substring(0, 3), endPN = login.getPhoneNumber().substring(3, 10);
+		final HBox hboxPhone = new HBox();
+		final Label phoneNumber = new Label("Phone Number:");
+		final ChoiceBox<String> prefixNumber = new ChoiceBox<>();
 		prefixNumber.getItems().addAll("050", "052", "053", "054", "057");
 		prefixNumber.setValue(prePN);
 		prefixNumber.getStyleClass().add("cb");
-		TextField phoneNumberInput = new TextField();
+		final TextField phoneNumberInput = new TextField();
 		phoneNumberInput.setMaxWidth(95);
 		// phoneNumberInput.setMaxWidth(50);
 		phoneNumberInput.setText(endPN);
@@ -70,8 +71,8 @@ public class MyDetailsEdit extends AbstractWindow {
 		GridPane.setColumnSpan(hboxPhone, 2);
 		GridPane.setConstraints(phoneNumber, 0, 3);
 
-		Label sticker = new Label("Sticker Color:");
-		ChoiceBox<String> stickerColor = new ChoiceBox<>();
+		final Label sticker = new Label("Sticker Color:");
+		final ChoiceBox<String> stickerColor = new ChoiceBox<>();
 		stickerColor.getItems().addAll("Blue", "Green", "White", "Red", "Bordeaux", "Yellow");
 		stickerColor.setValue(StaticMethods.getStickerClolorFromEnum(login.getSticker()));
 		stickerColor.getValue();
@@ -81,12 +82,12 @@ public class MyDetailsEdit extends AbstractWindow {
 		grid.getChildren().add(sticker);
 		grid.getChildren().add(stickerColor);
 
-		Button doneButton = new Button();
+		final Button doneButton = new Button();
 		doneButton.setText("Done");
 		doneButton.setOnAction(e -> {
 			// Save edits
 			if (checkChangesLegality(newValues)) {
-				ArrayList<Label> correctedValues = new ArrayList<Label>();
+				final ArrayList<Label> correctedValues = new ArrayList<Label>();
 				for (int j = 0; j < newValues.size(); ++j)
 					correctedValues.add(new Label(newValues.get(j).getText()));
 				correctedValues.add(3, new Label(prefixNumber.getValue() + phoneNumberInput.getText()));
@@ -104,11 +105,11 @@ public class MyDetailsEdit extends AbstractWindow {
 					// You can only get here if the last prevWindows is
 					// 'MyDetails'!!
 					window.close();
-					MyDetails MD = (MyDetails) AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1);
+					final MyDetails MD = (MyDetails) AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1);
 					AbstractWindow.prevWindows.remove(prevWindows.size() - 1);
 					MD.display(primaryStage, prevWindow, ls, correctedValues);
-				} catch (LoginException e1) {
-					(new AlertBox()).display("Sign Up", e1 + "");
+				} catch (final LoginException e1) {
+					new AlertBox().display("Sign Up", e1 + "");
 				}
 				/* Done */
 			}
@@ -116,14 +117,14 @@ public class MyDetailsEdit extends AbstractWindow {
 		// System.out.println("MDE 2 size: " + values.size() + " : " + values);
 		GridPane.setConstraints(doneButton, 0, values.size());
 
-		Button backButton = new Button();
+		final Button backButton = new Button();
 		backButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("back_button.png"))));
 		backButton.getStyleClass().add("button-go");
 
 		backButton.setOnAction(e -> {
 			// move to editing my details
-			this.window.close();
-			MyDetails MD = (MyDetails) AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1);
+			window.close();
+			final MyDetails MD = (MyDetails) AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1);
 			AbstractWindow.prevWindows.remove(prevWindows.size() - 1);
 			MD.display(primaryStage, prevWindow, ls, values);
 			/*
@@ -135,7 +136,7 @@ public class MyDetailsEdit extends AbstractWindow {
 		GridPane.setConstraints(backButton, 1, values.size());
 
 		grid.getChildren().addAll(doneButton, backButton, hboxPhone, phoneNumber);
-		Scene scene = new Scene(grid);
+		final Scene scene = new Scene(grid);
 		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());
 		window.setScene(scene);
 		window.show();
@@ -151,7 +152,7 @@ public class MyDetailsEdit extends AbstractWindow {
 	 * correctedValues.get(3).getText()); System.out.println("4: " +
 	 * correctedValues.get(4).getText()); }
 	 */
-	public static boolean checkChangesLegality(ArrayList<TextField> newValues) {
+	public static boolean checkChangesLegality(final ArrayList<TextField> newValues) {
 
 		return true;
 	}

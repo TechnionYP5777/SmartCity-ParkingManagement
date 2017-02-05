@@ -14,14 +14,14 @@ import data.members.ParkingArea;
 import data.members.StickersColor;
 
 public class ManualUpdate {
-	private Queries queries;
+	private final Queries queries;
 
 	public ManualUpdate() {
-		this.queries = new Queries();
+		queries = new Queries();
 	}
 
-	public void updateArea(int areaId, int slotsAmount, StickersColor demandColor, DurationType t, Date untilDate) {
-		ParkingArea givenArea = this.queries.returnArea(areaId);
+	public void updateArea(final int areaId, final int slotsAmount, final StickersColor demandColor, final DurationType t, final Date untilDate) {
+		final ParkingArea givenArea = queries.returnArea(areaId);
 		if (givenArea == null)
 			throw new RuntimeException("demand area does not exist");
 		if (givenArea.getNumOfFreeSlots() < slotsAmount)
@@ -32,6 +32,6 @@ public class ManualUpdate {
 			throw new RuntimeException("end time is not in the future");
 		if (untilDate == null && t.equals(DurationType.TEMPORARY))
 			throw new RuntimeException("temporary without end date");
-		(new ManualUpdateArea(this.queries.returnArea(areaId), slotsAmount, demandColor, t, untilDate)).updateArea();
+		new ManualUpdateArea(queries.returnArea(areaId), slotsAmount, demandColor, t, untilDate).updateArea();
 	}
 }

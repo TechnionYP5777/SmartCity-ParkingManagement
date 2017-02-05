@@ -19,7 +19,7 @@ public class UserTest {
 		try {
 			// making a new user in the database for all of the tests
 			new User("Test User", "Test", "0500000000", "0000000", "test@gmail.com", StickersColor.BLUE, null);
-		} catch (ParseException ¢) {
+		} catch (final ParseException ¢) {
 			¢.printStackTrace();
 		}
 	}
@@ -38,10 +38,10 @@ public class UserTest {
 						StickersColor.RED, new MapLocation(32.778153, 35.021855), new Date()));
 			Assert.assertEquals(user.getCurrentParking().getName(), "DavidSlot");
 			user.getCurrentParking().setColor(StickersColor.BORDEAUX);
-			ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
+			final ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
 			Assert.assertEquals(new ParkingSlot(user.getCurrentParking().getParseObject()).getColor(),
 					StickersColor.BORDEAUX);
-			ParseObject park = query.get((user.getCurrentParking().getParseObject()).getObjectId());
+			final ParseObject park = query.get(user.getCurrentParking().getParseObject().getObjectId());
 			Assert.assertEquals(StickersColor.values()[park.getInt("color")], StickersColor.BORDEAUX);
 			user.setCurrentParking(null);
 			park.delete();
@@ -58,8 +58,8 @@ public class UserTest {
 	@Test
 	public void test02() {
 		try {
-			User user = new User("0000000");
-			ParkingSlot ps = new ParkingSlot("DavidSlot2", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
+			final User user = new User("0000000");
+			final ParkingSlot ps = new ParkingSlot("DavidSlot2", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
 					new MapLocation(32.778153, 35.021855), new Date());
 			if (user != null)
 				user.setCurrentParking(ps);
@@ -79,13 +79,13 @@ public class UserTest {
 	@Test
 	public void test03() {
 		try {
-			User user = new User("0000000");
+			final User user = new User("0000000");
 			if (user != null)
 				user.setCurrentParking(new ParkingSlot("DavidSlot3", ParkingSlotStatus.FREE, StickersColor.RED,
 						StickersColor.RED, new MapLocation(32.778153, 35.021855), new Date()));
 			Assert.assertEquals(user.getCurrentParking().getName(), "DavidSlot3");
-			ParseObject park = ParseQuery.getQuery("ParkingSlot")
-					.get((user.getCurrentParking().getParseObject()).getObjectId());
+			final ParseObject park = ParseQuery.getQuery("ParkingSlot")
+					.get(user.getCurrentParking().getParseObject().getObjectId());
 			Assert.assertEquals(StickersColor.values()[park.getInt("color")], StickersColor.RED);
 			Assert.assertEquals(park.getString("name"), "DavidSlot3");
 			park.put("name", "DavidSlot4");
@@ -108,18 +108,18 @@ public class UserTest {
 	@Test
 	public void test04() {
 		try {
-			User user = new User("0000000");
+			final User user = new User("0000000");
 			if (user != null)
 				user.setCurrentParking(new ParkingSlot("DavidSlot3", ParkingSlotStatus.FREE, StickersColor.RED,
 						StickersColor.RED, new MapLocation(32.778153, 35.021855), new Date()));
-			ParseObject park1 = user.getCurrentParking().getParseObject();
+			final ParseObject park1 = user.getCurrentParking().getParseObject();
 			Assert.assertEquals(user.getCurrentParking().getName(), "DavidSlot3");
 			Assert.assertEquals(user.getCurrentParking().getColor(), StickersColor.RED);
 			Assert.assertEquals(user.getCurrentParking().getStatus(), ParkingSlotStatus.FREE);
 			if (user != null)
 				user.setCurrentParking(new ParkingSlot("DavidSlot4", ParkingSlotStatus.TAKEN, StickersColor.GREEN,
 						StickersColor.GREEN, new MapLocation(32.778153, 35.021855), new Date()));
-			ParseObject park2 = user.getCurrentParking().getParseObject();
+			final ParseObject park2 = user.getCurrentParking().getParseObject();
 			Assert.assertEquals(user.getCurrentParking().getName(), "DavidSlot4");
 			Assert.assertEquals(user.getCurrentParking().getColor(), StickersColor.GREEN);
 			Assert.assertEquals(user.getCurrentParking().getStatus(), ParkingSlotStatus.TAKEN);
@@ -135,7 +135,7 @@ public class UserTest {
 	@Test
 	public void test05() {
 		try {
-			User user = new User("0000000");
+			final User user = new User("0000000");
 			Assert.assertEquals(user.getCarNumber(), "0000000");
 			Assert.assertEquals(user.getEmail(), "test@gmail.com");
 			Assert.assertEquals(user.getName(), "Test User");
@@ -161,7 +161,7 @@ public class UserTest {
 	@Test
 	public void test06() {
 		try {
-			User tmpUser = new User("0000000"), user = new User(tmpUser.getParseObject());
+			final User tmpUser = new User("0000000"), user = new User(tmpUser.getParseObject());
 			Assert.assertEquals(user.getCarNumber(), tmpUser.getCarNumber());
 			Assert.assertEquals(user.getEmail(), tmpUser.getEmail());
 			Assert.assertEquals(user.getName(), tmpUser.getName());
@@ -178,8 +178,8 @@ public class UserTest {
 	public void AfterUserTest() {
 		try {
 			// delete the template user from the database
-			(new User("0000000")).deleteParseObject();
-		} catch (Exception ¢) {
+			new User("0000000").deleteParseObject();
+		} catch (final Exception ¢) {
 			¢.printStackTrace();
 		}
 	}

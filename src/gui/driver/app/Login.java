@@ -37,7 +37,7 @@ public class Login extends AbstractWindow {
 		window.getIcons().add(new Image(getClass().getResourceAsStream("Smart_parking_icon.png")));
 	}
 
-	public void display(Stage primaryStage, WindowEnum __) {
+	public void display(final Stage primaryStage, final WindowEnum __) {
 		window = primaryStage;
 		grid = new GridPane();
 		grid.setPadding(new Insets(20, 20, 20, 20));
@@ -47,10 +47,10 @@ public class Login extends AbstractWindow {
 		window.setHeight(310);
 
 		// title
-		DropShadow shadow = new DropShadow();
+		final DropShadow shadow = new DropShadow();
 		shadow.setOffsetY(4.0);
 		shadow.setColor(Color.color(0.4f, 0.4f, 0.4f));
-		Label title = new Label();
+		final Label title = new Label();
 		title.setEffect(shadow);
 		title.setTextFill(Color.ROYALBLUE);
 		title.setTextAlignment(TextAlignment.CENTER);
@@ -58,20 +58,20 @@ public class Login extends AbstractWindow {
 		title.setFont(Font.font(null, FontWeight.BOLD, 48));
 		title.getStyleClass().add("label-title");
 		// user
-		Label user = new Label("Car Number");
-		TextField nameInput = new TextField();
+		final Label user = new Label("Car Number");
+		final TextField nameInput = new TextField();
 		nameInput.setPromptText("car number");
 
 		// password
-		Label pass = new Label("Password");
-		PasswordField passInput = new PasswordField();
+		final Label pass = new Label("Password");
+		final PasswordField passInput = new PasswordField();
 		passInput.setPromptText("password");
-		Hyperlink forgotPass = new Hyperlink();
+		final Hyperlink forgotPass = new Hyperlink();
 
 		forgotPass.setText("Forgot Password?");
-		forgotPass.setOnAction(λ -> (new GetPassByMail()).display(primaryStage, WindowEnum.LOG_IN));
+		forgotPass.setOnAction(λ -> new GetPassByMail().display(primaryStage, WindowEnum.LOG_IN));
 
-		Button buttonMute = new Button("MUTE");
+		final Button buttonMute = new Button("MUTE");
 		buttonMute.setOnAction(λ -> {
 			if (mediaPlayer.isMute()) {
 				mediaPlayer.setMute(false);
@@ -87,16 +87,16 @@ public class Login extends AbstractWindow {
 		});
 		buttonMute.getStyleClass().add("button-muteOFF");
 
-		Button loginButton = new Button("Login"), backButton = new Button();
+		final Button loginButton = new Button("Login"), backButton = new Button();
 		backButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("back_button.png"))));
 		backButton.getStyleClass().add("button-go");
 		backButton.setOnAction(λ -> {
 			// move to editing my details
-			this.window.close();
+			window.close();
 			AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1).window.show();
 			AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size() - 1);
 		});
-		HBox hbox = new HBox(20);
+		final HBox hbox = new HBox(20);
 		hbox.setPadding(new Insets(10, 10, 10, 10));
 		GridPane.setConstraints(title, 0, 0);
 		GridPane.setColumnSpan(title, 2);
@@ -113,18 +113,18 @@ public class Login extends AbstractWindow {
 		grid.getChildren().addAll(title, user, nameInput, pass, passInput, hbox, forgotPass);
 		loginButton.setOnAction(e -> {
 			if (!login.userLogin(nameInput.getText(), passInput.getText()))
-				(new AlertBox()).display("Login failed", "Car Number/Password is incorrect.");
+				new AlertBox().display("Login failed", "Car Number/Password is incorrect.");
 			else {
 
-				AlertBox MB = new AlertBox();
+				final AlertBox MB = new AlertBox();
 				MB.display("Please Wait",
 						"Connecting to server. \nThis might take a Few seconds. \nPlease confirm and wait patiently");
 				navigate = new NavigationController(login.getUser());
 				MB.window.close();
 
-				this.window.close();
+				window.close();
 
-				(new AlertBox()).display("Successful", "You have successfuly logged in");
+				new AlertBox().display("Successful", "You have successfuly logged in");
 				Opening.getCAObject(prevWindows).buttonLogin.setDisable(true);
 				Opening.getCAObject(prevWindows).buttonRegister.setDisable(true);
 				Opening.getCAObject(prevWindows).buttonChooseDestination.setDisable(false);
@@ -137,7 +137,7 @@ public class Login extends AbstractWindow {
 		});
 		grid.setBackground(
 				new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, new Insets(2, 2, 2, 2))));
-		Scene scene = new Scene(grid);
+		final Scene scene = new Scene(grid);
 		scene.getStylesheets().add(getClass().getResource("mainStyle.css").toExternalForm());
 		window.setScene(scene);
 		window.setTitle("Login");
