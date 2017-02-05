@@ -60,7 +60,7 @@ public class About extends AbstractWindow {
 		Button backButton = new Button();
 		backButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("back_button.png"))));
 		backButton.getStyleClass().add("button-go");
-		backButton.setOnAction(e -> {
+		backButton.setOnAction(λ -> {
 			this.window.close();
 //			if (!isLinuxOS)
 //				StaticMethods.dealWithMute(mediaPlayer, buttonMute, true);

@@ -23,14 +23,14 @@ public class ConfirmBox{
 		label.setText(message);
 		
 		yesButton = new Button("Yes");
-		yesButton.setOnAction(e-> {
+		yesButton.setOnAction(λ-> {
 			
 			answer = true;
 			window.close();
 		});
 		
 		noButton = new Button("No");
-		noButton.setOnAction(e-> {
+		noButton.setOnAction(λ-> {
 		answer = false;	
 		window.close();
 		});

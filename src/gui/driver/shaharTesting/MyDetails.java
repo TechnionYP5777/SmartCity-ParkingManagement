@@ -34,9 +34,7 @@ public class MyDetails extends AbstractWindow{
 		Button editDetailsButton = new Button();
 		editDetailsButton.setText("Edit");
 		int buttonIndex;
-		ArrayList<Label> labels;
-		ArrayList<Label> values;
-		
+		ArrayList<Label> labels, values;
 		if (newLabels != null) {
 			labels = newLabels;
 			values = newValues;
@@ -44,19 +42,16 @@ public class MyDetails extends AbstractWindow{
 			labels = new ArrayList<Label>();
 			values = new ArrayList<Label>();
 			
-			Label eMailLabel = new Label("eMail:");
 			Label eMail = new Label("user@gmail.com");
-			labels.add(eMailLabel);
+			labels.add(new Label("eMail:"));
 			values.add(eMail);
 			
-			Label UsernameLabel = new Label("Username:");
 			Label username = new Label("AwesomeUser");
-			labels.add(UsernameLabel);
+			labels.add(new Label("Username:"));
 			values.add(username);
 			
-			Label carNumberLabel = new Label("Car Number:");
 			Label carNumber = new Label("123456789");
-			labels.add(carNumberLabel);
+			labels.add(new Label("Car Number:"));
 			values.add(carNumber);
 		}
 		
@@ -79,7 +74,7 @@ public class MyDetails extends AbstractWindow{
 		//TODO: finish it
 		Button backButton = new Button();
 		backButton.setText("Back");
-		backButton.setOnAction(e -> {
+		backButton.setOnAction(λ -> {
 			// move to editing my details
 			this.window.close();
 			prevWindows.get(prevWindows.size()-1).window.show();

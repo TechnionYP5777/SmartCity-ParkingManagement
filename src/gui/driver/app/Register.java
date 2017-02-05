@@ -113,18 +113,17 @@ public class Register extends AbstractWindow {
 		stickerColor.getStyleClass().add("cb");
 		Hyperlink wantLogin = new Hyperlink();
 		wantLogin.setText("Already Registered?");
-		wantLogin.setOnAction(e -> {
+		wantLogin.setOnAction(λ -> {
 			// AbstractWindow.prevWindows.add(this); --> will return to login
 			// instead of mainMenu
 			window.close();
 			(new Login()).display(primaryStage, WindowEnum.SIGN_UP);
 		});
 
-		Button registerButton = new Button("Register");
-		Button backButton = new Button();
+		Button registerButton = new Button("Register"), backButton = new Button();
 		backButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("back_button.png"))));
 		backButton.getStyleClass().add("button-go");
-		backButton.setOnAction(e -> {
+		backButton.setOnAction(λ -> {
 			// move to editing my details
 			this.window.close();
 			AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1).window.show();
@@ -156,11 +155,9 @@ public class Register extends AbstractWindow {
 				carNumberInput, mail, mailInput, sticker, stickerColor, hbox, wantLogin);
 		registerButton.setOnAction(e -> {
 			try {
-				String name = nameInput.getText();
-				String password = passInput.getText();
-				String phone = prefixNumber.getSelectionModel().getSelectedItem() + phoneNumberInput.getText();
-				String car = carNumberInput.getText();
-				String eMail = mailInput.getText();
+				String name = nameInput.getText(), password = passInput.getText(),
+						phone = prefixNumber.getSelectionModel().getSelectedItem() + phoneNumberInput.getText(),
+						car = carNumberInput.getText(), eMail = mailInput.getText();
 				StickersColor type = StickersColor
 						.valueOf(stickerColor.getSelectionModel().getSelectedItem().toUpperCase());
 				if ("".equals(name) || "".equals(password) || phone.length() == 3 || "".equals(car) || "".equals(eMail))
@@ -171,7 +168,7 @@ public class Register extends AbstractWindow {
 				AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1).window.show();
 				AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size() - 1);
 			} catch (LoginException e1) {
-				(new AlertBox()).display("Sign Up", (e1 + ""));
+				(new AlertBox()).display("Sign Up", e1 + "");
 			}
 		});
 		grid.setBackground(

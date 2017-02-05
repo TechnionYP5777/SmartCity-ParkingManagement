@@ -160,8 +160,7 @@ public class UserTest {
 	@Test
 	public void test06() {
 		try {
-			User tmpUser = new User("0000000");
-			User user = new User(tmpUser.getParseObject());
+			User tmpUser = new User("0000000"), user = new User(tmpUser.getParseObject());
 			Assert.assertEquals(user.getCarNumber(), tmpUser.getCarNumber());
 			Assert.assertEquals(user.getEmail(), tmpUser.getEmail());
 			Assert.assertEquals(user.getName(), tmpUser.getName());

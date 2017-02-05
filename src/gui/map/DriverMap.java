@@ -53,13 +53,13 @@ public class DriverMap extends PmMap {
 		if (fromLogic == null && toLogic == null)
 			return;
 		if (from == null || to == null) {
-			directionsService.getRoute((new DirectionsRequest("technion", "haifa university", TravelModes.DRIVING)),
+			directionsService.getRoute(new DirectionsRequest("technion", "haifa university", TravelModes.DRIVING),
 					this, new DirectionsRenderer(true, mapComponent.getMap(), directionsPane));
 			tb.getItems().addAll(new Label("Origin:" + fromLogic), new Label("Destination:" + toLogic));
 		} else
 			try {
 				Destination dStart = new Destination(from);
-				directionsService.getRoute((new DirectionsRequest(fromLogic, toLogic, TravelModes.DRIVING)), this,
+				directionsService.getRoute(new DirectionsRequest(fromLogic, toLogic, TravelModes.DRIVING), this,
 						new DirectionsRenderer(true, mapComponent.getMap(), directionsPane));
 				tb.getItems().addAll(new Label("Origin:" + dStart.getDestinationName() + " " + fromLogic),
 						new Label("Destination: " + ParkingSlot.ParkingNameByLocation(to) + " " + toLogic));
@@ -74,7 +74,7 @@ public class DriverMap extends PmMap {
 		if (SeconedCall)
 			return;
 		directionsService.getRoute(
-				(new DirectionsRequest(toLogic, realto.getLat() + "," + realto.getLon(), TravelModes.WALKING)), this,
+				new DirectionsRequest(toLogic, realto.getLat() + "," + realto.getLon(), TravelModes.WALKING), this,
 				new DirectionsRenderer(true, mapComponent.getMap(), directionsPane));
 		SeconedCall = true;
 	}

@@ -26,7 +26,7 @@ public class AlertBox {
 		alertWindow.setMinHeight(50);
 		Label label = new Label (message); 
 		Button closeButton = new Button ("Close");
-		closeButton.setOnAction(e -> alertWindow.close());
+		closeButton.setOnAction(λ -> alertWindow.close());
 		
 		VBox layout = new VBox (10); 
 		layout.getChildren().addAll(label, closeButton); 

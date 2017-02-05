@@ -14,14 +14,14 @@ public class StaticMethods {
 		switch (¢) {
 		case BLUE:
 			return "Blue";
-		case GREEN:
-			return "Green";
-		case WHITE:
-			return "White";
-		case RED:
-			return "Red";
 		case BORDEAUX:
 			return "Bordeaux";
+		case GREEN:
+			return "Green";
+		case RED:
+			return "Red";
+		case WHITE:
+			return "White";
 		case YELLOW:
 			return "Yellow";
 		default:
@@ -44,7 +44,7 @@ public class StaticMethods {
 //		System.out.println("firstButton.getOnAction(): " + firstButton.getOnAction());
 //		System.out.println(firstButton.getStyleClass().toString());
 		$.getStyleClass().addAll(firstButton.getStyleClass());
-		$.setOnAction(e -> StaticMethods.dealWithMute(AbstractWindow.mediaPlayer, AbstractWindow.muteButtonsAL));
+		$.setOnAction(λ -> StaticMethods.dealWithMute(AbstractWindow.mediaPlayer, AbstractWindow.muteButtonsAL));
 		return $;
 	}
 

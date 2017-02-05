@@ -55,7 +55,7 @@ public class parkingAreasTest {
 			List<ParseObject> areaList = query.find();
 			if (areaList == null || areaList.isEmpty())
 				throw new RuntimeException("There should be an area with areaId=" + 0);
-			Assert.assertEquals(0, (new ParkingAreas().getNumOfFreeByArea(new ParkingArea(areaList.get(0)))));
+			Assert.assertEquals(0, new ParkingAreas().getNumOfFreeByArea(new ParkingArea(areaList.get(0))));
 		
 			//remove new ParkingArea and ParkingSlots
 			ParseQuery<ParseObject> queryArea = ParseQuery.getQuery("ParkingArea");
@@ -107,7 +107,7 @@ public class parkingAreasTest {
 			List<ParseObject> areaList = query.find();
 			if (areaList == null || areaList.isEmpty())
 				throw new RuntimeException("There should be an area with areaId=" + 0);
-			Assert.assertEquals(1, (new ParkingAreas().getNumOfFreeByArea(new ParkingArea(areaList.get(0)))));
+			Assert.assertEquals(1, new ParkingAreas().getNumOfFreeByArea(new ParkingArea(areaList.get(0))));
 		
 			//remove new ParkingArea and ParkingSlots
 			ParseQuery<ParseObject> queryArea = ParseQuery.getQuery("ParkingArea");
@@ -158,7 +158,7 @@ public class parkingAreasTest {
 			List<ParseObject> areaList = query.find();
 			if (areaList == null || areaList.isEmpty())
 				throw new RuntimeException("There should be an area with areaId=" + 0);
-			Assert.assertEquals(1, (new ParkingAreas().getNumOfTakenByArea(new ParkingArea(areaList.get(0)))));
+			Assert.assertEquals(1, new ParkingAreas().getNumOfTakenByArea(new ParkingArea(areaList.get(0))));
 		
 			//remove new ParkingArea and ParkingSlots
 			ParseQuery<ParseObject> queryArea = ParseQuery.getQuery("ParkingArea");
@@ -209,7 +209,7 @@ public class parkingAreasTest {
 			List<ParseObject> areaList = query.find();
 			if (areaList == null || areaList.isEmpty())
 				throw new RuntimeException("There should be an area with areaId=" + 0);
-			Assert.assertEquals(0, (new ParkingAreas().getNumOfTakenByArea(new ParkingArea(areaList.get(0)))));
+			Assert.assertEquals(0, new ParkingAreas().getNumOfTakenByArea(new ParkingArea(areaList.get(0))));
 		
 			//remove new ParkingArea and ParkingSlots
 			//delete objects
@@ -245,28 +245,23 @@ public class parkingAreasTest {
 		// Arrange
 		DBManager.initialize();
 		ParkingSlot slot1 = new ParkingSlot("testS1", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
-				new MapLocation(0, 0), new Date());
-		ParkingSlot slot2 = new ParkingSlot("testS2", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
-				new MapLocation(0, 0), new Date());
-
+				new MapLocation(0, 0), new Date()),
+				slot2 = new ParkingSlot("testS2", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
+						new MapLocation(0, 0), new Date());
 		Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 		slots.add(slot1);
 		slots.add(slot2);
 
 		MapLocation loc =  new MapLocation(0, 0);
-		ParkingArea area1 = new ParkingArea(0, "t1", loc, slots, StickersColor.RED);
-		ParkingArea area2 = new ParkingArea(0, "t2", loc, slots, StickersColor.RED);
-		
+		ParkingArea area1 = new ParkingArea(0, "t1", loc, slots, StickersColor.RED),
+				area2 = new ParkingArea(0, "t2", loc, slots, StickersColor.RED);
 		Set<ParkingArea> a = new HashSet<ParkingArea>();
 		a.add(area1);a.add(area2);
 		ParkingAreas areas = new ParkingAreas(a);
 		
-		// Act
-		int free = areas.getNumOfFreeSlots();
 		int taken = areas.getNumOfTakenSlots();
-		
 		// Assert
-		Assert.assertEquals(4,free);
+		Assert.assertEquals(4,areas.getNumOfFreeSlots());
 		Assert.assertEquals(0,taken);
 
 		
@@ -299,7 +294,7 @@ public class parkingAreasTest {
 			List<ParseObject> areaList = query.find();
 			if (areaList == null || areaList.isEmpty())
 				throw new RuntimeException("There should be an area with areaId=" + 0);
-			Assert.assertEquals(2, (new ParkingAreas().getNumOfSlotsByArea(new ParkingArea(areaList.get(0)))));
+			Assert.assertEquals(2, new ParkingAreas().getNumOfSlotsByArea(new ParkingArea(areaList.get(0))));
 		
 			//remove new ParkingArea and ParkingSlots
 			ParseQuery<ParseObject> queryArea = ParseQuery.getQuery("ParkingArea");
@@ -393,9 +388,9 @@ public class parkingAreasTest {
 
 		Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 		MapLocation loc =  new MapLocation(0, 0);
-		ParkingArea area1 = new ParkingArea(0, "t1", loc, slots, StickersColor.RED);
-		ParkingArea area2 = new ParkingArea(0, "t2", loc, slots, StickersColor.RED);
-		ParkingArea area3 = new ParkingArea(0, "t3", loc, slots, StickersColor.RED);
+		ParkingArea area1 = new ParkingArea(0, "t1", loc, slots, StickersColor.RED),
+				area2 = new ParkingArea(0, "t2", loc, slots, StickersColor.RED),
+				area3 = new ParkingArea(0, "t3", loc, slots, StickersColor.RED);
 		Set<ParkingArea> a = new HashSet<ParkingArea>();
 		a.add(area1);a.add(area2);a.add(area3);		
 		
@@ -421,10 +416,9 @@ public class parkingAreasTest {
 		// Arrange
 		DBManager.initialize();
 		ParkingSlot slot1 = new ParkingSlot("testS1", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
-				new MapLocation(0, 0), new Date());
-		ParkingSlot slot2 = new ParkingSlot("testS2", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
-				new MapLocation(0, 0), new Date());
-
+				new MapLocation(0, 0), new Date()),
+				slot2 = new ParkingSlot("testS2", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
+						new MapLocation(0, 0), new Date());
 		Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 		slots.add(slot1);
 		slots.add(slot2);

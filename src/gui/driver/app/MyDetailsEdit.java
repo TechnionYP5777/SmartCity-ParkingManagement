@@ -41,8 +41,7 @@ public class MyDetailsEdit extends AbstractWindow {
 		window.setWidth(350);
 		window.setHeight(340);
 		ArrayList<TextField> newValues = new ArrayList<TextField>();
-		int i = 0;
-		int stickerIdx = 4;
+		int i = 0, stickerIdx = 4;
 		//System.out.println("DME labels.size(): " + labels.size());
 		for (; i <= 2; ++i) {
 			
@@ -54,8 +53,7 @@ public class MyDetailsEdit extends AbstractWindow {
 		}
 		
 		
-		String prePN = login.getPhoneNumber().substring(0, 3);
-		String endPN = login.getPhoneNumber().substring(3, 10);
+		String prePN = login.getPhoneNumber().substring(0, 3), endPN = login.getPhoneNumber().substring(3, 10);
 		HBox hboxPhone = new HBox();
 		Label phoneNumber = new Label("Phone Number:");
 		ChoiceBox<String> prefixNumber = new ChoiceBox<>();
@@ -109,7 +107,7 @@ public class MyDetailsEdit extends AbstractWindow {
 					AbstractWindow.prevWindows.remove(prevWindows.size() - 1);
 					MD.display(primaryStage, prevWindow, ls, correctedValues);
 				} catch (LoginException e1) {
-					(new AlertBox()).display("Sign Up", (e1 + ""));
+					(new AlertBox()).display("Sign Up", e1 + "");
 				}
 				/* Done */
 			}

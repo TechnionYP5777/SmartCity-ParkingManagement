@@ -110,7 +110,7 @@ public class manualUpdateTest {
 	@Test(expected=RuntimeException.class)
 	public void test5() throws ParseException, Exception{
 		//end time is not in the future
-		new ManualUpdate().updateArea(20, 1, StickersColor.BLUE, DurationType.TEMPORARY, ((new SimpleDateFormat("yyyy-MM-dd")).parse("2017-01-01")));
+		new ManualUpdate().updateArea(20, 1, StickersColor.BLUE, DurationType.TEMPORARY, (new SimpleDateFormat("yyyy-MM-dd")).parse("2017-01-01"));
 	}
 	
 	@Test(expected=RuntimeException.class)

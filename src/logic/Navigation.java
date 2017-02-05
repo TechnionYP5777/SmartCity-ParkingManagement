@@ -30,7 +30,7 @@ public class Navigation {
 		JSONParser $ = new JSONParser();
 		try {
 			return (JSONObject) ((JSONArray) ((JSONObject) ((JSONArray) ((JSONObject) $
-					.parse(IOUtils.toString((new URL(url)), StandardCharsets.UTF_8))).get("rows")).get(0))
+					.parse(IOUtils.toString(new URL(url), StandardCharsets.UTF_8))).get("rows")).get(0))
 							.get("elements")).get(0);
 		} catch (ParseException | IOException ¢) {
 			¢.printStackTrace();
@@ -69,8 +69,8 @@ public class Navigation {
 			for (Object o : a) {
 				JSONObject parkingArea = (JSONObject) o;
 				int id = Integer.parseInt((String) parkingArea.get("id"));
-				double targetLat = Double.parseDouble((String) parkingArea.get("locationX"));
-				double targetLon = Double.parseDouble((String) parkingArea.get("locationY"));
+				double targetLat = Double.parseDouble((String) parkingArea.get("locationX")),
+						targetLon = Double.parseDouble((String) parkingArea.get("locationY"));
 				long d = getDistance(currentLocation, new MapLocation(targetLat, targetLon), walkingMode);
 				if (d < dist) {
 					$ = id;
@@ -90,23 +90,17 @@ public class Navigation {
 		ParkingSlot $ = null;
 		long minDuration = Integer.MAX_VALUE;
 
-		for (ParkingArea parkingArea : a.getParkingAreas()) {
-
-			if (parkingArea.getNumOfFreeSlots() <= 0)
-				continue;
-
-			for (ParkingSlot parkingSlot : parkingArea.getFreeSlots()) {
-
-				if (!(canPark(u, parkingSlot)))
-					continue;
-
-				long duration = getDuration(parkingSlot.getLocation(), d.getEntrance(), true);
-				if (duration < minDuration) {
-					$ = parkingSlot;
-					minDuration = duration;
+		for (ParkingArea parkingArea : a.getParkingAreas())
+			if (parkingArea.getNumOfFreeSlots() > 0)
+				for (ParkingSlot parkingSlot : parkingArea.getFreeSlots()) {
+					if (!(canPark(u, parkingSlot)))
+						continue;
+					long duration = getDuration(parkingSlot.getLocation(), d.getEntrance(), true);
+					if (duration < minDuration) {
+						$ = parkingSlot;
+						minDuration = duration;
+					}
 				}
-			}
-		}
 		return $;
 	}
 

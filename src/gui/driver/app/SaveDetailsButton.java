@@ -20,7 +20,7 @@ public class SaveDetailsButton {
 
 		Label label = new Label();
 		label.setText(message);
-		button.setOnAction(e -> window.close());
+		button.setOnAction(λ -> window.close());
 
 		VBox layout = new VBox();
 		layout.getChildren().addAll(label, button);

@@ -104,7 +104,7 @@ public class ManagerMainScreenContorller implements Initializable {
         //Initialize parking areas list
         ParkingAreas pa = new ParkingAreas();
         try {
-			parkingAreasListView.setItems(FXCollections.observableList(((ArrayList<String>) pa.getParkingAreasNames())));
+			parkingAreasListView.setItems(FXCollections.observableList((ArrayList<String>) pa.getParkingAreasNames()));
 		} catch (ParseException ¢) {
 			¢.printStackTrace();
 		}
@@ -156,9 +156,8 @@ public class ManagerMainScreenContorller implements Initializable {
     		map.focusOnParkingArea(next);
     		editBtn.setDisable(false);
     		ParkingArea area;
-    		int freeSlots=0;
-    		int takenSlots=0;
-			try {
+    		int freeSlots = 0, takenSlots = 0;
+    		try {
 				area = new ParkingArea(next);
 				freeSlots = (int) area.getFreeSlots().stream().count();
 	        	takenSlots = (int) area.getTakenSlots().stream().count(); 

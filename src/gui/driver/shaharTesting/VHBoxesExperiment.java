@@ -16,22 +16,20 @@ public class VHBoxesExperiment {
 	
 		window = primaryStage;
 		window.setTitle("Main Screen");
-		window.setOnCloseRequest(e -> closeProgram());
+		window.setOnCloseRequest(λ -> closeProgram());
 		
 		HBox topMenu = new HBox();
-		Button buttonA = new Button("buttonA");
-		Button buttonB = new Button("buttonB");
+		Button buttonA = new Button("buttonA"), buttonB = new Button("buttonB");
 		topMenu.getChildren().addAll(buttonA,buttonB,new Button("buttonC"));
 		
 		VBox leftMenu = new VBox();
-		Button buttonD = new Button("buttonD");
-		Button buttonE = new Button("buttonE");
+		Button buttonD = new Button("buttonD"), buttonE = new Button("buttonE");
 		leftMenu.getChildren().addAll(buttonD,buttonE,new Button("buttonF"));
 		
 		HBox middleMenu = new HBox();
 		Button button = new Button("Close Program");
-		button.setOnAction(e -> {
-			e.consume(); //Hey, I'm gonna take care of this event manually.
+		button.setOnAction(λ -> {
+			λ.consume(); //Hey, I'm gonna take care of this event manually.
 			closeProgram();});
 		middleMenu.getChildren().addAll(button);
 		

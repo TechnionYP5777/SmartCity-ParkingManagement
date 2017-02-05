@@ -65,7 +65,7 @@ class IntegerTextField extends JFXTextField {
             }
  
             if (newVal.intValue() != 0 || textProperty().get() != null && !"".equals(textProperty().get()))
-				IntegerTextField.setText((newVal + ""));
+				IntegerTextField.setText(newVal + "");
           }
         }
       });

@@ -42,7 +42,7 @@ public class CreatingABasicWindow extends Application implements EventHandler<Ac
 		
 		Button inputHandler = new Button();
 		inputHandler.setText("Now do something with that input");
-		inputHandler.setOnAction(e -> isInt(getInput.getText()));
+		inputHandler.setOnAction(λ -> isInt(getInput.getText()));
 		
 		myButton = new Button();
 		myButton.setText("Click Here");
@@ -51,15 +51,15 @@ public class CreatingABasicWindow extends Application implements EventHandler<Ac
 		//Change scene buttons, using lambda action event
 		switchToScene2 = new Button();
 		switchToScene2.setText("Switch to 2");
-		switchToScene2.setOnAction(e -> window.setScene(scene2));
+		switchToScene2.setOnAction(λ -> window.setScene(scene2));
 		
 		alertBoxBtn = new Button();
 		alertBoxBtn.setText("Open Alert Box");
-		alertBoxBtn.setOnAction(e -> AlertBox.display("Box", "Please close this window"));
+		alertBoxBtn.setOnAction(λ -> AlertBox.display("Box", "Please close this window"));
 		
 		switchToScene1 = new Button();
 		switchToScene1.setText("Switch to 1");
-		switchToScene1.setOnAction(e -> window.setScene(scene1));
+		switchToScene1.setOnAction(λ -> window.setScene(scene1));
 		
 		//Parking areas table
 		TableView<parkingAreas> table;

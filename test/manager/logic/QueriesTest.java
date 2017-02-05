@@ -104,10 +104,9 @@ public class QueriesTest {
 		DBManager.initialize();
 		try {
 			ParkingSlot slot1 = new ParkingSlot("testS1", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
-					new MapLocation(0, 0), new Date());
-			ParkingSlot slot2 = new ParkingSlot("testS2", ParkingSlotStatus.TAKEN, StickersColor.RED, StickersColor.RED,
-					new MapLocation(0, 0), new Date());
-
+					new MapLocation(0, 0), new Date()),
+					slot2 = new ParkingSlot("testS2", ParkingSlotStatus.TAKEN, StickersColor.RED, StickersColor.RED,
+							new MapLocation(0, 0), new Date());
 			Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
 			slots.add(slot2);
@@ -120,7 +119,7 @@ public class QueriesTest {
 			List<ParseObject> areaList = query.find();
 			if (areaList == null || areaList.isEmpty())
 				throw new RuntimeException("There should be an area with areaId=1");
-			Assert.assertEquals(1,new Queries().getNumOfTakenByArea((new ParkingArea(areaList.get(0)))));
+			Assert.assertEquals(1,new Queries().getNumOfTakenByArea(new ParkingArea(areaList.get(0))));
 			area.deleteParseObject();
 			slot1.deleteParseObject();
 			slot2.deleteParseObject();
@@ -134,10 +133,9 @@ public class QueriesTest {
 		DBManager.initialize();
 		try {
 			ParkingSlot slot1 = new ParkingSlot("testS1", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
-					new MapLocation(0, 0), new Date());
-			ParkingSlot slot2 = new ParkingSlot("testS2", ParkingSlotStatus.TAKEN, StickersColor.RED, StickersColor.RED,
-					new MapLocation(0, 0), new Date());
-
+					new MapLocation(0, 0), new Date()),
+					slot2 = new ParkingSlot("testS2", ParkingSlotStatus.TAKEN, StickersColor.RED, StickersColor.RED,
+							new MapLocation(0, 0), new Date());
 			Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
 			slots.add(slot2);
@@ -150,7 +148,7 @@ public class QueriesTest {
 			List<ParseObject> areaList = query.find();
 			if (areaList == null || areaList.isEmpty())
 				throw new RuntimeException("There should be an area with areaId=1");
-			Assert.assertEquals(1,new Queries().getNumOfFreeByArea((new ParkingArea(areaList.get(0)))));
+			Assert.assertEquals(1,new Queries().getNumOfFreeByArea(new ParkingArea(areaList.get(0))));
 			area.deleteParseObject();
 			slot1.deleteParseObject();
 			slot2.deleteParseObject();
@@ -180,7 +178,7 @@ public class QueriesTest {
 			List<ParseObject> areaList = query.find();
 			if (areaList == null || areaList.isEmpty())
 				throw new RuntimeException("There should be an area with areaId=1");
-			Assert.assertEquals(10,(new Queries().getNumOfSlotsByArea(new ParkingArea(areaList.get(0)))));
+			Assert.assertEquals(10,new Queries().getNumOfSlotsByArea(new ParkingArea(areaList.get(0))));
 		} catch (ParseException e) {
 			fail();
 		}
@@ -191,10 +189,9 @@ public class QueriesTest {
 		DBManager.initialize();
 		try {
 			ParkingSlot slot1 = new ParkingSlot("testS1", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
-					new MapLocation(0, 0), new Date());
-			ParkingSlot slot2 = new ParkingSlot("testS2", ParkingSlotStatus.TAKEN, StickersColor.RED, StickersColor.RED,
-					new MapLocation(0, 0), new Date());
-
+					new MapLocation(0, 0), new Date()),
+					slot2 = new ParkingSlot("testS2", ParkingSlotStatus.TAKEN, StickersColor.RED, StickersColor.RED,
+							new MapLocation(0, 0), new Date());
 			Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
 			slots.add(slot2);
@@ -249,7 +246,7 @@ public class QueriesTest {
 				List<ParseObject> userList = query.find();
 				if (userList == null || userList.isEmpty())
 					throw new RuntimeException("There should be an area with carNumber=606060");
-					Assert.assertEquals("query1",(new Queries().returnUserName("60606060")));
+					Assert.assertEquals("query1",new Queries().returnUserName("60606060"));
 
 				//remove new ParkingArea and ParkingSlots
 				new User(userList.get(0)).deleteParseObject();	
@@ -270,7 +267,7 @@ public class QueriesTest {
 				List<ParseObject> userList = query.find();
 				if (userList == null || userList.isEmpty())
 					throw new RuntimeException("There should be an area with carNumber=60606060");
-				Assert.assertEquals("123456",(new Queries().returnUserPassword("60606060")));
+				Assert.assertEquals("123456",new Queries().returnUserPassword("60606060"));
 
 				//remove new ParkingArea and ParkingSlots
 				new User(userList.get(0)).deleteParseObject();	
@@ -291,7 +288,7 @@ public class QueriesTest {
 				List<ParseObject> userList = query.find();
 				if (userList == null || userList.isEmpty())
 					throw new RuntimeException("There should be an area with carNumber=60606060");
-				Assert.assertEquals("0541234567",(new Queries().returnUserPhoneNum("60606060")));
+				Assert.assertEquals("0541234567",new Queries().returnUserPhoneNum("60606060"));
 
 				//remove new ParkingArea and ParkingSlots
 				new User(userList.get(0)).deleteParseObject();	
@@ -313,7 +310,7 @@ public class QueriesTest {
 				List<ParseObject> userList = query.find();
 				if (userList == null || userList.isEmpty())
 					throw new RuntimeException("There should be an area with carNumber=60606060");
-				Assert.assertEquals(StickersColor.BLUE,((new Queries().returnUserSticker("60606060"))));
+				Assert.assertEquals(StickersColor.BLUE,new Queries().returnUserSticker("60606060"));
 
 				//remove new ParkingArea and ParkingSlots
 				new User(userList.get(0)).deleteParseObject();	
@@ -342,25 +339,25 @@ public class QueriesTest {
 	@Test
 	public void test16() throws ParseException {
 		DBManager.initialize();
-		Assert.assertEquals("taub3",new Queries().returnParkingSlot((new MapLocation(32.777825, 35.021849))).getName());
+		Assert.assertEquals("taub3",new Queries().returnParkingSlot(new MapLocation(32.777825, 35.021849)).getName());
 	}
 	
 	@Test
 	public void test17() {
 		DBManager.initialize();
-		Assert.assertEquals(ParkingSlotStatus.FREE,new Queries().returnParkingSlotStatus((new MapLocation(32.777825, 35.021849))));
+		Assert.assertEquals(ParkingSlotStatus.FREE,new Queries().returnParkingSlotStatus(new MapLocation(32.777825, 35.021849)));
 	}
 	
 	@Test
 	public void test18() {
 		DBManager.initialize();
-		Assert.assertEquals(StickersColor.RED,new Queries().returnParkingSlotColor((new MapLocation(32.777825, 35.021849))));
+		Assert.assertEquals(StickersColor.RED,new Queries().returnParkingSlotColor(new MapLocation(32.777825, 35.021849)));
 	}
 	
 	@Test
 	public void test19() {
 		DBManager.initialize();
-		Assert.assertEquals(null,new Queries().returnParkingSlotCurrentUser((new MapLocation(32.777825, 35.021849))));
+		Assert.assertEquals(null,new Queries().returnParkingSlotCurrentUser(new MapLocation(32.777825, 35.021849)));
 	}
 	
 	@Test
@@ -372,7 +369,7 @@ public class QueriesTest {
 			List<ParseObject> areaList = query.find();
 			if (areaList == null || areaList.isEmpty())
 				throw new RuntimeException("There should be an area with areaId=1");
-			Assert.assertEquals(1,(new Queries().returnArea(1).getAreaId()));
+			Assert.assertEquals(1,new Queries().returnArea(1).getAreaId());
 		} catch (ParseException e) {
 			fail();
 		}

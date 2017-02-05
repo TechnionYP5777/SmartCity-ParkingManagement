@@ -33,7 +33,7 @@ public class ManagerEdit1 extends AbstractWindow{
 		Scene scene = new Scene(vbox);
 		
 		Button editButton = new Button("View & Edit");
-		editButton.setOnAction(e -> {
+		editButton.setOnAction(λ -> {
 			
 		});
 		vbox.getChildren().add(editButton);

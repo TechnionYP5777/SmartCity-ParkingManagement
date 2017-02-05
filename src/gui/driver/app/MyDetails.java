@@ -40,9 +40,7 @@ public class MyDetails extends AbstractWindow {
 		Button editDetailsButton = new Button();
 		editDetailsButton.setText("Edit");
 		int buttonIndex;
-		ArrayList<Label> labels;
-		ArrayList<Label> values;
-
+		ArrayList<Label> labels, values;
 		if (newLabels != null) {
 			labels = newLabels;
 			values = newValues;
@@ -59,34 +57,28 @@ public class MyDetails extends AbstractWindow {
 			labels = new ArrayList<Label>();
 			values = new ArrayList<Label>();
 
-			Label eMailLabel = new Label("eMail:");
 			Label eMail = new Label(login.getEmail());
-			labels.add(eMailLabel);
+			labels.add(new Label("eMail:"));
 			values.add(eMail);
 
-			Label UsernameLabel = new Label("Username:");
 			Label username = new Label(login.getUserName());
-			labels.add(UsernameLabel);
+			labels.add(new Label("Username:"));
 			values.add(username);
 
-			Label carNumberLabel = new Label("Car Number:");
 			Label carNumber = new Label(login.getCarNumber());
-			labels.add(carNumberLabel);
+			labels.add(new Label("Car Number:"));
 			values.add(carNumber);
 
-			Label phoneNumberLabel = new Label("Phone Number:");
 			Label phoneNumber = new Label(login.getPhoneNumber());
-			labels.add(phoneNumberLabel);
+			labels.add(new Label("Phone Number:"));
 			values.add(phoneNumber);
 
-			Label stickerLabel = new Label("Sticker Color:");
 			Label sticker = new Label(StaticMethods.getStickerClolorFromEnum(login.getSticker()));
-			labels.add(stickerLabel);
+			labels.add(new Label("Sticker Color:"));
 			values.add(sticker);
 
-			Label lastLoginLabel = new Label("Last Login:");
 			Label lastLogin = new Label(login.getUser().getLastLoginTime() + "");
-			labels.add(lastLoginLabel);
+			labels.add(new Label("Last Login:"));
 			values.add(lastLogin);
 
 		}
@@ -114,7 +106,7 @@ public class MyDetails extends AbstractWindow {
 		backButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("back_button.png"))));
 		backButton.getStyleClass().add("button-go");
 
-		backButton.setOnAction(e -> {
+		backButton.setOnAction(λ -> {
 			// move to editing my details
 			this.window.close();
 			AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1).window.show();

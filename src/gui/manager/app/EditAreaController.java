@@ -137,7 +137,7 @@ public class EditAreaController implements Initializable {
     	(new SelectAnArea()).getAllPossibleColors().forEach(c -> {
 			JFXRadioButton rbtn = new JFXRadioButton(
 					(Character.toUpperCase(c.charAt(0)) + c.substring(1).toLowerCase()));
-			radioHBox.getChildren().addAll((rbtn));
+			radioHBox.getChildren().addAll(rbtn);
 			rbtn.setToggleGroup(group);
 			if (c == parkingAreaElement.getColor().name())
 				rbtn.setSelected(true);
@@ -163,7 +163,7 @@ public class EditAreaController implements Initializable {
     	
     	//Toggle switch initialization
     	tempBp.setCenter(null);
-    	tempToggle.setOnAction((e) -> switchedOn.set(!switchedOn.get()));
+    	tempToggle.setOnAction(λ -> switchedOn.set(!switchedOn.get()));
     	HBoxPrefHeight = 150.0d;   	
 		switchedOn.addListener((listener,prev,next) -> {
 			Timeline timeline = new Timeline();
@@ -183,7 +183,7 @@ public class EditAreaController implements Initializable {
 						new KeyFrame(Duration.ZERO, new KeyValue(tempHBox.prefHeightProperty(), HBoxPrefHeight)),
 						new KeyFrame(Duration.millis(1), new KeyValue(tempHBox.prefHeightProperty(), 0)));
 				timeline.play();
-				timeline.setOnFinished((evt) -> tempBp.setCenter(null));
+				timeline.setOnFinished(λ -> tempBp.setCenter(null));
 			}
 		});
     }

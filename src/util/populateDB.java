@@ -97,10 +97,8 @@ public class populateDB {
 	private static Boolean insertSlotToDB(String[] args){
 		String name = args[0];
 		ParkingSlotStatus status = ParkingSlotStatus.valueOf(args[1]);
-		StickersColor currentColor = StickersColor.valueOf(args[2]);
-		StickersColor defaultColor = StickersColor.valueOf(args[3]);
-		double lat = Double.parseDouble(args[4]);
-		double lon = Double.parseDouble(args[5]);
+		StickersColor currentColor = StickersColor.valueOf(args[2]), defaultColor = StickersColor.valueOf(args[3]);
+		double lat = Double.parseDouble(args[4]), lon = Double.parseDouble(args[5]);
 		try {
 			ParkingSlot slot1 = new ParkingSlot(name, status, currentColor, defaultColor, new MapLocation(lat, lon), new Date());
 		} catch (ParseException ¢) {
@@ -115,12 +113,11 @@ public class populateDB {
 		int id = Integer.parseInt(args[0]);
 		String name = args[1];
 		StickersColor defaultColor = StickersColor.valueOf(args[2]);
-		double lat = Double.parseDouble(args[3]);
-		double lon = Double.parseDouble(args[4]);
+		double lat = Double.parseDouble(args[3]), lon = Double.parseDouble(args[4]);
 		Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 		for(int nameIndex = 5; nameIndex<args.length; ++nameIndex)
 			try {
-				slots.add((new ParkingSlot(args[nameIndex])));
+				slots.add(new ParkingSlot(args[nameIndex]));
 			} catch (ParseException ¢) {
 				System.out.println("Something went wrong. Could not find the last slot in DB");
 				¢.printStackTrace();
@@ -140,7 +137,7 @@ public class populateDB {
 		Set<ParkingArea> area = new HashSet<ParkingArea>();
 		for(int idIndex = 0; idIndex<args.length; ++idIndex)
 			try {
-				area.add((new ParkingArea(args[idIndex])));
+				area.add(new ParkingArea(args[idIndex]));
 			} catch (ParseException ¢) {
 				System.out.println("Something went wrong. Could not find the last area in DB");
 				¢.printStackTrace();

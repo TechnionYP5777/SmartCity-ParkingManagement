@@ -56,11 +56,9 @@ public class Opening extends Application {
 		final Task<ObservableList<String>> task = new Task<ObservableList<String>>() {
 			@Override
 			protected ObservableList<String> call() throws InterruptedException {
-				ObservableList<String> $ = FXCollections.<String>observableArrayList();
-				ObservableList<String> team = FXCollections.observableArrayList("Zahi Mizrahi",
-						"Shahar Yair", "Shay Segal", "Sefi Albo", "Dani Shames", "David Cohen", "Or Troyaner",
-						"Tom Nof", "Inbal Matityahu");
-
+				ObservableList<String> $ = FXCollections.<String>observableArrayList(),
+						team = FXCollections.observableArrayList("Zahi Mizrahi", "Shahar Yair", "Shay Segal",
+								"Sefi Albo", "Dani Shames", "David Cohen", "Or Troyaner", "Tom Nof", "Inbal Matityahu");
 				updateMessage("SmartParking - Made By ");
 				for (int i = 0; i < team.size(); i++) {
 					Thread.sleep(400);
@@ -99,7 +97,7 @@ public class Opening extends Application {
 				FadeTransition fadeSplash = new FadeTransition(Duration.seconds(1), openingLayout);
 				fadeSplash.setFromValue(1.0);
 				fadeSplash.setToValue(0.0);
-				fadeSplash.setOnFinished(actionEvent -> initStage.hide());
+				fadeSplash.setOnFinished(λ -> initStage.hide());
 				fadeSplash.play();
 
 				h.complete();

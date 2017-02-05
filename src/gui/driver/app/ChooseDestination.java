@@ -79,7 +79,7 @@ public class ChooseDestination extends AbstractWindow {
 		Button buttonGO = new Button();
 		buttonGO.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("go_button.png"))));
 
-		buttonBack.setOnAction(e -> {
+		buttonBack.setOnAction(λ -> {
 			this.window.close();
 			AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size() - 1).window.show();
 			AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size() - 1);

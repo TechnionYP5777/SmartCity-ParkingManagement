@@ -65,8 +65,7 @@ public class DestinationTest {
 	 */
 	@Test
 	public void setDestinationNameTest() {
-		Destination d1 = null;
-		Destination d2 = null;
+		Destination d1 = null, d2 = null;
 		try {
 			d1 = new Destination("taubTest123", new MapLocation(32.778069, 35.021935));
 			d2 = new Destination("taubTest124", new MapLocation(32.778069, 35.021935));
@@ -158,8 +157,8 @@ public class DestinationTest {
 
 		Assert.assertEquals(Destination.destinationExists("taubTest123"), false);
 		try {
-			Destination d = new Destination("taubTest123", new MapLocation(32.778069, 35.021935));
-			Destination d2 = new Destination("taubTest123");
+			Destination d = new Destination("taubTest123", new MapLocation(32.778069, 35.021935)),
+					d2 = new Destination("taubTest123");
 			Assert.assertEquals("taubTest123", d2.getDestinationName());
 			Assert.assertEquals(d.getEntrance().getLat(), d2.getEntrance().getLat(), 0);
 			Assert.assertEquals(d.getEntrance().getLon(), d2.getEntrance().getLon(), 0);

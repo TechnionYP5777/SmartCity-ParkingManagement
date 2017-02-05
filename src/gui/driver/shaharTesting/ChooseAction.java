@@ -14,9 +14,7 @@ import javafx.stage.Stage;
 public class ChooseAction extends AbstractWindow {
 	
 	public void display(Stage primaryStage, WindowEnum prevWindow, ArrayList<AbstractWindow> prevWindows){
-		String title  = "Next Action";
-		String message = "Choose next action";
-		
+		String title = "Next Action", message = "Choose next action";
 		GridPane layout = new GridPane();
 		layout.setHgap(10);
 		layout.setVgap(10);
@@ -53,7 +51,7 @@ public class ChooseAction extends AbstractWindow {
 		
 		
 		Button button2 = new Button("Close Program");
-		button2.setOnAction(e-> {
+		button2.setOnAction(λ-> {
 			if(prevWindow == WindowEnum.NONE && ConfirmBox.display("Confirmation", "Are you sure you want to exit?"))
 				window.close();	
 		});

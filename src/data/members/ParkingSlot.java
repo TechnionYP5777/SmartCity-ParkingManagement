@@ -147,7 +147,7 @@ public class ParkingSlot extends dbMember {
 
 	private void setLocation(MapLocation ¢) throws ParseException {
 		this.location = ¢;
-		this.parseObject.put("location", (new ParseGeoPoint(¢.getLat(), ¢.getLon())));
+		this.parseObject.put("location", new ParseGeoPoint(¢.getLat(), ¢.getLon()));
 		this.parseObject.save();
 	}
 

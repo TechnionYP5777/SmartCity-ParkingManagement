@@ -108,7 +108,7 @@ public class ParkingArea extends dbMember {
 	public List<ParseObject> getAllSlots() {
 		try {
 			List<ParseObject> slots = parseObject.getList("parkingSlots");
-			List<Object> ids = slots.stream().map(p -> p.getObjectId()).collect(Collectors.toList());
+			List<Object> ids = slots.stream().map(λ -> λ.getObjectId()).collect(Collectors.toList());
 			ParseQuery<ParseObject> $ = ParseQuery.getQuery("ParkingSlot");
 			$.whereContainedIn("objectId", ids);
 			return $.find();
@@ -118,7 +118,7 @@ public class ParkingArea extends dbMember {
 	}
 
 	public Set<ParkingSlot> getSlotsByStatus(ParkingSlotStatus s) {
-		return parkingSlots.stream().filter((slot) -> slot.getStatus().equals(s)).collect(Collectors.toSet());
+		return parkingSlots.stream().filter(λ -> λ.getStatus().equals(s)).collect(Collectors.toSet());
 	}
 
 	public int getNumOfTakenSlots() {
@@ -152,7 +152,7 @@ public class ParkingArea extends dbMember {
 
 	public void setLocation(MapLocation ¢) {
 		this.location = ¢;
-		this.parseObject.put("location", (new ParseGeoPoint(¢.getLat(), ¢.getLon())));
+		this.parseObject.put("location", new ParseGeoPoint(¢.getLat(), ¢.getLon()));
 	}
 
 	private void setParkingSlots(Set<ParkingSlot> ¢) throws ParseException {

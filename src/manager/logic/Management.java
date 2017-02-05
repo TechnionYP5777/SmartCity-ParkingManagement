@@ -41,7 +41,7 @@ public class Management {
 			if (usersList == null || usersList.isEmpty())
 				throw new RuntimeException("There was a problem - Users table doesnt found");
 			for (ParseObject ¢: usersList)
-				this.users.add((new User(¢)));
+				this.users.add(new User(¢));
 		}
 		catch (ParseException ¢) {
 			¢.printStackTrace();
@@ -53,7 +53,7 @@ public class Management {
 			if (slotList == null || slotList.isEmpty())
 				throw new RuntimeException("There was a problem - ParkingSlot table doesnt found");
 			for (ParseObject ¢: slotList)
-				this.parkingSlots.add((new ParkingSlot(¢)));
+				this.parkingSlots.add(new ParkingSlot(¢));
 		}
 		catch (ParseException ¢) {
 			¢.printStackTrace();

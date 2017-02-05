@@ -98,25 +98,25 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 		lblClick = new Label();
 
 		mapTypeCombo = new ComboBox<>();
-		mapTypeCombo.setOnAction(e -> map.setMapType(mapTypeCombo.getSelectionModel().getSelectedItem()));
+		mapTypeCombo.setOnAction(λ -> map.setMapType(mapTypeCombo.getSelectionModel().getSelectedItem()));
 		mapTypeCombo.setDisable(true);
 
-		new Button("Map type").setOnAction(e -> map.setMapType(MapTypeIdEnum.HYBRID));
+		new Button("Map type").setOnAction(λ -> map.setMapType(MapTypeIdEnum.HYBRID));
 
 		btnHideMarker = new Button("Hide Marker");
-		btnHideMarker.setOnAction(e -> hideMarker());
+		btnHideMarker.setOnAction(λ -> hideMarker());
 
 		btnDeleteMarker = new Button("Delete Marker");
-		btnDeleteMarker.setOnAction(e -> deleteMarker());
+		btnDeleteMarker.setOnAction(λ -> deleteMarker());
 		
 		btnShowMarkers = new Button("Show/Hide markers");
-		btnShowMarkers.setOnAction(e -> {
+		btnShowMarkers.setOnAction(λ -> {
 			if($.getRight()!=null)
 				btnSelectRoute.fire();
 			$.setLeft($.getLeft() == null ? sp : null);
 		});
 		btnSelectRoute = new Button("Select Route");
-		btnSelectRoute.setOnAction(e -> {
+		btnSelectRoute.setOnAction(λ -> {
 			if($.getLeft()!=null)
 				btnShowMarkers.fire();
 			$.setRight($.getRight() != null ? null : routeVbox);
@@ -146,34 +146,34 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 		lblClick = new Label();
 
 		mapTypeCombo = new ComboBox<>();
-		mapTypeCombo.setOnAction(e -> map.setMapType(mapTypeCombo.getSelectionModel().getSelectedItem()));
+		mapTypeCombo.setOnAction(λ -> map.setMapType(mapTypeCombo.getSelectionModel().getSelectedItem()));
 		mapTypeCombo.setDisable(true);
 
-		new Button("Map type").setOnAction(e -> map.setMapType(MapTypeIdEnum.HYBRID));
+		new Button("Map type").setOnAction(λ -> map.setMapType(MapTypeIdEnum.HYBRID));
 
 		btnHideMarker = new Button("Hide Marker");
-		btnHideMarker.setOnAction(e -> hideMarker());
+		btnHideMarker.setOnAction(λ -> hideMarker());
 
 		btnDeleteMarker = new Button("Delete Marker");
-		btnDeleteMarker.setOnAction(e -> deleteMarker());
+		btnDeleteMarker.setOnAction(λ -> deleteMarker());
 
 		btnReturn = new Button("Back");
 //		ImageView ivBack= new ImageView(new Image(getClass().getResourceAsStream("back_button.png")));
 //		btnReturn.setGraphic(ivBack);
 //		btnReturn.getStyleClass().add("button-go");
-		btnReturn.setOnAction(e -> {
+		btnReturn.setOnAction(λ -> {
 			s.close();
 			AbstractWindow.prevWindows.get(AbstractWindow.prevWindows.size()-1).window.show();
 			AbstractWindow.prevWindows.remove(AbstractWindow.prevWindows.size()-1);
 		});
 		btnShowMarkers = new Button("Show/Hide markers");
-		btnShowMarkers.setOnAction(e -> {
+		btnShowMarkers.setOnAction(λ -> {
 			if(bp.getRight()!=null)
 				btnSelectRoute.fire();
 			bp.setLeft(bp.getLeft() == null ? sp : null);
 		});
 		btnSelectRoute = new Button("Select Route");
-		btnSelectRoute.setOnAction(e -> {
+		btnSelectRoute.setOnAction(λ -> {
 			if(bp.getLeft()!=null)
 				btnShowMarkers.fire();
 			bp.setRight(bp.getRight() != null ? null : routeVbox);
@@ -210,7 +210,7 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 		map.addUIEventHandler(UIEventType.click, (JSObject obj) -> {
 			LatLong newLat = new LatLong((JSObject) obj.getMember("latLng"));
 			newLat = new LatLong(newLat.getLatitude(),newLat.getLongitude());
-			lblClick.setText((newLat + ""));
+			lblClick.setText(newLat + "");
 			map.addMarker(createMarker(newLat, "marker at " + newLat));
 		});
 		mapTypeCombo.setDisable(false);
@@ -233,7 +233,7 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 		hbox.setSpacing(8);
 		Label l = new Label(title);
 		Button btn = new Button("remove");
-		btn.setOnAction(e -> {
+		btn.setOnAction(λ -> {
 			map.removeMarker($);
 			markerVbox.getChildren().remove(hbox);
 			fromLocation.getItems().remove(title);
@@ -279,20 +279,21 @@ public class PmMap extends  AbstractWindow implements MapComponentInitializedLis
 	public void createRoutePane() {
 		routeVbox = addVBox("select route");
 		fromLocation = new ComboBox<String>();
-		fromLocation.setOnAction(e -> map.hideDirectionsPane());
+		fromLocation.setOnAction(λ -> map.hideDirectionsPane());
 		toLocation = new ComboBox<String>();
-		toLocation.setOnAction(e -> map.hideDirectionsPane());
+		toLocation.setOnAction(λ -> map.hideDirectionsPane());
 		Button btn =new Button("draw");
 		btn.setOnAction(e->{
 			if(toLocation.getSelectionModel().getSelectedItem()==null || fromLocation.getSelectionModel().getSelectedItem()==null)
 				return;
-			MyMarker to = getMarkerByTitle(toLocation.getSelectionModel().getSelectedItem());
-			MyMarker from = getMarkerByTitle(fromLocation.getSelectionModel().getSelectedItem());
-			directionsService.getRoute((new DirectionsRequest(from.lat.getLatitude()+", "+from.lat.getLongitude(),to.lat.getLatitude()+", "+to.lat.getLongitude(),TravelModes.DRIVING)), this,
+			MyMarker to = getMarkerByTitle(toLocation.getSelectionModel().getSelectedItem()),
+					from = getMarkerByTitle(fromLocation.getSelectionModel().getSelectedItem());
+			directionsService.getRoute(new DirectionsRequest(from.lat.getLatitude() + ", " + from.lat.getLongitude(),
+					to.lat.getLatitude() + ", " + to.lat.getLongitude(), TravelModes.DRIVING), this,
 					new DirectionsRenderer(true, mapComponent.getMap(), directionsPane));
 		});
 		Button removeBtn = new Button("remove line");
-		removeBtn.setOnAction(e -> map.hideDirectionsPane());
+		removeBtn.setOnAction(λ -> map.hideDirectionsPane());
 		routeVbox.getChildren().addAll(fromLocation, toLocation,btn,removeBtn);
 		
 	}

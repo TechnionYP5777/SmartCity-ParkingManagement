@@ -40,9 +40,8 @@ public class example extends Application {
 		TextField passInput = new TextField();
 		passInput.setPromptText("password");
 		
-		Button button1 = new Button ("Login");
+		Button button1 = new Button("Login"), button2 = new Button("Sign Up");
 		
-		Button button2 = new Button ("Sign Up"); 
 		button2.getStyleClass().add("button-blue");
 		
 		GridPane.setConstraints (user,0,0);

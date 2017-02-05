@@ -44,7 +44,7 @@ public class ParkingAreas extends dbMember {
 			if (areaList == null || areaList.isEmpty())
 				throw new RuntimeException("There was a problem - ParkingArea table doesnt found");
 			for (ParseObject ¢: areaList)
-				this.parkingAreas.add((new ParkingArea(¢)));
+				this.parkingAreas.add(new ParkingArea(¢));
 		}
 		catch (ParseException ¢) {
 			¢.printStackTrace();

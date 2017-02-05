@@ -29,7 +29,7 @@ public class ManualUpdate {
 					throw new RuntimeException("demand amount does not possible");
 				if (givenArea.getColor().equals(demandColor))
 					throw new RuntimeException("there is no change in colors");
-				if (untilDate!=null && untilDate.before((new Date())))
+				if (untilDate!=null && untilDate.before(new Date()))
 					throw new RuntimeException("end time is not in the future");
 				if (untilDate==null && t.equals(DurationType.TEMPORARY))
 					throw new RuntimeException("temporary without end date");

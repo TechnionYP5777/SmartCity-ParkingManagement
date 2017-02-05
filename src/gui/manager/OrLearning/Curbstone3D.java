@@ -68,14 +68,14 @@ public class Curbstone3D extends Application{
             getChildren().addAll(
                 RectangleBuilder.create() // back face
                     .width(2 * size).height(size)
-                    .fill(color.deriveColor(0.0, 1.0, (1 - 0.5*shade), 1.0))
+                    .fill(color.deriveColor(0.0, 1.0, 1 - 0.5 * shade, 1.0))
                     .translateX(-0.5*size)
                     .translateY(-0.5*size)
                     .translateZ(0.5*size)
                     .build(),
                RectangleBuilder.create() // bottom face
                     .width(2 * size).height(size)
-                    .fill(color.deriveColor(0.0, 1.0, (1 - 0.4*shade), 1.0))
+                    .fill(color.deriveColor(0.0, 1.0, 1 - 0.4 * shade, 1.0))
                     .translateX(-0.5*size)
                     .translateY(0)
                     .rotationAxis(Rotate.X_AXIS)
@@ -83,7 +83,7 @@ public class Curbstone3D extends Application{
                     .build(),
                 RectangleBuilder.create() // right face
                     .width(size).height(size)
-                    .fill(Color.GRAY.deriveColor(0.0, 1.0, (1 - 0.3*shade), 1.0))
+                    .fill(Color.GRAY.deriveColor(0.0, 1.0, 1 - 0.3 * shade, 1.0))
                     .translateX(-1*size)
                     .translateY(-0.5*size)
                     .rotationAxis(Rotate.Y_AXIS)
@@ -91,7 +91,7 @@ public class Curbstone3D extends Application{
                     .build(),
                 RectangleBuilder.create() // left face
                     .width(size).height(size)
-                    .fill(Color.GRAY.deriveColor(0.0, 1.0, (1 - 0.2*shade), 1.0))
+                    .fill(Color.GRAY.deriveColor(0.0, 1.0, 1 - 0.2 * shade, 1.0))
                     .translateX(size)
                     .translateY(-0.5*size)
                     .rotationAxis(Rotate.Y_AXIS)
@@ -99,7 +99,7 @@ public class Curbstone3D extends Application{
                     .build(),
                 RectangleBuilder.create() // top face
                     .width(2 * size).height(size)
-                    .fill(color.deriveColor(0.0, 1.0, (1 - 0.1*shade), 1.0))
+                    .fill(color.deriveColor(0.0, 1.0, 1 - 0.1 * shade, 1.0))
                     .translateX(-0.5*size)
                     .translateY(-1*size)
                     .rotationAxis(Rotate.X_AXIS)

@@ -9,8 +9,7 @@ public class Message {
   private static final String API_KEY = "";
   	
   public static void sendEmail(String userEmail, String subject, String message) throws IOException {
-    Email from = new Email(EMAIL);
-    Email to = new Email(userEmail);
+    Email from = new Email(EMAIL), to = new Email(userEmail);
     Content content = new Content("text/plain", message);
     Mail mail = new Mail(from, subject, to, content);
     Request request = new Request();

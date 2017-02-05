@@ -93,27 +93,27 @@ public class LoginTest {
 			lg.userSignUp("Zahi Mizrahi1", "Zahi123", "1234567890", "3226549", "zahi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException ¢) {
 			// TODO Auto-generated catch block
-			Assert.assertEquals("User has integer", (¢ + ""));
+			Assert.assertEquals("User has integer", ¢ + "");
 		}
 
 		// short phone number
 		try {
 			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0507777", "3276549", "zahi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException ¢) {
-			Assert.assertEquals("Phone need to be in size 10", (¢ + ""));
+			Assert.assertEquals("Phone need to be in size 10", ¢ + "");
 		}
 		// short car number
 		try {
 			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "321549", "zahi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException ¢) {
-			Assert.assertEquals("Car need to be in size 7", (¢ + ""));
+			Assert.assertEquals("Car need to be in size 7", ¢ + "");
 		}
 
 		// car number exist
 		try {
 			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567900", "3209654", "zahi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException ¢) {
-			Assert.assertEquals("User already exist", (¢ + ""));
+			Assert.assertEquals("User already exist", ¢ + "");
 		}
 	}
 
@@ -124,14 +124,14 @@ public class LoginTest {
 		try {
 			lg.userSignUp("Zahi Mizrahi", "Zahi123", "1234567890", "3236549", "zahi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException ¢) {
-			Assert.assertEquals("Phone should start with 05", (¢ + ""));
+			Assert.assertEquals("Phone should start with 05", ¢ + "");
 		}
 
 		// short phone number
 		try {
 			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0501a23456", "3266549", "zahi@gmail.com", StickersColor.GREEN);
 		} catch (LoginException ¢) {
-			Assert.assertEquals("Phone contains only integers", (¢ + ""));
+			Assert.assertEquals("Phone contains only integers", ¢ + "");
 		}
 	}
 
@@ -166,14 +166,14 @@ public class LoginTest {
 		try {
 			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "3416549", "zahi@gmaifl.com", StickersColor.GREEN);
 		} catch (LoginException ¢) {
-			Assert.assertEquals("Invalid email address", (¢ + ""));
+			Assert.assertEquals("Invalid email address", ¢ + "");
 		}
 
 		try {
 			lg.userSignUp("Zahi Mizrahi", "Zahi123", "0534567890", "3246549", "zahi@cs.technion.ac.il",
 					StickersColor.GREEN);
 		} catch (LoginException ¢) {
-			Assert.assertEquals("Invalid email address", (¢ + ""));
+			Assert.assertEquals("Invalid email address", ¢ + "");
 		}
 
 		try {

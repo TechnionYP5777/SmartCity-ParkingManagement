@@ -72,10 +72,9 @@ public class GetPassByMail extends AbstractWindow {
 		Button backButton = new Button();
 		backButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("back_button.png"))));
 		backButton.getStyleClass().add("button-go");
-		backButton.setOnAction( (e) -> {
-			// move to editing my details
+		backButton.setOnAction( λ -> {
 			this.window.close();
-			handleBack(); 
+			handleBack();
 		});
 		GridPane.setConstraints(backButton, 1, 2);
 		

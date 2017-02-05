@@ -27,15 +27,13 @@ public class ConfirmBox {
 		window.setMinHeight(50);
 		Label label = new Label(message);
 
-		Button yesButton = new Button("Yes");
-		Button noButton = new Button("No");
-
-		yesButton.setOnAction(e -> {
+		Button yesButton = new Button("Yes"), noButton = new Button("No");
+		yesButton.setOnAction(λ -> {
 			answer = true;
 			window.close();
 		});
 
-		noButton.setOnAction(e -> {
+		noButton.setOnAction(λ -> {
 			answer = false;
 			window.close();
 		});
