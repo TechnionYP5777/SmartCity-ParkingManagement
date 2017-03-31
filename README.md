@@ -1,3 +1,5 @@
+[![Codecov](https://img.shields.io/codecov/c/github/codecov/example-python.svg?style=flat-square)]()
+
 # SmartCity-Parking Management & Navigation
 
 ![SmartCity logo](https://s24.postimg.org/j36nmvh8l/smart_parking.png) 
