@@ -20,7 +20,6 @@ import data.members.ParkingArea;
 import data.members.ParkingSlot;
 import data.members.ParkingSlotStatus;
 import data.members.StickersColor;
-import data.members.User;
 
 /**
  * @Author Inbal Matityahu
@@ -41,7 +40,6 @@ public class QueriesTest {
 			if (slotsList == null || slotsList.isEmpty())
 				throw new RuntimeException("There should be parkingSlot named taub3");
 
-			Assert.assertEquals(null, new Queries().getUserByParkingslot(new ParkingSlot(slotsList.get(0))));
 		} catch (final ParseException e) {
 			fail();
 		}
@@ -181,12 +179,6 @@ public class QueriesTest {
 		DBManager.initialize();
 		Assert.assertEquals(StickersColor.RED,
 				new Queries().returnParkingSlotColor(new MapLocation(32.777825, 35.021849)));
-	}
-
-	@Test
-	public void test19() {
-		DBManager.initialize();
-		Assert.assertEquals(null, new Queries().returnParkingSlotCurrentUser(new MapLocation(32.777825, 35.021849)));
 	}
 
 	@Test
