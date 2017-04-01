@@ -14,8 +14,8 @@ coverage:
         threshold: 1%
     changes: no
 
-  ignore: 
-   - "src"
+  ignore:
+   - "src/main/java/gui/manager/app/ManagerMainScreenContorller.java"
    
 # Don't post a comment on pull requests.
 comment: off
