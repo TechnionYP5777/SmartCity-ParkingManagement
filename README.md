@@ -1,4 +1,6 @@
-[![Codecov](https://img.shields.io/codecov/c/github/codecov/example-python.svg?style=flat-square)]()
+[![Travis branch](https://img.shields.io/travis/rust-lang/rust/master.svg)](https://codecov.io/gh/TechnionYP5777/SmartCity-ParkingManagement)
+
+[![Codecov branch](https://img.shields.io/codecov/c/github/codecov/example-python/master.svg)](https://codecov.io/gh/TechnionYP5777/SmartCity-ParkingManagement)
 
 # SmartCity-Parking Management & Navigation
 
