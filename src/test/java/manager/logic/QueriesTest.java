@@ -107,13 +107,13 @@ public class QueriesTest {
 	@Test
 	public void test6() {
 		DBManager.initialize();
-		Assert.assertEquals(29, new Queries().getNumOfFreeSlots());
+		Assert.assertEquals(28, new Queries().getNumOfFreeSlots());
 	}
 
 	@Test
 	public void test7() {
 		DBManager.initialize();
-		Assert.assertEquals(11, new Queries().getNumOfTakenSlots());
+		Assert.assertEquals(12, new Queries().getNumOfTakenSlots());
 	}
 
 	@Test
