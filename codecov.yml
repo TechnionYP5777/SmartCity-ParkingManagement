@@ -1,3 +1,22 @@
+codecov:
+  branch: master
+  bot: null
+
 coverage:
   precision: 2
   round: up
+  range: "30...100"
+  status:
+    project:
+      default:
+        against: parent
+        target: auto
+        threshold: 1%
+    changes: no
+
+  ignore: 
+   - "src/main/java/main/gui/*"
+   - "src/main/java/main/util/*"
+   
+# Don't post a comment on pull requests.
+comment: off
