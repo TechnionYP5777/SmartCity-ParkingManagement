@@ -1,21 +1,3 @@
-codecov:
-  branch: master
-  bot: null
-
 coverage:
-  precision: 2
-  round: up
-  range: "30...100"
-  status:
-    project:
-      default:
-        against: parent
-        target: auto
-        threshold: 1%
-    changes: no
-
-  ignore:
-   - "src/main/java/gui/manager/app/ManagerMainScreenContorller.java"
-   
-# Don't post a comment on pull requests.
-comment: off
+  ignore: 
+    - "src/main/java/gui/manager/app/ManagerMainScreenContorller.java"
