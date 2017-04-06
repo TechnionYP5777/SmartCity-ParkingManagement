@@ -1,8 +1,10 @@
 package data.management;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.parse4j.Parse;
+import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
 import org.parse4j.callback.DeleteCallback;
 import org.parse4j.callback.GetCallback;
@@ -23,9 +25,30 @@ public class DBManager {
 		init=true;
 	}
 
-	
-	public static void insertObject(final String objectClass, Map<String, Object> fields){
+	private static void checkExsistance(final String objectClass, Map<String, Object> keyValues,GetCallback<ParseObject> o){
 		
+	}
+	
+	public static void insertObject(final String objectClass, Map<String, Object> keyValues,Map<String, Object> fields){
+		checkExsistance(objectClass, keyValues, new GetCallback<ParseObject>() {
+			@Override
+			public void done(ParseObject arg0, ParseException arg1){
+				if(arg0 != null) return;
+				final ParseObject obj = new ParseObject(objectClass);
+				for(String key: keyValues.keySet())
+					obj.put(key, keyValues.get(key));
+				for(String key: fields.keySet())
+					obj.put(key, fields.get(key));
+				obj.saveInBackground(new SaveCallback() {
+					
+					@Override
+					public void done(ParseException arg0) {
+						// do nothing
+						
+					}
+				});
+			}
+		});
 	}
 	
 	public static void insertObject(final String objectClass, Map<String, Object> fields,SaveCallback c){
