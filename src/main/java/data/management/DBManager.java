@@ -29,7 +29,7 @@ public class DBManager {
 		
 	}
 	
-	public static void insertObject(final String objectClass, Map<String, Object> keyValues,Map<String, Object> fields){
+	private static void privetInsertObject(final String objectClass, Map<String, Object> keyValues,Map<String, Object> fields,SaveCallback c){
 		checkExsistance(objectClass, keyValues, new GetCallback<ParseObject>() {
 			@Override
 			public void done(ParseObject arg0, ParseException arg1){
@@ -39,20 +39,23 @@ public class DBManager {
 					obj.put(key, keyValues.get(key));
 				for(String key: fields.keySet())
 					obj.put(key, fields.get(key));
-				obj.saveInBackground(new SaveCallback() {
-					
-					@Override
-					public void done(ParseException arg0) {
-						// do nothing
-						
-					}
-				});
+				obj.saveInBackground(c);
+			}
+		});
+	}
+	public static void insertObject(final String objectClass, Map<String, Object> keyValues,Map<String, Object> fields){
+		privetInsertObject(objectClass, keyValues, fields, new SaveCallback() {
+			
+			@Override
+			public void done(ParseException arg0) {
+				// do nothing
+				
 			}
 		});
 	}
 	
-	public static void insertObject(final String objectClass, Map<String, Object> fields,SaveCallback c){
-		
+	public static void insertObject(final String objectClass,Map<String, Object> keyValues, Map<String, Object> fields,SaveCallback c){
+		privetInsertObject(objectClass,keyValues,fields,c);
 	}
 	
 	public static void deleteObject(final String objectClass,Map<String, Object> fields){
