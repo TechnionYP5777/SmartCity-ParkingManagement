@@ -30,7 +30,19 @@ public class DBManager {
 	}
 
 	private static void checkExsistance(final String objectClass, Map<String, Object> keyValues,GetCallback<ParseObject> o){
-		
+		ParseQuery<ParseObject> pq = ParseQuery.getQuery(objectClass);
+		for (String key : keyValues.keySet())
+			pq.whereEqualTo(key, keyValues.get(key));
+		pq.limit(1);
+		pq.findInBackground(new FindCallback<ParseObject>() {
+			@Override
+			public void done(List<ParseObject> arg0, ParseException arg1) {
+				if (arg1 != null || arg0==null)
+					o.done(null, arg1);
+				else
+					o.done(arg0.get(0), null);
+			}
+		});
 	}
 	
 	private static void privateInsertObject(final String objectClass, Map<String, Object> keyValues,Map<String, Object> fields,SaveCallback c){
