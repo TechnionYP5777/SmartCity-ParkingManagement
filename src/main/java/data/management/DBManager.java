@@ -1,12 +1,16 @@
 package data.management;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.parse4j.Parse;
 import org.parse4j.ParseException;
+import org.parse4j.ParseGeoPoint;
 import org.parse4j.ParseObject;
+import org.parse4j.ParseQuery;
 import org.parse4j.callback.DeleteCallback;
+import org.parse4j.callback.FindCallback;
 import org.parse4j.callback.GetCallback;
 import org.parse4j.callback.SaveCallback;
 
@@ -29,7 +33,7 @@ public class DBManager {
 		
 	}
 	
-	private static void privetInsertObject(final String objectClass, Map<String, Object> keyValues,Map<String, Object> fields,SaveCallback c){
+	private static void privateInsertObject(final String objectClass, Map<String, Object> keyValues,Map<String, Object> fields,SaveCallback c){
 		checkExsistance(objectClass, keyValues, new GetCallback<ParseObject>() {
 			@Override
 			public void done(ParseObject arg0, ParseException arg1){
@@ -43,8 +47,19 @@ public class DBManager {
 			}
 		});
 	}
+	
+	private static void privateDeleteObject (final String objectClass,String id,DeleteCallback c){
+		final ParseObject obj = new ParseObject(objectClass);
+		obj.setObjectId(id);
+		obj.deleteInBackground(c);
+	}
+
+	private static void privateFind (final String objectClass, Map<String,Object> fields,FindCallback<ParseObject> o){
+		
+	}
+	
 	public static void insertObject(final String objectClass, Map<String, Object> keyValues,Map<String, Object> fields){
-		privetInsertObject(objectClass, keyValues, fields, new SaveCallback() {
+		privateInsertObject(objectClass, keyValues, fields, new SaveCallback() {
 			
 			@Override
 			public void done(ParseException arg0) {
@@ -55,15 +70,35 @@ public class DBManager {
 	}
 	
 	public static void insertObject(final String objectClass,Map<String, Object> keyValues, Map<String, Object> fields,SaveCallback c){
-		privetInsertObject(objectClass,keyValues,fields,c);
+		privateInsertObject(objectClass,keyValues,fields,c);
 	}
 	
 	public static void deleteObject(final String objectClass,Map<String, Object> fields){
-		
+		privateFind(objectClass,fields, new FindCallback<ParseObject>() {
+
+			@Override
+			public void done(List<ParseObject> arg0, ParseException arg1) {
+				if(arg0!=null)
+					privateDeleteObject(objectClass, arg0.get(0).getObjectId() + "", new DeleteCallback() {
+						@Override
+						public void done(ParseException arg0) {
+						}
+					});
+			}
+			
+		});
 	}
 	
 	public static void deleteObject(final String objectClass,Map<String, Object> fields,DeleteCallback c){
-		
+		privateFind(objectClass,fields, new FindCallback<ParseObject>() {
+
+			@Override
+			public void done(List<ParseObject> arg0, ParseException arg1) {
+				if(arg0!=null)
+					privateDeleteObject(objectClass, arg0.get(0).getObjectId() + "", c);
+			}
+			
+		});
 	}
 	
 	public static void update(final String objectClass,Map<String, Object> fields){
