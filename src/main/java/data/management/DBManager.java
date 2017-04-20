@@ -102,7 +102,25 @@ public class DBManager {
 	}
 	
 	public static void update(final String objectClass,Map<String, Object> fields){
-		
+		checkExsistance(objectClass,fields,new GetCallback<ParseObject>() {
+
+			@Override
+			public void done(ParseObject arg0, ParseException arg1) {
+				if(arg0 == null) return;
+				final ParseObject obj = new ParseObject(objectClass);
+				for(String key: fields.keySet())
+					obj.put(key, fields.get(key));
+				obj.setObjectId(arg0.getObjectId());
+				obj.saveInBackground(new SaveCallback() {
+					
+					@Override
+					public void done(ParseException arg0) {
+						//do nothing
+						
+					}
+				});
+			}
+		});
 	}
 	
 	public static void getObjectByFields(final String objectClass, Map<String, Object> values,GetCallback<ParseObject> o){
