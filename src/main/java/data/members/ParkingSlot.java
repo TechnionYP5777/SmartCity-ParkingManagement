@@ -81,12 +81,17 @@ public class ParkingSlot extends dbMember {
 		keys.put("name", name);
 		Map<String,Object> returnV = DBManager.getObjectFieldsByKey(objectClass, keys);
 		
-		this.color=StickersColor.valueOf(returnV.get("color") + "");
-		this.defaultColor= StickersColor.valueOf(returnV.get("defaultColor") + "");
-		this.endTime= (Date)returnV.get("endTime");
-		this.location=(MapLocation)returnV.get("location");
+		this.color=StickersColor.values()[(int)returnV.get("color")];
+		
+		this.defaultColor= StickersColor.values()[(int)returnV.get("defaultColor")];
+		this.endTime= (Date) returnV.get("endTime");
+		
+		final ParseGeoPoint geo = (ParseGeoPoint) returnV.get("location");
+	
+		this.location = new MapLocation(geo.getLatitude(), geo.getLongitude());
+	
 		this.name=name;
-		this.status=ParkingSlotStatus.valueOf(returnV.get("status") + "");
+		this.status=ParkingSlotStatus.values()[(int)returnV.get("status")];
 	}
 
 	public String ParkingNameByLocation(final MapLocation l) {
@@ -105,29 +110,29 @@ public class ParkingSlot extends dbMember {
 		return DBManager.getObjectFieldsByKey("ParkingSlot", key).get("name") + "";
 	}
 
-	public ParkingSlotStatus getStatus(String name) {
+	public ParkingSlotStatus getStatus() {
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("name", name);
-		return ParkingSlotStatus.valueOf(DBManager.getObjectFieldsByKey("ParkingSlot", key).get("status") + "");
+		return ParkingSlotStatus.values()[(int)DBManager.getObjectFieldsByKey("ParkingSlot", key).get("status")];
 	}
 
 	public StickersColor getColor() {
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("name", name);
-		return StickersColor.valueOf(DBManager.getObjectFieldsByKey("ParkingSlot", key).get("color") + "");
+		return StickersColor.values()[(int)DBManager.getObjectFieldsByKey("ParkingSlot", key).get("color")];
 	}
 
 	public MapLocation getLocation() {
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("name", name);
 		Map<String,Object> returnV = DBManager.getObjectFieldsByKey(objectClass, key);
-		return new MapLocation(((MapLocation)returnV.get("locatoin")).getLat(), ((MapLocation)returnV.get("locatoin")).getLon());
+		return new MapLocation(((ParseGeoPoint)returnV.get("location")).getLatitude(), ((ParseGeoPoint)returnV.get("location")).getLongitude());
 	}
 
 	public StickersColor getDefaultColor() {
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("name", name);
-		return StickersColor.valueOf(DBManager.getObjectFieldsByKey("ParkingSlot", key).get("defaultColor") + "");
+		return StickersColor.values()[(int)DBManager.getObjectFieldsByKey("ParkingSlot", key).get("defaultColor")];
 	}
 
 	public Date getEndTime() {
@@ -252,7 +257,15 @@ public class ParkingSlot extends dbMember {
 		fields.put("status", status.ordinal());
 		fields.put("color", color.ordinal());
 		fields.put("defaultColor", defaultColor.ordinal());
+		System.out.println("===========");
+		System.out.println(location.getLat());
+		System.out.println(location.getLon());
+		System.out.println("===========");
+		System.out.println((new ParseGeoPoint(location.getLat(), location.getLon()).getLatitude()));
+		System.out.println((new ParseGeoPoint(location.getLat(), location.getLon()).getLongitude()));
+
 		fields.put("location", new ParseGeoPoint(location.getLat(), location.getLon()));
+		
 		fields.put("endTime", endTime);
 		fields.put("name", name);
 		DBManager.deleteObject(objectClass, fields);
