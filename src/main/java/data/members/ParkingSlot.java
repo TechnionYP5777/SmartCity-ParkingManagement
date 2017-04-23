@@ -1,7 +1,9 @@
 package data.members;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.parse4j.ParseException;
 import org.parse4j.ParseGeoPoint;
@@ -12,6 +14,7 @@ import data.management.DBManager;
 
 /**
  * @author Toma
+ * 		   Inbal Matityahu
  * @since 12.11.16 This class represent a parking slot
  */
 public class ParkingSlot extends dbMember {
@@ -33,27 +36,31 @@ public class ParkingSlot extends dbMember {
 
 	// The slot's endTime. if null the color permanent, else temporary
 	private Date endTime;
+	
+	private final String objectClass = "ParkingSlot";
 
 	/* Constructors */
 
 	// Create a new parking slot. Will result in a new slot in the DB.
 	public ParkingSlot(final String name, final ParkingSlotStatus status, final StickersColor color, final StickersColor defaultColor,
 			final MapLocation location, final Date endTime) throws ParseException {
-		validateArgument(status, color, defaultColor, location);
-
+		
 		DBManager.initialize();
-		setParseObject("ParkingSlot");
-		setName(name);
-		setStatus(status);
-		setColor(color);
-		setLocation(location);
-		setDefaultColor(defaultColor);
-		setEndTime(endTime);
-		setObjectId();
-		parseObject.save();
+		
+		validateArgument(status, color, defaultColor, location);
+		Map<String, Object> fields = new HashMap<String, Object>(), keyValues = new HashMap<String, Object>();
+		fields.put("status", status.ordinal());
+		fields.put("color", color.ordinal());
+		fields.put("defaultColor", defaultColor.ordinal());
+		fields.put("location", new ParseGeoPoint(location.getLat(), location.getLon()));
+		fields.put("endTime", endTime);
+		
+		keyValues.put("name", name);
+		DBManager.insertObject(objectClass, keyValues, fields);
 	}
 
 	public ParkingSlot(final ParseObject obj) throws ParseException {
+		//TODO
 		DBManager.initialize();
 		parseObject = obj;
 		name = parseObject.getString("name");
@@ -70,97 +77,133 @@ public class ParkingSlot extends dbMember {
 	public ParkingSlot(final String name) throws ParseException {
 		DBManager.initialize();
 
-		final ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
-		query.whereEqualTo("name", name);
-		final ParseObject parseObject = query.find().get(0);
-
-		this.parseObject = parseObject;
-		this.name = this.parseObject.getString("name");
-		status = ParkingSlotStatus.values()[this.parseObject.getInt("status")];
-		color = StickersColor.values()[this.parseObject.getInt("color")];
-		final ParseGeoPoint geo = this.parseObject.getParseGeoPoint("location");
-		location = new MapLocation(geo.getLatitude(), geo.getLongitude());
-		defaultColor = StickersColor.values()[this.parseObject.getInt("defaultColor")];
-		endTime = this.parseObject.getDate("endTime");
-		objectId = this.parseObject.getObjectId();
-		this.parseObject.save();
+		Map<String, Object> keys = new HashMap<>();
+		keys.put("name", name);
+		Map<String,Object> returnV = DBManager.getObjectFieldsByKey(objectClass, keys);
+		
+		this.color=StickersColor.valueOf(returnV.get("color") + "");
+		this.defaultColor= StickersColor.valueOf(returnV.get("defaultColor") + "");
+		this.endTime= (Date)returnV.get("endTime");
+		this.location=(MapLocation)returnV.get("location");
+		this.name=name;
+		this.status=ParkingSlotStatus.valueOf(returnV.get("status") + "");
 	}
 
-	public static String ParkingNameByLocation(final MapLocation l) {
-		final ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingSlot");
-		query.whereNear("location", new ParseGeoPoint(l.getLat(), l.getLon()));
-		query.limit(1);
-		try {
-			final List<ParseObject> $ = query.find();
-			return $ == null || $.isEmpty() ? null : $.get(0).getString("name");
-		} catch (final Exception e) {
-			return null;
-		}
+	public String ParkingNameByLocation(final MapLocation l) {
+		DBManager.initialize();
+
+		Map<String, Object> keys = new HashMap<>();
+		keys.put("location", new ParseGeoPoint(l.getLat(), l.getLon()));
+		return DBManager.getObjectFieldsByKey(objectClass, keys).get("name") + "";
 	}
 
 	/* Getters */
 
 	public String getName() {
-		return name;
+		Map<String, Object> key = new HashMap<String, Object>();
+		key.put("name", name);
+		return DBManager.getObjectFieldsByKey("ParkingSlot", key).get("name") + "";
 	}
 
-	public ParkingSlotStatus getStatus() {
-		return status;
+	public ParkingSlotStatus getStatus(String name) {
+		Map<String, Object> key = new HashMap<String, Object>();
+		key.put("name", name);
+		return ParkingSlotStatus.valueOf(DBManager.getObjectFieldsByKey("ParkingSlot", key).get("status") + "");
 	}
 
 	public StickersColor getColor() {
-		return color;
+		Map<String, Object> key = new HashMap<String, Object>();
+		key.put("name", name);
+		return StickersColor.valueOf(DBManager.getObjectFieldsByKey("ParkingSlot", key).get("color") + "");
 	}
 
 	public MapLocation getLocation() {
-		return location;
+		Map<String, Object> key = new HashMap<String, Object>();
+		key.put("name", name);
+		Map<String,Object> returnV = DBManager.getObjectFieldsByKey(objectClass, key);
+		return new MapLocation(((MapLocation)returnV.get("locatoin")).getLat(), ((MapLocation)returnV.get("locatoin")).getLon());
 	}
 
 	public StickersColor getDefaultColor() {
-		return defaultColor;
+		Map<String, Object> key = new HashMap<String, Object>();
+		key.put("name", name);
+		return StickersColor.valueOf(DBManager.getObjectFieldsByKey("ParkingSlot", key).get("defaultColor") + "");
 	}
 
 	public Date getEndTime() {
-		return endTime;
+		Map<String, Object> key = new HashMap<String, Object>();
+		key.put("name", name);
+		return ((Date) DBManager.getObjectFieldsByKey(objectClass, key).get("endTime"));
+	
 	}
 
 	/* Setters */
 
 	private void setName(final String name) throws ParseException {
-		this.name = name;
-		parseObject.put("name", name);
-		parseObject.save();
+		//TODO: validateArgument
+		Map<String, Object> fields = new HashMap<String, Object>();
+		fields.put("name", name);
+		fields.put("color", this.color);
+		fields.put("defaultColor", this.defaultColor);
+		fields.put("status", this.status);
+		fields.put("endTime", this.endTime);
+		fields.put("location", this.location);
+		DBManager.update(objectClass, fields);
 	}
 
-	private void setStatus(final ParkingSlotStatus ¢) throws ParseException {
-		status = ¢;
-		parseObject.put("status", ¢.ordinal());
-		parseObject.save();
+	private void setStatus(final ParkingSlotStatus s) throws ParseException {
+		Map<String, Object> fields = new HashMap<String, Object>();
+		fields.put("name", this.name);
+		fields.put("color", this.color);
+		fields.put("defaultColor", this.defaultColor);
+		fields.put("status", s);
+		fields.put("endTime", this.endTime);
+		fields.put("location", this.location);
+		DBManager.update(objectClass, fields);
 	}
 
-	public void setColor(final StickersColor ¢) throws ParseException {
-		color = ¢;
-		parseObject.put("color", ¢.ordinal());
-		parseObject.save();
+	public void setColor(final StickersColor c) throws ParseException {
+		Map<String, Object> fields = new HashMap<String, Object>();
+		fields.put("name", this.name);
+		fields.put("color", c);
+		fields.put("defaultColor", this.defaultColor);
+		fields.put("status", this.status);
+		fields.put("endTime", this.endTime);
+		fields.put("location", this.location);
+		DBManager.update(objectClass, fields);
 	}
 
-	private void setLocation(final MapLocation ¢) throws ParseException {
-		location = ¢;
-		parseObject.put("location", new ParseGeoPoint(¢.getLat(), ¢.getLon()));
-		parseObject.save();
+	private void setLocation(final MapLocation l) throws ParseException {
+		Map<String, Object> fields = new HashMap<String, Object>();
+		fields.put("name", this.name);
+		fields.put("color", this.color);
+		fields.put("defaultColor", this.defaultColor);
+		fields.put("status", this.status);
+		fields.put("endTime", this.endTime);
+		fields.put("location", l);
+		DBManager.update(objectClass, fields);
 	}
 
 	private void setDefaultColor(final StickersColor defaultColor) throws ParseException {
-		this.defaultColor = defaultColor;
-		parseObject.put("defaultColor", defaultColor.ordinal());
-		parseObject.save();
+		Map<String, Object> fields = new HashMap<String, Object>();
+		fields.put("name", this.name);
+		fields.put("color", this.color);
+		fields.put("defaultColor", defaultColor);
+		fields.put("status", this.status);
+		fields.put("endTime", this.endTime);
+		fields.put("location", this.location);
+		DBManager.update(objectClass, fields);
 	}
 
 	public void setEndTime(final Date endTime) throws ParseException {
-		// TODO: check what happens if null (should be OK)
-		this.endTime = endTime;
-		parseObject.put("endTime", endTime);
-		parseObject.save();
+		Map<String, Object> fields = new HashMap<String, Object>();
+		fields.put("name", this.name);
+		fields.put("color", this.color);
+		fields.put("defaultColor", this.defaultColor);
+		fields.put("status", this.status);
+		fields.put("endTime", endTime);
+		fields.put("location", this.location);
+		DBManager.update(objectClass, fields);
 	}
 
 	/* Methods */
@@ -178,6 +221,8 @@ public class ParkingSlot extends dbMember {
 	}
 
 	private ParseObject findContaingParkingArea() {
+		//TODO: are we still want to hold to each parkingArea a list of slots?
+		//or maybe for each slot to hold an area?
 		final ParseQuery<ParseObject> $ = ParseQuery.getQuery("ParkingArea");
 		$.whereEqualTo("parkingSlots", parseObject);
 		try {
@@ -203,7 +248,14 @@ public class ParkingSlot extends dbMember {
 	};
 
 	public void removeParkingSlotFromDB() throws ParseException {
-		deleteParseObject();
+		Map<String, Object> fields = new HashMap<String, Object>();
+		fields.put("status", status.ordinal());
+		fields.put("color", color.ordinal());
+		fields.put("defaultColor", defaultColor.ordinal());
+		fields.put("location", new ParseGeoPoint(location.getLat(), location.getLon()));
+		fields.put("endTime", endTime);
+		fields.put("name", name);
+		DBManager.deleteObject(objectClass, fields);
 	}
 
 	public void removeParkingSlotFromAreaAndDB() throws ParseException {
@@ -215,6 +267,7 @@ public class ParkingSlot extends dbMember {
 	 */
 	@Override
 	public void deleteParseObject() throws ParseException {
+		//TODO: check if necessary
 		final ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
 		query.whereEqualTo("currentParking", getParseObject());
 		try {
