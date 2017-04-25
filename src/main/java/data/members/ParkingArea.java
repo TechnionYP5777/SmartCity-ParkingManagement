@@ -8,6 +8,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.parse4j.ParseException;
 import org.parse4j.ParseGeoPoint;
 import org.parse4j.ParseObject;
@@ -19,6 +24,7 @@ import data.management.DBManager;
  * @author Inbal Matityahu
  * @author David Cohen
  * @author Toma
+ * @author dshames
  * @since 12.11.16 This class represent a parking area inside the Technion
  */
 
@@ -29,6 +35,8 @@ public class ParkingArea extends dbMember {
 	private String name;
 	private MapLocation location;
 	private Set<ParkingSlot> parkingSlots;
+	
+	private final String objectClass = "ParkingArea";
 
 	/* Constructors */
 
@@ -80,11 +88,11 @@ public class ParkingArea extends dbMember {
 	/* Getters */
 
 	public int getAreaId() {
-		return areaId;
+		return this.areaId;
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public int getNumOfParkingSlots() {
@@ -93,11 +101,11 @@ public class ParkingArea extends dbMember {
 	}
 
 	public MapLocation getLocation() {
-		return location;
+		return this.location;
 	}
 
 	public Set<ParkingSlot> getParkingSlots() {
-		return parkingSlots;
+		return this.parkingSlots;
 	}
 
 	public int getNumOfFreeSlots() {
@@ -135,34 +143,64 @@ public class ParkingArea extends dbMember {
 	}
 
 	public StickersColor getColor() {
-		return color;
+		return this.color;
 	}
 
 	/* Setters */
 
 	private void setAreaId(final int areaId) {
 		this.areaId = areaId;
-		parseObject.put("areaId", areaId);
+		Map<String, Object> fields = new HashMap<String, Object>();
+		fields.put("color", this.color);
+		fields.put("areaId", areaId);
+		fields.put("name", this.name);
+		fields.put("location", this.location);
+		fields.put("parkingSlots", this.parkingSlots);
+		DBManager.update(objectClass, fields);	
 	}
 
 	private void setName(final String name) {
 		this.name = name;
-		parseObject.put("name", name);
+		Map<String, Object> fields = new HashMap<String, Object>();
+		fields.put("color", this.color);
+		fields.put("areaId", this.areaId);
+		fields.put("name", name);
+		fields.put("location", this.location);
+		fields.put("parkingSlots", this.parkingSlots);
+		DBManager.update(objectClass, fields);	
 	}
 
-	public void setLocation(final MapLocation ¢) {
-		location = ¢;
-		parseObject.put("location", new ParseGeoPoint(¢.getLat(), ¢.getLon()));
+	public void setLocation(final MapLocation l) {
+		this.location = l;
+		Map<String, Object> fields = new HashMap<String, Object>();
+		fields.put("color", this.color);
+		fields.put("areaId", this.areaId);
+		fields.put("name", this.name);
+		fields.put("location", new ParseGeoPoint(l.getLat(), l.getLon()));
+		fields.put("parkingSlots", this.parkingSlots);
+		DBManager.update(objectClass, fields);	
 	}
 
-	private void setParkingSlots(final Set<ParkingSlot> ¢) throws ParseException {
-		parkingSlots = ¢;
-		updateSlotsArray();
+	private void setParkingSlots(final Set<ParkingSlot> slots) throws ParseException {
+		this.parkingSlots = slots;
+		Map<String, Object> fields = new HashMap<String, Object>();
+		fields.put("color", this.color);
+		fields.put("areaId", this.areaId);
+		fields.put("name", this.name);
+		fields.put("location", this.location);
+		fields.put("parkingSlots", parkingSlotsSetToParseList());
+		DBManager.update(objectClass, fields);	
 	}
 
-	private void setColor(final StickersColor ¢) {
-		color = ¢;
-		parseObject.put("color", ¢.ordinal());
+	private void setColor(final StickersColor c) {
+		this.color = c;
+		Map<String, Object> fields = new HashMap<String, Object>();
+		fields.put("color", c.ordinal());
+		fields.put("areaId", this.areaId);
+		fields.put("name", this.name);
+		fields.put("location", this.location);
+		fields.put("parkingSlots", this.parkingSlots);
+		DBManager.update(objectClass, fields);	
 	}
 
 	/* Methods */
@@ -219,5 +257,15 @@ public class ParkingArea extends dbMember {
 
 		parseObject.put("parkingSlots", slots);
 		parseObject.save();
+		
 	}
+	
+	private List<ParseObject> parkingSlotsSetToParseList(){
+		List<ParseObject> list = new ArrayList<ParseObject>();
+		if(!parkingSlots.isEmpty())
+			for(final ParkingSlot s: parkingSlots)
+				list.add(DBManager.getParseObject(s));
+		return list;	
+	}
+		
 }
