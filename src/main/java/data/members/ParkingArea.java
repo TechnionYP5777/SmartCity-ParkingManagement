@@ -44,7 +44,7 @@ public class ParkingArea extends dbMember {
 	public ParkingArea(final String name) throws ParseException {
 		DBManager.initialize();
 
-		final ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
+		/*final ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
 		query.whereEqualTo("name", name);
 		final ParseObject parseObject = query.find().get(0);
 
@@ -52,26 +52,48 @@ public class ParkingArea extends dbMember {
 		areaId = (Integer) parseObject.get("areaId");
 		this.name = (String) parseObject.get("name");
 		color = StickersColor.values()[(Integer) parseObject.get("color")];
-		final ParseGeoPoint geo = this.parseObject.getParseGeoPoint("location");
+		//final ParseGeoPoint geo = this.parseObject.getParseGeoPoint("location");
 		location = new MapLocation(geo.getLatitude(), geo.getLongitude());
 		parkingSlots = convertToSlots(getAllSlots());
-		setObjectId();
+		setObjectId();*/
+		
+		
+		Map<String, Object> keys = new HashMap<>();
+		// name or areaId?
+		keys.put("name", name);
+		Map<String,Object> fields = DBManager.getObjectFieldsByKey(objectClass, keys);
+		
+		this.color = StickersColor.values()[(int)fields.get("color")];
+		this.areaId = (int)fields.get("areaId"); 
+		this.name = (String)fields.get("name");
+		final ParseGeoPoint geo = (ParseGeoPoint) fields.get("location");
+		this.location = new MapLocation(geo.getLatitude(), geo.getLongitude());
+		// handle warning
+		this.parkingSlots = convertToSlots((List<ParseObject>)fields.get("parkingSlots"));
+		
 
 	}
 
 	// Create a new parking area
 	public ParkingArea(final int areaId, final String name, final MapLocation location, final Set<ParkingSlot> parkingSlots,
 			final StickersColor defaultColor) throws ParseException {
-		DBManager.initialize();
-		parseObject = new ParseObject("ParkingArea");
-		setAreaId(areaId);
-		setName(name);
-		setColor(defaultColor);
-		setLocation(location);
-		setParkingSlots(parkingSlots);
+		
+		this.areaId = areaId;
+		this.name = name;
+		this.location = location;
+		this.parkingSlots = parkingSlots;
+		this.color = defaultColor;
 
-		parseObject.save();
-		objectId = parseObject.getObjectId();
+		// needed?
+		parseObject = new ParseObject("ParkingArea");
+		Map<String, Object> fields = new HashMap<String, Object>(), keyValues = new HashMap<String, Object>();
+		fields.put("color", this.color.ordinal());
+		fields.put("areaId", this.areaId);
+		fields.put("name", this.name);
+		fields.put("location", new ParseGeoPoint(location.getLat(), location.getLon()));
+		fields.put("parkingSlots", parkingSlotsSetToParseList());
+		keyValues.put("name", this.name);
+		DBManager.insertObject(objectClass, keyValues, fields);
 	}
 
 	public ParkingArea(final ParseObject parseObject) throws ParseException {
@@ -86,121 +108,91 @@ public class ParkingArea extends dbMember {
 	}
 
 	/* Getters */
-
+	
+	// V
 	public int getAreaId() {
 		return this.areaId;
 	}
-
+	// V
 	public String getName() {
 		return this.name;
 	}
-
+	// V
 	public int getNumOfParkingSlots() {
-		final List<ParseObject> $ = getAllSlots();
-		return $ == null ? 0 : $.size();
+		if (parkingSlots == null)
+			return 0;
+		return parkingSlots.size();
 	}
-
+	// V
 	public MapLocation getLocation() {
 		return this.location;
 	}
-
+	// V
 	public Set<ParkingSlot> getParkingSlots() {
 		return this.parkingSlots;
 	}
-
+	// V
 	public int getNumOfFreeSlots() {
 		final Set<ParkingSlot> $ = getSlotsByStatus(ParkingSlotStatus.FREE);
 		return $ == null ? 0 : $.size();
 	}
-
-	public List<ParseObject> getAllSlots() {
-		try {
-			final List<ParseObject> slots = parseObject.getList("parkingSlots");
-			final List<Object> ids = slots.stream().map(λ -> λ.getObjectId()).collect(Collectors.toList());
-			final ParseQuery<ParseObject> $ = ParseQuery.getQuery("ParkingSlot");
-			$.whereContainedIn("objectId", ids);
-			return $.find();
-		} catch (final ParseException ¢) {
-			throw new RuntimeException("Problem getting all slots!", ¢);
-		}
-	}
-
+	// V
 	public Set<ParkingSlot> getSlotsByStatus(final ParkingSlotStatus s) {
 		return parkingSlots.stream().filter(λ -> λ.getStatus().equals(s)).collect(Collectors.toSet());
 	}
-
+	// V
 	public int getNumOfTakenSlots() {
 		final Set<ParkingSlot> $ = getSlotsByStatus(ParkingSlotStatus.TAKEN);
 		return $ == null ? 0 : $.size();
 	}
-
+	// V
 	public Set<ParkingSlot> getFreeSlots() throws ParseException {
 		return getSlotsByStatus(ParkingSlotStatus.FREE);
 	}
-
+	// V
 	public Set<ParkingSlot> getTakenSlots() throws ParseException {
 		return getSlotsByStatus(ParkingSlotStatus.TAKEN);
 	}
-
+	// V
 	public StickersColor getColor() {
 		return this.color;
 	}
-
-	/* Setters */
-
-	private void setAreaId(final int areaId) {
-		this.areaId = areaId;
+	
+	
+	private Map<String,Object> getFieldsMap(){
 		Map<String, Object> fields = new HashMap<String, Object>();
-		fields.put("color", this.color);
-		fields.put("areaId", areaId);
-		fields.put("name", this.name);
-		fields.put("location", this.location);
-		fields.put("parkingSlots", this.parkingSlots);
-		DBManager.update(objectClass, fields);	
-	}
-
-	private void setName(final String name) {
-		this.name = name;
-		Map<String, Object> fields = new HashMap<String, Object>();
-		fields.put("color", this.color);
-		fields.put("areaId", this.areaId);
-		fields.put("name", name);
-		fields.put("location", this.location);
-		fields.put("parkingSlots", this.parkingSlots);
-		DBManager.update(objectClass, fields);	
-	}
-
-	public void setLocation(final MapLocation l) {
-		this.location = l;
-		Map<String, Object> fields = new HashMap<String, Object>();
-		fields.put("color", this.color);
+		fields.put("color", this.color.ordinal());
 		fields.put("areaId", this.areaId);
 		fields.put("name", this.name);
-		fields.put("location", new ParseGeoPoint(l.getLat(), l.getLon()));
-		fields.put("parkingSlots", this.parkingSlots);
-		DBManager.update(objectClass, fields);	
-	}
-
-	private void setParkingSlots(final Set<ParkingSlot> slots) throws ParseException {
-		this.parkingSlots = slots;
-		Map<String, Object> fields = new HashMap<String, Object>();
-		fields.put("color", this.color);
-		fields.put("areaId", this.areaId);
-		fields.put("name", this.name);
-		fields.put("location", this.location);
+		fields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
 		fields.put("parkingSlots", parkingSlotsSetToParseList());
-		DBManager.update(objectClass, fields);	
+		return fields;
 	}
 
-	private void setColor(final StickersColor c) {
-		this.color = c;
-		Map<String, Object> fields = new HashMap<String, Object>();
-		fields.put("color", c.ordinal());
-		fields.put("areaId", this.areaId);
-		fields.put("name", this.name);
-		fields.put("location", this.location);
-		fields.put("parkingSlots", this.parkingSlots);
-		DBManager.update(objectClass, fields);	
+	
+	public void setAreaId(final int areaId) {
+		this.areaId = areaId;
+		DBManager.update(objectClass, getFieldsMap());	
+	}
+
+	public void setName(final String name) {
+		this.name = name;
+		DBManager.update(objectClass, getFieldsMap());	
+	}
+
+	public void setLocation(final MapLocation location) {
+		this.location = location;
+		DBManager.update(objectClass, getFieldsMap());	
+	}
+
+	public void setParkingSlots(final Set<ParkingSlot> slots) {
+		this.parkingSlots = slots;
+		DBManager.update(objectClass, getFieldsMap());	
+	}
+
+	public void setColor(final StickersColor color) {
+		this.color = color;
+		DBManager.update(objectClass, getFieldsMap());	
 	}
 
 	/* Methods */
@@ -227,10 +219,17 @@ public class ParkingArea extends dbMember {
 	 * free slot, and therefore increase the amount of free slots in this area,
 	 * and the total count of parking
 	 */
-	public void addParkingSlot(final ParkingSlot ¢) throws ParseException {
-		parkingSlots.add(¢);
-
-		updateSlotsArray();
+	public void addParkingSlot(final ParkingSlot parkingSlot) throws ParseException {
+		
+		// check if already exists? on in other parkingArea
+		parkingSlots.add(parkingSlot);
+		Map<String, Object> fields = new HashMap<String, Object>();
+		fields.put("color", this.color);
+		fields.put("areaId", this.areaId);
+		fields.put("name", this.name);
+		fields.put("location", this.location);
+		fields.put("parkingSlots", parkingSlotsSetToParseList());
+		DBManager.update(objectClass, fields);	
 	}
 
 	/*
@@ -241,6 +240,7 @@ public class ParkingArea extends dbMember {
 	public void removeParkingSlot(final ParkingSlot s) throws ParseException {
 		if (parkingSlots == null)
 			return;
+		
 		for (final Iterator<ParkingSlot> ¢ = parkingSlots.iterator(); ¢.hasNext();)
 			if (¢.next().objectId.equalsIgnoreCase(s.objectId))
 				¢.remove();
