@@ -83,17 +83,10 @@ public class ParkingArea extends dbMember {
 		this.location = location;
 		this.parkingSlots = parkingSlots;
 		this.color = defaultColor;
-
-		// needed?
-		parseObject = new ParseObject("ParkingArea");
-		Map<String, Object> fields = new HashMap<String, Object>(), keyValues = new HashMap<String, Object>();
-		fields.put("color", this.color.ordinal());
-		fields.put("areaId", this.areaId);
-		fields.put("name", this.name);
-		fields.put("location", new ParseGeoPoint(location.getLat(), location.getLon()));
-		fields.put("parkingSlots", parkingSlotsSetToParseList());
+		
+		Map<String, Object> keyValues = new HashMap<String, Object>();
 		keyValues.put("name", this.name);
-		DBManager.insertObject(objectClass, keyValues, fields);
+		DBManager.insertObject(objectClass, keyValues, getFieldsMap());
 	}
 
 	public ParkingArea(final ParseObject parseObject) throws ParseException {
@@ -103,11 +96,9 @@ public class ParkingArea extends dbMember {
 		color = StickersColor.values()[(Integer) parseObject.get("color")];
 		final ParseGeoPoint geo = this.parseObject.getParseGeoPoint("location");
 		location = new MapLocation(geo.getLatitude(), geo.getLongitude());
-		parkingSlots = convertToSlots(getAllSlots());
+		parkingSlots = convertToSlots((List<ParseObject>)parseObject.get("parkingSlots"));
 		setObjectId();
 	}
-
-	/* Getters */
 	
 	// V
 	public int getAreaId() {
@@ -158,7 +149,7 @@ public class ParkingArea extends dbMember {
 		return this.color;
 	}
 	
-	
+	// V
 	private Map<String,Object> getFieldsMap(){
 		Map<String, Object> fields = new HashMap<String, Object>();
 		fields.put("color", this.color.ordinal());
@@ -169,35 +160,37 @@ public class ParkingArea extends dbMember {
 		return fields;
 	}
 
-	
+	// V
 	public void setAreaId(final int areaId) {
 		this.areaId = areaId;
 		DBManager.update(objectClass, getFieldsMap());	
 	}
-
+	// V
 	public void setName(final String name) {
 		this.name = name;
 		DBManager.update(objectClass, getFieldsMap());	
 	}
-
+	// V
 	public void setLocation(final MapLocation location) {
 		this.location = location;
 		DBManager.update(objectClass, getFieldsMap());	
 	}
-
+	// V
 	public void setParkingSlots(final Set<ParkingSlot> slots) {
 		this.parkingSlots = slots;
 		DBManager.update(objectClass, getFieldsMap());	
 	}
-
+	// V
 	public void setColor(final StickersColor color) {
 		this.color = color;
 		DBManager.update(objectClass, getFieldsMap());	
 	}
+	
 
 	/* Methods */
 	public void removeParkingAreaFromDB() throws ParseException {
-		deleteParseObject();
+		// TODO : check if the slots have to be deleted too
+		DBManager.deleteObject(objectClass, getFieldsMap());
 	}
 
 	public Set<ParkingSlot> convertToSlots(final List<ParseObject> slots) {
@@ -219,17 +212,13 @@ public class ParkingArea extends dbMember {
 	 * free slot, and therefore increase the amount of free slots in this area,
 	 * and the total count of parking
 	 */
+	
+	
+	// V
 	public void addParkingSlot(final ParkingSlot parkingSlot) throws ParseException {
-		
 		// check if already exists? on in other parkingArea
 		parkingSlots.add(parkingSlot);
-		Map<String, Object> fields = new HashMap<String, Object>();
-		fields.put("color", this.color);
-		fields.put("areaId", this.areaId);
-		fields.put("name", this.name);
-		fields.put("location", this.location);
-		fields.put("parkingSlots", parkingSlotsSetToParseList());
-		DBManager.update(objectClass, fields);	
+		DBManager.update(objectClass, getFieldsMap());	
 	}
 
 	/*
@@ -237,6 +226,9 @@ public class ParkingArea extends dbMember {
 	 * free slot, and therefore increase the amount of free slots in this area,
 	 * and the total count of parking
 	 */
+	
+	
+	
 	public void removeParkingSlot(final ParkingSlot s) throws ParseException {
 		if (parkingSlots == null)
 			return;
@@ -260,6 +252,7 @@ public class ParkingArea extends dbMember {
 		
 	}
 	
+	// V
 	private List<ParseObject> parkingSlotsSetToParseList(){
 		List<ParseObject> list = new ArrayList<ParseObject>();
 		if(!parkingSlots.isEmpty())
