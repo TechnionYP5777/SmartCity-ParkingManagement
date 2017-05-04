@@ -10,6 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.geometry.Insets;
 import javafx.geometry.HPos;
 import javafx.scene.control.Label;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 
 public class Login extends Application {
 	
@@ -24,28 +26,8 @@ public class Login extends Application {
 		
 		window = primaryStage;
 		window.setTitle("Login Window");
-		
-		GridPane grid = new GridPane();
-		grid.setVgap(10);
-		
-		Label headLine = new Label("System Log in.");
-		GridPane.setConstraints(headLine, 0,0);
-		GridPane.setHalignment(headLine, HPos.CENTER);
-		
-		TextField userInput = new TextField();
-		userInput.setPromptText("Username");
-		GridPane.setConstraints(userInput, 0,1);
-		GridPane.setHalignment(userInput, HPos.CENTER);
-		
-		TextField passInput = new TextField();
-		passInput.setPromptText("Password");
-		GridPane.setConstraints(passInput, 0,2);
-		GridPane.setHalignment(passInput, HPos.CENTER);
-		
-		grid.getChildren().addAll(headLine, userInput, passInput);
-
-		Scene scene = new Scene(grid,450,450);
-		window.setScene(scene);		
+		Parent root = FXMLLoader.load(getClass().getResource("LoginScreen.fxml")); 
+		window.setScene(new Scene(root,300,400));		
 		window.show();
 	}
 }
