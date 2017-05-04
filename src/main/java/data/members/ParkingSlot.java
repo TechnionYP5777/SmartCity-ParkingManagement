@@ -140,77 +140,89 @@ public class ParkingSlot extends dbMember {
 
 	public void setName(final String name) throws ParseException {
 		//TODO: validateArgument
-		Map<String, Object> fields = new HashMap<String, Object>();
-		System.out.println(name);
-		System.out.println(this.color);
-		System.out.println(this.defaultColor);
-		System.out.println(this.status);
-		System.out.println(this.endTime);
-		System.out.println(this.location);
-		fields.put("name", name);
-		fields.put("color", this.color.ordinal());
-		fields.put("defaultColor", this.defaultColor.ordinal());
-		fields.put("status", this.status.ordinal());
-		fields.put("endTime", this.endTime);
-		fields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
-		//DBManager.update(objectClass, fields);
+		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("name", name);
+		newFields.put("color", this.color.ordinal());
+		newFields.put("defaultColor", this.defaultColor.ordinal());
+		newFields.put("status", this.status.ordinal());
+		newFields.put("endTime", this.endTime);
+		newFields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
+		
+		Map<String, Object> keys = new HashMap<String, Object>();
+		keys.put("name", this.name);
+		DBManager.update(objectClass, keys, newFields);
 	}
 
 	public void setStatus(final ParkingSlotStatus s) throws ParseException {
-		Map<String, Object> fields = new HashMap<String, Object>();
-		fields.put("name", this.name);
-		fields.put("color", this.color.ordinal());
-		fields.put("defaultColor", this.defaultColor.ordinal());
-		fields.put("status", s.ordinal());
-		fields.put("endTime", this.endTime);
-		fields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
-		//DBManager.update(objectClass, fields);
+		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("name", this.name);
+		newFields.put("color", this.color.ordinal());
+		newFields.put("defaultColor", this.defaultColor.ordinal());
+		newFields.put("status", s.ordinal());
+		newFields.put("endTime", this.endTime);
+		newFields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
+		
+		Map<String, Object> keys = new HashMap<String, Object>();
+		keys.put("name", this.name);
+		DBManager.update(objectClass, keys, newFields);
 	}
 
 	public void setColor(final StickersColor c) throws ParseException {
-		Map<String, Object> fields = new HashMap<String, Object>();
-		fields.put("name", this.name);
-		fields.put("color", c.ordinal());
-		fields.put("defaultColor", this.defaultColor.ordinal());
-		fields.put("status", this.status.ordinal());
-		fields.put("endTime", this.endTime);
-		fields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
-		//DBManager.update(objectClass, fields);
+		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("name", this.name);
+		newFields.put("color", c.ordinal());
+		newFields.put("defaultColor", this.defaultColor.ordinal());
+		newFields.put("status", this.status.ordinal());
+		newFields.put("endTime", this.endTime);
+		newFields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
+		
+		Map<String, Object> keys = new HashMap<String, Object>();
+		keys.put("name", this.name);
+		DBManager.update(objectClass, keys, newFields);
 	}
 
 	public void setLocation(final MapLocation l) throws ParseException {
-		Map<String, Object> fields = new HashMap<String, Object>();
-		fields.put("name", this.name);
-		fields.put("color", this.color.ordinal());
-		fields.put("defaultColor", this.defaultColor.ordinal());
-		fields.put("status", this.status.ordinal());
-		fields.put("endTime", this.endTime);
-		fields.put("location", new ParseGeoPoint(l.getLat(), l.getLon()));
-		//DBManager.update(objectClass, fields);
+		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("name", this.name);
+		newFields.put("color", this.color.ordinal());
+		newFields.put("defaultColor", this.defaultColor.ordinal());
+		newFields.put("status", this.status.ordinal());
+		newFields.put("endTime", this.endTime);
+		newFields.put("location", new ParseGeoPoint(l.getLat(), l.getLon()));
+		
+		Map<String, Object> keys = new HashMap<String, Object>();
+		keys.put("name", this.name);
+		DBManager.update(objectClass, keys, newFields);
 	}
 
 	public void setDefaultColor(final StickersColor defaultColor) throws ParseException {
-		Map<String, Object> fields = new HashMap<String, Object>();
-		fields.put("name", this.name);
-		fields.put("color", this.color.ordinal());
-		fields.put("defaultColor", defaultColor.ordinal());
-		fields.put("status", this.status.ordinal());
-		fields.put("endTime", this.endTime);
-		fields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
-		//DBManager.update(objectClass, fields);
+		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("name", this.name);
+		newFields.put("color", this.color.ordinal());
+		newFields.put("defaultColor", defaultColor.ordinal());
+		newFields.put("status", this.status.ordinal());
+		newFields.put("endTime", this.endTime);
+		newFields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
+		
+		Map<String, Object> keys = new HashMap<String, Object>();
+		keys.put("name", this.name);
+		DBManager.update(objectClass, keys, newFields);
 	}
 
 	public void setEndTime(final Date endTime) throws ParseException {
-		Map<String, Object> fields = new HashMap<String, Object>();
-		fields.put("name", this.name);
-		fields.put("color", this.color.ordinal());
-		fields.put("defaultColor", this.defaultColor.ordinal());
-		fields.put("status", this.status.ordinal());
-		fields.put("endTime", endTime);
-		fields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
-		//DBManager.update(objectClass, fields);
+		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("name", this.name);
+		newFields.put("color", this.color.ordinal());
+		newFields.put("defaultColor", this.defaultColor.ordinal());
+		newFields.put("status", this.status.ordinal());
+		newFields.put("endTime", endTime);
+		newFields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
+		
+		Map<String, Object> keys = new HashMap<String, Object>();
+		keys.put("name", this.name);
+		DBManager.update(objectClass, keys, newFields);
 	}
-
+	
 	/* Methods */
 
 	private void validateArgument(final ParkingSlotStatus s, final StickersColor c, final StickersColor defaultColor, final MapLocation l)
