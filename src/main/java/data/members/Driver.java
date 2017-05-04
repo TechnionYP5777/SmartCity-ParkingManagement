@@ -1,13 +1,11 @@
 package data.members;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.parse4j.ParseException;
-import org.parse4j.ParseGeoPoint;
 import org.parse4j.ParseObject;
 
 import data.management.DBManager;
@@ -108,46 +106,54 @@ public class Driver {
 
 	public void setId(final String id) throws ParseException {
 		//TODO: validateArgument
-		DBManager.initialize();
-		Map<String, Object> fields = new HashMap<String, Object>();
-		fields.put("id", id);
-		fields.put("email", this.email);
-		fields.put("carId", this.carId);
-		fields.put("password", this.password);
-		DBManager.update(objectClass, fields);
+		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("id", id);
+		newFields.put("email", this.email);
+		newFields.put("carId", this.carId);
+		newFields.put("password", this.password);
+			
+		Map<String, Object> keys = new HashMap<String, Object>();
+		keys.put("id", this.id);
+		DBManager.update(objectClass, keys, newFields);
 	}
 
 	public void setEmail(final String newEmail) throws ParseException {
 		//TODO: validateArgument
-		DBManager.initialize();
-		Map<String, Object> fields = new HashMap<String, Object>();
-		fields.put("id", this.id);
-		fields.put("email", newEmail);
-		fields.put("carId", this.carId);
-		fields.put("password", this.password);
-		DBManager.update(objectClass, fields);
+		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("id", this.id);
+		newFields.put("email", newEmail);
+		newFields.put("carId", this.carId);
+		newFields.put("password", this.password);
+					
+		Map<String, Object> keys = new HashMap<String, Object>();
+		keys.put("id", this.id);
+		DBManager.update(objectClass, keys, newFields);
 	}
 	
 	public void setCarId(final String newCarId) throws ParseException {
 		//TODO: validateArgument
-		DBManager.initialize();
-		Map<String, Object> fields = new HashMap<String, Object>();
-		fields.put("id", this.id);
-		fields.put("email", this.email);
-		fields.put("carId", newCarId);
-		fields.put("password", this.password);
-		DBManager.update(objectClass, fields);
+		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("id", this.id);
+		newFields.put("email", this.email);
+		newFields.put("carId", newCarId);
+		newFields.put("password", this.password);
+							
+		Map<String, Object> keys = new HashMap<String, Object>();
+		keys.put("id", this.id);
+		DBManager.update(objectClass, keys, newFields);
 	}
 	
 	public void setPassword(final String newPassword) throws ParseException {
 		//TODO: validateArgument
-		DBManager.initialize();
-		Map<String, Object> fields = new HashMap<String, Object>();
-		fields.put("id", this.id);
-		fields.put("email", this.email);
-		fields.put("carId", this.carId);
-		fields.put("password", newPassword);
-		DBManager.update(objectClass, fields);
+		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("id", this.id);
+		newFields.put("email", this.email);
+		newFields.put("carId", this.carId);
+		newFields.put("password", newPassword);
+									
+		Map<String, Object> keys = new HashMap<String, Object>();
+		keys.put("id", this.id);
+		DBManager.update(objectClass, keys, newFields);
 	}
 	
 	/* Methods */
