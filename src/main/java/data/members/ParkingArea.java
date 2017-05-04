@@ -163,34 +163,34 @@ public class ParkingArea extends dbMember {
 	// V
 	public void setAreaId(final int areaId) {
 		this.areaId = areaId;
-		DBManager.update(objectClass, getFieldsMap());	
+		//DBManager.update(objectClass, getFieldsMap());	
 	}
 	// V
 	public void setName(final String name) {
 		this.name = name;
-		DBManager.update(objectClass, getFieldsMap());	
+		//DBManager.update(objectClass, getFieldsMap());	
 	}
 	// V
 	public void setLocation(final MapLocation location) {
 		this.location = location;
-		DBManager.update(objectClass, getFieldsMap());	
+		//DBManager.update(objectClass, getFieldsMap());	
 	}
 	// V
 	public void setParkingSlots(final Set<ParkingSlot> slots) {
 		this.parkingSlots = slots;
-		DBManager.update(objectClass, getFieldsMap());	
+		//DBManager.update(objectClass, getFieldsMap());	
 	}
 	// V
 	public void setColor(final StickersColor color) {
 		this.color = color;
-		DBManager.update(objectClass, getFieldsMap());	
+		//DBManager.update(objectClass, getFieldsMap());	
 	}
 	
 
 	/* Methods */
 	public void removeParkingAreaFromDB() throws ParseException {
 		// TODO : check if the slots have to be deleted too
-		DBManager.deleteObject(objectClass, getFieldsMap());
+		//DBManager.deleteObject(objectClass, getFieldsMap());
 	}
 
 	public Set<ParkingSlot> convertToSlots(final List<ParseObject> slots) {
@@ -218,7 +218,7 @@ public class ParkingArea extends dbMember {
 	public void addParkingSlot(final ParkingSlot parkingSlot) throws ParseException {
 		// check if already exists? on in other parkingArea
 		parkingSlots.add(parkingSlot);
-		DBManager.update(objectClass, getFieldsMap());	
+		//DBManager.update(objectClass, getFieldsMap());	
 	}
 
 	/*

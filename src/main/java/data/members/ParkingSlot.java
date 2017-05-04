@@ -153,7 +153,7 @@ public class ParkingSlot extends dbMember {
 		fields.put("status", this.status.ordinal());
 		fields.put("endTime", this.endTime);
 		fields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
-		DBManager.update(objectClass, fields);
+		//DBManager.update(objectClass, fields);
 	}
 
 	public void setStatus(final ParkingSlotStatus s) throws ParseException {
@@ -164,7 +164,7 @@ public class ParkingSlot extends dbMember {
 		fields.put("status", s.ordinal());
 		fields.put("endTime", this.endTime);
 		fields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
-		DBManager.update(objectClass, fields);
+		//DBManager.update(objectClass, fields);
 	}
 
 	public void setColor(final StickersColor c) throws ParseException {
@@ -175,7 +175,7 @@ public class ParkingSlot extends dbMember {
 		fields.put("status", this.status.ordinal());
 		fields.put("endTime", this.endTime);
 		fields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
-		DBManager.update(objectClass, fields);
+		//DBManager.update(objectClass, fields);
 	}
 
 	public void setLocation(final MapLocation l) throws ParseException {
@@ -186,7 +186,7 @@ public class ParkingSlot extends dbMember {
 		fields.put("status", this.status.ordinal());
 		fields.put("endTime", this.endTime);
 		fields.put("location", new ParseGeoPoint(l.getLat(), l.getLon()));
-		DBManager.update(objectClass, fields);
+		//DBManager.update(objectClass, fields);
 	}
 
 	public void setDefaultColor(final StickersColor defaultColor) throws ParseException {
@@ -197,7 +197,7 @@ public class ParkingSlot extends dbMember {
 		fields.put("status", this.status.ordinal());
 		fields.put("endTime", this.endTime);
 		fields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
-		DBManager.update(objectClass, fields);
+		//DBManager.update(objectClass, fields);
 	}
 
 	public void setEndTime(final Date endTime) throws ParseException {
@@ -208,7 +208,7 @@ public class ParkingSlot extends dbMember {
 		fields.put("status", this.status.ordinal());
 		fields.put("endTime", endTime);
 		fields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
-		DBManager.update(objectClass, fields);
+		//DBManager.update(objectClass, fields);
 	}
 
 	/* Methods */
