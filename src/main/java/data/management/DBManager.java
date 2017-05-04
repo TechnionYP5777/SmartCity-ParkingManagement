@@ -113,15 +113,15 @@ public class DBManager {
 		});
 	}
 	
-	public static void update(final String objectClass,Map<String, Object> fields){
-		checkExsistance(objectClass,fields,new GetCallback<ParseObject>() {
+	public static void update(final String objectClass,Map<String, Object> keys,Map<String, Object> newFields){
+		checkExsistance(objectClass,keys,new GetCallback<ParseObject>() {
 
 			@Override
 			public void done(ParseObject arg0, ParseException arg1) {
 				if(arg0 == null) return;
 				final ParseObject obj = new ParseObject(objectClass);
-				for(String key: fields.keySet())
-					obj.put(key, fields.get(key));
+				for(String key: newFields.keySet())
+					obj.put(key, newFields.get(key));
 				obj.setObjectId(arg0.getObjectId());
 				obj.saveInBackground(new SaveCallback() {
 					

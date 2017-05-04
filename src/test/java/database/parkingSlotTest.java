@@ -1,21 +1,13 @@
 package database;
 
-import java.time.LocalDate;
-import java.util.Calendar;
+
 import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.parse4j.ParseException;
-import org.parse4j.ParseObject;
-import org.parse4j.ParseQuery;
 
 import data.management.DBManager;
 import data.members.ParkingSlot;
@@ -237,7 +229,106 @@ public class parkingSlotTest {
 		}
 	}
 	
+	@Test
+	public void testSetName(){
+		try{
+			new ParkingSlot("testParkingSlot1").setName("testParkingSlot10");
+			Thread.sleep(6000);
+			Assert.assertEquals(new ParkingSlot("testParkingSlot10").getName(), "testParkingSlot10");
+			Thread.sleep(6000);
+			new ParkingSlot("testParkingSlot10").setName("testParkingSlot1");
+		} catch (final Exception ¢) {
+			¢.printStackTrace();
+			Assert.fail();
+		}
+	}
 		
+	@Test
+	public void testSetStatus(){
+		try{
+			new ParkingSlot("testParkingSlot1").setStatus(ParkingSlotStatus.TAKEN);
+			Thread.sleep(6000);
+			Assert.assertEquals(new ParkingSlot("testParkingSlot1").getStatus(), ParkingSlotStatus.TAKEN);
+			Thread.sleep(6000);
+			new ParkingSlot("testParkingSlot1").setStatus(ParkingSlotStatus.FREE);
+		} catch (final Exception ¢) {
+			¢.printStackTrace();
+			Assert.fail();
+		}
+	}
+	
+	@Test
+	public void testSetColor(){
+		try{
+			new ParkingSlot("testParkingSlot1").setColor(StickersColor.BLUE);
+			Thread.sleep(6000);
+			Assert.assertEquals(new ParkingSlot("testParkingSlot1").getColor(), StickersColor.BLUE);
+			Thread.sleep(6000);
+			new ParkingSlot("testParkingSlot1").setColor(StickersColor.GREEN);
+		} catch (final Exception ¢) {
+			¢.printStackTrace();
+			Assert.fail();
+		}
+	}
+	
+	@Test
+	public void testSetLocation(){
+		try{
+			new ParkingSlot("testParkingSlot1").setLocation(new MapLocation(32.12345, 32.12345));
+			Thread.sleep(6000);
+			Assert.assertEquals(new MapLocation(32.12345, 32.12345).getLat(), new ParkingSlot("testParkingSlot1").getLocation().getLat(), 0);
+			Assert.assertEquals(new MapLocation(32.12345, 32.12345).getLon(), new ParkingSlot("testParkingSlot1").getLocation().getLon(), 0);
+			Thread.sleep(6000);
+			new ParkingSlot("testParkingSlot1").setLocation(new MapLocation(32.123, 32.123));
+		} catch (final Exception ¢) {
+			¢.printStackTrace();
+			Assert.fail();
+		}
+	}
+	
+	@Test
+	public void testSetDefaultColor(){
+		try{
+			new ParkingSlot("testParkingSlot1").setDefaultColor(StickersColor.BLUE);
+			Thread.sleep(6000);
+			Assert.assertEquals(new ParkingSlot("testParkingSlot1").getDefaultColor(), StickersColor.BLUE);
+			Thread.sleep(6000);
+			new ParkingSlot("testParkingSlot1").setDefaultColor(StickersColor.GREEN);
+		} catch (final Exception ¢) {
+			¢.printStackTrace();
+			Assert.fail();
+		}
+	}
+	
+	@Test
+	public void testSetEndTime(){
+		try{
+			new ParkingSlot("testParkingSlot1").setEndTime(new Date());
+			Thread.sleep(6000);
+			Assert.assertEquals(new Date().getDate(), new ParkingSlot("testParkingSlot1").getEndTime().getDate());
+			Thread.sleep(6000);
+			new ParkingSlot("testParkingSlot1").setEndTime(new Date());
+		} catch (final Exception ¢) {
+			¢.printStackTrace();
+			Assert.fail();
+		}
+		
+	}
+	
+	@Test
+	public void testChangeStatus(){
+		try{
+			new ParkingSlot("testParkingSlot1").changeStatus(ParkingSlotStatus.TAKEN);
+			Thread.sleep(6000);
+			Assert.assertEquals(new ParkingSlot("testParkingSlot1").getStatus(), ParkingSlotStatus.TAKEN);	
+			Thread.sleep(6000);
+			new ParkingSlot("testParkingSlot1").changeStatus(ParkingSlotStatus.FREE);
+		} catch (final Exception ¢) {
+			¢.printStackTrace();
+			Assert.fail();
+		}
+	}
+	
 	@After
 	public void finishTest() throws ParseException, InterruptedException {
 		// delete objects
@@ -250,7 +341,7 @@ public class parkingSlotTest {
 //		new ParkingArea(areaList.get(0)).deleteParseObject();
 //		Thread.sleep(10000);
 
-		new ParkingSlot("testParkingSlot1").removeParkingSlotFromDB();
-		Thread.sleep(10000);
+//		new ParkingSlot("testParkingSlot1").removeParkingSlotFromDB();
+//		Thread.sleep(10000);
 	}
 }
