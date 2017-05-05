@@ -65,10 +65,6 @@ public class DBManager {
 		obj.setObjectId(id);
 		obj.deleteInBackground(c);
 	}
-
-	private static void privateFind (final String objectClass, Map<String,Object> fields,FindCallback<ParseObject> o){
-		
-	}
 	
 	public static void insertObject(final String objectClass, Map<String, Object> keyValues,Map<String, Object> fields){
 		privateInsertObject(objectClass, keyValues, fields, new SaveCallback() {
@@ -86,28 +82,29 @@ public class DBManager {
 	}
 	
 	public static void deleteObject(final String objectClass,Map<String, Object> fields){
-		privateFind(objectClass,fields, new FindCallback<ParseObject>() {
+		checkExsistance(objectClass,fields, new GetCallback<ParseObject>() {
 
 			@Override
-			public void done(List<ParseObject> arg0, ParseException arg1) {
-				if(arg0!=null)
-					privateDeleteObject(objectClass, arg0.get(0).getObjectId() + "", new DeleteCallback() {
-						@Override
-						public void done(ParseException arg0) {
-						}
-					});
+			public void done(ParseObject arg0, ParseException arg1) {
+				privateDeleteObject(objectClass, arg0.getObjectId() + "", new DeleteCallback() {
+
+					@Override
+					public void done(ParseException arg0) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
 			}
-			
 		});
 	}
 	
 	public static void deleteObject(final String objectClass,Map<String, Object> fields,DeleteCallback c){
-		privateFind(objectClass,fields, new FindCallback<ParseObject>() {
+		checkExsistance(objectClass,fields, new GetCallback<ParseObject>() {
 
 			@Override
-			public void done(List<ParseObject> arg0, ParseException arg1) {
+			public void done(ParseObject arg0, ParseException arg1) {
 				if(arg0!=null)
-					privateDeleteObject(objectClass, arg0.get(0).getObjectId() + "", c);
+					privateDeleteObject(objectClass, arg0.getObjectId() + "", c);
 			}
 			
 		});
