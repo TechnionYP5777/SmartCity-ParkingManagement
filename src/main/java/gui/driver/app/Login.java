@@ -25,7 +25,7 @@ public class Login extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		
 		window = primaryStage;
-		window.setTitle("Login Window");
+		window.setTitle("Login");
 		Parent root = FXMLLoader.load(getClass().getResource("LoginScreen.fxml")); 
 		window.setScene(new Scene(root,300,400));		
 		window.show();

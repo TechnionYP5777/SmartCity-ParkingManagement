@@ -11,32 +11,55 @@
 <?import javafx.scene.text.Font?>
 
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0">
+      <VBox prefWidth="100.0">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0" />
-            <HBox prefHeight="263.0" prefWidth="402.0">
+            <VBox prefHeight="100.0" prefWidth="100.0">
                <children>
-                  <VBox alignment="TOP_RIGHT" prefHeight="248.0" prefWidth="125.0">
+                  <Button id="backButton" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: #808080;" text="&lt;&lt; BACK" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets left="10.0" top="15.0" />
+                     </VBox.margin>
+                  </Button>
+                  <HBox alignment="BOTTOM_CENTER" prefHeight="59.0" prefWidth="200.0">
                      <children>
-                        <Label prefHeight="35.0" text="id" />
-                        <Label prefHeight="35.0" text="email">
+                        <Label text="Fill in the form below to get instant access">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="19.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox prefHeight="300.0" prefWidth="402.0">
+               <children>
+                  <VBox alignment="TOP_RIGHT" prefHeight="280.0" prefWidth="125.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="35.0" text="id" />
+                        <Label alignment="CENTER" prefHeight="35.0" text="email">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
                         </Label>
-                        <Label prefHeight="35.0" text="car number">
+                        <Label alignment="CENTER" prefHeight="35.0" text="car number">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
                         </Label>
-                        <Label prefHeight="35.0" text="password">
+                        <Label alignment="CENTER" prefHeight="35.0" text="password">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
                         </Label>
-                        <Label prefHeight="35.0" text="confirm password">
+                        <Label alignment="CENTER" prefHeight="35.0" text="confirm password">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
@@ -46,32 +69,32 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </VBox>
-                  <VBox prefHeight="200.0" prefWidth="250.0">
+                  <VBox prefHeight="248.0" prefWidth="250.0">
                      <children>
-                        <TextField prefHeight="35.0" prefWidth="250.0" />
-                        <TextField prefHeight="35.0">
+                        <TextField id="idTextField" prefHeight="35.0" prefWidth="250.0" />
+                        <TextField id="emailTextField" prefHeight="35.0">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField prefHeight="35.0">
+                        <TextField id="carNumTextField" prefHeight="35.0">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <PasswordField prefHeight="35.0">
+                        <PasswordField id="pwTextField" prefHeight="35.0">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
                         </PasswordField>
-                        <PasswordField prefHeight="35.0">
+                        <PasswordField id="rePwTextField" prefHeight="35.0">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
                         </PasswordField>
-                        <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="400.0" style="-fx-background-color: #808080;;" text="CREATE NEW ACCOUNT" textFill="WHITE">
+                        <Button id="createButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="400.0" style="-fx-background-color: #808080;;" text="CREATE NEW ACCOUNT" textFill="WHITE">
                            <VBox.margin>
-                              <Insets top="20.0" />
+                              <Insets top="10.0" />
                            </VBox.margin>
                            <font>
                               <Font name="System Bold" size="13.0" />
@@ -81,10 +104,13 @@
                   </VBox>
                </children>
                <VBox.margin>
-                  <Insets top="20.0" />
+                  <Insets />
                </VBox.margin>
             </HBox>
          </children>
+         <StackPane.margin>
+            <Insets />
+         </StackPane.margin>
       </VBox>
    </children>
 </StackPane>
