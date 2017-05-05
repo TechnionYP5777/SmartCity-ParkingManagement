@@ -10,14 +10,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.driver.app.RegistrationController">
    <children>
       <VBox prefWidth="100.0">
          <children>
             <VBox prefHeight="100.0" prefWidth="100.0">
                <children>
-                  <Button id="backButton" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: #808080;" text="&lt;&lt; BACK" textFill="WHITE">
+                  <Button id="backButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#backButtonClicked" style="-fx-background-color: #808080;" text="&lt;&lt; BACK" textFill="WHITE">
                      <VBox.margin>
                         <Insets left="10.0" top="15.0" />
                      </VBox.margin>
