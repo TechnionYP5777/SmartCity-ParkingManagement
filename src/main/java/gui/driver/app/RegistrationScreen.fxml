@@ -91,7 +91,7 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </PasswordField>
-                        <Button id="createButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="400.0" style="-fx-background-color: #808080;;" text="CREATE NEW ACCOUNT" textFill="WHITE">
+                        <Button id="createButton" mnemonicParsing="false" onAction="#createButtonClicked" prefHeight="35.0" prefWidth="400.0" style="-fx-background-color: #808080;;" text="CREATE NEW ACCOUNT" textFill="WHITE">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>

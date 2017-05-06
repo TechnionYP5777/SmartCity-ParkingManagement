@@ -21,13 +21,21 @@ public class RegistrationController {
 	private Button createButton;
 	
 	
-	
-	public void backButtonClicked(ActionEvent event) throws Exception{
+	public void backButtonClicked(ActionEvent event) throws Exception {
 		 Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 			window.setTitle("Login");
 			Parent root = FXMLLoader.load(getClass().getResource("LoginScreen.fxml")); 
 			window.setScene(new Scene(root,300,400));		
 			window.show();
+	}
+	public void createButtonClicked(ActionEvent event) throws Exception {
+		String id = idField.getText();
+		String email = emailField.getText();
+		String carNum = carNumField.getText();
+		String pw = pwField.getText();
+		String confirmPw = confirmPwField.getText();
+		
+		// TODO: validate and create a new user
 	}
 	
 }

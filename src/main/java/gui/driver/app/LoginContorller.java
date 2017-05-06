@@ -17,6 +17,22 @@ public class LoginContorller {
 	private Button loginButton;
 	private Hyperlink createNewAccHyperLink;
 	
+	
+	public void forgotPwClicked(ActionEvent event) throws Exception {
+	 	Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		window.setTitle("Forgot your password");
+		Parent root = FXMLLoader.load(getClass().getResource("ForgotPwScreen.fxml")); 
+		window.setScene(new Scene(root,300,400));		
+		window.show();
+	}
+	
+	public void loginButtonClicked(ActionEvent event) throws Exception {
+		String username = usernameField.getText();
+		String pw = pwField.getText();
+		// TODO: validate fields, check existance and move to main screen
+		
+	}
+	
 	public void createHyperLinkClicked(ActionEvent event) throws Exception{
 	 	Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 		window.setTitle("Registration");
@@ -25,12 +41,5 @@ public class LoginContorller {
 		window.show();
 
 
-	}
-	public void forgotPwClicked(ActionEvent event) throws Exception {
-	 	Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-		window.setTitle("Forgot your password");
-		Parent root = FXMLLoader.load(getClass().getResource("ForgotPwScreen.fxml")); 
-		window.setScene(new Scene(root,300,400));		
-		window.show();
 	}
 }
