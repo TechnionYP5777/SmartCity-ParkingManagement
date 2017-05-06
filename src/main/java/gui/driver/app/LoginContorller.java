@@ -15,10 +15,13 @@ public class LoginContorller {
 	public void createHyperLinkClicked(ActionEvent event) throws Exception{
 		 Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 			window.setTitle("Registration");
-			Parent root = FXMLLoader.load(getClass().getResource("RegistrationLayout.fxml")); 
+			Parent root = FXMLLoader.load(getClass().getResource("RegistrationScreen.fxml")); 
 			window.setScene(new Scene(root,400,400));		
 			window.show();
 
 
+	}
+	public void forgotPwClicked(ActionEvent event) throws Exception {
+		
 	}
 }
