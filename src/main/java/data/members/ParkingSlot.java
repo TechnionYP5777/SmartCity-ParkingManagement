@@ -11,6 +11,7 @@ import org.parse4j.ParseObject;
 import org.parse4j.ParseQuery;
 
 import data.management.DBManager;
+import util.Validation;
 
 /**
  * @author Toma
@@ -238,14 +239,7 @@ public class ParkingSlot extends dbMember {
 
 	private void validateArgument(final ParkingSlotStatus s, final StickersColor c, final StickersColor defaultColor, final MapLocation l)
 			throws IllegalArgumentException {
-		if (s == null)
-			throw new IllegalArgumentException("status can not be empty!");
-		if (c == null)
-			throw new IllegalArgumentException("color can not be empty!");
-		if (defaultColor == null)
-			throw new IllegalArgumentException("defaultColor can not be empty!");
-		if (l == null)
-			throw new IllegalArgumentException("location can not be empty!");
+		Validation.validateNewParkingSlot(s, c, defaultColor, l);
 	}
 
 	private ParseObject findContaingParkingArea() {

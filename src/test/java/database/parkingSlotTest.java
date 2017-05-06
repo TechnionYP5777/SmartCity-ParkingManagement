@@ -30,38 +30,38 @@ public class parkingSlotTest {
 		}
 	}
 	
-	@Test
-	public void check2(){
-		DBManager.initialize();
-		try{
-			ParkingSlot p = new ParkingSlot("first");
-			Thread.sleep(12000);	
-			Assert.assertEquals(p.getName(), "first");
-			Assert.assertEquals(p.getStatus(), ParkingSlotStatus.FREE);
-			Assert.assertEquals(p.getColor(), StickersColor.BLUE);
-			Assert.assertEquals(p.getDefaultColor(), StickersColor.BLUE);
-			Assert.assertEquals(p.getEndTime().getDay(), new Date().getDay());
-			Assert.assertEquals(p.getEndTime().getMonth(), new Date().getMonth());
-			Assert.assertEquals(p.getEndTime().getYear(), new Date().getYear());
-			Assert.assertEquals(p.getLocation().getLat(), 3.12, 0);
-			Assert.assertEquals(p.getLocation().getLon(), 3.12, 0);
-		} catch (final Exception ¢) {
-			¢.printStackTrace();
-			Assert.fail();
-		}
-	}
+//	@Test
+//	public void check2(){
+//		DBManager.initialize();
+//		try{
+//			ParkingSlot p = new ParkingSlot("first");
+//			Thread.sleep(12000);	
+//			Assert.assertEquals(p.getName(), "first");
+//			Assert.assertEquals(p.getStatus(), ParkingSlotStatus.FREE);
+//			Assert.assertEquals(p.getColor(), StickersColor.BLUE);
+//			Assert.assertEquals(p.getDefaultColor(), StickersColor.BLUE);
+//			Assert.assertEquals(p.getEndTime().getDay(), new Date().getDay());
+//			Assert.assertEquals(p.getEndTime().getMonth(), new Date().getMonth());
+//			Assert.assertEquals(p.getEndTime().getYear(), new Date().getYear());
+//			Assert.assertEquals(p.getLocation().getLat(), 3.12, 0);
+//			Assert.assertEquals(p.getLocation().getLon(), 3.12, 0);
+//		} catch (final Exception ¢) {
+//			¢.printStackTrace();
+//			Assert.fail();
+//		}
+//	}
 	
-	@Test
-	public void check3(){
-		DBManager.initialize();
-		try{
-			new ParkingSlot("first").removeParkingSlotFromDB();
-			Thread.sleep(12000);	
-		} catch (final Exception ¢) {
-			¢.printStackTrace();
-			Assert.fail();
-		}
-	}
+//	@Test
+//	public void check3(){
+//		DBManager.initialize();
+//		try{
+//			new ParkingSlot("first").removeParkingSlotFromDB();
+//			Thread.sleep(12000);	
+//		} catch (final Exception ¢) {
+//			¢.printStackTrace();
+//			Assert.fail();
+//		}
+//	}
 	
 	@Before
 	public void setUpTest() throws ParseException, InterruptedException {

@@ -2,13 +2,12 @@ package data.members;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
 
 import data.management.DBManager;
+import util.Validation;
 
 public class Driver {
 
@@ -159,61 +158,32 @@ public class Driver {
 	/* Methods */
 
 	private void validateArgument(final String id, final String email, final String carId, final String password)
-		throws IllegalArgumentException {
-		//TODO: Move to Validation class
-		if (id == null)
-			throw new IllegalArgumentException("id can not be empty!");
-		if (email == null)
-			throw new IllegalArgumentException("email can not be empty!");
-		if (carId == null)
-			throw new IllegalArgumentException("carId can not be empty!");
-		if (password == null)
-			throw new IllegalArgumentException("password can not be empty!");
+		throws IllegalArgumentException, ParseException {
+		if (!Validation.validateNewDriver(id, email, carId, password))
+			throw new IllegalArgumentException("illegal arguments!");
 	}
 	
-	private void checkId(final String id) throws IllegalArgumentException {
-		//TODO: Move to Validation class
-		if (id==null)
-			throw new IllegalArgumentException("id can not be empty!");
-		DBManager.initialize();
-		Map<String, Object> key = new HashMap<String, Object>();
-		key.put("id", id);
-		if (DBManager.getObjectFieldsByKey(objectClass, key).get("id")!=null && this.id!=id)
-			throw new IllegalArgumentException("id already exist!");
-	}
-	
-	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = 
-		    Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-
-	public static boolean validateMail(String emailStr) {
-		        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(emailStr);
-		        return matcher.find();
+	private void checkId(final String id) throws IllegalArgumentException, ParseException {
+			if (id==null)
+				throw new IllegalArgumentException("id can not be empty!");
+			if(Validation.isIdExist(id) && (!id.equals(this.id)))
+				throw new IllegalArgumentException("id is illegal!");
 	}
 	
 	private void checkEmail(final String email) throws IllegalArgumentException {
-		//TODO: Move to Validation class
 		if (email==null)
 			throw new IllegalArgumentException("email can not be empty!");
-		if (!validateMail(email)) 
+		if (!Validation.validateMail(email)) 
 			throw new IllegalArgumentException("email is illegal!");
 	}
 	
 	private void checkCarId(final String carId) throws IllegalArgumentException {
-		//TODO: Move to Validation class
-		if(carId==null || carId.length()!=7)
+		if(!Validation.validateCarId(carId))
 			throw new IllegalArgumentException("carId is illegal! Must contain 7 characters!");
 	}
 	
-	boolean validatePassword(String password, int n, int m) {
-		  if (password == null || password.length() < n || password.length() > m) {
-		    return false;
-		  }
-		  return true;
-	}
-	
 	private void checkPassword(final String password) throws IllegalArgumentException {
-		//TODO: Move to Validation class
-		if (!validatePassword(password, 1, 10))
+		if (!Validation.validatePassword(password, 1, 10))
 			throw new IllegalArgumentException("password is illegal! Must contain between 1-10 characters!");
 			
 	}
