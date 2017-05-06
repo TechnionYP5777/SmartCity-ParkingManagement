@@ -70,23 +70,23 @@
                   </VBox>
                   <VBox prefHeight="248.0" prefWidth="250.0">
                      <children>
-                        <TextField id="idTextField" prefHeight="35.0" prefWidth="250.0" />
-                        <TextField id="emailTextField" prefHeight="35.0">
+                        <TextField id="idField" prefHeight="35.0" prefWidth="250.0" />
+                        <TextField id="emailField" prefHeight="35.0">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField id="carNumTextField" prefHeight="35.0">
+                        <TextField id="carNumField" prefHeight="35.0">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <PasswordField id="pwTextField" prefHeight="35.0">
+                        <PasswordField id="pwField" prefHeight="35.0">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
                         </PasswordField>
-                        <PasswordField id="rePwTextField" prefHeight="35.0">
+                        <PasswordField id="confirmPwField" prefHeight="35.0">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>

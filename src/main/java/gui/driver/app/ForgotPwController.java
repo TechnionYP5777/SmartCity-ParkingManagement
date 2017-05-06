@@ -6,11 +6,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 
 public class ForgotPwController {
 	
 	
 	private Button backButton;
+	private TextField usernameField;
+	private TextField emailField;
+	private Button restoreButton;
 	
 	public void backButtonClicked(ActionEvent event) throws Exception{
 		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();

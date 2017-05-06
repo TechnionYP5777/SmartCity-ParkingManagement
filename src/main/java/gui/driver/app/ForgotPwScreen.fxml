@@ -30,14 +30,14 @@
                   </HBox>
                </children>
             </VBox>
-            <TextField id="usernameTextField" prefHeight="35.0" prefWidth="280.0" promptText="Username">
+            <TextField id="usernameField" prefHeight="35.0" prefWidth="280.0" promptText="Username">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
                <font>
                   <Font size="15.0" />
                </font></TextField>
-            <TextField id="emailTextField" prefHeight="35.0" promptText="Email">
+            <TextField id="emailField" prefHeight="35.0" promptText="Email">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
