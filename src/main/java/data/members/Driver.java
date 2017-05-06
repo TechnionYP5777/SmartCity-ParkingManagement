@@ -174,7 +174,7 @@ public class Driver {
 	private void checkId(final String id) throws IllegalArgumentException {
 		//TODO: Move to Validation class
 		if (id==null)
-			throw new IllegalArgumentException("id already exist!");
+			throw new IllegalArgumentException("id can not be empty!");
 		DBManager.initialize();
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("id", id);
@@ -193,7 +193,7 @@ public class Driver {
 	private void checkEmail(final String email) throws IllegalArgumentException {
 		//TODO: Move to Validation class
 		if (email==null)
-			throw new IllegalArgumentException("email is illegal!");
+			throw new IllegalArgumentException("email can not be empty!");
 		if (!validateMail(email)) 
 			throw new IllegalArgumentException("email is illegal!");
 	}
@@ -214,7 +214,7 @@ public class Driver {
 	private void checkPassword(final String password) throws IllegalArgumentException {
 		//TODO: Move to Validation class
 		if (!validatePassword(password, 1, 10))
-			throw new IllegalArgumentException("password is illegal!");
+			throw new IllegalArgumentException("password is illegal! Must contain between 1-10 characters!");
 			
 	}
 	
