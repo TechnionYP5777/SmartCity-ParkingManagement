@@ -1,8 +1,10 @@
 package data.management;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.parse4j.Parse;
 import org.parse4j.ParseException;
@@ -29,6 +31,40 @@ public class DBManager {
 		init=true;
 	}
 
+	private static FindCallback<ParseObject> privateGetAllObjects(String objectClass,int limit,int skip,AtomicInteger mutex,List<ParseObject> allObj){
+		return new FindCallback<ParseObject>(){
+
+			@Override
+			public void done(List<ParseObject> arg0, ParseException arg1) {
+				if(arg1 == null && arg0 != null){
+					if(limit == arg0.size()){
+		                ParseQuery<ParseObject> query = ParseQuery.getQuery (objectClass);
+		                query.skip(skip+limit);
+		                query.limit(limit);
+		                query.findInBackground(privateGetAllObjects(objectClass,query.getLimit(),query.getSkip(),mutex,allObj));
+					}
+					else{
+						synchronized (mutex) {
+							mutex.compareAndSet(0,1);
+							allObj.addAll(arg0);
+							mutex.notifyAll();
+						}
+					}
+					if(!mutex.compareAndSet(1,1)){
+						allObj.addAll(arg0);
+					}
+				}
+				
+				if(arg0 == null){
+					synchronized (mutex) {
+						mutex.compareAndSet(0,1);
+						mutex.notifyAll();
+					}
+				}
+			}
+		};
+	}
+	
 	private static void checkExsistance(final String objectClass, Map<String, Object> keyValues,GetCallback<ParseObject> o){
 		ParseQuery<ParseObject> pq = ParseQuery.getQuery(objectClass);
 		for (String key : keyValues.keySet())
@@ -164,6 +200,24 @@ public class DBManager {
 		}
 		
 		return objectFields;
+	}
+	
+	public static List<ParseObject> getAllObjects (final String objectClass,int startLimit){
+		ParseQuery<ParseObject> pq = ParseQuery.getQuery(objectClass);
+		pq.limit(startLimit);
+		AtomicInteger mutex = new AtomicInteger(0);
+		List<ParseObject> allObjects = new ArrayList<ParseObject>();
+		pq.findInBackground(privateGetAllObjects(objectClass,pq.getLimit(),0,mutex,allObjects));
+		synchronized(mutex){
+			try {
+				if(mutex.compareAndSet(0,0))
+					mutex.wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return allObjects;
 	}
 	
 	

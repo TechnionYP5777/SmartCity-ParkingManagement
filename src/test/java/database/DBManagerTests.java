@@ -2,7 +2,9 @@ package database;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.OptionalInt;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -92,6 +94,36 @@ public class DBManagerTests {
 		
 	}
 	
+	@Test
+	public void getAllTest(){
+		Map<String,Object> Kval1 = new HashMap<String,Object>();
+		Map<String,Object> Kval2 = new HashMap<String,Object>();
+		Map<String,Object> Kval3 = new HashMap<String,Object>();
+		Map<String,Object> val = new HashMap<String,Object>();
+		Kval1.put("first", 1);
+		Kval2.put("first", 2);
+		Kval3.put("first", 3);
+		val.put("second",2);
+		DBManager.insertObject("assaf", Kval1, val);
+		DBManager.insertObject("assaf", Kval2, val);
+		DBManager.insertObject("assaf", Kval3, val);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		List<ParseObject> mylist = DBManager.getAllObjects("assaf",2);
+		
+		for(ParseObject p : mylist){
+			System.out.println(p.get("first"));
+			System.out.println(p.get("second"));
+		}
+		assert (mylist.get(0).get("first").equals(3));
+		assert (mylist.get(1).get("first").equals(2));
+		assert (mylist.get(2).get("first").equals(1));
+		
+		}	
 	
 
 }
