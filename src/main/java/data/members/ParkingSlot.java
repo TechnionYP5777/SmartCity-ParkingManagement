@@ -139,7 +139,8 @@ public class ParkingSlot extends dbMember {
 	/* Setters */
 
 	public void setName(final String name) throws ParseException {
-		//TODO: validateArgument
+		if (name == null)
+			throw new IllegalArgumentException("name can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", name);
 		newFields.put("color", this.color.ordinal());
@@ -154,6 +155,8 @@ public class ParkingSlot extends dbMember {
 	}
 
 	public void setStatus(final ParkingSlotStatus s) throws ParseException {
+		if (s == null)
+			throw new IllegalArgumentException("status can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
 		newFields.put("color", this.color.ordinal());
@@ -168,6 +171,8 @@ public class ParkingSlot extends dbMember {
 	}
 
 	public void setColor(final StickersColor c) throws ParseException {
+		if (c == null)
+			throw new IllegalArgumentException("color can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
 		newFields.put("color", c.ordinal());
@@ -182,6 +187,8 @@ public class ParkingSlot extends dbMember {
 	}
 
 	public void setLocation(final MapLocation l) throws ParseException {
+		if (l == null)
+			throw new IllegalArgumentException("location can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
 		newFields.put("color", this.color.ordinal());
@@ -196,6 +203,8 @@ public class ParkingSlot extends dbMember {
 	}
 
 	public void setDefaultColor(final StickersColor defaultColor) throws ParseException {
+		if (defaultColor == null)
+			throw new IllegalArgumentException("default color can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
 		newFields.put("color", this.color.ordinal());
@@ -210,6 +219,8 @@ public class ParkingSlot extends dbMember {
 	}
 
 	public void setEndTime(final Date endTime) throws ParseException {
+		if (endTime == null)
+			throw new IllegalArgumentException("end time can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
 		newFields.put("color", this.color.ordinal());

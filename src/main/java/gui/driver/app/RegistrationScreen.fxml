@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.driver.app.RegistrationController">
+   <children>
+      <VBox prefWidth="100.0">
+         <children>
+            <VBox prefHeight="100.0" prefWidth="100.0">
+               <children>
+                  <Button id="backButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#backButtonClicked" style="-fx-background-color: #808080;" text="&lt;&lt; BACK" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets left="10.0" top="15.0" />
+                     </VBox.margin>
+                  </Button>
+                  <HBox alignment="BOTTOM_CENTER" prefHeight="59.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Fill in the form below to get instant access">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="19.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox prefHeight="300.0" prefWidth="402.0">
+               <children>
+                  <VBox alignment="TOP_RIGHT" prefHeight="280.0" prefWidth="125.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="35.0" text="id" />
+                        <Label alignment="CENTER" prefHeight="35.0" text="email">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="35.0" text="car number">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="35.0" text="password">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="35.0" text="confirm password">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox prefHeight="248.0" prefWidth="250.0">
+                     <children>
+                        <TextField id="idField" prefHeight="35.0" prefWidth="250.0" />
+                        <TextField id="emailField" prefHeight="35.0">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField id="carNumField" prefHeight="35.0">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <PasswordField id="pwField" prefHeight="35.0">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </PasswordField>
+                        <PasswordField id="confirmPwField" prefHeight="35.0">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </PasswordField>
+                        <Button id="createButton" mnemonicParsing="false" onAction="#createButtonClicked" prefHeight="35.0" prefWidth="400.0" style="-fx-background-color: #808080;;" text="CREATE NEW ACCOUNT" textFill="WHITE">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+         </children>
+         <StackPane.margin>
+            <Insets />
+         </StackPane.margin>
+      </VBox>
+   </children>
+</StackPane>

@@ -105,7 +105,7 @@ public class Driver {
 	/* Setters */
 
 	public void setId(final String id) throws ParseException {
-		//TODO: validateArgument
+		checkId(id);
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("id", id);
 		newFields.put("email", this.email);
@@ -118,7 +118,7 @@ public class Driver {
 	}
 
 	public void setEmail(final String newEmail) throws ParseException {
-		//TODO: validateArgument
+		checkEmail(newEmail);
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("id", this.id);
 		newFields.put("email", newEmail);
@@ -131,7 +131,7 @@ public class Driver {
 	}
 	
 	public void setCarId(final String newCarId) throws ParseException {
-		//TODO: validateArgument
+		checkCarId(newCarId);
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("id", this.id);
 		newFields.put("email", this.email);
@@ -144,7 +144,7 @@ public class Driver {
 	}
 	
 	public void setPassword(final String newPassword) throws ParseException {
-		//TODO: validateArgument
+		checkPassword(newPassword);
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("id", this.id);
 		newFields.put("email", this.email);
@@ -173,10 +173,12 @@ public class Driver {
 	
 	private void checkId(final String id) throws IllegalArgumentException {
 		//TODO: Move to Validation class
+		if (id==null)
+			throw new IllegalArgumentException("id can not be empty!");
 		DBManager.initialize();
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("id", id);
-		if (DBManager.getObjectFieldsByKey(objectClass, key).get("id")!=null)
+		if (DBManager.getObjectFieldsByKey(objectClass, key).get("id")!=null && this.id!=id)
 			throw new IllegalArgumentException("id already exist!");
 	}
 	
@@ -190,13 +192,15 @@ public class Driver {
 	
 	private void checkEmail(final String email) throws IllegalArgumentException {
 		//TODO: Move to Validation class
+		if (email==null)
+			throw new IllegalArgumentException("email can not be empty!");
 		if (!validateMail(email)) 
 			throw new IllegalArgumentException("email is illegal!");
 	}
 	
 	private void checkCarId(final String carId) throws IllegalArgumentException {
 		//TODO: Move to Validation class
-		if(carId.length()!=7)
+		if(carId==null || carId.length()!=7)
 			throw new IllegalArgumentException("carId is illegal! Must contain 7 characters!");
 	}
 	
@@ -204,33 +208,13 @@ public class Driver {
 		  if (password == null || password.length() < n || password.length() > m) {
 		    return false;
 		  }
-		  boolean upper = false;
-		  boolean lower = false;
-		  boolean digit = false;
-		  boolean symbol = false;
-		  char[] pass = password.toCharArray();
-		  for (char ch : pass) {
-		    if (Character.isUpperCase(ch)) {
-		      upper = true;
-		    } else if (Character.isLowerCase(ch)) {
-		      lower = true;
-		    } else if (Character.isDigit(ch)) {
-		      digit = true;
-		    } else { // or some symbol test.
-		      symbol = true;
-		    }
-		    // This short-circuits the rest of the loop when all criteria are true.
-		    if (upper && lower && digit && symbol) {
-		      return true;
-		    }
-		  }
-		  return upper && lower && digit && symbol;
-		}
+		  return true;
+	}
 	
 	private void checkPassword(final String password) throws IllegalArgumentException {
 		//TODO: Move to Validation class
 		if (!validatePassword(password, 1, 10))
-			throw new IllegalArgumentException("password is illegal!");
+			throw new IllegalArgumentException("password is illegal! Must contain between 1-10 characters!");
 			
 	}
 	

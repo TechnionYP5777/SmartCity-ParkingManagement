@@ -14,7 +14,6 @@ import data.members.ParkingSlot;
 import data.members.StickersColor;
 import data.members.ParkingSlotStatus;
 import data.members.MapLocation;
-import data.members.ParkingArea;
 
 public class parkingSlotTest {
 
@@ -313,6 +312,66 @@ public class parkingSlotTest {
 			Assert.fail();
 		}
 		
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void checkNameNull() {
+		DBManager.initialize();
+		try {
+			new ParkingSlot("testParkingSlot1").setName(null);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void checkColorNull() {
+		DBManager.initialize();
+		try {
+			new ParkingSlot("testParkingSlot1").setColor(null);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void checkDefaultColorNull() {
+		DBManager.initialize();
+		try {
+			new ParkingSlot("testParkingSlot1").setDefaultColor(null);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void checkEndTimeNull() {
+		DBManager.initialize();
+		try {
+			new ParkingSlot("testParkingSlot1").setEndTime(null);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void checkLocationNull() {
+		DBManager.initialize();
+		try {
+			new ParkingSlot("testParkingSlot1").setLocation(null);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void checkStatusNull() {
+		DBManager.initialize();
+		try {
+			new ParkingSlot("testParkingSlot1").setStatus(null);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Test

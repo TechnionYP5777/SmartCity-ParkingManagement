@@ -9,7 +9,6 @@ import org.parse4j.ParseException;
 import data.management.DBManager;
 import data.members.Driver;
 
-
 public class driverTest {
 	/**
 	 * @author Inbal Matityahu
@@ -147,6 +146,167 @@ public class driverTest {
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
+		}
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void checkIdNull() {
+		DBManager.initialize();
+		try {
+			new Driver(null, "stam@gmail.com", "1234567", "1234567");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void checkEmailNull() {
+		DBManager.initialize();
+		try {
+			new Driver("333333333", null, "1234567", "1234567");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void checkCarIdNull() {
+		DBManager.initialize();
+		try {
+			new Driver("333333333", "stam@gmail.com", null, "1234567");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void checkPasswordNull() {
+		DBManager.initialize();
+		try {
+			new Driver("333333333", "stam@gmail.com", "1234567", null);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+
+	@Test(expected = IllegalArgumentException.class)
+	public void checkDuplicatedId() {
+		DBManager.initialize();
+		try {
+			new Driver("333333333", "stam@gmail.com", "1234567", null);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void checkIdTest() {
+		DBManager.initialize();
+		try {
+			new Driver("333333333").setId(null);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void checkIdTest2() {
+		DBManager.initialize();
+		try {
+			new Driver("333333333").setId("333333333");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void checkCarIdTest() {
+		DBManager.initialize();
+		try {
+			new Driver("333333333").setCarId(null);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void checkCarIdTest2() {
+		DBManager.initialize();
+		try {
+			new Driver("333333333").setCarId("123");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void checkCarIdTest3() {
+		DBManager.initialize();
+		try {
+			new Driver("333333333").setCarId("12345678");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void checkPasswordTest() {
+		DBManager.initialize();
+		try {
+			new Driver("333333333").setPassword(null);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void checkPasswordTest2() {
+		DBManager.initialize();
+		try {
+			new Driver("333333333").setPassword("12345678910");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void checkEmailTest() {
+		DBManager.initialize();
+		try {
+			new Driver("333333333").setEmail(null);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void checkEmailTest2() {
+		DBManager.initialize();
+		try {
+			new Driver("333333333").setEmail("123");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void checkEmailTest3() {
+		DBManager.initialize();
+		try {
+			new Driver("333333333").setEmail("123.com");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void checkEmailTest4() {
+		DBManager.initialize();
+		try {
+			new Driver("333333333").setEmail("123@com");
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
 	}
 	
