@@ -1,0 +1,16 @@
+May 07, 2017 11:22:44 AM util.UseLogger doSomeThingAndLog
+SEVERE: Info Log
+May 07, 2017 11:22:44 AM util.UseLogger doSomeThingAndLog
+SEVERE: Info Log
+May 07, 2017 11:22:44 AM util.UseLogger doSomeThingAndLog
+WARNING: Info Log
+May 07, 2017 11:22:44 AM util.UseLogger doSomeThingAndLog
+INFO: Info Log
+May 07, 2017 11:22:44 AM util.UseLogger doSomeThingAndLog
+SEVERE: Info Log
+May 07, 2017 11:22:44 AM util.UseLogger doSomeThingAndLog
+WARNING: Info Log
+May 07, 2017 11:22:44 AM util.UseLogger doSomeThingAndLog
+INFO: Info Log
+May 07, 2017 11:22:44 AM util.UseLogger doSomeThingAndLog
+FINEST: Really not important
