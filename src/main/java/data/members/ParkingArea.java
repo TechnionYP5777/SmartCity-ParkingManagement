@@ -24,7 +24,7 @@ import data.management.DBManager;
  * @author Inbal Matityahu
  * @author David Cohen
  * @author Toma
- * @author dshames
+ * @author dshames]
  * @since 12.11.16 This class represent a parking area inside the Technion
  */
 
@@ -42,28 +42,13 @@ public class ParkingArea extends dbMember {
 
 	// Retrieve an exiting area from DB by the name
 	public ParkingArea(final String name) throws ParseException {
+		
 		DBManager.initialize();
-
-		/*final ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkingArea");
-		query.whereEqualTo("name", name);
-		final ParseObject parseObject = query.find().get(0);
-
-		this.parseObject = parseObject;
-		areaId = (Integer) parseObject.get("areaId");
-		this.name = (String) parseObject.get("name");
-		color = StickersColor.values()[(Integer) parseObject.get("color")];
-		//final ParseGeoPoint geo = this.parseObject.getParseGeoPoint("location");
-		location = new MapLocation(geo.getLatitude(), geo.getLongitude());
-		parkingSlots = convertToSlots(getAllSlots());
-		setObjectId();*/
-		
-		
 		Map<String, Object> keys = new HashMap<>();
-		// name or areaId?
 		keys.put("name", name);
 		Map<String,Object> fields = DBManager.getObjectFieldsByKey(objectClass, keys);
-		
 		this.color = StickersColor.values()[(int)fields.get("color")];
+		System.out.println("COOL");
 		this.areaId = (int)fields.get("areaId"); 
 		this.name = (String)fields.get("name");
 		final ParseGeoPoint geo = (ParseGeoPoint) fields.get("location");
@@ -78,18 +63,33 @@ public class ParkingArea extends dbMember {
 	public ParkingArea(final int areaId, final String name, final MapLocation location, final Set<ParkingSlot> parkingSlots,
 			final StickersColor defaultColor) throws ParseException {
 		
+		// TODO: check if already exists?
 		this.areaId = areaId;
 		this.name = name;
 		this.location = location;
 		this.parkingSlots = parkingSlots;
 		this.color = defaultColor;
 		
+		DBManager.initialize();
+		
+		Map<String, Object> fields = new HashMap<String, Object>();
+		fields.put("color", this.color.ordinal());
+		fields.put("areaId", this.areaId);
+		fields.put("name", this.name);
+		fields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
+		fields.put("parkingSlots", parkingSlotsSetToParseList());
+		//fields.put("parkingSlots", new ArrayList<ParseObject>());
+		
+
+		
 		Map<String, Object> keyValues = new HashMap<String, Object>();
 		keyValues.put("name", this.name);
-		DBManager.insertObject(objectClass, keyValues, getFieldsMap());
+		DBManager.insertObject(objectClass, keyValues, fields);
+		
 	}
 
 	public ParkingArea(final ParseObject parseObject) throws ParseException {
+		DBManager.initialize();
 		this.parseObject = parseObject;
 		areaId = (Integer) parseObject.get("areaId");
 		name = (String) parseObject.get("name");
@@ -97,7 +97,8 @@ public class ParkingArea extends dbMember {
 		final ParseGeoPoint geo = this.parseObject.getParseGeoPoint("location");
 		location = new MapLocation(geo.getLatitude(), geo.getLongitude());
 		parkingSlots = convertToSlots((List<ParseObject>)parseObject.get("parkingSlots"));
-		setObjectId();
+		objectId = parseObject.getObjectId();
+		parseObject.save();
 	}
 	
 	// V
@@ -106,6 +107,7 @@ public class ParkingArea extends dbMember {
 	}
 	// V
 	public String getName() {
+		System.out.print("Get name is called");
 		return this.name;
 	}
 	// V
@@ -163,27 +165,37 @@ public class ParkingArea extends dbMember {
 	// V
 	public void setAreaId(final int areaId) {
 		this.areaId = areaId;
-		//DBManager.update(objectClass, getFieldsMap());	
+		Map<String, Object> keys = new HashMap<>();
+		keys.put("name", name);
+		DBManager.update(objectClass, keys, getFieldsMap());	
 	}
 	// V
 	public void setName(final String name) {
 		this.name = name;
-		//DBManager.update(objectClass, getFieldsMap());	
+		Map<String, Object> keys = new HashMap<>();
+		keys.put("name", name);
+		DBManager.update(objectClass, keys, getFieldsMap());	
 	}
 	// V
 	public void setLocation(final MapLocation location) {
 		this.location = location;
-		//DBManager.update(objectClass, getFieldsMap());	
+		Map<String, Object> keys = new HashMap<>();
+		keys.put("name", name);
+		DBManager.update(objectClass, keys, getFieldsMap());	
 	}
 	// V
 	public void setParkingSlots(final Set<ParkingSlot> slots) {
 		this.parkingSlots = slots;
-		//DBManager.update(objectClass, getFieldsMap());	
+		Map<String, Object> keys = new HashMap<>();
+		keys.put("name", name);
+		DBManager.update(objectClass, keys, getFieldsMap());		
 	}
 	// V
 	public void setColor(final StickersColor color) {
 		this.color = color;
-		//DBManager.update(objectClass, getFieldsMap());	
+		Map<String, Object> keys = new HashMap<>();
+		keys.put("name", name);
+		DBManager.update(objectClass, keys, getFieldsMap());		
 	}
 	
 
@@ -256,8 +268,9 @@ public class ParkingArea extends dbMember {
 	private List<ParseObject> parkingSlotsSetToParseList(){
 		List<ParseObject> list = new ArrayList<ParseObject>();
 		if(!parkingSlots.isEmpty())
-			for(final ParkingSlot s: parkingSlots)
+			for(final ParkingSlot s: parkingSlots){
 				list.add(DBManager.getParseObject(s));
+			}
 		return list;	
 	}
 		

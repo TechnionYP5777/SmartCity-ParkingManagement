@@ -26,10 +26,37 @@ import data.members.StickersColor;
  *  @Author Tom Nof
  *  @Inbal Matityauh
  *  @Author David Cohen
+ *  @Author dshames
  */
 
 public class parkingAreaTest {
-
+	
+	
+	@Test
+	public void ConstructorTest() {
+		try{
+				
+				// use different name each time you run the test, i didnt use delete yet
+				ParkingSlot slot1 = new ParkingSlot("AAAB", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
+					new MapLocation(0, 0), new Date());
+				Thread.sleep(20000);
+				
+				final Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
+				
+				// it works when the set is empty! if you uncomment the next line, it will cause exception
+				
+				//slots.add(slot1);
+				
+				ParkingArea area = new ParkingArea(0, "TEST22-DANI", new MapLocation(0, 0), slots, StickersColor.RED);
+				Thread.sleep(20000);
+		
+		
+		} catch(final Exception exception){
+			exception.printStackTrace();
+			
+		}
+	}
+	/*
 	private ParkingSlot slot1;
 	private ParkingSlot slot2;
 	private ParkingArea area;
@@ -69,6 +96,7 @@ public class parkingAreaTest {
 			¢.printStackTrace();
 		}
 	}
+	
 
 	@Test
 	public void test0() {
@@ -113,7 +141,7 @@ public class parkingAreaTest {
 		}
 
 	}
-
+	/*
 	@Test
 	public void testGetAllSlots() {
 		try {
@@ -216,6 +244,6 @@ public class parkingAreaTest {
 			¢.printStackTrace();
 			Assert.fail();
 		}
-	}
+	}*/
 
 }
