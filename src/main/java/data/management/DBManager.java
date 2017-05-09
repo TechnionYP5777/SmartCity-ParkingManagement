@@ -223,17 +223,17 @@ public class DBManager {
 		return allObjects;
 	}
 	
-	public static void Login (String userName, String password) throws LoginException{
+	public static void Login (String userClass,String userNameKey, String userName, String passwordKey, String password) throws LoginException{
 		AtomicInteger loged = new AtomicInteger(0);
 		Map<String,Object> kval = new HashMap<>();
-		kval.put("user name", userName);
-		checkExsistance("Driver", kval, new GetCallback<ParseObject>() {
+		kval.put(userNameKey, userName);
+		checkExsistance(userClass, kval, new GetCallback<ParseObject>() {
 
 			@Override
 			public void done(ParseObject arg0, ParseException arg1) {
 				synchronized(loged){
 					if(arg0 != null){
-						if(arg0.get("password").equals(password))
+						if(arg0.get(passwordKey).equals(password))
 							loged.compareAndSet(0, 1);
 						else
 							loged.compareAndSet(0, 2);
