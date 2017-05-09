@@ -156,4 +156,20 @@ public class DBManagerTests {
 		}
 		assert testResult.get() ==2;
 	}
+	
+	@Test
+	public void getObjectFieldsByKeyTest(){
+		Map<String,Object> Kval = new HashMap<String,Object>();
+		Map<String,Object> val = new HashMap<String,Object>();
+		Kval.put("first", 1);
+		val.put("second",2);
+		DBManager.insertObject("assaf", Kval, val);
+		try {
+			Thread.sleep(6000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assert DBManager.getObjectFieldsByKey("assaf",Kval).get("second").equals(2);
+	}
 }
