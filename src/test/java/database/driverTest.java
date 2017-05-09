@@ -143,7 +143,6 @@ public class driverTest {
 			Thread.sleep(6000);
 			Assert.assertEquals("12345678",new Driver("333333333").getPassword());
 			Thread.sleep(6000);
-			new Driver("333333333").setPassword("1234567");
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
@@ -314,8 +313,8 @@ public class driverTest {
 	@After
 	public void finishTest() throws ParseException, InterruptedException {
 		//delete object
-		//new Driver("333333333").removeDriverFromDB();
-		//Thread.sleep(6000);
+		new Driver("333333333").removeDriverFromDB();
+		Thread.sleep(6000);
 	}
 	
 }
