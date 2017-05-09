@@ -223,7 +223,7 @@ public class DBManager {
 		return allObjects;
 	}
 	
-	public static void Login (String userClass,String userNameKey, String userName, String passwordKey, String password) throws LoginException{
+	public static void login (String userClass,String userNameKey, String userName, String passwordKey, String password) throws LoginException{
 		AtomicInteger loged = new AtomicInteger(0);
 		Map<String,Object> kval = new HashMap<>();
 		kval.put(userNameKey, userName);
@@ -263,7 +263,7 @@ public class DBManager {
 		}
 	}
 
-	public static void Register(Map<String, Object> userKeys, Map<String, Object> userFields) throws LoginException{
+	public static void register(String userClass, Map<String, Object> userKeys, Map<String, Object> userFields) throws LoginException{
 		synchronized (registrationMutex) {
 			if(!registrationMutex.compareAndSet(0,0)){
 				try {
@@ -277,7 +277,7 @@ public class DBManager {
 				registrationMutex.set(1);
 		}
 		AtomicInteger mutex = new AtomicInteger(0);
-		checkExsistance("Driver", userKeys, new GetCallback<ParseObject>() {
+		checkExsistance(userClass, userKeys, new GetCallback<ParseObject>() {
 
 			@Override
 			public void done(ParseObject arg0, ParseException arg1) {
@@ -309,12 +309,13 @@ public class DBManager {
 		}
 		else{
 			mutex.set(0);
-			privateInsertObject("Driver", userKeys, userFields, new SaveCallback() {
+			privateInsertObject(userClass, userKeys, userFields, new SaveCallback() {
 				
 				@Override
 				public void done(ParseException arg0) {
 					synchronized(mutex){
 						mutex.set(1);
+						mutex.notifyAll();
 					}
 					
 				}

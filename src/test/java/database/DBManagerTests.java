@@ -16,6 +16,7 @@ import org.parse4j.ParseObject;
 import org.parse4j.callback.GetCallback;
 import org.parse4j.callback.SaveCallback;
 
+import Exceptions.LoginException;
 import data.management.DBManager;
 
 public class DBManagerTests {
@@ -171,5 +172,21 @@ public class DBManagerTests {
 			e.printStackTrace();
 		}
 		assert DBManager.getObjectFieldsByKey("assaf",Kval).get("second").equals(2);
+	}
+
+	@Test
+	public void registerTest(){
+		Map<String,Object> Kval = new HashMap<String,Object>();
+		Map<String,Object> val = new HashMap<String,Object>();
+		Kval.put("id", 2);
+		val.put("password","asdf");
+		val.put("email","asdfasd");
+		val.put("car",123123);
+		try {
+			DBManager.register("assafReg2", Kval, val);
+		} catch (LoginException e) {
+			// TODO Auto-generated catch block
+			assert e.exception.equals("user already exists");
+		}
 	}
 }
