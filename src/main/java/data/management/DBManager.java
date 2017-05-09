@@ -25,7 +25,8 @@ public class DBManager {
 	private static final String restKey = "2139d-231cb2-738aa";
 	private static final String serverUrl = "https://pm-parse-server.herokuapp.com/parse";
 	private static boolean init;
-
+	private static AtomicInteger registrationMutex = new AtomicInteger(0);
+	
 	public static void initialize() {
 		if(init)
 			return;
@@ -230,14 +231,17 @@ public class DBManager {
 
 			@Override
 			public void done(ParseObject arg0, ParseException arg1) {
-				if(arg0 != null){
-					if(arg0.get("password").equals(password))
-						loged.compareAndSet(0, 1);
+				synchronized(loged){
+					if(arg0 != null){
+						if(arg0.get("password").equals(password))
+							loged.compareAndSet(0, 1);
+						else
+							loged.compareAndSet(0, 2);
+					}
 					else
-						loged.compareAndSet(0, 2);
+						loged.compareAndSet(0, 3);
+					loged.notifyAll();
 				}
-				else
-					loged.compareAndSet(0, 3);
 			}
 		});
 		synchronized(loged){
@@ -257,6 +261,82 @@ public class DBManager {
 		default:
 			break;
 		}
+	}
+
+	public static void Register(Map<String, Object> userKeys, Map<String, Object> userFields) throws LoginException{
+		synchronized (registrationMutex) {
+			if(!registrationMutex.compareAndSet(0,0)){
+				try {
+					registrationMutex.wait();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else
+				registrationMutex.set(1);
+		}
+		AtomicInteger mutex = new AtomicInteger(0);
+		checkExsistance("Driver", userKeys, new GetCallback<ParseObject>() {
+
+			@Override
+			public void done(ParseObject arg0, ParseException arg1) {
+				synchronized(mutex){
+					if(arg0 != null)
+						mutex.set(1);
+					else
+						mutex.set(2);
+					mutex.notifyAll();
+				}
+			}
+		});
+		synchronized(mutex){
+			try {
+				if(mutex.equals(0))
+					mutex.wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if(mutex.equals(1)){
+			synchronized (registrationMutex) {
+				registrationMutex.set(0);
+				registrationMutex.notify();
+			}
+			throw new LoginException("user already exists");
+		}
+		else{
+			mutex.set(0);
+			privateInsertObject("Deiver", userKeys, userFields, new SaveCallback() {
+				
+				@Override
+				public void done(ParseException arg0) {
+					synchronized(mutex){
+						mutex.set(1);
+					}
+					
+				}
+			});
+			
+			synchronized(mutex){
+				try {
+					if(mutex.equals(0))
+						mutex.wait();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			synchronized (registrationMutex) {
+				registrationMutex.set(0);
+				registrationMutex.notify();
+			}
+
+		}
+		
+		
+		
 	}
 	
 	public static ParseObject getParseObject(final dbMember ¢) {
