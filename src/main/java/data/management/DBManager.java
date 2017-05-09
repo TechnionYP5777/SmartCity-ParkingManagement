@@ -292,14 +292,14 @@ public class DBManager {
 		});
 		synchronized(mutex){
 			try {
-				if(mutex.equals(0))
+				if(mutex.get() == 0)
 					mutex.wait();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		if(mutex.equals(1)){
+		if(mutex.get() == 1){
 			synchronized (registrationMutex) {
 				registrationMutex.set(0);
 				registrationMutex.notify();

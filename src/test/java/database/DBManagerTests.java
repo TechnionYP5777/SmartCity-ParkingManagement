@@ -125,5 +125,35 @@ public class DBManagerTests {
 		
 		}	
 	
+	@Test
+	public void getObjectByFieldsTest(){
+		Map<String,Object> Kval = new HashMap<String,Object>();
+		Map<String,Object> val = new HashMap<String,Object>();
+		Kval.put("first", 1);
+		val.put("second",2);
+		AtomicInteger testResult = new AtomicInteger(0);
+		DBManager.insertObject("assaf", Kval, val);
+		try {
+			Thread.sleep(6000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		DBManager.getObjectByFields("assaf", Kval, new GetCallback<ParseObject>() {
 
+			@Override
+			public void done(ParseObject arg0, ParseException arg1) {
+				System.out.println(arg0.get("second"));
+				if(arg0 != null) testResult.set((int) arg0.get("second"));
+			}
+		});
+		try {
+			Thread.sleep(6000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assert testResult.get() ==2;
+	}
 }
