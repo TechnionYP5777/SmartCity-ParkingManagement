@@ -73,7 +73,7 @@ public class RegistrationController {
 			if(e.getMessage() == "user already exists"){
 				// TODO: notify user
 			}
-		}*/
+		}
 	}
 	
 }
