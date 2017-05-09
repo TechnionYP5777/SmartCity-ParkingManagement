@@ -1,6 +1,7 @@
 package database;
 
 
+import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.After;
@@ -23,46 +24,28 @@ public class parkingSlotTest {
 		try{
 			new ParkingSlot("first", ParkingSlotStatus.FREE, StickersColor.BLUE, StickersColor.BLUE, new MapLocation(3.12, 3.12), new Date());
 			Thread.sleep(6000);	
-			new ParkingSlot("first").removeParkingSlotFromDB();
+			ParkingSlot p = new ParkingSlot("first");
 			Thread.sleep(6000);	
+			Assert.assertEquals(p.getName(), "first");
+			Assert.assertEquals(p.getStatus(), ParkingSlotStatus.FREE);
+			Assert.assertEquals(p.getColor(), StickersColor.BLUE);
+			Assert.assertEquals(p.getDefaultColor(), StickersColor.BLUE);
+			Calendar cal = Calendar.getInstance();
+            cal.setTime(p.getEndTime());
+            Calendar cal2 = Calendar.getInstance();
+            cal2.setTime(new Date());
+			Assert.assertEquals(cal.get(Calendar.DAY_OF_MONTH), cal2.get(Calendar.DAY_OF_MONTH));
+			Assert.assertEquals(cal.get(Calendar.MONTH), cal2.get(Calendar.MONTH));
+			Assert.assertEquals(cal.get(Calendar.YEAR), cal2.get(Calendar.YEAR));
+			Assert.assertEquals(p.getLocation().getLat(), 3.12, 0);
+			Assert.assertEquals(p.getLocation().getLon(), 3.12, 0);
+			new ParkingSlot("first").removeParkingSlotFromDB();
+			Thread.sleep(6000);
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
-	
-//	@Test
-//	public void check2(){
-//		DBManager.initialize();
-//		try{
-//			ParkingSlot p = new ParkingSlot("first");
-//			Thread.sleep(12000);	
-//			Assert.assertEquals(p.getName(), "first");
-//			Assert.assertEquals(p.getStatus(), ParkingSlotStatus.FREE);
-//			Assert.assertEquals(p.getColor(), StickersColor.BLUE);
-//			Assert.assertEquals(p.getDefaultColor(), StickersColor.BLUE);
-//			Assert.assertEquals(p.getEndTime().getDay(), new Date().getDay());
-//			Assert.assertEquals(p.getEndTime().getMonth(), new Date().getMonth());
-//			Assert.assertEquals(p.getEndTime().getYear(), new Date().getYear());
-//			Assert.assertEquals(p.getLocation().getLat(), 3.12, 0);
-//			Assert.assertEquals(p.getLocation().getLon(), 3.12, 0);
-//		} catch (final Exception ¢) {
-//			¢.printStackTrace();
-//			Assert.fail();
-//		}
-//	}
-	
-//	@Test
-//	public void check3(){
-//		DBManager.initialize();
-//		try{
-//			new ParkingSlot("first").removeParkingSlotFromDB();
-//			Thread.sleep(12000);	
-//		} catch (final Exception ¢) {
-//			¢.printStackTrace();
-//			Assert.fail();
-//		}
-//	}
 	
 	@Before
 	public void setUpTest() throws ParseException, InterruptedException {
@@ -198,9 +181,13 @@ public class parkingSlotTest {
 		try{
 			ParkingSlot p =new ParkingSlot("testParkingSlot1");
 			Thread.sleep(10000);
-			Assert.assertEquals(p.getEndTime().getDay(), new Date().getDay());
-			Assert.assertEquals(p.getEndTime().getMonth(), new Date().getMonth());
-			Assert.assertEquals(p.getEndTime().getYear(), new Date().getYear());
+			Calendar cal = Calendar.getInstance();
+            cal.setTime(p.getEndTime());
+            Calendar cal2 = Calendar.getInstance();
+            cal2.setTime(new Date());
+            Assert.assertEquals(cal.get(Calendar.DAY_OF_MONTH), cal2.get(Calendar.DAY_OF_MONTH));
+			Assert.assertEquals(cal.get(Calendar.MONTH), cal2.get(Calendar.MONTH));
+			Assert.assertEquals(cal.get(Calendar.YEAR), cal2.get(Calendar.YEAR));
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
@@ -218,9 +205,13 @@ public class parkingSlotTest {
 			Assert.assertEquals(p.getStatus(), ParkingSlotStatus.FREE);
 			Assert.assertEquals(p.getColor(), StickersColor.GREEN);
 			Assert.assertEquals(p.getDefaultColor(), StickersColor.GREEN);
-			Assert.assertEquals(p.getEndTime().getDay(), new Date().getDay());
-			Assert.assertEquals(p.getEndTime().getMonth(), new Date().getMonth());
-			Assert.assertEquals(p.getEndTime().getYear(), new Date().getYear());
+			Calendar cal = Calendar.getInstance();
+            cal.setTime(p.getEndTime());
+            Calendar cal2 = Calendar.getInstance();
+            cal2.setTime(new Date());
+            Assert.assertEquals(cal.get(Calendar.DAY_OF_MONTH), cal2.get(Calendar.DAY_OF_MONTH));
+			Assert.assertEquals(cal.get(Calendar.MONTH), cal2.get(Calendar.MONTH));
+			Assert.assertEquals(cal.get(Calendar.YEAR), cal2.get(Calendar.YEAR));
 			Assert.assertEquals(p.getLocation().getLat(), 32.123, 0);
 			Assert.assertEquals(p.getLocation().getLon(), 32.123, 0);
 		} catch (final Exception ¢) {
@@ -306,7 +297,13 @@ public class parkingSlotTest {
 		try{
 			new ParkingSlot("testParkingSlot1").setEndTime(new Date());
 			Thread.sleep(6000);
-			Assert.assertEquals(new Date().getDate(), new ParkingSlot("testParkingSlot1").getEndTime().getDate());
+			Calendar cal = Calendar.getInstance();
+            cal.setTime(new ParkingSlot("testParkingSlot1").getEndTime());
+            Calendar cal2 = Calendar.getInstance();
+            cal2.setTime(new Date());
+            Assert.assertEquals(cal.get(Calendar.DAY_OF_MONTH), cal2.get(Calendar.DAY_OF_MONTH));
+			Assert.assertEquals(cal.get(Calendar.MONTH), cal2.get(Calendar.MONTH));
+			Assert.assertEquals(cal.get(Calendar.YEAR), cal2.get(Calendar.YEAR));
 			Thread.sleep(6000);
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
