@@ -16,7 +16,7 @@
          <children>
             <VBox prefHeight="100.0" prefWidth="100.0">
                <children>
-                  <Button id="backButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#backButtonClicked" style="-fx-background-color: #808080;" text="&lt;&lt; BACK" textFill="WHITE">
+                  <Button fx:id="backButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#backButtonClicked" style="-fx-background-color: #808080;" text="&lt;&lt; BACK" textFill="WHITE">
                      <VBox.margin>
                         <Insets left="10.0" top="15.0" />
                      </VBox.margin>
@@ -70,28 +70,28 @@
                   </VBox>
                   <VBox prefHeight="248.0" prefWidth="250.0">
                      <children>
-                        <TextField id="idField" prefHeight="35.0" prefWidth="250.0" />
-                        <TextField id="emailField" prefHeight="35.0">
+                        <TextField fx:id="idField" prefHeight="35.0" prefWidth="250.0" />
+                        <TextField fx:id="emailField" prefHeight="35.0">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField id="carNumField" prefHeight="35.0">
+                        <TextField fx:id="carNumField" prefHeight="35.0">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <PasswordField id="pwField" prefHeight="35.0">
+                        <PasswordField fx:id="pwField" prefHeight="35.0">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
                         </PasswordField>
-                        <PasswordField id="confirmPwField" prefHeight="35.0">
+                        <PasswordField fx:id="confirmPwField" prefHeight="35.0">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
                         </PasswordField>
-                        <Button id="createButton" mnemonicParsing="false" onAction="#createButtonClicked" prefHeight="35.0" prefWidth="400.0" style="-fx-background-color: #808080;;" text="CREATE NEW ACCOUNT" textFill="WHITE">
+                        <Button fx:id="createButton" mnemonicParsing="false" onAction="#createButtonClicked" prefHeight="35.0" prefWidth="400.0" style="-fx-background-color: #808080;;" text="CREATE NEW ACCOUNT" textFill="WHITE">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>

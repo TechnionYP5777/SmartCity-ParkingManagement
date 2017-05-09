@@ -10,12 +10,16 @@ import javafx.scene.control.TextField;
 
 public class ForgotPwController {
 	
-	
+	@FXML
 	private Button backButton;
+	@FXML
 	private TextField usernameField;
+	@FXML
 	private TextField emailField;
+	@FXML
 	private Button restoreButton;
 	
+	@FXML
 	public void backButtonClicked(ActionEvent event) throws Exception {
 		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 		window.setTitle("Login");
@@ -24,6 +28,7 @@ public class ForgotPwController {
 		window.show();
 	}
 	
+	@FXML
 	public void restoreButtonClicked(ActionEvent event) throws Exception {
 		String username = usernameField.getText();
 		String email = emailField.getText();
