@@ -43,14 +43,10 @@ public class RegistrationController {
 	public void createButtonClicked(ActionEvent event) throws Exception {
 		
 		String id = idField.getText();
-		System.out.println("SHIT");
-
 		String email = emailField.getText();
-		System.out.println("##");
 		String carNum = carNumField.getText();
 		String pw = pwField.getText();
 		String confirmPw = confirmPwField.getText();
-		
 		
 		if (pw != confirmPw){
 			// TODO: notify user
@@ -63,15 +59,15 @@ public class RegistrationController {
 		fields.put("carId", carNum);
 		fields.put("password", pw);
 		try {
-			DBManager.Register(keys, fields);			
-			// TODO: notify about user Creation
+			DBManager.register("Driver", keys, fields);
+			// TODO:c notify about user Creation
 			
 		} catch(Exception e){
-			
 			// TODO: what about other input
 			
-			if(e.getMessage() == "user already exists"){
+			if(e.toString() == "user already exists"){
 				// TODO: notify user
+				
 			}
 		}
 	}
