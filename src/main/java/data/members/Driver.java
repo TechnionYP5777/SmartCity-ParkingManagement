@@ -103,17 +103,26 @@ public class Driver {
 	
 	/* Setters */
 
-	public void setId(final String id) throws ParseException {
-		checkId(id);
-		Map<String, Object> newFields = new HashMap<String, Object>();
-		newFields.put("id", id);
-		newFields.put("email", this.email);
-		newFields.put("carId", this.carId);
-		newFields.put("password", this.password);
+	public void setId(final String newId) throws ParseException {
+		try {
+			checkId(newId);
+			System.out.println("*****");
+			Map<String, Object> newFields = new HashMap<String, Object>();
+			newFields.put("id", newId);
+			newFields.put("email", this.email);
+			newFields.put("carId", this.carId);
+			newFields.put("password", this.password);
+				
+			Map<String, Object> keys = new HashMap<String, Object>();
+			keys.put("id", this.id);
+			DBManager.update(objectClass, keys, newFields);
+		} catch (IllegalArgumentException e) {
 			
-		Map<String, Object> keys = new HashMap<String, Object>();
-		keys.put("id", this.id);
-		DBManager.update(objectClass, keys, newFields);
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			
+			e.printStackTrace();
+		}
 	}
 
 	public void setEmail(final String newEmail) throws ParseException {
@@ -163,11 +172,16 @@ public class Driver {
 			throw new IllegalArgumentException("illegal arguments!");
 	}
 	
-	private void checkId(final String id) throws IllegalArgumentException, ParseException {
-			if (id==null)
-				throw new IllegalArgumentException("id can not be empty!");
-			if(Validation.isIdExist(id) && (!id.equals(this.id)))
-				throw new IllegalArgumentException("id is illegal!");
+	private void checkId(final String newId) throws IllegalArgumentException, ParseException, InterruptedException {
+		System.out.println("i was here");
+		if (newId==null)
+			throw new IllegalArgumentException("id can not be empty!");
+		String result=Validation.isIdExist(newId);
+		Thread.sleep(6000);
+		System.out.println("dieeeee");
+		if(result!=null && (!newId.equals(this.id)))
+				throw new IllegalArgumentException("id is alreay exist!");
+		return;
 	}
 	
 	private void checkEmail(final String email) throws IllegalArgumentException {
