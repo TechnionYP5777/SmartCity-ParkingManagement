@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.parse4j.Parse;
@@ -16,6 +17,7 @@ import org.parse4j.callback.FindCallback;
 import org.parse4j.callback.GetCallback;
 import org.parse4j.callback.SaveCallback;
 
+import Exceptions.LoginException;
 import data.members.dbMember;
 
 public class DBManager {
@@ -220,6 +222,42 @@ public class DBManager {
 		return allObjects;
 	}
 	
+	public static void Login (String userName, String password) throws LoginException{
+		AtomicInteger loged = new AtomicInteger(0);
+		Map<String,Object> kval = new HashMap<>();
+		kval.put("user name", userName);
+		checkExsistance("Driver", kval, new GetCallback<ParseObject>() {
+
+			@Override
+			public void done(ParseObject arg0, ParseException arg1) {
+				if(arg0 != null){
+					if(arg0.get("password").equals(password))
+						loged.compareAndSet(0, 1);
+					else
+						loged.compareAndSet(0, 2);
+				}
+				else
+					loged.compareAndSet(0, 3);
+			}
+		});
+		synchronized(loged){
+			try {
+				if(loged.compareAndSet(0,0))
+					loged.wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		switch (loged.get()) {
+		case 2:
+			throw new LoginException("password doesn't match");	
+		case 3:
+			throw new LoginException("user doesn't exists");
+		default:
+			break;
+		}
+	}
 	
 	public static ParseObject getParseObject(final dbMember ¢) {
 		return ¢.getParseObject();
