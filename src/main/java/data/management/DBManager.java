@@ -309,7 +309,7 @@ public class DBManager {
 		}
 		else{
 			mutex.set(0);
-			privateInsertObject("Deiver", userKeys, userFields, new SaveCallback() {
+			privateInsertObject("Driver", userKeys, userFields, new SaveCallback() {
 				
 				@Override
 				public void done(ParseException arg0) {
