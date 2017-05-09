@@ -2,7 +2,7 @@ package data.members;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
+
 import java.util.Map;
 
 import org.parse4j.ParseException;
@@ -286,24 +286,6 @@ public class ParkingSlot extends dbMember {
 		new ParkingArea(findContainingParkingArea()).removeParkingSlot(this);
 	}
 
-	/***
-	 * for now only delete from the DB the current parking
-	 */
-	@Override
-	public void deleteParseObject() throws ParseException {
-		//TODO: check if necessary
-		final ParseQuery<ParseObject> query = ParseQuery.getQuery("PMUser");
-		query.whereEqualTo("currentParking", getParseObject());
-		try {
-			final List<ParseObject> users = query.find();
-			if (users != null) {
-				users.get(0).remove("currentParking");
-				users.get(0).save();
-			}
-		} catch (final Exception e) {
-			return;
-		}
-		parseObject.delete();
-	}
+
 
 }
