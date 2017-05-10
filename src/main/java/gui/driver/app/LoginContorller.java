@@ -3,6 +3,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.scene.*;
 import javafx.fxml.*;
@@ -20,6 +21,8 @@ public class LoginContorller {
 	private PasswordField pwField;
 	@FXML
 	private Hyperlink forgotPwHyperLink;
+	@FXML
+	private Label errorLabel;
 	@FXML
 	private Button loginButton;
 	@FXML
@@ -46,12 +49,12 @@ public class LoginContorller {
 		} catch (LoginException e){
 			
 			if (e.toString() == "user doesn't exists"){
-				// TODO: handle
-				System.out.print("user doesn't exists");
+				errorLabel.setVisible(true);
+				errorLabel.setText("Error: User doesn't exists");
 			}
 			if (e.toString() == "password doesn't match"){
-				// TODO: handle
-				System.out.print("password doesn't match");
+				errorLabel.setVisible(true);
+				errorLabel.setText("Error: Wrong password");
 			}
 			
 		}
