@@ -6,13 +6,16 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.scene.*;
 import javafx.fxml.*;
+import data.management.DBManager;
 import javafx.event.*;
 import javafx.fxml.FXMLLoader;
+import Exceptions.LoginException;
+
 
 public class LoginContorller {
 	
 	@FXML
-	private TextField usernameField;
+	private TextField idField;
 	@FXML
 	private PasswordField pwField;
 	@FXML
@@ -32,9 +35,26 @@ public class LoginContorller {
 	}
 	@FXML
 	public void loginButtonClicked(ActionEvent event) throws Exception {
-		String username = usernameField.getText();
+		String id = idField.getText();
 		String pw = pwField.getText();
 		// TODO: validate fields, check existance and move to main screen
+		
+		try {
+			DBManager.login("Driver", "id", id, "password", pw);
+			System.out.println("SUCCESS");
+			// TODO: direct to or's screen
+		} catch (LoginException e){
+			
+			if (e.toString() == "user doesn't exists"){
+				// TODO: handle
+				System.out.print("user doesn't exists");
+			}
+			if (e.toString() == "password doesn't match"){
+				// TODO: handle
+				System.out.print("password doesn't match");
+			}
+			
+		}
 		
 	}
 	@FXML

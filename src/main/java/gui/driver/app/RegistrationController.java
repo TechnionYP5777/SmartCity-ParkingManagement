@@ -14,6 +14,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 
+import Exceptions.LoginException;
+
 public class RegistrationController {
 	
 	@FXML
@@ -62,7 +64,7 @@ public class RegistrationController {
 			DBManager.register("Driver", keys, fields);
 			// TODO:c notify about user Creation
 			
-		} catch(Exception e){
+		} catch(LoginException e){
 			// TODO: what about other input
 			
 			if(e.toString() == "user already exists"){
