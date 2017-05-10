@@ -31,7 +31,7 @@ import data.members.StickersColor;
 
 public class parkingAreaTest {
 	
-	
+	/*
 	@Test
 	public void ConstructorTest() {
 		try{
@@ -56,7 +56,7 @@ public class parkingAreaTest {
 			
 		}
 	}
-	/*
+
 	private ParkingSlot slot1;
 	private ParkingSlot slot2;
 	private ParkingArea area;

@@ -218,6 +218,10 @@ public class ParkingArea extends dbMember {
 			}
 		return new HashSet<ParkingSlot>($);
 	}
+	
+	public List<ParseObject> getAllSlots(){
+		return DBManager.getAllObjects(objectClass, 10000);
+	}
 
 	/*
 	 * add new parking slot to this area. notice - this new slot will count as
