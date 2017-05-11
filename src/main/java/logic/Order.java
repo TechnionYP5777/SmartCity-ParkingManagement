@@ -9,6 +9,8 @@ import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
 
 import data.management.DBManager;
+import data.members.Driver;
+import data.members.ParkingSlot;
 
 public class Order {
 	/**
@@ -28,11 +30,8 @@ public class Order {
 	// The demand day
 	private Date date;
 	
-	// The desired start time
-	private Date startHour;
-	
 	// The desired end time
-	private Date endHour;
+	private Date hour;
 	
 	private final String objectClass = "Order";
 	
@@ -43,26 +42,29 @@ public class Order {
 	}
 
 	// Create a new order. Will result in a new order in the DB.
-	public Order(int id, final String driverId, final String slotId, Date startTime, Date endTime) throws ParseException, InterruptedException {
+	public Order(final String driverId, final String slotId, Date startTime, Date endTime) throws ParseException, InterruptedException {
 		
 		DBManager.initialize();
-		//TODO: check input
+		
+		String idToString =(new Date().toString());
+//		if (!checkParameters(idToString, driverId, slotId, startTime, endTime))
+//			throw new IllegalArgumentException("arguments are illegeal!");
 		Map<String, Object> fields = new HashMap<String, Object>(), keyValues = new HashMap<String, Object>();
 		fields.put("driverId", driverId);
 		fields.put("slotId", slotId);
-		
-		fields.put("date", startTime.getDate());
+		fields.put("date", startTime);
 		
 		int hours =hoursDifference(endTime, startTime);
 		System.out.println("the different is "+hours);
-		
+		int id=0;
 		Calendar cal = Calendar.getInstance(); // creates calendar
 	    cal.setTime(startTime); // sets calendar time/date
-		for (int i=0; i<hours; i++){
+		for (int i=0; i<=hours; i++){
 			id++;
+			idToString=(new Date().toString())+id;
 			fields.put("hour",  cal.getTime());
-		    cal.add(Calendar.HOUR_OF_DAY, 2); // adds one hour
-			keyValues.put("id", id);
+		    cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
+			keyValues.put("id", idToString);
 			DBManager.insertObject(objectClass, keyValues, fields);
 			Thread.sleep(6000);
 		}
@@ -74,8 +76,7 @@ public class Order {
 		this.driverId = obj.getString("driverId");
 		this.date = obj.getDate("date");
 		this.slotId = obj.getString("slotId");
-		this.startHour = obj.getDate("startHour");
-		this.endHour = obj.getDate("endHour");
+		this.hour = obj.getDate("hour");
 		
 	}
 	
@@ -89,8 +90,7 @@ public class Order {
 		this.driverId=returnV.get("driverId") + "";
 		this.slotId= returnV.get("slotId") + "";
 		this.date= (Date)returnV.get("date");
-		this.startHour= (Date)returnV.get("startHour");
-		this.endHour= (Date)returnV.get("endHour");
+		this.hour= (Date)returnV.get("hour");
 		this.id=id;
 	}
 
@@ -124,18 +124,11 @@ public class Order {
 		return (Date)DBManager.getObjectFieldsByKey(objectClass, key).get("date");
 	}
 	
-	public Date getStartTime() {
+	public Date getSHour() {
 		DBManager.initialize();
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("id", id);
-		return (Date)DBManager.getObjectFieldsByKey(objectClass, key).get("startTime");
-	}
-	
-	public Date getEndTime() {
-		DBManager.initialize();
-		Map<String, Object> key = new HashMap<String, Object>();
-		key.put("id", id);
-		return (Date)DBManager.getObjectFieldsByKey(objectClass, key).get("endTime");
+		return (Date)DBManager.getObjectFieldsByKey(objectClass, key).get("hour");
 	}
 	
 	/* Setters */
@@ -146,8 +139,7 @@ public class Order {
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("driverId", newDriverId);
 		newFields.put("slotId", this.slotId);
-		newFields.put("endTime", this.endHour);
-		newFields.put("startTime", this.startHour);
+		newFields.put("hour", this.hour);
 		newFields.put("date", this.date);
 
 		Map<String, Object> keys = new HashMap<String, Object>();
@@ -161,8 +153,7 @@ public class Order {
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("driverId", this.driverId);
 		newFields.put("slotId", newSlot);
-		newFields.put("endTime", this.endHour);
-		newFields.put("startTime", this.startHour);
+		newFields.put("hour", this.hour);
 		newFields.put("date", this.date);
 
 		Map<String, Object> keys = new HashMap<String, Object>();
@@ -176,23 +167,7 @@ public class Order {
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("driverId", this.driverId);
 		newFields.put("slotId", this.slotId);
-		newFields.put("endTime", this.endHour);
-		newFields.put("startTime", newStart);
-		newFields.put("date", this.date);
-
-		Map<String, Object> keys = new HashMap<String, Object>();
-		keys.put("id", this.id);
-		DBManager.update(objectClass, keys, newFields);
-	}
-	
-	public void setEndTime(final Date newEnd) throws ParseException {
-		if (newEnd == null)
-			throw new IllegalArgumentException("end time can not be empty!");
-		Map<String, Object> newFields = new HashMap<String, Object>();
-		newFields.put("driverId", this.driverId);
-		newFields.put("slotId", this.slotId);
-		newFields.put("endTime", newEnd);
-		newFields.put("startTime", this.startHour);
+		newFields.put("hour", newStart);
 		newFields.put("date", this.date);
 
 		Map<String, Object> keys = new HashMap<String, Object>();
@@ -206,8 +181,7 @@ public class Order {
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("driverId", this.driverId);
 		newFields.put("slotId", this.slotId);
-		newFields.put("endTime", this.endHour);
-		newFields.put("startTime", this.startHour);
+		newFields.put("hour", this.hour);
 		newFields.put("date", newDate);
 
 		Map<String, Object> keys = new HashMap<String, Object>();
@@ -222,5 +196,41 @@ public class Order {
 	    return (int) (date1.getTime() - date2.getTime()) / MILLI_TO_HOUR;
 	}
 	
+	public static boolean checkParameters(final String id, final String driverId, final String slotId, Date startTime, Date endTime) throws ParseException{
+		if (id == null || driverId==null || slotId==null || startTime==null || endTime==null){
+			return false;
+		}else{
+			//check if user exist
+			Driver d = new Driver(driverId);
+			if (d.getId()==null){
+				return false;
+			}
+			//check if id for order is not exist
+			Order o = new Order(id);
+			if (o.getId()!=null){
+				return false;
+			}
+			//check if slot id exist
+			ParkingSlot slot = new ParkingSlot(slotId);
+			if (slot.getName()==null){
+				return false;
+			}
+			//check if in this range on this slot is free
+			int hours = hoursDifference(endTime, startTime);
+			Calendar cal = Calendar.getInstance(); // creates calendar
+		    cal.setTime(startTime); // sets calendar time/date
+			DBManager.initialize();
+			Map<String, Object> key = new HashMap<String, Object>();
+			for (int i=0; i<hours; i++){
+				key.put("slotId", slotId);
+				key.put("date", startTime.getDate());
+				key.put("hour", cal.getTime());
+				if (DBManager.getObjectFieldsByKey("Order", key).get("id")!=null)
+					return false;
+				cal.add(Calendar.HOUR_OF_DAY, 1);
+			}
+			return true;
+		}
+	}
 	
 }

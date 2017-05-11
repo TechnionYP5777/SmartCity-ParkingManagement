@@ -16,14 +16,15 @@ public class orderTest {
 	public void setUpTest() throws ParseException, InterruptedException {
 		DBManager.initialize();
 		try{
-			// create new driver
-			
+			// create new order
 			Date startTime =new Date();
 			Calendar cal = Calendar.getInstance(); // creates calendar
 		    cal.setTime(startTime); // sets calendar time/date
-		    cal.add(Calendar.HOUR_OF_DAY, 1);
+		    cal.add(Calendar.HOUR_OF_DAY, 2);
 			Date endTime =cal.getTime();
-			new Order(0,"3333333", "123", startTime, endTime);
+			System.out.println(startTime);
+			System.out.println(endTime);
+			new Order("3333333", "123", startTime, endTime);
 			Thread.sleep(6000);
 
 		} catch (final Exception ¢) {
