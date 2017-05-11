@@ -33,6 +33,9 @@ public class Order {
 	// The desired end time
 	private String hour;
 	
+	// The desired amount of hours
+	private int hoursAmount;
+	
 	private final String objectClass = "Order";
 	
 	/* Constructors */
@@ -43,24 +46,21 @@ public class Order {
 
 	// Create a new order. Will result in a new order in the DB.
 	public Order(final String driverId, final String slotId, Date startTime, Date endTime) throws ParseException, InterruptedException {
-		
 		DBManager.initialize();
-		
-		String idToString;
-//		if (!checkParameters(idToString, driverId, slotId, startTime, endTime))
-//			throw new IllegalArgumentException("arguments are illegeal!");
+		checkParameters(driverId, slotId, startTime, endTime);
+		String idToString=driverId.toString()+(new Date().toString());
 		Map<String, Object> fields = new HashMap<String, Object>(), keyValues = new HashMap<String, Object>();
 		fields.put("driverId", driverId);
 		fields.put("slotId", slotId);
 		fields.put("date", startTime);
-		
 		int hours =hoursDifference(endTime, startTime);
+		fields.put("hoursAmount", hours+1);
 		int id=0;
 		Calendar cal = Calendar.getInstance(); // creates calendar
 	    cal.setTime(startTime); // sets calendar time/date
 		for (int i=0; i<=hours; i++){
 			id++;
-			idToString=(new Date().toString())+id;
+			idToString=driverId.toString()+(startTime.toString())+id;
 			fields.put("hour", cal.getTime().toString());
 		    cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
 			keyValues.put("id", idToString);
@@ -76,12 +76,13 @@ public class Order {
 		this.date = obj.getDate("date");
 		this.slotId = obj.getString("slotId");
 		this.hour = obj.getString("hour");
+		this.hoursAmount = (int)obj.get("hoursAmount");
 		
 	}
 	
 	public Order(final String id) throws ParseException {
 		DBManager.initialize();
-
+		
 		Map<String, Object> keys = new HashMap<>();
 		keys.put("id", id);
 		Map<String,Object> returnV = DBManager.getObjectFieldsByKey(objectClass, keys);
@@ -90,6 +91,7 @@ public class Order {
 		this.slotId= returnV.get("slotId") + "";
 		this.date= (Date)returnV.get("date");
 		this.hour= returnV.get("hour")+"";
+		this.hoursAmount= (int) returnV.get("hoursAmount");
 		this.id=id;
 	}
 
@@ -128,6 +130,13 @@ public class Order {
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("id", id);
 		return (String) DBManager.getObjectFieldsByKey(objectClass, key).get("hour");
+	}
+	
+	public int getHoursAmount() {
+		DBManager.initialize();
+		Map<String, Object> key = new HashMap<String, Object>();
+		key.put("id", id);
+		return (int) DBManager.getObjectFieldsByKey(objectClass, key).get("hoursAmount");
 	}
 	
 	/* Setters */
@@ -195,38 +204,35 @@ public class Order {
 	    return (int) (date1.getTime() - date2.getTime()) / MILLI_TO_HOUR;
 	}
 	
-	private static boolean checkParameters(final String id, final String driverId, final String slotId, Date startTime, Date endTime) throws ParseException{
-		if (!checkIfNotNull(id, driverId, slotId, startTime, endTime))
-			return false;
-		else{
-			//check if user exist
-			if (!checkIfDriverExist(driverId))
-				return false;
-			//check if id for order is not exist
-			if (checkIfOrderIdExist(id))
-				return false;
-			//check if slot id exist
-			if (!checkIfSlotExist(slotId))
-				return false;
-			//check if in this range on this slot is free
-			if(!checkIfRangeFree(startTime, endTime, slotId))
-				return false;
-			return true;
-		}
+	private static void checkParameters(final String driverId, final String slotId, Date startTime, Date endTime) throws ParseException{
+		if (checkIfNull(driverId, slotId, startTime, endTime))
+			throw new IllegalArgumentException("parameters can not be empty!");
+//		else{
+//			//check if user exist
+//			if (!checkIfDriverExist(driverId))
+//				throw new IllegalArgumentException("driver does not exist!");
+//				//check if slot id exist
+//			if (!checkIfSlotExist(slotId))
+//				throw new IllegalArgumentException("parking slot does not exist!");
+//			//check if in this range on this slot is free
+//			if(!checkIfRangeFree(startTime, endTime, slotId))
+//				throw new IllegalArgumentException("range is taken!");
+//		}
 	}
 		
-	private static boolean checkIfNotNull(final String id, final String driverId, final String slotId, Date startTime, Date endTime){
-		if (id == null || driverId==null || slotId==null || startTime==null || endTime==null){
-			return false;
+	private static boolean checkIfNull(final String driverId, final String slotId, Date startTime, Date endTime){
+		if (driverId==null || slotId==null || startTime==null || endTime==null){
+			return true;
 		}
-		return true;
+		return false;
 	}
 	
 	private static boolean checkIfDriverExist(final String driverId) throws ParseException{
-		Driver d = new Driver(driverId);
-		if (d.getId()==null){
+		DBManager.initialize();
+		Map<String, Object> key = new HashMap<String, Object>();
+		key.put("id", driverId);
+		if (DBManager.getObjectFieldsByKey("Driver", key).isEmpty())
 			return false;
-		}
 		return true;
 	}
 	
@@ -261,6 +267,20 @@ public class Order {
 			cal.add(Calendar.HOUR_OF_DAY, 1);
 		}
 		return true;
+	}
+	
+	public void removeDriverFromDB() throws ParseException, InterruptedException {
+		DBManager.initialize();
+		Map<String, Object> fields = new HashMap<String, Object>();
+		int newid=1;
+		String idToString = driverId.toString()+this.date.toString()+newid;
+		for(int i=0; i<this.hoursAmount; i++){
+			fields.put("id", idToString);
+			DBManager.deleteObject(objectClass, fields);
+			Thread.sleep(6000);
+			newid++;
+			idToString = driverId.toString()+this.date.toString()+newid;
+		}
 	}
 	
 }
