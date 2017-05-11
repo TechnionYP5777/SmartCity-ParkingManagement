@@ -189,4 +189,59 @@ public class DBManagerTests {
 			assert e.exception.equals("user already exists");
 		}
 	}
+
+	@Test
+	public void loginTest(){
+		Map<String,Object> Kval = new HashMap<String,Object>();
+		Map<String,Object> val = new HashMap<String,Object>();
+		Kval.put("id", "2");
+		val.put("password","asdf");
+		val.put("email","asdfasd");
+		val.put("car",123123);
+		try {
+			DBManager.register("assafReg2", Kval, val);
+		} catch (LoginException e) {
+			// TODO Auto-generated catch block
+			assert e.exception.equals("user already exists");
+		}
+		try {
+			DBManager.login("assafReg2","id","2","password", "asdf");
+		} catch (LoginException e) {
+			assert false;
+		}
+		try {
+			DBManager.login("assafReg2","id","3","password", "asdf");
+		} catch (LoginException e) {
+			e.exception.equals("user doesn't exists");
+		}
+		try {
+			DBManager.login("assafReg2","id","2","password", "assdf");
+		} catch (LoginException e) {
+			e.exception.equals("password doesn't match");
+		}
+	}
+
+	@Test
+	public void updateTest(){
+		Map<String,Object> Kval = new HashMap<String,Object>();
+		Map<String,Object> val = new HashMap<String,Object>();
+		Kval.put("first", 1);
+		val.put("second",2);
+		DBManager.insertObject("assaf", Kval, val);
+		try {
+			Thread.sleep(6000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		val.put("second",3);
+		DBManager.update("assaf", Kval, val);
+		try {
+			Thread.sleep(6000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assert DBManager.getObjectFieldsByKey("assaf",Kval).get("second").equals(3);
+	}
 }
