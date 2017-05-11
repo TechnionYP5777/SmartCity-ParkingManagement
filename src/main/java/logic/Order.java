@@ -52,6 +52,8 @@ public class Order {
 		fields.put("slotId", slotId);
 		fields.put("date", startTime);
 		int hours =hoursDifference(endTime, startTime);
+		if (hours<=0)
+			return;
 		fields.put("hoursAmount", hours+1);
 		int id=0;
 		Calendar cal = Calendar.getInstance(); // creates calendar
