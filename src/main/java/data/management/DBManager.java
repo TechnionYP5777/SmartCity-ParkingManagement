@@ -20,6 +20,14 @@ import org.parse4j.callback.SaveCallback;
 import Exceptions.LoginException;
 import data.members.dbMember;
 
+/**
+ * 
+ * @author assaflu
+ * @since 6.4.2017
+ * 
+ * The purpose of this class is to manage all the queries form the program to the DB
+ */
+
 public class DBManager {
 	private static final String appId = "parkingmanagment";
 	private static final String restKey = "2139d-231cb2-738aa";
