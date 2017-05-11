@@ -9,8 +9,6 @@ import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
 
 import data.management.DBManager;
-import data.members.Driver;
-import data.members.ParkingSlot;
 
 public class Order {
 	/**
@@ -207,17 +205,6 @@ public class Order {
 	private static void checkParameters(final String driverId, final String slotId, Date startTime, Date endTime) throws ParseException{
 		if (checkIfNull(driverId, slotId, startTime, endTime))
 			throw new IllegalArgumentException("parameters can not be empty!");
-//		else{
-//			//check if user exist
-//			if (!checkIfDriverExist(driverId))
-//				throw new IllegalArgumentException("driver does not exist!");
-//				//check if slot id exist
-//			if (!checkIfSlotExist(slotId))
-//				throw new IllegalArgumentException("parking slot does not exist!");
-//			//check if in this range on this slot is free
-//			if(!checkIfRangeFree(startTime, endTime, slotId))
-//				throw new IllegalArgumentException("range is taken!");
-//		}
 	}
 		
 	private static boolean checkIfNull(final String driverId, final String slotId, Date startTime, Date endTime){
@@ -225,48 +212,6 @@ public class Order {
 			return true;
 		}
 		return false;
-	}
-	
-	private static boolean checkIfDriverExist(final String driverId) throws ParseException{
-		DBManager.initialize();
-		Map<String, Object> key = new HashMap<String, Object>();
-		key.put("id", driverId);
-		if (DBManager.getObjectFieldsByKey("Driver", key).isEmpty())
-			return false;
-		return true;
-	}
-	
-	private static boolean checkIfOrderIdExist(final String id) throws ParseException{
-		Order o = new Order(id);
-		if (o.getId()!=null){
-			return true;
-		}
-		return false;
-	}
-	
-	private static boolean checkIfSlotExist(final String slotId) throws ParseException{
-		ParkingSlot slot = new ParkingSlot(slotId);
-		if (slot.getName()==null){
-			return false;
-		}
-		return true;
-	}
-	
-	private static boolean checkIfRangeFree(Date startTime, Date endTime, final String slotId){
-		int hours = hoursDifference(endTime, startTime);
-		Calendar cal = Calendar.getInstance(); // creates calendar
-	    cal.setTime(startTime); // sets calendar time/date
-		DBManager.initialize();
-		Map<String, Object> key = new HashMap<String, Object>();
-		for (int i=0; i<hours; i++){
-			key.put("slotId", slotId);
-			key.put("date", startTime.getDate());
-			key.put("hour", cal.getTime());
-			if (DBManager.getObjectFieldsByKey("Order", key).get("id")!=null)
-				return false;
-			cal.add(Calendar.HOUR_OF_DAY, 1);
-		}
-		return true;
 	}
 	
 	public void removeDriverFromDB() throws ParseException, InterruptedException {

@@ -10,12 +10,10 @@ import org.junit.Test;
 import org.parse4j.ParseException;
 
 import data.management.DBManager;
-import data.members.Driver;
 
 public class orderTest {
 
 	private static String startDate;
-	private static String endDate;
 	private String driverId;
 	
 	@Before
@@ -30,7 +28,6 @@ public class orderTest {
 		    cal.add(Calendar.HOUR_OF_DAY, 2);
 			Date endTime =cal.getTime();
 			this.startDate = startTime.toString();
-			this.endDate = endTime.toString();
 			this.driverId= "3333333";
 			new Order("3333333", "123", startTime, endTime);
 			Thread.sleep(6000);
