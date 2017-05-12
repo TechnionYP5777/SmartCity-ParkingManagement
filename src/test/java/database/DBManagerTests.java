@@ -244,4 +244,11 @@ public class DBManagerTests {
 		}
 		assert DBManager.getObjectFieldsByKey("assaf",Kval).get("second").equals(3);
 	}
+	
+	@Test
+	public void getObjectFieldsByKeyEmptyTest(){
+		Map<String,Object> Kval = new HashMap<String,Object>();
+		Kval.put("first", 1);
+		assert DBManager.getObjectFieldsByKey("assafEmpty",Kval).isEmpty();
+	}
 }

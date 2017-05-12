@@ -190,9 +190,9 @@ public class DBManager {
 
 			@Override
 			public void done(ParseObject arg0, ParseException arg1) {
-				if(arg0 == null) return;
-				for(String key : arg0.keySet())
-					objectFields.put(key, arg0.get(key));
+				if(arg0 != null)
+					for (String key : arg0.keySet())
+						objectFields.put(key, arg0.get(key));
 				synchronized (mutex) {
 					mutex.append("done");
 					mutex.notifyAll();
