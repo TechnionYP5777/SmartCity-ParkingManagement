@@ -1,16 +1,16 @@
-May 07, 2017 11:22:44 AM util.UseLogger doSomeThingAndLog
+May 12, 2017 10:22:30 PM util.UseLogger doSomeThingAndLog
 SEVERE: Info Log
-May 07, 2017 11:22:44 AM util.UseLogger doSomeThingAndLog
+May 12, 2017 10:22:30 PM util.UseLogger doSomeThingAndLog
 SEVERE: Info Log
-May 07, 2017 11:22:44 AM util.UseLogger doSomeThingAndLog
+May 12, 2017 10:22:30 PM util.UseLogger doSomeThingAndLog
 WARNING: Info Log
-May 07, 2017 11:22:44 AM util.UseLogger doSomeThingAndLog
+May 12, 2017 10:22:30 PM util.UseLogger doSomeThingAndLog
 INFO: Info Log
-May 07, 2017 11:22:44 AM util.UseLogger doSomeThingAndLog
+May 12, 2017 10:22:30 PM util.UseLogger doSomeThingAndLog
 SEVERE: Info Log
-May 07, 2017 11:22:44 AM util.UseLogger doSomeThingAndLog
+May 12, 2017 10:22:30 PM util.UseLogger doSomeThingAndLog
 WARNING: Info Log
-May 07, 2017 11:22:44 AM util.UseLogger doSomeThingAndLog
+May 12, 2017 10:22:30 PM util.UseLogger doSomeThingAndLog
 INFO: Info Log
-May 07, 2017 11:22:44 AM util.UseLogger doSomeThingAndLog
+May 12, 2017 10:22:30 PM util.UseLogger doSomeThingAndLog
 FINEST: Really not important

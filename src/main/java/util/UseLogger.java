@@ -5,10 +5,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UseLogger {
-  	 private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+  	 private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	 public void doSomeThingAndLog() {
-
+				 
          // set the LogLevel to Severe, only severe Messages will be written
          LOGGER.setLevel(Level.SEVERE);
          LOGGER.severe("Info Log");
