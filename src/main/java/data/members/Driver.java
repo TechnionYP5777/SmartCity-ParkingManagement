@@ -104,11 +104,8 @@ public class Driver {
 	/* Setters */
 
 	public void setId(final String newId) throws ParseException, IllegalArgumentException {
-			System.out.println("1");
-			if(!checkId(newId)){
+			if(!checkId(newId))
 				throw new IllegalArgumentException("illegal argument!");
-			}
-			System.out.println("3");
 			Map<String, Object> newFields = new HashMap<String, Object>();
 			newFields.put("id", newId);
 			newFields.put("email", this.email);
@@ -168,15 +165,7 @@ public class Driver {
 	}
 	
 	private boolean checkId(final String newId) throws ParseException, IllegalArgumentException {
-		System.out.println("i was here");
-		if (newId==null)
-			return false;
-		boolean result=Validation.isIdExist(newId);
-	
-		System.out.println("dieeeee");
-		if(result==true && (!newId.equals(this.id)))
-				return false;
-		return true;
+		return newId != null && (!Validation.isIdExist(newId) || newId.equals(this.id));
 	}
 	
 	private void checkEmail(final String email) throws IllegalArgumentException {

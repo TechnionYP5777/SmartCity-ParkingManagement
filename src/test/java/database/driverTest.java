@@ -108,23 +108,22 @@ public class driverTest {
 		}
 	}
 	
-//	//TODO::
-//	@Test
-//	public void testSetId2() throws InterruptedException{
-//		DBManager.initialize();
-//		try{
-//			
-//			new Driver("333333333").setId("333333334");
-//			Thread.sleep(6000);
-//			System.out.println("1");
-//			String s= new Driver("333333334").getId();
-//			Thread.sleep(6000);
-//			Assert.assertEquals("333333334",s);
-//			System.out.println("4");
-//		}catch (ParseException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	@Test
+	public void testSetId2() throws InterruptedException{
+		DBManager.initialize();
+		try{
+			
+			new Driver("333333333").setId("333333334");
+			Thread.sleep(6000);
+			String s= new Driver("333333334").getId();
+			Thread.sleep(6000);
+			Assert.assertEquals("333333334",s);
+			new Driver("333333334").setId("333333333");
+			Thread.sleep(6000);
+		}catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	@Test
 	public void testSetEmail(){
@@ -145,9 +144,10 @@ public class driverTest {
 		try{
 			new Driver("333333333").setCarId("1234568");
 			Thread.sleep(6000);
-			Assert.assertEquals("1234568",new Driver("333333333").getCarId());
+			Driver d =new Driver("333333333");
 			Thread.sleep(6000);
-			new Driver("333333333").setCarId("1234567");
+			Assert.assertEquals("1234568",d.getCarId());
+			Thread.sleep(6000);
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();

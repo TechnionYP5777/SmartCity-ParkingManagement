@@ -2,7 +2,6 @@ package util;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.parse4j.ParseException;
@@ -40,39 +39,28 @@ public class Validation {
 		    Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
 	public static boolean validateMail(String emailStr) {
-		        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(emailStr);
-		        return matcher.find();
+		        return VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr).find();
 	}
 	
-	public static boolean validatePassword(String password, int n, int m) {
-		  if (password == null || password.length() < n || password.length() > m) {
-		    return false;
-		  }
-		  return true;
+	public static boolean validatePassword(String password, int i, int m) {
+		return password != null && password.length() >= i && password.length() <= m;
 	}
 	
 	public static boolean validateCarId(String carId) {
-		if(carId==null || carId.length()!=7)
-			return false;
-		return true;
+		return carId != null && carId.length() == 7;
 	}
 	
 	public static boolean validateNewDriver(final String id, final String email, final String carId, final String password) throws ParseException
 	{	
-		if (id == null || email == null || carId == null || password == null)
-			return false;
-		else
-			return true;
+		return id != null && email != null && carId != null && password != null;
 	}
 	
 	public static boolean isIdExist(final String newId) throws ParseException{
 		DBManager.initialize();
 		final String objectClass = "Driver";
-		System.out.println("i was here 2");
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("id", newId);
-		System.out.println("i was here 2.5");
-		return (DBManager.getObjectFieldsByKey(objectClass, key).isEmpty()==false);
+		return (!DBManager.getObjectFieldsByKey(objectClass, key).isEmpty());
 	}
 	
 	public static void validateNewParkingSlot(final ParkingSlotStatus s, final StickersColor c, final StickersColor defaultColor, final MapLocation l)
