@@ -103,10 +103,12 @@ public class Driver {
 	
 	/* Setters */
 
-	public void setId(final String newId) throws ParseException {
-		try {
-			checkId(newId);
-			System.out.println("*****");
+	public void setId(final String newId) throws ParseException, IllegalArgumentException {
+			System.out.println("1");
+			if(!checkId(newId)){
+				throw new IllegalArgumentException("illegal argument!");
+			}
+			System.out.println("3");
 			Map<String, Object> newFields = new HashMap<String, Object>();
 			newFields.put("id", newId);
 			newFields.put("email", this.email);
@@ -116,13 +118,6 @@ public class Driver {
 			Map<String, Object> keys = new HashMap<String, Object>();
 			keys.put("id", this.id);
 			DBManager.update(objectClass, keys, newFields);
-		} catch (IllegalArgumentException e) {
-			
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			
-			e.printStackTrace();
-		}
 	}
 
 	public void setEmail(final String newEmail) throws ParseException {
@@ -172,16 +167,16 @@ public class Driver {
 			throw new IllegalArgumentException("illegal arguments!");
 	}
 	
-	private void checkId(final String newId) throws IllegalArgumentException, ParseException, InterruptedException {
+	private boolean checkId(final String newId) throws ParseException, IllegalArgumentException {
 		System.out.println("i was here");
 		if (newId==null)
-			throw new IllegalArgumentException("id can not be empty!");
-		String result=Validation.isIdExist(newId);
-		Thread.sleep(6000);
+			return false;
+		boolean result=Validation.isIdExist(newId);
+	
 		System.out.println("dieeeee");
-		if(result!=null && (!newId.equals(this.id)))
-				throw new IllegalArgumentException("id is alreay exist!");
-		return;
+		if(result==true && (!newId.equals(this.id)))
+				return false;
+		return true;
 	}
 	
 	private void checkEmail(final String email) throws IllegalArgumentException {

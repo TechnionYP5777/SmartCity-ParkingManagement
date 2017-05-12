@@ -65,15 +65,14 @@ public class Validation {
 			return true;
 	}
 	
-	public static String isIdExist(final String newId) throws ParseException{
+	public static boolean isIdExist(final String newId) throws ParseException{
 		DBManager.initialize();
 		final String objectClass = "Driver";
 		System.out.println("i was here 2");
-		DBManager.initialize();
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("id", newId);
 		System.out.println("i was here 2.5");
-		return DBManager.getObjectFieldsByKey(objectClass, key).get("id") + "";
+		return (DBManager.getObjectFieldsByKey(objectClass, key).isEmpty()==false);
 	}
 	
 	public static void validateNewParkingSlot(final ParkingSlotStatus s, final StickersColor c, final StickersColor defaultColor, final MapLocation l)
