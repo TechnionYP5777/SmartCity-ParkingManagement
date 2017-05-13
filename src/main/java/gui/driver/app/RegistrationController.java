@@ -82,7 +82,11 @@ public class RegistrationController {
 		
 		boolean valid = true;
 		
-		// TODO: validate id
+		if (!Validation.isValidDriverId(id)){
+			valid = false;
+			idField.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
+			idLabel.setVisible(true);
+		}
 		
 		if (!Validation.validateMail(email)){
 			valid = false;
@@ -102,12 +106,11 @@ public class RegistrationController {
 			pwLabel.setVisible(true);
 		}
 		
-		if (pw != confirmPw){
+		if (!pw.equals(confirmPw)){
 			valid = false;
 			confirmPwField.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");	
 			confirmPwLabel.setVisible(true);
 		}
-		
 		
 		if (valid){
 			
@@ -119,7 +122,7 @@ public class RegistrationController {
 	
 			try {
 				DBManager.register("Driver", keys, fields);
-				// TODO:c notify about user Creation
+				// TODO: notify about user Creation
 				
 			} catch(LoginException e){
 				if(e.toString() == "user already exists"){
