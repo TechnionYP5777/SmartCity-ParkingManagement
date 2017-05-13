@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class validationTest {
-	@Test
+	@Tes
 	public void testIsInt() throws Exception {
 		Assert.assertEquals(false, Validation.isInt("textNotInt"));
 		Assert.assertEquals(true, Validation.isInt("123456789"));
