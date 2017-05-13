@@ -41,12 +41,12 @@
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="idField" prefHeight="35.0" promptText="Id">
+                        <TextField fx:id="idField" prefHeight="35.0" promptText="Id" style="-fx-border-color: #C4C4C4;">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <Label fx:id="idLabel" text="Id error" textFill="RED" visible="false">
+                        <Label fx:id="idLabel" text="Invalid id" textFill="RED" visible="false">
                            <font>
                               <Font name="System Italic" size="12.0" />
                            </font>
@@ -54,7 +54,7 @@
                               <Insets left="5.0" top="2.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="emailField" prefHeight="35.0" promptText="Email">
+                        <TextField fx:id="emailField" prefHeight="35.0" promptText="Email" style="-fx-border-color: #C4C4C4;">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
@@ -67,7 +67,7 @@
                               <Insets left="5.0" top="2.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="carNumField" prefHeight="35.0" promptText="Car number">
+                        <TextField fx:id="carNumField" prefHeight="35.0" promptText="Car number" style="-fx-border-color: #C4C4C4;">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
@@ -88,7 +88,7 @@
                               <Insets top="20.0" />
                            </VBox.margin>
                         </Label>
-                        <PasswordField fx:id="pwField" prefHeight="35.0" promptText="Password">
+                        <PasswordField fx:id="pwField" prefHeight="35.0" promptText="Password" style="-fx-border-color: #C4C4C4;">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
@@ -101,7 +101,7 @@
                               <Insets left="5.0" top="2.0" />
                            </VBox.margin>
                         </Label>
-                        <PasswordField fx:id="confirmPwField" prefHeight="35.0" promptText="Confirm Password">
+                        <PasswordField fx:id="confirmPwField" prefHeight="35.0" promptText="Confirm Password" style="-fx-border-color: #C4C4C4;">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>

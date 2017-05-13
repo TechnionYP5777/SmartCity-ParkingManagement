@@ -53,14 +53,32 @@ public class RegistrationController {
 			window.setScene(new Scene(root,400,500));		
 			window.show();
 	}
+	private void setAllFieldsAndLabels() {
+		
+		idLabel.setVisible(false);
+		emailLabel.setVisible(false);
+		carNumLabel.setVisible(false);
+		pwLabel.setVisible(false);
+		confirmPwLabel.setVisible(false);
+		
+		idField.setStyle("-fx-border-color: #C4C4C4 ; -fx-border-width: 1px ;");
+		emailField.setStyle("-fx-border-color: #C4C4C4 ; -fx-border-width: 1px ;");
+		carNumField.setStyle("-fx-border-color: #C4C4C4 ; -fx-border-width: 1px ;");
+		pwField.setStyle("-fx-border-color: #C4C4C4 ; -fx-border-width: 1px ;");
+		confirmPwField.setStyle("-fx-border-color: #C4C4C4 ; -fx-border-width: 1px ;");
+
+	}
+	
 	@FXML
 	public void createButtonClicked(ActionEvent event) throws Exception {
-		
+				
 		String id = idField.getText();
 		String email = emailField.getText();
 		String carNum = carNumField.getText();
 		String pw = pwField.getText();
 		String confirmPw = confirmPwField.getText();
+		
+		setAllFieldsAndLabels();
 		
 		boolean valid = true;
 		
@@ -68,44 +86,45 @@ public class RegistrationController {
 		
 		if (!Validation.validateMail(email)){
 			valid = false;
-			emailLabel.setVisible(true);
 			emailField.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
+			emailLabel.setVisible(true);
 		}
+		
 		if (!Validation.isLicensePlatePattern(carNum)){
 			valid = false;
-			carNumLabel.setVisible(true);
 			carNumField.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
+			carNumLabel.setVisible(true);
 		}
 		
 		if (!Validation.validatePassword(pw, 6, Integer.MAX_VALUE)){
 			valid = false;
-			pwLabel.setVisible(true);
 			pwField.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");	
+			pwLabel.setVisible(true);
 		}
 		
 		if (pw != confirmPw){
 			valid = false;
-			confirmPwLabel.setVisible(true);
 			confirmPwField.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");	
+			confirmPwLabel.setVisible(true);
 		}
 		
 		
 		if (valid){
+			
 			Map<String, Object> fields = new HashMap<String, Object>(), keys = new HashMap<String, Object>();
 			keys.put("id", id);
 			fields.put("email", email);
 			fields.put("carId", carNum);
 			fields.put("password", pw);
+	
 			try {
 				DBManager.register("Driver", keys, fields);
 				// TODO:c notify about user Creation
 				
 			} catch(LoginException e){
-				// TODO: what about other input
-				
 				if(e.toString() == "user already exists"){
-					// TODO: notify user
-					
+					idField.setText("User with such id already exists");
+					idField.setVisible(true);
 				}
 			}
 		}
