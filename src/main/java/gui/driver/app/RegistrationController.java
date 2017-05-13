@@ -2,7 +2,7 @@ package gui.driver.app;
 
 import java.util.HashMap;
 import java.util.Map;
-
+import util.Validation;
 import data.management.DBManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
@@ -16,6 +16,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.Label;
 
 import Exceptions.LoginException;
+
 
 public class RegistrationController {
 	
@@ -61,28 +62,51 @@ public class RegistrationController {
 		String pw = pwField.getText();
 		String confirmPw = confirmPwField.getText();
 		
+		boolean valid = true;
+		
+		// TODO: validate id
+		
+		if (!Validation.validateMail(email)){
+			valid = false;
+			emailLabel.setVisible(true);
+			emailField.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
+		}
+		if (!Validation.isLicensePlatePattern(carNum)){
+			valid = false;
+			carNumLabel.setVisible(true);
+			carNumField.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
+		}
+		
+		if (!Validation.validatePassword(pw, 6, Integer.MAX_VALUE)){
+			valid = false;
+			pwLabel.setVisible(true);
+			pwField.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");	
+		}
 		
 		if (pw != confirmPw){
-			//pwField.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
-			//confirmPwField.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");	
+			valid = false;
+			confirmPwLabel.setVisible(true);
+			confirmPwField.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");	
 		}
 		
 		
-		Map<String, Object> fields = new HashMap<String, Object>(), keys = new HashMap<String, Object>();
-		keys.put("id", id);
-		fields.put("email", email);
-		fields.put("carId", carNum);
-		fields.put("password", pw);
-		try {
-			DBManager.register("Driver", keys, fields);
-			// TODO:c notify about user Creation
-			
-		} catch(LoginException e){
-			// TODO: what about other input
-			
-			if(e.toString() == "user already exists"){
-				// TODO: notify user
+		if (valid){
+			Map<String, Object> fields = new HashMap<String, Object>(), keys = new HashMap<String, Object>();
+			keys.put("id", id);
+			fields.put("email", email);
+			fields.put("carId", carNum);
+			fields.put("password", pw);
+			try {
+				DBManager.register("Driver", keys, fields);
+				// TODO:c notify about user Creation
 				
+			} catch(LoginException e){
+				// TODO: what about other input
+				
+				if(e.toString() == "user already exists"){
+					// TODO: notify user
+					
+				}
 			}
 		}
 	}

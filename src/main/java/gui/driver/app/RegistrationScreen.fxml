@@ -16,12 +16,9 @@
          <children>
             <VBox prefHeight="129.0" prefWidth="100.0" style="-fx-background-color: #607d8b;">
                <children>
-                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #607d8b; -fx-border-color: #607d8b;" text="BACK" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #607d8b; -fx-border-color: #607d8b;" text="&lt;&lt; BACK" textFill="WHITE">
                      <VBox.margin>
-                        <Insets />
+                        <Insets top="10.0" />
                      </VBox.margin>
                   </Button>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -49,7 +46,7 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <Label id="idLabel" text="Id error" textFill="RED" visible="false">
+                        <Label fx:id="idLabel" text="Id error" textFill="RED" visible="false">
                            <font>
                               <Font name="System Italic" size="12.0" />
                            </font>
@@ -62,7 +59,7 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <Label id="emailLabel" text="Email error" textFill="RED" visible="false">
+                        <Label fx:id="emailLabel" text="Invalid email address" textFill="RED" visible="false">
                            <font>
                               <Font name="System Italic" size="12.0" />
                            </font>
@@ -75,7 +72,7 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <Label id="carNumLabel" text="Car number error" textFill="RED" visible="false">
+                        <Label fx:id="carNumLabel" text="Invalid car number" textFill="RED" visible="false">
                            <font>
                               <Font name="System Italic" size="12.0" />
                            </font>
@@ -96,7 +93,7 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </PasswordField>
-                        <Label id="pwLabel" text="Password error" textFill="RED" visible="false">
+                        <Label fx:id="pwLabel" text="Password must be at least 6 characters" textFill="RED" visible="false">
                            <font>
                               <Font name="System Italic" size="12.0" />
                            </font>
@@ -109,7 +106,7 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </PasswordField>
-                        <Label id="confirmPwLabel" text="Confirm password error" textFill="RED" visible="false">
+                        <Label fx:id="confirmPwLabel" text="Passwords don't match" textFill="RED" visible="false">
                            <font>
                               <Font name="System Italic" size="12.0" />
                            </font>
