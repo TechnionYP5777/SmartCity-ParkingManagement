@@ -12,27 +12,21 @@
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.driver.app.RegistrationController">
    <children>
-      <VBox prefWidth="100.0">
+      <VBox prefWidth="450.0">
          <children>
-            <VBox prefHeight="129.0" prefWidth="100.0" style="-fx-background-color: #607d8b;">
+            <HBox alignment="BOTTOM_CENTER" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: #607d8b;">
                <children>
-                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #607d8b; -fx-border-color: #607d8b;" text="&lt;&lt; BACK" textFill="WHITE">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </Button>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Label text="Registration" textFill="WHITE">
-                           <font>
-                              <Font size="50.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
+                  <Label text="Registration" textFill="WHITE">
+                     <font>
+                        <Font size="50.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="15.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
-            </VBox>
-            <HBox alignment="CENTER" prefHeight="455.0" prefWidth="450.0">
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="576.0" prefWidth="450.0">
                <children>
                   <VBox prefHeight="434.0" prefWidth="385.0">
                      <children>
@@ -69,7 +63,7 @@
                         </Label>
                         <TextField fx:id="carNumField" prefHeight="35.0" promptText="Car number" style="-fx-border-color: #C4C4C4;">
                            <VBox.margin>
-                              <Insets top="10.0" />
+                              <Insets />
                            </VBox.margin>
                         </TextField>
                         <Label fx:id="carNumLabel" text="Invalid car number" textFill="RED" visible="false">
@@ -114,14 +108,26 @@
                               <Insets left="5.0" top="2.0" />
                            </VBox.margin>
                         </Label>
-                        <Button fx:id="createButton" mnemonicParsing="false" onAction="#createButtonClicked" prefHeight="35.0" prefWidth="385.0" style="-fx-background-color: #607d8b;" text="CREATE NEW ACCOUNT" textFill="WHITE">
-                           <VBox.margin>
-                              <Insets top="25.0" />
-                           </VBox.margin>
-                           <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font>
-                        </Button>
+                        <VBox alignment="TOP_CENTER" prefHeight="188.0" prefWidth="385.0">
+                           <children>
+                              <Button fx:id="createButton" mnemonicParsing="false" onAction="#createButtonClicked" prefHeight="35.0" prefWidth="300.0" style="-fx-background-color: #607d8b;" text="CREATE NEW ACCOUNT" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets top="25.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="35.0" prefWidth="300.0" style="-fx-background-color: #F4F4F4; -fx-border-color: #607d8b;" text="BACK TO LOGIN" textFill="#607d8b">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="30.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
                      </children>
                      <HBox.margin>
                         <Insets top="30.0" />

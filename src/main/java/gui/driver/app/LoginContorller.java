@@ -27,6 +27,10 @@ public class LoginContorller {
 	private Button loginButton;
 	@FXML
 	private Button createNewButton;
+	@FXML
+	private Label idLabel;
+	@FXML
+	private Label pwLabel;
 	
 	@FXML
 	public void forgotPwClicked(ActionEvent event) throws Exception {
@@ -40,22 +44,27 @@ public class LoginContorller {
 	public void loginButtonClicked(ActionEvent event) throws Exception {
 		String id = idField.getText();
 		String pw = pwField.getText();
+		
 		// TODO: validate fields, check existance and move to main screen
 		
 		try {
 			DBManager.login("Driver", "id", id, "password", pw);
-			System.out.println("SUCCESS");
+
 			// TODO: direct to or's screen
+			
+			
 		} catch (LoginException e){
 			
 			if (e.toString() == "user doesn't exists"){
-				errorLabel.setVisible(true);
-				errorLabel.setText("Error: User doesn't exists");
-				//idField.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+				idField.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
+				idLabel.setVisible(true);
+				return;
+				
 			}
 			if (e.toString() == "password doesn't match"){
-				errorLabel.setVisible(true);
-				errorLabel.setText("Error: Wrong password");
+				pwField.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
+				pwLabel.setVisible(true);
+				return;
 			}
 			
 		}
