@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.Label;
 
 import Exceptions.LoginException;
 
@@ -32,13 +33,23 @@ public class RegistrationController {
 	private PasswordField confirmPwField;
 	@FXML
 	private Button createButton;
+	@FXML
+	private Label idLabel;
+	@FXML
+	private Label emailLabel;
+	@FXML
+	private Label carNumLabel;
+	@FXML
+	private Label pwLabel;
+	@FXML
+	private Label confirmPwLabel;
 	
 	@FXML
 	public void backButtonClicked(ActionEvent event) throws Exception {
 		 Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 			window.setTitle("Login");
 			Parent root = FXMLLoader.load(getClass().getResource("LoginScreen.fxml")); 
-			window.setScene(new Scene(root,300,400));		
+			window.setScene(new Scene(root,400,500));		
 			window.show();
 	}
 	@FXML
@@ -50,8 +61,10 @@ public class RegistrationController {
 		String pw = pwField.getText();
 		String confirmPw = confirmPwField.getText();
 		
+		
 		if (pw != confirmPw){
-			// TODO: notify user
+			//pwField.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
+			//confirmPwField.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");	
 		}
 		
 		

@@ -10,96 +10,125 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.driver.app.RegistrationController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.driver.app.RegistrationController">
    <children>
       <VBox prefWidth="100.0">
          <children>
-            <VBox prefHeight="100.0" prefWidth="100.0">
+            <VBox prefHeight="129.0" prefWidth="100.0" style="-fx-background-color: #607d8b;">
                <children>
-                  <Button fx:id="backButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#backButtonClicked" style="-fx-background-color: #808080;" text="&lt;&lt; BACK" textFill="WHITE">
-                     <VBox.margin>
-                        <Insets left="10.0" top="15.0" />
-                     </VBox.margin>
-                  </Button>
-                  <HBox alignment="BOTTOM_CENTER" prefHeight="59.0" prefWidth="200.0">
-                     <children>
-                        <Label text="Fill in the form below to get instant access">
-                           <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets bottom="19.0" />
-                           </HBox.margin>
-                        </Label>
-                     </children>
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #607d8b; -fx-border-color: #607d8b;" text="BACK" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
+                  </Button>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Registration" textFill="WHITE">
+                           <font>
+                              <Font size="50.0" />
+                           </font>
+                        </Label>
+                     </children>
                   </HBox>
                </children>
             </VBox>
-            <HBox prefHeight="300.0" prefWidth="402.0">
+            <HBox alignment="CENTER" prefHeight="455.0" prefWidth="450.0">
                <children>
-                  <VBox alignment="TOP_RIGHT" prefHeight="280.0" prefWidth="125.0">
+                  <VBox prefHeight="434.0" prefWidth="385.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="35.0" text="id" />
-                        <Label alignment="CENTER" prefHeight="35.0" text="email">
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
+                        <Label text="Details">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
                         </Label>
-                        <Label alignment="CENTER" prefHeight="35.0" text="car number">
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Label alignment="CENTER" prefHeight="35.0" text="password">
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Label alignment="CENTER" prefHeight="35.0" text="confirm password">
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </Label>
-                     </children>
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-                  </VBox>
-                  <VBox prefHeight="248.0" prefWidth="250.0">
-                     <children>
-                        <TextField fx:id="idField" prefHeight="35.0" prefWidth="250.0" />
-                        <TextField fx:id="emailField" prefHeight="35.0">
+                        <TextField fx:id="idField" prefHeight="35.0" promptText="Id">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField fx:id="carNumField" prefHeight="35.0">
+                        <Label id="idLabel" text="Id error" textFill="RED" visible="false">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="5.0" top="2.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField fx:id="emailField" prefHeight="35.0" promptText="Email">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <PasswordField fx:id="pwField" prefHeight="35.0">
+                        <Label id="emailLabel" text="Email error" textFill="RED" visible="false">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="5.0" top="2.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField fx:id="carNumField" prefHeight="35.0" promptText="Car number">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Label id="carNumLabel" text="Car number error" textFill="RED" visible="false">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="5.0" top="2.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Password">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <PasswordField fx:id="pwField" prefHeight="35.0" promptText="Password">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
                         </PasswordField>
-                        <PasswordField fx:id="confirmPwField" prefHeight="35.0">
+                        <Label id="pwLabel" text="Password error" textFill="RED" visible="false">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="5.0" top="2.0" />
+                           </VBox.margin>
+                        </Label>
+                        <PasswordField fx:id="confirmPwField" prefHeight="35.0" promptText="Confirm Password">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
                         </PasswordField>
-                        <Button fx:id="createButton" mnemonicParsing="false" onAction="#createButtonClicked" prefHeight="35.0" prefWidth="400.0" style="-fx-background-color: #808080;;" text="CREATE NEW ACCOUNT" textFill="WHITE">
+                        <Label id="confirmPwLabel" text="Confirm password error" textFill="RED" visible="false">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font>
                            <VBox.margin>
-                              <Insets top="10.0" />
+                              <Insets left="5.0" top="2.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Button fx:id="createButton" mnemonicParsing="false" onAction="#createButtonClicked" prefHeight="35.0" prefWidth="385.0" style="-fx-background-color: #607d8b;" text="CREATE NEW ACCOUNT" textFill="WHITE">
+                           <VBox.margin>
+                              <Insets top="25.0" />
                            </VBox.margin>
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font>
                         </Button>
                      </children>
+                     <HBox.margin>
+                        <Insets top="30.0" />
+                     </HBox.margin>
                   </VBox>
                </children>
                <VBox.margin>
