@@ -26,7 +26,7 @@ public class LoginContorller {
 	@FXML
 	private Button loginButton;
 	@FXML
-	private Hyperlink createNewAccHyperLink;
+	private Button createNewButton;
 	
 	@FXML
 	public void forgotPwClicked(ActionEvent event) throws Exception {
@@ -51,6 +51,7 @@ public class LoginContorller {
 			if (e.toString() == "user doesn't exists"){
 				errorLabel.setVisible(true);
 				errorLabel.setText("Error: User doesn't exists");
+				//idField.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
 			}
 			if (e.toString() == "password doesn't match"){
 				errorLabel.setVisible(true);
@@ -61,7 +62,7 @@ public class LoginContorller {
 		
 	}
 	@FXML
-	public void createHyperLinkClicked(ActionEvent event) throws Exception{
+	public void createButtonClicked(ActionEvent event) throws Exception{
 	 	Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 		window.setTitle("Registration");
 		Parent root = FXMLLoader.load(getClass().getResource("RegistrationScreen.fxml")); 

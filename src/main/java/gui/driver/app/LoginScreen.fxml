@@ -11,35 +11,41 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.driver.app.LoginContorller">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.driver.app.LoginContorller">
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="74.0" prefWidth="300.0">
+            <HBox alignment="CENTER" prefHeight="129.0" prefWidth="400.0" style="-fx-background-color: #607d8b;">
                <children>
-                  <Label text="Welcome! please login" />
+                  <Label text="Welcome" textFill="WHITE">
+                     <font>
+                        <Font size="50.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="10.0" top="40.0" />
+                     </HBox.margin></Label>
                </children></HBox>
-            <TextField fx:id="idField" prefHeight="35.0" prefWidth="280.0" promptText="Id">
+            <TextField fx:id="idField" prefHeight="40.0" prefWidth="280.0" promptText="Id">
                <VBox.margin>
-                  <Insets left="10.0" right="10.0" />
+                  <Insets left="20.0" right="20.0" top="60.0" />
                </VBox.margin>
                <font>
                   <Font size="15.0" />
                </font></TextField>
-            <PasswordField fx:id="pwField" prefHeight="35.0" prefWidth="280.0" promptText="Password">
+            <PasswordField fx:id="pwField" prefHeight="40.0" prefWidth="280.0" promptText="Password">
                <VBox.margin>
-                  <Insets left="10.0" right="10.0" top="10.0" />
+                  <Insets left="20.0" right="20.0" top="10.0" />
                </VBox.margin>
                <font>
                   <Font size="15.0" />
                </font>
             </PasswordField>
-            <Hyperlink fx:id="forgotPwHyperLink" onAction="#forgotPwClicked" text="Forgot your password?">
+            <Hyperlink fx:id="forgotPwHyperLink" onAction="#forgotPwClicked" style="-fx-text-fill: #607d8b;" text="Forgot your password?">
                <VBox.margin>
-                  <Insets left="10.0" top="8.0" />
+                  <Insets left="20.0" top="8.0" />
                </VBox.margin>
                <font>
-                  <Font size="11.0" />
+                  <Font name="System Bold" size="13.0" />
                </font>
             </Hyperlink>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
@@ -52,27 +58,22 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Button fx:id="loginButton" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="35.0" prefWidth="276.0" style="-fx-background-color: #808080;" text="LOG IN" textFill="WHITE">
+                  <Button fx:id="loginButton" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="40.0" prefWidth="250.0" style="-fx-background-color: #607d8b;" text="LOG IN" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                      <VBox.margin>
-                        <Insets left="10.0" right="10.0" top="10.0" />
+                        <Insets left="10.0" right="10.0" top="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Label text="and have a wonderful day">
+                  <Button fx:id="createNewButton" mnemonicParsing="false" onAction="#createButtonClicked" prefHeight="40.0" prefWidth="250.0" style="-fx-background-color: #F4F4F4; -fx-border-color: #607d8b;" text="REGISTER" textFill="#607d8b">
                      <font>
-                        <Font size="11.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
                      <VBox.margin>
-                        <Insets top="6.0" />
+                        <Insets top="10.0" />
                      </VBox.margin>
-                  </Label>
-                  <Hyperlink fx:id="createNewAccHyperLink" onAction="#createHyperLinkClicked" text="Create a new account">
-                     <VBox.margin>
-                        <Insets top="100.0" />
-                     </VBox.margin>
-                  </Hyperlink>
+                  </Button>
                </children>
             </VBox>
          </children>
