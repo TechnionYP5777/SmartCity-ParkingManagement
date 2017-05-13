@@ -25,4 +25,14 @@ public class validationTest {
 		Assert.assertEquals(false, Validation.isLicensePlatePattern("1122"));
 		Assert.assertEquals(false, Validation.isLicensePlatePattern("aPlateNmber"));
 	}
+	
+	@Test
+	public void testDriverId(){
+		Assert.assertEquals(false, Validation.isValidDriverId(""));
+		Assert.assertEquals(false, Validation.isValidDriverId("123456789a"));
+		Assert.assertEquals(false, Validation.isValidDriverId("abcdefghi"));
+		Assert.assertEquals(false, Validation.isValidDriverId("12345678"));
+		Assert.assertEquals(false, Validation.isValidDriverId("12345 678"));
+		Assert.assertEquals(true, Validation.isValidDriverId("123456789"));
+	}
 }

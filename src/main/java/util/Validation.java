@@ -42,6 +42,10 @@ public class Validation {
 		        return VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr).find();
 	}
 	
+	public static boolean isValidDriverId(String driverId) {
+		return Pattern.compile("^[0-9]{9}$", Pattern.CASE_INSENSITIVE).matcher(driverId).find();
+}
+	
 	public static boolean validatePassword(String password, int i, int m) {
 		return password != null && password.length() >= i && password.length() <= m;
 	}
