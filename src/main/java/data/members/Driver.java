@@ -38,7 +38,7 @@ public class Driver {
 
 	// Create a new driver. Will result in a new driver in the DB.
 	public Driver(final String id, final String email, final String carId, final String password) throws ParseException {
-		LOGGER.finest("Create a new driver by id, email, car id, password");
+		LOGGER.info("Create a new driver by id, email, car id, password");
 		DBManager.initialize();
 		
 		validateArgument(id, email, carId, password);
@@ -52,7 +52,7 @@ public class Driver {
 	}
 	
 	public Driver(final ParseObject obj) throws ParseException {
-		LOGGER.finest("Create a new driver by Parse object");
+		LOGGER.info("Create a new driver by Parse object");
 		DBManager.initialize();
 
 		id = obj.getString("id");
@@ -63,7 +63,7 @@ public class Driver {
 	}
 	
 	public Driver(final String id) throws ParseException {
-		LOGGER.finest("Create a new driver by id");
+		LOGGER.info("Create a new driver by id");
 		DBManager.initialize();
 
 		Map<String, Object> keys = new HashMap<>();
@@ -124,7 +124,7 @@ public class Driver {
 	}
 
 	public void setEmail(final String newEmail) throws ParseException {
-		LOGGER.finest("set email for driver");
+		LOGGER.info("set email for driver");
 
 		checkEmail(newEmail);
 		Map<String, Object> newFields = new HashMap<String, Object>();
@@ -139,7 +139,7 @@ public class Driver {
 	}
 	
 	public void setCarId(final String newCarId) throws ParseException {
-		LOGGER.finest("set car id for driver");
+		LOGGER.info("set car id for driver");
 		
 		checkCarId(newCarId);
 		Map<String, Object> newFields = new HashMap<String, Object>();
@@ -154,7 +154,7 @@ public class Driver {
 	}
 	
 	public void setPassword(final String newPassword) throws ParseException {
-		LOGGER.finest("set password for driver");
+		LOGGER.info("set password for driver");
 		
 		checkPassword(newPassword);
 		Map<String, Object> newFields = new HashMap<String, Object>();
@@ -208,7 +208,7 @@ public class Driver {
 	}
 	
 	public void removeDriverFromDB() throws ParseException {
-		LOGGER.finest("remove driver from DB");
+		LOGGER.info("remove driver from DB");
 		DBManager.initialize();
 		Map<String, Object> fields = new HashMap<String, Object>();
 		fields.put("email", this.email);

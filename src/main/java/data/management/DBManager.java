@@ -38,10 +38,10 @@ public class DBManager {
 	public static void initialize() {		
 		if(init)
 			return;
-		LOGGER.finest("initial the DB");
+		LOGGER.info("initial the DB");
 		Parse.initialize(appId, restKey, serverUrl);
 		init=true;
-		LOGGER.finest("DB is up");
+		LOGGER.info("DB is up");
 	}
 
 	private static FindCallback<ParseObject> privateGetAllObjects(String objectClass,int limit,int skip,AtomicInteger mutex,List<ParseObject> allObj){
@@ -77,7 +77,7 @@ public class DBManager {
 	}
 	
 	private static void checkExsistance(final String objectClass, Map<String, Object> keyValues,GetCallback<ParseObject> o){
-		LOGGER.finest("search for object in DB");
+		LOGGER.info("search for object in DB");
 		ParseQuery<ParseObject> pq = ParseQuery.getQuery(objectClass);
 		for (String key : keyValues.keySet())
 			pq.whereEqualTo(key, keyValues.get(key));
@@ -109,14 +109,14 @@ public class DBManager {
 	}
 	
 	private static void privateDeleteObject (final String objectClass,String id,DeleteCallback c){
-		LOGGER.finest("delete object from DB");
+		LOGGER.info("delete object from DB");
 		final ParseObject obj = new ParseObject(objectClass);
 		obj.setObjectId(id);
 		obj.deleteInBackground(c);
 	}
 	
 	public static void insertObject(final String objectClass, Map<String, Object> keyValues,Map<String, Object> fields){
-		LOGGER.finest("insert object to DB");
+		LOGGER.info("insert object to DB");
 		privateInsertObject(objectClass, keyValues, fields, new SaveCallback() {
 			
 			@Override

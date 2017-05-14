@@ -1,23 +1,34 @@
 package database;
 
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.parse4j.ParseException;
 
 import data.management.DBManager;
 import data.members.ParkingSlot;
 import data.members.StickersColor;
+import util.Log;
 import data.members.ParkingSlotStatus;
 import data.members.MapLocation;
 
 public class parkingSlotTest {
-
+	
+	@BeforeClass
+	public static void classSetUp(){
+		try {		
+			Log.setup();
+		} catch (IOException e) {
+			System.out.println("Could not set up the logger");
+		}
+	}
 	@Test
 	public void check(){
 		DBManager.initialize();

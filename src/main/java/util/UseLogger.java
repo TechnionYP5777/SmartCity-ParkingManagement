@@ -8,7 +8,12 @@ public class UseLogger {
   	 private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	 public void doSomeThingAndLog() {
-				 
+		 // don't set level
+		 LOGGER.severe("Severe Log");
+         LOGGER.warning("Warning Log");
+         LOGGER.info("Info Log");
+         LOGGER.finest("Really not important");
+		 
          // set the LogLevel to Severe, only severe Messages will be written
          LOGGER.setLevel(Level.SEVERE);
          LOGGER.severe("Info Log");
@@ -19,16 +24,16 @@ public class UseLogger {
          // set the LogLevel to Info, severe, warning and info will be written
          // finest is still not written
          LOGGER.setLevel(Level.INFO);
-         LOGGER.severe("Info Log");
-         LOGGER.warning("Info Log");
+         LOGGER.severe("Severe Log");
+         LOGGER.warning("Warning Log");
          LOGGER.info("Info Log");
          LOGGER.finest("Really not important");
          
          // set the LogLevel to Info, severe, warning and info will be written
          // all is written
          LOGGER.setLevel(Level.FINEST);
-         LOGGER.severe("Info Log");
-         LOGGER.warning("Info Log");
+         LOGGER.severe("Severe Log");
+         LOGGER.warning("Warning Log");
          LOGGER.info("Info Log");
          LOGGER.finest("Really not important");
 	 }

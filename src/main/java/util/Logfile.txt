@@ -1,16 +1,22 @@
-May 12, 2017 10:22:30 PM util.UseLogger doSomeThingAndLog
+May 14, 2017 3:41:40 PM util.UseLogger doSomeThingAndLog
+SEVERE: #Severe Log
+May 14, 2017 3:41:40 PM util.UseLogger doSomeThingAndLog
+WARNING: #Warning Log
+May 14, 2017 3:41:40 PM util.UseLogger doSomeThingAndLog
+INFO: #Info Log
+May 14, 2017 3:41:40 PM util.UseLogger doSomeThingAndLog
 SEVERE: Info Log
-May 12, 2017 10:22:30 PM util.UseLogger doSomeThingAndLog
-SEVERE: Info Log
-May 12, 2017 10:22:30 PM util.UseLogger doSomeThingAndLog
-WARNING: Info Log
-May 12, 2017 10:22:30 PM util.UseLogger doSomeThingAndLog
+May 14, 2017 3:41:40 PM util.UseLogger doSomeThingAndLog
+SEVERE: Severe Log
+May 14, 2017 3:41:40 PM util.UseLogger doSomeThingAndLog
+WARNING: Warning Log
+May 14, 2017 3:41:40 PM util.UseLogger doSomeThingAndLog
 INFO: Info Log
-May 12, 2017 10:22:30 PM util.UseLogger doSomeThingAndLog
-SEVERE: Info Log
-May 12, 2017 10:22:30 PM util.UseLogger doSomeThingAndLog
-WARNING: Info Log
-May 12, 2017 10:22:30 PM util.UseLogger doSomeThingAndLog
+May 14, 2017 3:41:40 PM util.UseLogger doSomeThingAndLog
+SEVERE: Severe Log
+May 14, 2017 3:41:40 PM util.UseLogger doSomeThingAndLog
+WARNING: Warning Log
+May 14, 2017 3:41:40 PM util.UseLogger doSomeThingAndLog
 INFO: Info Log
-May 12, 2017 10:22:30 PM util.UseLogger doSomeThingAndLog
+May 14, 2017 3:41:40 PM util.UseLogger doSomeThingAndLog
 FINEST: Really not important

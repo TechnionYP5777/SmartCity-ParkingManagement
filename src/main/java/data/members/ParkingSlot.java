@@ -48,7 +48,7 @@ public class ParkingSlot extends dbMember {
 	// Create a new parking slot. Will result in a new slot in the DB.
 	public ParkingSlot(final String name, final ParkingSlotStatus status, final StickersColor color, final StickersColor defaultColor,
 			final MapLocation location, final Date endTime) throws ParseException {
-		LOGGER.finest("Create a new parking slot by name, status, color, sticker color, expiration time");
+		LOGGER.info("Create a new parking slot by name, status, color, sticker color, expiration time");
 		
 		DBManager.initialize();
 		
@@ -80,7 +80,7 @@ public class ParkingSlot extends dbMember {
 	}
 
 	public ParkingSlot(final String name) throws ParseException {
-		LOGGER.finest("Create a new parking slot by name");
+		LOGGER.info("Create a new parking slot by name");
 		DBManager.initialize();
 
 		Map<String, Object> keys = new HashMap<>();
@@ -145,7 +145,7 @@ public class ParkingSlot extends dbMember {
 	/* Setters */
 
 	public void setName(final String name) throws ParseException {
-		LOGGER.finest("Set parking slot name");
+		LOGGER.info("Set parking slot name");
 		if (name == null)
 			throw new IllegalArgumentException("name can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
@@ -162,7 +162,7 @@ public class ParkingSlot extends dbMember {
 	}
 
 	public void setStatus(final ParkingSlotStatus s) throws ParseException {
-		LOGGER.finest("Set parking slot status");
+		LOGGER.info("Set parking slot status");
 		
 		if (s == null)
 			throw new IllegalArgumentException("status can not be empty!");
@@ -180,7 +180,7 @@ public class ParkingSlot extends dbMember {
 	}
 
 	public void setColor(final StickersColor c) throws ParseException {
-		LOGGER.finest("Set parking slot color");
+		LOGGER.info("Set parking slot color");
 		
 		if (c == null)
 			throw new IllegalArgumentException("color can not be empty!");
@@ -198,7 +198,7 @@ public class ParkingSlot extends dbMember {
 	}
 
 	public void setLocation(final MapLocation l) throws ParseException {
-		LOGGER.finest("Set parking slot location");
+		LOGGER.info("Set parking slot location");
 		
 		if (l == null)
 			throw new IllegalArgumentException("location can not be empty!");
@@ -216,7 +216,7 @@ public class ParkingSlot extends dbMember {
 	}
 
 	public void setDefaultColor(final StickersColor defaultColor) throws ParseException {
-		LOGGER.finest("Set parking slot default color");
+		LOGGER.info("Set parking slot default color");
 		
 		if (defaultColor == null)
 			throw new IllegalArgumentException("default color can not be empty!");
@@ -234,7 +234,7 @@ public class ParkingSlot extends dbMember {
 	}
 
 	public void setEndTime(final Date endTime) throws ParseException {
-		LOGGER.finest("Set parking slot expiration time");
+		LOGGER.info("Set parking slot expiration time");
 		
 		if (endTime == null)
 			throw new IllegalArgumentException("end time can not be empty!");
