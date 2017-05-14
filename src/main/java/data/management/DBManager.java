@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Logger;
 
 import org.parse4j.Parse;
 import org.parse4j.ParseException;
-import org.parse4j.ParseGeoPoint;
 import org.parse4j.ParseObject;
 import org.parse4j.ParseQuery;
 import org.parse4j.callback.DeleteCallback;
@@ -34,12 +33,15 @@ public class DBManager {
 	private static final String serverUrl = "https://pm-parse-server.herokuapp.com/parse";
 	private static boolean init;
 	private static AtomicInteger registrationMutex = new AtomicInteger(0);
+	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
-	public static void initialize() {
+	public static void initialize() {		
 		if(init)
 			return;
+		LOGGER.finest("initial the DB");
 		Parse.initialize(appId, restKey, serverUrl);
 		init=true;
+		LOGGER.finest("DB is up");
 	}
 
 	private static FindCallback<ParseObject> privateGetAllObjects(String objectClass,int limit,int skip,AtomicInteger mutex,List<ParseObject> allObj){
@@ -48,35 +50,34 @@ public class DBManager {
 			@Override
 			public void done(List<ParseObject> arg0, ParseException arg1) {
 				if(arg1 == null && arg0 != null){
-					if(limit == arg0.size()){
-		                ParseQuery<ParseObject> query = ParseQuery.getQuery (objectClass);
-		                query.skip(skip+limit);
-		                query.limit(limit);
-		                query.findInBackground(privateGetAllObjects(objectClass,query.getLimit(),query.getSkip(),mutex,allObj));
-					}
-					else{
+					if (limit != arg0.size())
 						synchronized (mutex) {
-							mutex.compareAndSet(0,1);
+							mutex.compareAndSet(0, 1);
 							allObj.addAll(arg0);
 							mutex.notifyAll();
 						}
+					else {
+						ParseQuery<ParseObject> query = ParseQuery.getQuery(objectClass);
+						query.skip(skip + limit);
+						query.limit(limit);
+						query.findInBackground(
+								privateGetAllObjects(objectClass, query.getLimit(), query.getSkip(), mutex, allObj));
 					}
-					if(!mutex.compareAndSet(1,1)){
+					if(!mutex.compareAndSet(1,1))
 						allObj.addAll(arg0);
-					}
 				}
 				
-				if(arg0 == null){
+				if(arg0 == null)
 					synchronized (mutex) {
-						mutex.compareAndSet(0,1);
+						mutex.compareAndSet(0, 1);
 						mutex.notifyAll();
 					}
-				}
 			}
 		};
 	}
 	
 	private static void checkExsistance(final String objectClass, Map<String, Object> keyValues,GetCallback<ParseObject> o){
+		LOGGER.finest("search for object in DB");
 		ParseQuery<ParseObject> pq = ParseQuery.getQuery(objectClass);
 		for (String key : keyValues.keySet())
 			pq.whereEqualTo(key, keyValues.get(key));
@@ -108,12 +109,14 @@ public class DBManager {
 	}
 	
 	private static void privateDeleteObject (final String objectClass,String id,DeleteCallback c){
+		LOGGER.finest("delete object from DB");
 		final ParseObject obj = new ParseObject(objectClass);
 		obj.setObjectId(id);
 		obj.deleteInBackground(c);
 	}
 	
 	public static void insertObject(final String objectClass, Map<String, Object> keyValues,Map<String, Object> fields){
+		LOGGER.finest("insert object to DB");
 		privateInsertObject(objectClass, keyValues, fields, new SaveCallback() {
 			
 			@Override
@@ -171,8 +174,7 @@ public class DBManager {
 					
 					@Override
 					public void done(ParseException arg0) {
-						//do nothing
-						
+						//do nothing						
 					}
 				});
 			}
@@ -201,13 +203,11 @@ public class DBManager {
 		});
 		
 		synchronized (mutex) {
-			if(!"done".equals(mutex)){
+			if(!"done".equals(mutex))
 				try {
 					mutex.wait();
 				} catch (InterruptedException e) {
-					
 				}
-			}
 		}
 		
 		return objectFields;
@@ -240,14 +240,7 @@ public class DBManager {
 			@Override
 			public void done(ParseObject arg0, ParseException arg1) {
 				synchronized(loged){
-					if(arg0 != null){
-						if(arg0.get(passwordKey).equals(password))
-							loged.compareAndSet(0, 1);
-						else
-							loged.compareAndSet(0, 2);
-					}
-					else
-						loged.compareAndSet(0, 3);
+					loged.compareAndSet(0, arg0 == null ? 3 : arg0.get(passwordKey).equals(password) ? 1 : 2);
 					loged.notifyAll();
 				}
 			}
@@ -262,94 +255,79 @@ public class DBManager {
 			}
 		}
 		switch (loged.get()) {
-		case 2:
-			throw new LoginException("password doesn't match");	
-		case 3:
-			throw new LoginException("user doesn't exists");
+		case 2:{
+			LOGGER.severe("password doesn't match");
+			throw new LoginException("password doesn't match");	}
+		case 3:{
+			LOGGER.severe("user doesn't exists");
+			throw new LoginException("user doesn't exists");}
 		default:
 			break;
 		}
 	}
 
-	public static void register(String userClass, Map<String, Object> userKeys, Map<String, Object> userFields) throws LoginException{
+	public static void register(String userClass, Map<String, Object> userKeys, Map<String, Object> userFields)throws LoginException{
 		synchronized (registrationMutex) {
-			if(!registrationMutex.compareAndSet(0,0)){
+			if (registrationMutex.compareAndSet(0, 0))
+				registrationMutex.set(1);
+			else
 				try {
 					registrationMutex.wait();
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}
-			else
-				registrationMutex.set(1);
 		}
 		AtomicInteger mutex = new AtomicInteger(0);
 		checkExsistance(userClass, userKeys, new GetCallback<ParseObject>() {
-
 			@Override
 			public void done(ParseObject arg0, ParseException arg1) {
-				synchronized(mutex){
-					if(arg0 != null)
-						mutex.set(1);
-					else
-						mutex.set(2);
+				synchronized (mutex) {
+					mutex.set(arg0 != null ? 1 : 2);
 					mutex.notifyAll();
 				}
 			}
 		});
-		synchronized(mutex){
+		synchronized (mutex) {
 			try {
-				if(mutex.get() == 0)
+				if (mutex.get() == 0)
 					mutex.wait();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
-		if(mutex.get() == 1){
+		if (mutex.get() == 1) {
 			synchronized (registrationMutex) {
 				registrationMutex.set(0);
 				registrationMutex.notify();
 			}
+			LOGGER.severe("user already exists");
 			throw new LoginException("user already exists");
 		}
-		else{
-			mutex.set(0);
-			privateInsertObject(userClass, userKeys, userFields, new SaveCallback() {
-				
-				@Override
-				public void done(ParseException arg0) {
-					synchronized(mutex){
-						mutex.set(1);
-						mutex.notifyAll();
-					}
-					
-				}
-			});
-			
-			synchronized(mutex){
-				try {
-					if(mutex.get()==0)
-						mutex.wait();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+		mutex.set(0);
+		privateInsertObject(userClass, userKeys, userFields, new SaveCallback() {
+			@Override
+			public void done(ParseException arg0) {
+				synchronized (mutex) {
+					mutex.set(1);
+					mutex.notifyAll();
 				}
 			}
-			synchronized (registrationMutex) {
-				registrationMutex.set(0);
-				registrationMutex.notify();
+		});
+		synchronized (mutex) {
+			try {
+				if (mutex.get() == 0)
+					mutex.wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
-
 		}
-		
-		
-		
+		synchronized (registrationMutex) {
+			registrationMutex.set(0);
+			registrationMutex.notify();
+		}
 	}
 	
-	public static ParseObject getParseObject(final dbMember ¢) {
-		return ¢.getParseObject();
+	public static ParseObject getParseObject(final dbMember c) {
+		return c.getParseObject();
 	}
 }
