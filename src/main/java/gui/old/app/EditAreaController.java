@@ -1,4 +1,4 @@
-package gui.manager.app;
+package gui.old.app;
 
 import java.io.IOException;
 import java.net.URL;
@@ -39,7 +39,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import manager.logic.SelectAnArea;
 
 public class EditAreaController implements Initializable {
 
@@ -95,7 +94,7 @@ public class EditAreaController implements Initializable {
 
 	@FXML
 	private void changeButtonAction() {
-		final manager.logic.ManualUpdate manualUpdate = new manager.logic.ManualUpdate();
+		//final manager.logic.ManualUpdate manualUpdate = new manager.logic.ManualUpdate();
 		final Date date = durationType != DurationType.TEMPORARY ? null
 				: Date.from(untilDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
 		System.out.println("Data sent to update is:");
@@ -105,8 +104,8 @@ public class EditAreaController implements Initializable {
 		System.out.println(durationType);
 		System.out.println(date);
 		try {
-			manualUpdate.updateArea(parkingAreaElement.getAreaId(), Integer.parseInt(slotsField.getText()),
-					StickersColor.valueOf(selectedColor.toUpperCase()), durationType, date);
+			//manualUpdate.updateArea(parkingAreaElement.getAreaId(), Integer.parseInt(slotsField.getText()),
+				//	StickersColor.valueOf(selectedColor.toUpperCase()), durationType, date);
 			final Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Update Succeeded");
 			alert.setHeaderText(null);
@@ -135,15 +134,15 @@ public class EditAreaController implements Initializable {
 	@Override
 	public void initialize(final URL location, final ResourceBundle __) {
 		areaLbl.setText(parkingAreaElement.getName());
-		new SelectAnArea().getAllPossibleColors().forEach(c -> {
-			final JFXRadioButton rbtn = new JFXRadioButton(
-					Character.toUpperCase(c.charAt(0)) + c.substring(1).toLowerCase());
-			radioHBox.getChildren().addAll(rbtn);
-			rbtn.setToggleGroup(group);
-			if (c == parkingAreaElement.getColor().name())
-				rbtn.setSelected(true);
-			selectedColor = parkingAreaElement.getColor().name();
-		});
+//		new SelectAnArea().getAllPossibleColors().forEach(c -> {
+//			final JFXRadioButton rbtn = new JFXRadioButton(
+//					Character.toUpperCase(c.charAt(0)) + c.substring(1).toLowerCase());
+//			radioHBox.getChildren().addAll(rbtn);
+//			rbtn.setToggleGroup(group);
+//			if (c == parkingAreaElement.getColor().name())
+//				rbtn.setSelected(true);
+//			selectedColor = parkingAreaElement.getColor().name();
+//		});
 
 		group.selectedToggleProperty().addListener((ChangeListener<Toggle>) (ov, prev, next) -> {
 			if (group.getSelectedToggle() != null)
