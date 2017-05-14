@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import java.util.Map;
+import java.util.logging.Logger;
 
 import org.parse4j.ParseException;
 import org.parse4j.ParseGeoPoint;
@@ -39,12 +40,15 @@ public class ParkingSlot extends dbMember {
 	private Date endTime;
 	
 	private final String objectClass = "ParkingSlot";
+	
+	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	/* Constructors */
 
 	// Create a new parking slot. Will result in a new slot in the DB.
 	public ParkingSlot(final String name, final ParkingSlotStatus status, final StickersColor color, final StickersColor defaultColor,
 			final MapLocation location, final Date endTime) throws ParseException {
+		LOGGER.finest("Create a new parking slot by name, status, color, sticker color, expiration time");
 		
 		DBManager.initialize();
 		
@@ -76,6 +80,7 @@ public class ParkingSlot extends dbMember {
 	}
 
 	public ParkingSlot(final String name) throws ParseException {
+		LOGGER.finest("Create a new parking slot by name");
 		DBManager.initialize();
 
 		Map<String, Object> keys = new HashMap<>();
@@ -140,6 +145,7 @@ public class ParkingSlot extends dbMember {
 	/* Setters */
 
 	public void setName(final String name) throws ParseException {
+		LOGGER.finest("Set parking slot name");
 		if (name == null)
 			throw new IllegalArgumentException("name can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
@@ -156,6 +162,8 @@ public class ParkingSlot extends dbMember {
 	}
 
 	public void setStatus(final ParkingSlotStatus s) throws ParseException {
+		LOGGER.finest("Set parking slot status");
+		
 		if (s == null)
 			throw new IllegalArgumentException("status can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
@@ -172,6 +180,8 @@ public class ParkingSlot extends dbMember {
 	}
 
 	public void setColor(final StickersColor c) throws ParseException {
+		LOGGER.finest("Set parking slot color");
+		
 		if (c == null)
 			throw new IllegalArgumentException("color can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
@@ -188,6 +198,8 @@ public class ParkingSlot extends dbMember {
 	}
 
 	public void setLocation(final MapLocation l) throws ParseException {
+		LOGGER.finest("Set parking slot location");
+		
 		if (l == null)
 			throw new IllegalArgumentException("location can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
@@ -204,6 +216,8 @@ public class ParkingSlot extends dbMember {
 	}
 
 	public void setDefaultColor(final StickersColor defaultColor) throws ParseException {
+		LOGGER.finest("Set parking slot default color");
+		
 		if (defaultColor == null)
 			throw new IllegalArgumentException("default color can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
@@ -220,6 +234,8 @@ public class ParkingSlot extends dbMember {
 	}
 
 	public void setEndTime(final Date endTime) throws ParseException {
+		LOGGER.finest("Set parking slot expiration time");
+		
 		if (endTime == null)
 			throw new IllegalArgumentException("end time can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
@@ -237,8 +253,7 @@ public class ParkingSlot extends dbMember {
 	
 	/* Methods */
 
-	private void validateArgument(final ParkingSlotStatus s, final StickersColor c, final StickersColor defaultColor, final MapLocation l)
-			throws IllegalArgumentException {
+	private void validateArgument(final ParkingSlotStatus s, final StickersColor c, final StickersColor defaultColor, final MapLocation l) {
 		Validation.validateNewParkingSlot(s, c, defaultColor, l);
 	}
 
@@ -263,13 +278,14 @@ public class ParkingSlot extends dbMember {
 	public void changeStatus(final ParkingSlotStatus newStatus) {
 		try {
 			setStatus(newStatus);
-		} catch (final ParseException ¢) {
-			System.out.println("could not set the slot's status");
-			¢.printStackTrace();
+		} catch (final ParseException e) {
+			LOGGER.severe("could not set the slot's status");
 		}
 	};
 
 	public void removeParkingSlotFromDB() throws ParseException {
+		LOGGER.fine("Removing parking slot from DB");
+		
 		Map<String, Object> fields = new HashMap<String, Object>();
 		fields.put("status", status.ordinal());
 		fields.put("color", color.ordinal());
