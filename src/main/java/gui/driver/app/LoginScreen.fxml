@@ -32,14 +32,6 @@
                <font>
                   <Font size="15.0" />
                </font></TextField>
-            <Label fx:id="idLabel" text="User with such id doesn't exist" textFill="RED" visible="false">
-               <VBox.margin>
-                  <Insets left="25.0" top="2.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="System Italic" size="12.0" />
-               </font>
-            </Label>
             <PasswordField fx:id="pwField" prefHeight="40.0" prefWidth="280.0" promptText="Password">
                <VBox.margin>
                   <Insets left="20.0" right="20.0" top="10.0" />
@@ -48,38 +40,38 @@
                   <Font size="15.0" />
                </font>
             </PasswordField>
-            <Label id="pwLabel" text="Wrong password" textFill="RED" visible="false">
+            <Hyperlink fx:id="forgotPwHyperLink" onAction="#forgotPwClicked" style="-fx-text-fill: #607d8b;" text="Forgot your password?">
                <VBox.margin>
-                  <Insets left="25.0" top="2.0" />
+                  <Insets left="20.0" top="5.0" />
                </VBox.margin>
                <font>
-                  <Font name="System Italic" size="12.0" />
+                  <Font name="System Bold" size="13.0" />
                </font>
-            </Label>
+            </Hyperlink>
             <VBox alignment="TOP_CENTER" prefHeight="192.0" prefWidth="400.0">
                <children>
+                  <Label fx:id="errorLabel" text="Id or password are wrong!" textFill="RED" visible="false">
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
                   <Button fx:id="loginButton" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="40.0" prefWidth="250.0" style="-fx-background-color: #607d8b;" text="LOG IN" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                      <VBox.margin>
-                        <Insets left="10.0" right="10.0" top="20.0" />
+                        <Insets left="10.0" right="10.0" top="15.0" />
                      </VBox.margin>
                   </Button>
-                  <Hyperlink fx:id="forgotPwHyperLink" onAction="#forgotPwClicked" style="-fx-text-fill: #607d8b;" text="Forgot your password?">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Hyperlink>
                   <Button fx:id="createNewButton" mnemonicParsing="false" onAction="#createButtonClicked" prefHeight="40.0" prefWidth="250.0" style="-fx-background-color: #F4F4F4; -fx-border-color: #607d8b;" text="REGISTER" textFill="#607d8b">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                      <VBox.margin>
-                        <Insets top="30.0" />
+                        <Insets top="10.0" />
                      </VBox.margin>
                   </Button>
                </children>

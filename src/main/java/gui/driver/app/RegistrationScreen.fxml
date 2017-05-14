@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.driver.app.RegistrationController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.driver.app.RegistrationController">
    <children>
       <VBox prefWidth="450.0">
          <children>
@@ -28,7 +28,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="576.0" prefWidth="450.0">
                <children>
-                  <VBox prefHeight="434.0" prefWidth="385.0">
+                  <VBox prefHeight="434.0" prefWidth="370.0">
                      <children>
                         <Label text="Details">
                            <font>
@@ -39,6 +39,9 @@
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
                         </TextField>
                         <Label fx:id="idLabel" text="Invalid id" textFill="RED" visible="false">
                            <font>
@@ -52,6 +55,9 @@
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
                         </TextField>
                         <Label fx:id="emailLabel" text="Invalid email address" textFill="RED" visible="false">
                            <font>
@@ -63,8 +69,11 @@
                         </Label>
                         <TextField fx:id="carNumField" prefHeight="35.0" promptText="Car number" style="-fx-border-color: #C4C4C4;">
                            <VBox.margin>
-                              <Insets />
+                              <Insets top="10.0" />
                            </VBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
                         </TextField>
                         <Label fx:id="carNumLabel" text="Invalid car number" textFill="RED" visible="false">
                            <font>
@@ -86,6 +95,9 @@
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
                         </PasswordField>
                         <Label fx:id="pwLabel" text="Password must be at least 6 characters" textFill="RED" visible="false">
                            <font>
@@ -99,6 +111,9 @@
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
                         </PasswordField>
                         <Label fx:id="confirmPwLabel" text="Passwords don't match" textFill="RED" visible="false">
                            <font>
@@ -108,22 +123,22 @@
                               <Insets left="5.0" top="2.0" />
                            </VBox.margin>
                         </Label>
-                        <VBox alignment="TOP_CENTER" prefHeight="188.0" prefWidth="385.0">
+                        <VBox alignment="TOP_CENTER" prefHeight="150.0" prefWidth="385.0">
                            <children>
-                              <Button fx:id="createButton" mnemonicParsing="false" onAction="#createButtonClicked" prefHeight="35.0" prefWidth="300.0" style="-fx-background-color: #607d8b;" text="CREATE NEW ACCOUNT" textFill="WHITE">
+                              <Button fx:id="createButton" mnemonicParsing="false" onAction="#createButtonClicked" prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: #607d8b;" text="CREATE NEW ACCOUNT" textFill="WHITE">
                                  <VBox.margin>
-                                    <Insets top="25.0" />
+                                    <Insets top="35.0" />
                                  </VBox.margin>
                                  <font>
                                     <Font name="System Bold" size="15.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="35.0" prefWidth="300.0" style="-fx-background-color: #F4F4F4; -fx-border-color: #607d8b;" text="BACK TO LOGIN" textFill="#607d8b">
+                              <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: #F4F4F4; -fx-border-color: #607d8b;" text="BACK TO LOGIN" textFill="#607d8b">
                                  <font>
                                     <Font name="System Bold" size="15.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets top="30.0" />
+                                    <Insets top="10.0" />
                                  </VBox.margin>
                               </Button>
                            </children>

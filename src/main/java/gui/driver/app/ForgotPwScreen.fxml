@@ -9,21 +9,25 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.driver.app.ForgotPwController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.driver.app.ForgotPwController">
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
+            <HBox alignment="BOTTOM_CENTER" prefHeight="125.0" prefWidth="400.0" style="-fx-background-color: #607d8b;">
+               <children>
+                  <Label textFill="WHITE">
+                     <font>
+                        <Font size="50.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
             <VBox prefHeight="100.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="backButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#backButtonClicked" style="-fx-background-color: #808080;" text="&lt;&lt; BACK" textFill="WHITE">
-                     <VBox.margin>
-                        <Insets left="10.0" top="15.0" />
-                     </VBox.margin>
-                  </Button>
                   <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Label text="Forgot your password? Let's restore it" />
-                     </children>
                      <VBox.margin>
                         <Insets bottom="19.0" />
                      </VBox.margin>
@@ -47,7 +51,7 @@
             </TextField>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="restoreButton" mnemonicParsing="false" onAction="#restoreButtonClicked" prefHeight="35.0" prefWidth="276.0" style="-fx-background-color: #808080;" text="RESTORE PASSWORD" textFill="WHITE">
+                  <Button fx:id="restoreButton" mnemonicParsing="false" onAction="#restoreButtonClicked" prefHeight="35.0" prefWidth="276.0" style="-fx-background-color: #607d8b;" text="RESTORE PASSWORD" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
@@ -55,14 +59,14 @@
                         <Insets left="10.0" right="10.0" top="30.0" />
                      </VBox.margin>
                   </Button>
-                  <Label text="and never forget again">
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="35.0" prefWidth="300.0" style="-fx-background-color: #F4F4F4; -fx-border-color: #607d8b;" text="BACK TO LOGIN" textFill="#607d8b">
                      <font>
-                        <Font size="11.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
                      <VBox.margin>
-                        <Insets top="6.0" />
+                        <Insets top="10.0" />
                      </VBox.margin>
-                  </Label>
+                  </Button>
                </children>
             </VBox>
          </children>

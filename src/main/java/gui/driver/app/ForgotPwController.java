@@ -24,7 +24,7 @@ public class ForgotPwController {
 		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 		window.setTitle("Login");
 		Parent root = FXMLLoader.load(getClass().getResource("LoginScreen.fxml")); 
-		window.setScene(new Scene(root,300,400));		
+		window.setScene(new Scene(root,400,500));		
 		window.show();
 	}
 	
