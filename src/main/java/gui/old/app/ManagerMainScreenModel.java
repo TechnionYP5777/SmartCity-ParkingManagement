@@ -1,4 +1,4 @@
-package gui.manager.app;
+package gui.old.app;
 
 public class ManagerMainScreenModel {
 
