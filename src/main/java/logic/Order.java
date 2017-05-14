@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
@@ -36,6 +37,8 @@ public class Order {
 	
 	private final String objectClass = "Order";
 	
+	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	
 	/* Constructors */
 	
 	public Order(){
@@ -44,9 +47,11 @@ public class Order {
 
 	// Create a new order. Will result in a new order in the DB.
 	public Order(final String driverId, final String slotId, Date startTime, Date endTime) throws ParseException, InterruptedException {
+		LOGGER.info("Create a new order by slot id, start time, end time");
+
 		DBManager.initialize();
 		checkParameters(driverId, slotId, startTime, endTime);
-		String idToString=driverId.toString()+(new Date().toString());
+		String idToString=driverId.toString() + new Date().toString();
 		Map<String, Object> fields = new HashMap<String, Object>(), keyValues = new HashMap<String, Object>();
 		fields.put("driverId", driverId);
 		fields.put("slotId", slotId);
@@ -58,9 +63,9 @@ public class Order {
 		int id=0;
 		Calendar cal = Calendar.getInstance(); // creates calendar
 	    cal.setTime(startTime); // sets calendar time/date
-		for (int i=0; i<=hours; i++){
-			id++;
-			idToString=driverId.toString()+(startTime.toString())+id;
+		for (int i=0; i<=hours; ++i){
+			++id;
+			idToString=driverId.toString() + startTime.toString() + id;
 			fields.put("hour", cal.getTime().toString());
 		    cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
 			keyValues.put("id", idToString);
@@ -81,6 +86,7 @@ public class Order {
 	}
 	
 	public Order(final String id) throws ParseException {
+		LOGGER.info("Create a new order by slot id");
 		DBManager.initialize();
 		
 		Map<String, Object> keys = new HashMap<>();
@@ -142,8 +148,12 @@ public class Order {
 	/* Setters */
 
 	public void setDriverId(final String newDriverId) throws ParseException {
-		if (newDriverId == null)
+		LOGGER.info("Set driver id");
+		if (newDriverId == null){
+			LOGGER.severe("driver id can not be empty!");
 			throw new IllegalArgumentException("driver id can not be empty!");
+		}
+		
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("driverId", newDriverId);
 		newFields.put("slotId", this.slotId);
@@ -156,8 +166,12 @@ public class Order {
 	}
 
 	public void setSlotId(final String newSlot) throws ParseException {
-		if (newSlot == null)
+		LOGGER.info("Set slot id");
+		if (newSlot == null){
+			LOGGER.severe("slot id can not be empty!");
 			throw new IllegalArgumentException("slot id can not be empty!");
+		}
+
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("driverId", this.driverId);
 		newFields.put("slotId", newSlot);
@@ -170,8 +184,11 @@ public class Order {
 	}
 	
 	public void setStartTime(final Date newStart) throws ParseException {
-		if (newStart == null)
+		LOGGER.info("Set order start time");
+		if (newStart == null){
+			LOGGER.severe("start date can not be empty!");
 			throw new IllegalArgumentException("start date can not be empty!");
+		}
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("driverId", this.driverId);
 		newFields.put("slotId", this.slotId);
@@ -184,8 +201,12 @@ public class Order {
 	}
 	
 	public void setDate(final Date newDate) throws ParseException {
-		if (newDate == null)
+		LOGGER.info("Set order end time");
+		if (newDate == null){
+			LOGGER.severe("end time can not be empty!");
 			throw new IllegalArgumentException("end time can not be empty!");
+		}
+		
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("driverId", this.driverId);
 		newFields.put("slotId", this.slotId);
@@ -200,32 +221,32 @@ public class Order {
 	/* Methods */
 	
 	private static int hoursDifference(Date date1, Date date2) {
-	    final int MILLI_TO_HOUR = 1000 * 60 * 60;
-	    return (int) (date1.getTime() - date2.getTime()) / MILLI_TO_HOUR;
+	    return (int) (date1.getTime() - date2.getTime()) / (1000 * 60 * 60);
 	}
 	
 	private static void checkParameters(final String driverId, final String slotId, Date startTime, Date endTime) throws ParseException{
-		if (checkIfNull(driverId, slotId, startTime, endTime))
-			throw new IllegalArgumentException("parameters can not be empty!");
+		if (!checkIfNull(driverId, slotId, startTime, endTime))
+			return;
+		LOGGER.severe("parameters can not be empty!");
+		throw new IllegalArgumentException("parameters can not be empty!");
 	}
 		
 	private static boolean checkIfNull(final String driverId, final String slotId, Date startTime, Date endTime){
-		if (driverId==null || slotId==null || startTime==null || endTime==null){
-			return true;
-		}
-		return false;
+		return driverId == null || slotId == null || startTime == null || endTime == null;
 	}
 	
 	public void removeDriverFromDB() throws ParseException, InterruptedException {
+		//TODO: why is this method here and not in the driver class? :O
+		LOGGER.info("delete driver from DB");
 		DBManager.initialize();
 		Map<String, Object> fields = new HashMap<String, Object>();
 		int newid=1;
 		String idToString = driverId.toString()+this.date.toString()+newid;
-		for(int i=0; i<this.hoursAmount; i++){
+		for(int i=0; i<this.hoursAmount; ++i){
 			fields.put("id", idToString);
 			DBManager.deleteObject(objectClass, fields);
 			Thread.sleep(6000);
-			newid++;
+			++newid;
 			idToString = driverId.toString()+this.date.toString()+newid;
 		}
 	}
