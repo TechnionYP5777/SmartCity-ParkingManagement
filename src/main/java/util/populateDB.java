@@ -10,6 +10,7 @@ import java.util.Set;
 
 import org.parse4j.ParseException;
 
+import data.members.Area;
 import data.members.MapLocation;
 import data.members.ParkingArea;
 import data.members.ParkingAreas;
@@ -51,7 +52,7 @@ public class populateDB {
 			final String[] input = line.split(" ");
 			if (input.length != 6)
 				throw new IllegalArgumentException(
-						"Input line should look like this: [name] [status] [currentColor] [defaultColor] [lat] [lon]");
+						"Input line should look like this: [name] [status] [currentColor] [defaultColor] [lat] [lon] [area]");
 			if (!insertSlotToDB(input))
 				throw new Exception("Something went wrong. Could not add the last slot");
 		}
@@ -96,11 +97,13 @@ public class populateDB {
 	private static Boolean insertSlotToDB(final String[] args) {
 		final String name = args[0];
 		final ParkingSlotStatus status = ParkingSlotStatus.valueOf(args[1]);
+		//ADDED
+		final Area area=Area.valueOf(args[6]);
 		final StickersColor currentColor = StickersColor.valueOf(args[2]), defaultColor = StickersColor.valueOf(args[3]);
 		final double lat = Double.parseDouble(args[4]), lon = Double.parseDouble(args[5]);
 		try {
 			final ParkingSlot slot1 = new ParkingSlot(name, status, currentColor, defaultColor, new MapLocation(lat, lon),
-					new Date());
+					new Date(),area);
 		} catch (final ParseException ¢) {
 			¢.printStackTrace();
 			return false;
@@ -114,6 +117,7 @@ public class populateDB {
 		final String name = args[1];
 		final StickersColor defaultColor = StickersColor.valueOf(args[2]);
 		final double lat = Double.parseDouble(args[3]), lon = Double.parseDouble(args[4]);
+		final Area area=Area.valueOf(args[6]);
 		final Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 		for (int nameIndex = 5; nameIndex < args.length; ++nameIndex)
 			try {
@@ -124,7 +128,7 @@ public class populateDB {
 			}
 
 		try {
-			final ParkingArea area = new ParkingArea(id, name, new MapLocation(lat, lon), slots, defaultColor);
+			final ParkingArea area2 = new ParkingArea(id, name, new MapLocation(lat, lon), slots, defaultColor);
 		} catch (final ParseException ¢) {
 			¢.printStackTrace();
 			return false;

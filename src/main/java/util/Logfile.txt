@@ -1,22 +1,678 @@
-May 14, 2017 3:41:40 PM util.UseLogger doSomeThingAndLog
-SEVERE: #Severe Log
-May 14, 2017 3:41:40 PM util.UseLogger doSomeThingAndLog
-WARNING: #Warning Log
-May 14, 2017 3:41:40 PM util.UseLogger doSomeThingAndLog
-INFO: #Info Log
-May 14, 2017 3:41:40 PM util.UseLogger doSomeThingAndLog
-SEVERE: Info Log
-May 14, 2017 3:41:40 PM util.UseLogger doSomeThingAndLog
-SEVERE: Severe Log
-May 14, 2017 3:41:40 PM util.UseLogger doSomeThingAndLog
-WARNING: Warning Log
-May 14, 2017 3:41:40 PM util.UseLogger doSomeThingAndLog
-INFO: Info Log
-May 14, 2017 3:41:40 PM util.UseLogger doSomeThingAndLog
-SEVERE: Severe Log
-May 14, 2017 3:41:40 PM util.UseLogger doSomeThingAndLog
-WARNING: Warning Log
-May 14, 2017 3:41:40 PM util.UseLogger doSomeThingAndLog
-INFO: Info Log
-May 14, 2017 3:41:40 PM util.UseLogger doSomeThingAndLog
-FINEST: Really not important
+May 15, 2017 10:31:47 PM data.management.DBManager initialize
+INFO: initial the DB
+May 15, 2017 10:31:47 PM data.management.DBManager initialize
+INFO: DB is up
+May 15, 2017 10:31:47 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:31:47 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:31:47 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:31:57 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:31:57 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:31:58 PM data.members.ParkingSlot setDefaultColor
+INFO: Set parking slot default color
+May 15, 2017 10:31:58 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:31:58 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:32:00 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:32:00 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
+May 15, 2017 10:32:06 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:32:06 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:32:06 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:32:16 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:32:16 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:32:27 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:32:28 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:32:28 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:32:29 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:32:30 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
+May 15, 2017 10:32:35 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:32:35 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:32:35 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:32:45 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:32:45 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:32:46 PM data.members.ParkingSlot setLocation
+INFO: Set parking slot location
+May 15, 2017 10:32:46 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:32:52 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:32:52 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:32:53 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:32:54 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:32:54 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:32:55 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:33:02 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:33:02 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:33:03 PM data.members.ParkingSlot setLocation
+INFO: Set parking slot location
+May 15, 2017 10:33:03 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:33:03 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:33:03 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:33:04 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:33:10 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:33:10 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:33:10 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:33:20 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:33:20 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:33:32 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:33:33 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:33:35 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:33:35 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:33:36 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:33:37 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
+May 15, 2017 10:33:42 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:33:42 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:33:42 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:33:52 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:33:52 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:33:53 PM data.members.ParkingSlot setEndTime
+INFO: Set parking slot expiration time
+May 15, 2017 10:33:53 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:33:53 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:33:54 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:33:56 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
+May 15, 2017 10:34:00 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:34:00 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:34:00 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:34:10 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:34:10 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:34:13 PM data.members.ParkingSlot setRank
+INFO: Set parking slot color
+May 15, 2017 10:34:13 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:34:13 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:34:14 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:34:15 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
+May 15, 2017 10:34:20 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:34:20 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:34:20 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:34:30 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:34:30 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:34:32 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:34:44 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:34:44 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:34:47 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:34:48 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
+May 15, 2017 10:34:53 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:34:53 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:34:53 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:35:03 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:35:03 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:35:04 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:35:15 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:35:15 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:35:16 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:35:17 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
+May 15, 2017 10:35:22 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:35:22 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:35:22 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:35:32 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:35:32 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:35:33 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:35:44 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:35:44 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:35:45 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:35:46 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
+May 15, 2017 10:35:51 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:35:51 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:35:51 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:36:01 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:36:01 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:36:03 PM data.members.ParkingSlot setName
+INFO: Set parking slot name
+May 15, 2017 10:36:03 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:36:03 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:36:04 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:36:05 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
+May 15, 2017 10:36:10 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:36:10 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:36:10 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:36:20 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:36:20 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:36:20 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:36:30 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:36:30 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:36:31 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:36:33 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
+May 15, 2017 10:36:41 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:36:41 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:36:42 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:36:43 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
+May 15, 2017 10:36:48 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:36:48 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:36:48 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:36:58 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:36:58 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:36:58 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:37:04 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:37:04 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:37:11 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:37:12 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:37:14 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:37:15 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:37:16 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:37:17 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:37:18 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:37:20 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:37:21 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:37:21 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:37:22 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:37:24 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
+May 15, 2017 10:37:28 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:37:28 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:37:30 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:37:32 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
+May 15, 2017 10:37:36 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:37:36 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:37:36 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:37:46 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:37:46 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:37:47 PM data.members.ParkingSlot setEndTime
+INFO: Set parking slot expiration time
+May 15, 2017 10:37:47 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:37:53 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:37:53 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:37:55 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:38:03 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:38:03 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:38:05 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:38:07 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
+May 15, 2017 10:38:11 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:38:11 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:38:11 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:38:21 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:38:21 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:38:22 PM data.members.ParkingSlot setArea
+INFO: Set parking slot area
+May 15, 2017 10:38:22 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:38:22 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:38:23 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:38:25 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
+May 15, 2017 10:38:29 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:38:29 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:38:29 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:38:39 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:38:39 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:38:47 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:38:58 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:38:58 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:39:00 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:39:02 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
+May 15, 2017 10:39:06 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:39:06 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:39:06 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:39:16 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:39:16 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:39:17 PM data.members.ParkingSlot setStatus
+INFO: Set parking slot status
+May 15, 2017 10:39:17 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:39:23 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:39:23 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:39:25 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:39:32 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:39:32 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:39:34 PM data.members.ParkingSlot setStatus
+INFO: Set parking slot status
+May 15, 2017 10:39:34 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:39:34 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:39:34 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:39:35 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:39:36 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
+May 15, 2017 10:39:41 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:39:41 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:39:41 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:39:51 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:39:51 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:39:52 PM data.members.ParkingSlot setStatus
+INFO: Set parking slot status
+May 15, 2017 10:39:52 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:39:58 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:39:58 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:39:59 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:40:06 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:40:06 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:40:07 PM data.members.ParkingSlot setStatus
+INFO: Set parking slot status
+May 15, 2017 10:40:07 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:40:13 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:40:13 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:40:15 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:40:17 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
+May 15, 2017 10:40:21 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:40:21 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:40:21 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:40:31 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:40:31 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:40:44 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:40:45 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:40:46 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:40:47 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:40:48 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:40:49 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:40:50 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:40:51 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:40:52 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:40:52 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:40:53 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:40:54 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
+May 15, 2017 10:40:59 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:40:59 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:40:59 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:41:09 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:41:09 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:41:10 PM data.members.ParkingSlot setStatus
+INFO: Set parking slot status
+May 15, 2017 10:41:10 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:41:10 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:41:11 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:41:12 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
+May 15, 2017 10:41:17 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:41:17 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:41:17 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:41:27 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:41:27 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:41:28 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:41:39 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:41:39 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:41:41 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:41:42 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
+May 15, 2017 10:41:47 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:41:47 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:41:47 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:41:57 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:41:57 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:41:58 PM data.members.ParkingSlot setLocation
+INFO: Set parking slot location
+May 15, 2017 10:41:58 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:41:58 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:42:02 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:42:03 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
+May 15, 2017 10:42:08 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:42:08 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:42:08 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:42:18 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:42:18 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:42:19 PM data.members.ParkingSlot setArea
+INFO: Set parking slot area
+May 15, 2017 10:42:19 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:42:25 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:42:25 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:42:26 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:42:34 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:42:34 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:42:35 PM data.members.ParkingSlot setArea
+INFO: Set parking slot area
+May 15, 2017 10:42:35 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:42:41 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:42:41 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:42:42 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:42:45 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
+May 15, 2017 10:42:48 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:42:48 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:42:48 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:42:58 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:42:58 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:43:00 PM data.members.ParkingSlot setName
+INFO: Set parking slot name
+May 15, 2017 10:43:00 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:43:06 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:43:06 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:43:07 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:43:15 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:43:15 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:43:16 PM data.members.ParkingSlot setName
+INFO: Set parking slot name
+May 15, 2017 10:43:16 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:43:22 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:43:22 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:43:23 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:43:30 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:43:30 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:43:32 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:43:34 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
+May 15, 2017 10:43:38 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:43:38 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:43:38 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:43:48 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:43:48 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:43:50 PM data.members.ParkingSlot setRank
+INFO: Set parking slot color
+May 15, 2017 10:43:50 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:43:56 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:43:56 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:43:59 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:44:06 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:44:06 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:44:08 PM data.members.ParkingSlot setRank
+INFO: Set parking slot color
+May 15, 2017 10:44:08 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:44:14 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:44:14 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:44:16 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:44:17 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
+May 15, 2017 10:44:22 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name, status, color, sticker color, expiration time
+May 15, 2017 10:44:22 PM data.management.DBManager insertObject
+INFO: insert object to DB
+May 15, 2017 10:44:22 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:44:32 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:44:32 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:44:33 PM data.members.ParkingSlot setDefaultColor
+INFO: Set parking slot default color
+May 15, 2017 10:44:33 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:44:39 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:44:39 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:44:41 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:44:48 PM data.members.ParkingSlot <init>
+INFO: Create a new parking slot by name
+May 15, 2017 10:44:48 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:44:50 PM data.management.DBManager checkExsistance
+INFO: search for object in DB
+May 15, 2017 10:44:54 PM data.management.DBManager privateDeleteObject
+INFO: delete object from DB
