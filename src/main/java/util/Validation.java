@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import org.parse4j.ParseException;
 
 import data.management.DBManager;
+import data.members.Area;
 import data.members.MapLocation;
 import data.members.ParkingSlotStatus;
 import data.members.StickersColor;
@@ -89,7 +90,7 @@ public class Validation {
 		return (!DBManager.getObjectFieldsByKey(objectClass, key).isEmpty());
 	}
 	
-	public static void validateNewParkingSlot(final ParkingSlotStatus s, final StickersColor c, final StickersColor defaultColor, final MapLocation l)
+	public static void validateNewParkingSlot(final ParkingSlotStatus s, final StickersColor c, final StickersColor defaultColor, final MapLocation l, final Area a)
 			throws IllegalArgumentException {
 		if (s == null){
 			LOGGER.severe("Driver is not in the right format");
@@ -102,6 +103,10 @@ public class Validation {
 		if (defaultColor == null){
 			LOGGER.severe("defaultColor can not be empty!");
 			throw new IllegalArgumentException("defaultColor can not be empty!");
+		}
+		if (a == null){
+			LOGGER.severe("area can not be empty!");
+			throw new IllegalArgumentException("area can not be empty!");
 		}
 		if (l != null)
 			return;

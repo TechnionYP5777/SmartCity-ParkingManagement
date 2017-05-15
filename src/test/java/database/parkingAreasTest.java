@@ -15,6 +15,7 @@ import org.parse4j.ParseObject;
 import org.parse4j.ParseQuery;
 
 import data.management.DBManager;
+import data.members.Area;
 import data.members.MapLocation;
 import data.members.ParkingArea;
 import data.members.ParkingAreas;
@@ -39,11 +40,11 @@ public class parkingAreasTest {
 		try {
 			// insert new ParkingArea and ParkingSlots
 			final ParkingSlot slot1 = new ParkingSlot("parkingAreasTest1", ParkingSlotStatus.TAKEN, StickersColor.GREEN,
-					StickersColor.GREEN, new MapLocation(32.123, 32.123), new Date());
+					StickersColor.GREEN, new MapLocation(32.123, 32.123), new Date(), Area.TAUB);
 			final Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
 			slots.add(new ParkingSlot("parkingAreasTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN,
-					StickersColor.GREEN, new MapLocation(0, 0), new Date()));
+					StickersColor.GREEN, new MapLocation(0, 0), new Date(), Area.TAUB));
 			assert new ParkingArea(20, "t1", new MapLocation(0, 0), slots, StickersColor.GREEN) != null;
 
 			// test function
@@ -89,11 +90,11 @@ public class parkingAreasTest {
 		try {
 			// insert new ParkingArea and ParkingSlots
 			final ParkingSlot slot1 = new ParkingSlot("parkingAreasTest1", ParkingSlotStatus.FREE, StickersColor.GREEN,
-					StickersColor.GREEN, new MapLocation(32.123, 32.123), new Date());
+					StickersColor.GREEN, new MapLocation(32.123, 32.123), new Date(), Area.TAUB);
 			final Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
 			slots.add(new ParkingSlot("parkingAreasTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN,
-					StickersColor.GREEN, new MapLocation(0, 0), new Date()));
+					StickersColor.GREEN, new MapLocation(0, 0), new Date(), Area.TAUB));
 			assert new ParkingArea(20, "t1", new MapLocation(0, 0), slots, StickersColor.GREEN) != null;
 
 			// test function
@@ -139,11 +140,11 @@ public class parkingAreasTest {
 		try {
 			// insert new ParkingArea and ParkingSlots
 			final ParkingSlot slot1 = new ParkingSlot("parkingAreasTest1", ParkingSlotStatus.FREE, StickersColor.GREEN,
-					StickersColor.GREEN, new MapLocation(32.123, 32.123), new Date());
+					StickersColor.GREEN, new MapLocation(32.123, 32.123), new Date(),Area.TAUB);
 			final Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
 			slots.add(new ParkingSlot("parkingAreasTest2", ParkingSlotStatus.TAKEN, StickersColor.GREEN,
-					StickersColor.GREEN, new MapLocation(0, 0), new Date()));
+					StickersColor.GREEN, new MapLocation(0, 0), new Date(),Area.TAUB));
 			assert new ParkingArea(20, "t1", new MapLocation(0, 0), slots, StickersColor.GREEN) != null;
 
 			// test function
@@ -189,11 +190,11 @@ public class parkingAreasTest {
 		try {
 			// insert new ParkingArea and ParkingSlots
 			final ParkingSlot slot1 = new ParkingSlot("parkingAreasTest1", ParkingSlotStatus.FREE, StickersColor.GREEN,
-					StickersColor.GREEN, new MapLocation(32.123, 32.123), new Date());
+					StickersColor.GREEN, new MapLocation(32.123, 32.123), new Date(),Area.TAUB);
 			final Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
 			slots.add(new ParkingSlot("parkingAreasTest2", ParkingSlotStatus.FREE, StickersColor.GREEN,
-					StickersColor.GREEN, new MapLocation(0, 0), new Date()));
+					StickersColor.GREEN, new MapLocation(0, 0), new Date(),Area.TAUB));
 			assert new ParkingArea(20, "t1", new MapLocation(0, 0), slots, StickersColor.GREEN) != null;
 
 			// test function
@@ -239,9 +240,9 @@ public class parkingAreasTest {
 		// Arrange
 		DBManager.initialize();
 		final ParkingSlot slot1 = new ParkingSlot("testS1", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
-				new MapLocation(0, 0), new Date()),
+				new MapLocation(0, 0), new Date(),Area.TAUB),
 				slot2 = new ParkingSlot("testS2", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
-						new MapLocation(0, 0), new Date());
+						new MapLocation(0, 0), new Date(),Area.TAUB);
 		final Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 		slots.add(slot1);
 		slots.add(slot2);
@@ -273,11 +274,11 @@ public class parkingAreasTest {
 		try {
 			// insert new ParkingArea and ParkingSlots
 			final ParkingSlot slot1 = new ParkingSlot("parkingAreasTest1", ParkingSlotStatus.FREE, StickersColor.GREEN,
-					StickersColor.GREEN, new MapLocation(32.123, 32.123), new Date());
+					StickersColor.GREEN, new MapLocation(32.123, 32.123), new Date(),Area.TAUB);
 			final Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
 			slots.add(new ParkingSlot("parkingAreasTest2", ParkingSlotStatus.FREE, StickersColor.GREEN,
-					StickersColor.GREEN, new MapLocation(0, 0), new Date()));
+					StickersColor.GREEN, new MapLocation(0, 0), new Date(),Area.TAUB));
 			assert new ParkingArea(20, "t1", new MapLocation(0, 0), slots, StickersColor.GREEN) != null;
 
 			// test function
@@ -323,11 +324,11 @@ public class parkingAreasTest {
 		try {
 			// insert new ParkingArea and ParkingSlots
 			final ParkingSlot slot1 = new ParkingSlot("parkingAreasTest1", ParkingSlotStatus.FREE, StickersColor.GREEN,
-					StickersColor.GREEN, new MapLocation(32.123, 32.123), new Date());
+					StickersColor.GREEN, new MapLocation(32.123, 32.123), new Date(),Area.TAUB);
 			final Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 			slots.add(slot1);
 			slots.add(new ParkingSlot("parkingAreasTest2", ParkingSlotStatus.FREE, StickersColor.GREEN,
-					StickersColor.GREEN, new MapLocation(0, 0), new Date()));
+					StickersColor.GREEN, new MapLocation(0, 0), new Date(),Area.TAUB));
 			assert new ParkingArea(20, "t1", new MapLocation(0, 0), slots, StickersColor.GREEN) != null;
 
 			// test function
@@ -410,9 +411,9 @@ public class parkingAreasTest {
 		// Arrange
 		DBManager.initialize();
 		final ParkingSlot slot1 = new ParkingSlot("testS1", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
-				new MapLocation(0, 0), new Date()),
+				new MapLocation(0, 0), new Date(),Area.TAUB),
 				slot2 = new ParkingSlot("testS2", ParkingSlotStatus.FREE, StickersColor.RED, StickersColor.RED,
-						new MapLocation(0, 0), new Date());
+						new MapLocation(0, 0), new Date(),Area.TAUB);
 		final Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 		slots.add(slot1);
 		slots.add(slot2);

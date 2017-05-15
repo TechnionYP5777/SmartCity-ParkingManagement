@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 import org.parse4j.ParseException;
 import org.parse4j.ParseGeoPoint;
 import org.parse4j.ParseObject;
-import org.parse4j.ParseQuery;
 
 import data.management.DBManager;
 import util.Validation;
@@ -27,17 +26,20 @@ public class ParkingSlot extends dbMember {
 	// The slot's status. Can be either free, taken or unavailable
 	private ParkingSlotStatus status;
 
-	// The slot's color. Can be any sticker color
-	private StickersColor color;
+	// The slot's rank. Can be any sticker color
+	private StickersColor rank;
 
 	// The slot's location
 	private MapLocation location;
 
-	// The slot's default color
+	// The slot's default rank
 	private StickersColor defaultColor;
 
 	// The slot's endTime. if null the color permanent, else temporary
 	private Date endTime;
+	
+	// The slot's area
+	private Area area;
 	
 	private final String objectClass = "ParkingSlot";
 	
@@ -46,35 +48,35 @@ public class ParkingSlot extends dbMember {
 	/* Constructors */
 
 	// Create a new parking slot. Will result in a new slot in the DB.
-	public ParkingSlot(final String name, final ParkingSlotStatus status, final StickersColor color, final StickersColor defaultColor,
-			final MapLocation location, final Date endTime) throws ParseException {
+	public ParkingSlot(final String name, final ParkingSlotStatus status, final StickersColor rank, final StickersColor defaultColor,
+			final MapLocation location, final Date endTime, final Area area) throws ParseException {
 		LOGGER.info("Create a new parking slot by name, status, color, sticker color, expiration time");
 		
 		DBManager.initialize();
 		
-		validateArgument(status, color, defaultColor, location);
+		validateArgument(status, rank, defaultColor, location, area);
 		Map<String, Object> fields = new HashMap<String, Object>(), keyValues = new HashMap<String, Object>();
 		fields.put("status", status.ordinal());
-		fields.put("color", color.ordinal());
+		fields.put("rank", rank.ordinal());
 		fields.put("defaultColor", defaultColor.ordinal());
 		fields.put("location", new ParseGeoPoint(location.getLat(), location.getLon()));
 		fields.put("endTime", endTime);
-		
+		fields.put("area", area.ordinal());
 		keyValues.put("name", name);
 		DBManager.insertObject(objectClass, keyValues, fields);
 	}
 
 	public ParkingSlot(final ParseObject obj) throws ParseException {
-		//TODO
 		DBManager.initialize();
 		parseObject = obj;
 		name = parseObject.getString("name");
 		status = ParkingSlotStatus.values()[parseObject.getInt("status")];
-		color = StickersColor.values()[parseObject.getInt("color")];
+		rank = StickersColor.values()[parseObject.getInt("rank")];
 		final ParseGeoPoint geo = parseObject.getParseGeoPoint("location");
 		location = new MapLocation(geo.getLatitude(), geo.getLongitude());
 		defaultColor = StickersColor.values()[parseObject.getInt("defaultColor")];
 		endTime = parseObject.getDate("endTime");
+		area = Area.values()[parseObject.getInt("area")];
 		objectId = parseObject.getObjectId();
 		parseObject.save();
 	}
@@ -87,9 +89,10 @@ public class ParkingSlot extends dbMember {
 		keys.put("name", name);
 		Map<String,Object> returnV = DBManager.getObjectFieldsByKey(objectClass, keys);
 		
-		this.color=StickersColor.values()[(int)returnV.get("color")];
+		this.rank=StickersColor.values()[(int)returnV.get("rank")];
 		
 		this.defaultColor= StickersColor.values()[(int)returnV.get("defaultColor")];
+		this.area= Area.values()[(int)returnV.get("area")];
 		this.endTime= (Date) returnV.get("endTime");
 		
 		final ParseGeoPoint geo = (ParseGeoPoint) returnV.get("location");
@@ -115,10 +118,10 @@ public class ParkingSlot extends dbMember {
 		return ParkingSlotStatus.values()[(int)DBManager.getObjectFieldsByKey("ParkingSlot", key).get("status")];
 	}
 
-	public StickersColor getColor() {
+	public StickersColor getRank() {
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("name", name);
-		return StickersColor.values()[(int)DBManager.getObjectFieldsByKey("ParkingSlot", key).get("color")];
+		return StickersColor.values()[(int)DBManager.getObjectFieldsByKey("ParkingSlot", key).get("rank")];
 	}
 
 	public MapLocation getLocation() {
@@ -141,6 +144,12 @@ public class ParkingSlot extends dbMember {
 		return ((Date) DBManager.getObjectFieldsByKey(objectClass, key).get("endTime"));
 	
 	}
+	
+	public Area getArea() {
+		Map<String, Object> key = new HashMap<String, Object>();
+		key.put("name", name);
+		return Area.values()[(int)DBManager.getObjectFieldsByKey("ParkingSlot", key).get("area")];
+	}
 
 	/* Setters */
 
@@ -150,10 +159,11 @@ public class ParkingSlot extends dbMember {
 			throw new IllegalArgumentException("name can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", name);
-		newFields.put("color", this.color.ordinal());
+		newFields.put("rank", this.rank.ordinal());
 		newFields.put("defaultColor", this.defaultColor.ordinal());
 		newFields.put("status", this.status.ordinal());
 		newFields.put("endTime", this.endTime);
+		newFields.put("area", this.area.ordinal());
 		newFields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
 		
 		Map<String, Object> keys = new HashMap<String, Object>();
@@ -168,10 +178,11 @@ public class ParkingSlot extends dbMember {
 			throw new IllegalArgumentException("status can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
-		newFields.put("color", this.color.ordinal());
+		newFields.put("rank", this.rank.ordinal());
 		newFields.put("defaultColor", this.defaultColor.ordinal());
 		newFields.put("status", s.ordinal());
 		newFields.put("endTime", this.endTime);
+		newFields.put("area", this.area.ordinal());
 		newFields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
 		
 		Map<String, Object> keys = new HashMap<String, Object>();
@@ -179,17 +190,18 @@ public class ParkingSlot extends dbMember {
 		DBManager.update(objectClass, keys, newFields);
 	}
 
-	public void setColor(final StickersColor c) throws ParseException {
+	public void setRank(final StickersColor c) throws ParseException {
 		LOGGER.info("Set parking slot color");
 		
 		if (c == null)
-			throw new IllegalArgumentException("color can not be empty!");
+			throw new IllegalArgumentException("rank can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
-		newFields.put("color", c.ordinal());
+		newFields.put("rank", c.ordinal());
 		newFields.put("defaultColor", this.defaultColor.ordinal());
 		newFields.put("status", this.status.ordinal());
 		newFields.put("endTime", this.endTime);
+		newFields.put("area", this.area.ordinal());
 		newFields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
 		
 		Map<String, Object> keys = new HashMap<String, Object>();
@@ -204,10 +216,11 @@ public class ParkingSlot extends dbMember {
 			throw new IllegalArgumentException("location can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
-		newFields.put("color", this.color.ordinal());
+		newFields.put("rank", this.rank.ordinal());
 		newFields.put("defaultColor", this.defaultColor.ordinal());
 		newFields.put("status", this.status.ordinal());
 		newFields.put("endTime", this.endTime);
+		newFields.put("area", this.area.ordinal());
 		newFields.put("location", new ParseGeoPoint(l.getLat(), l.getLon()));
 		
 		Map<String, Object> keys = new HashMap<String, Object>();
@@ -222,10 +235,30 @@ public class ParkingSlot extends dbMember {
 			throw new IllegalArgumentException("default color can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
-		newFields.put("color", this.color.ordinal());
+		newFields.put("rank", this.rank.ordinal());
 		newFields.put("defaultColor", defaultColor.ordinal());
 		newFields.put("status", this.status.ordinal());
 		newFields.put("endTime", this.endTime);
+		newFields.put("area", this.area.ordinal());
+		newFields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
+		
+		Map<String, Object> keys = new HashMap<String, Object>();
+		keys.put("name", this.name);
+		DBManager.update(objectClass, keys, newFields);
+	}
+	
+	public void setArea(final Area newArea) throws ParseException {
+		LOGGER.info("Set parking slot area");
+		
+		if (newArea == null)
+			throw new IllegalArgumentException("area can not be empty!");
+		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("name", this.name);
+		newFields.put("rank", this.rank.ordinal());
+		newFields.put("defaultColor", this.defaultColor.ordinal());
+		newFields.put("status", this.status.ordinal());
+		newFields.put("endTime", this.endTime);
+		newFields.put("area", newArea.ordinal());
 		newFields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
 		
 		Map<String, Object> keys = new HashMap<String, Object>();
@@ -240,10 +273,11 @@ public class ParkingSlot extends dbMember {
 			throw new IllegalArgumentException("end time can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
-		newFields.put("color", this.color.ordinal());
+		newFields.put("rank", this.rank.ordinal());
 		newFields.put("defaultColor", this.defaultColor.ordinal());
 		newFields.put("status", this.status.ordinal());
 		newFields.put("endTime", endTime);
+		newFields.put("area", this.area.ordinal());
 		newFields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
 		
 		Map<String, Object> keys = new HashMap<String, Object>();
@@ -253,26 +287,8 @@ public class ParkingSlot extends dbMember {
 	
 	/* Methods */
 
-	private void validateArgument(final ParkingSlotStatus s, final StickersColor c, final StickersColor defaultColor, final MapLocation l) {
-		Validation.validateNewParkingSlot(s, c, defaultColor, l);
-	}
-
-	private ParseObject findContaingParkingArea() {
-		//TODO: are we still want to hold to each parkingArea a list of slots?
-		//or maybe for each slot to hold an area?
-		final ParseQuery<ParseObject> $ = ParseQuery.getQuery("ParkingArea");
-		$.whereEqualTo("parkingSlots", parseObject);
-		try {
-			return $.find().get(0);
-		} catch (final ParseException ¢) {
-			System.out.println("Could not find the containing area");
-			¢.printStackTrace();
-			return null;
-		}
-	}
-
-	public String findContainingParkingArea() {
-		return (String) findContaingParkingArea().get("name");
+	private void validateArgument(final ParkingSlotStatus s, final StickersColor c, final StickersColor defaultColor, final MapLocation l, final Area a) {
+		Validation.validateNewParkingSlot(s, c, defaultColor, l,a);
 	}
 
 	public void changeStatus(final ParkingSlotStatus newStatus) {
@@ -288,9 +304,9 @@ public class ParkingSlot extends dbMember {
 		
 		Map<String, Object> fields = new HashMap<String, Object>();
 		fields.put("status", status.ordinal());
-		fields.put("color", color.ordinal());
+		fields.put("rank", rank.ordinal());
 		fields.put("defaultColor", defaultColor.ordinal());
-		
+		fields.put("area", area.ordinal());
 		fields.put("location", new ParseGeoPoint(location.getLat(), location.getLon()));
 		
 		fields.put("endTime", endTime);
@@ -298,9 +314,6 @@ public class ParkingSlot extends dbMember {
 		DBManager.deleteObject(objectClass, fields);
 	}
 
-	public void removeParkingSlotFromAreaAndDB() throws ParseException {
-		new ParkingArea(findContainingParkingArea()).removeParkingSlot(this);
-	}
 
 
 
