@@ -259,10 +259,13 @@ public class parkingSlotTest {
 		try{
 			new ParkingSlot("testParkingSlot1").setArea(Area.POOL);
 			Thread.sleep(6000);
+			System.out.println("1");
 			Assert.assertEquals(new ParkingSlot("testParkingSlot1").getArea(), Area.POOL);
 			Thread.sleep(6000);
+			System.out.println("2");
 			new ParkingSlot("testParkingSlot1").setArea(Area.TAUB);
 			Thread.sleep(6000);
+			System.out.println("3");
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();

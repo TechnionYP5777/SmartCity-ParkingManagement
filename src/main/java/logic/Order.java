@@ -51,7 +51,7 @@ public class Order {
 
 		DBManager.initialize();
 		checkParameters(driverId, slotId, startTime, endTime);
-		String idToString=driverId.toString() + new Date().toString();
+		String idToString=driverId + "" + new Date();
 		Map<String, Object> fields = new HashMap<String, Object>(), keyValues = new HashMap<String, Object>();
 		fields.put("driverId", driverId);
 		fields.put("slotId", slotId);
@@ -59,14 +59,14 @@ public class Order {
 		int hours =hoursDifference(endTime, startTime);
 		if (hours<=0)
 			return;
-		fields.put("hoursAmount", hours+1);
+		fields.put("hoursAmount", hours + 1);
 		int id=0;
 		Calendar cal = Calendar.getInstance(); // creates calendar
 	    cal.setTime(startTime); // sets calendar time/date
 		for (int i=0; i<=hours; ++i){
 			++id;
-			idToString=driverId.toString() + startTime.toString() + id;
-			fields.put("hour", cal.getTime().toString());
+			idToString=driverId + "" + startTime + id;
+			fields.put("hour", cal.getTime() + "");
 		    cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
 			keyValues.put("id", idToString);
 			DBManager.insertObject(objectClass, keyValues, fields);
@@ -235,19 +235,18 @@ public class Order {
 		return driverId == null || slotId == null || startTime == null || endTime == null;
 	}
 	
-	public void removeDriverFromDB() throws ParseException, InterruptedException {
-		//TODO: why is this method here and not in the driver class? :O
+	public void removeOrderFromDB() throws ParseException, InterruptedException {
 		LOGGER.info("delete driver from DB");
 		DBManager.initialize();
 		Map<String, Object> fields = new HashMap<String, Object>();
 		int newid=1;
-		String idToString = driverId.toString()+this.date.toString()+newid;
+		String idToString = driverId + "" + this.date + newid;
 		for(int i=0; i<this.hoursAmount; ++i){
 			fields.put("id", idToString);
 			DBManager.deleteObject(objectClass, fields);
 			Thread.sleep(6000);
 			++newid;
-			idToString = driverId.toString()+this.date.toString()+newid;
+			idToString = driverId + "" + this.date + newid;
 		}
 	}
 	

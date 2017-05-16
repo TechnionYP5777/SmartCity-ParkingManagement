@@ -25,15 +25,15 @@ public class orderTest {
 		    cal.setTime(startTime); // sets calendar time/date
 		    cal.add(Calendar.HOUR_OF_DAY, 2);
 			Date endTime =cal.getTime();
-			this.startDate = startTime.toString();
+			this.startDate = startTime + "";
 			this.driverId= "3333333";
 			new Order("3333333", "123", startTime, endTime);
 			Thread.sleep(6000);
 			
-			String id=this.driverId.toString()+startDate.toString()+"1";
+			String id=this.driverId + "" + startDate + "1";
 			Order o = new Order(id);
 			Thread.sleep(6000);
-			o.removeDriverFromDB();
+			o.removeOrderFromDB();
 			Thread.sleep(6000);
 
 		} catch (final Exception ¢) {
@@ -81,10 +81,8 @@ public class orderTest {
 		DBManager.initialize();
 		try{
 			
-			// create new order
-			Date startTime =new Date();
-			Date endTime =startTime;
-			this.startDate = startTime.toString();
+			Date startTime = new Date(), endTime = startTime;
+			this.startDate = startTime + "";
 			this.driverId= "3333333";
 			new Order("3333333", "123", startTime, endTime);
 			Thread.sleep(6000);
@@ -106,15 +104,15 @@ public class orderTest {
 		    cal.setTime(startTime); // sets calendar time/date
 		    cal.add(Calendar.HOUR_OF_DAY, 1);
 			Date endTime =cal.getTime();
-			this.startDate = startTime.toString();
+			this.startDate = startTime + "";
 			this.driverId= "3333333";
 			new Order("3333333", "123", startTime, endTime);
 			Thread.sleep(6000);
 			
-			String id=this.driverId.toString()+startDate.toString()+"1";
+			String id=this.driverId + "" + startDate + "1";
 			Order o = new Order(id);
 			Thread.sleep(6000);
-			o.removeDriverFromDB();
+			o.removeOrderFromDB();
 			Thread.sleep(6000);
 
 		} catch (final Exception ¢) {
