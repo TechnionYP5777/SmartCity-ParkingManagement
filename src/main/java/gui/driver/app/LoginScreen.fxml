@@ -48,9 +48,9 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Hyperlink>
-            <VBox alignment="TOP_CENTER" prefHeight="192.0" prefWidth="400.0">
+            <VBox alignment="TOP_CENTER" prefHeight="180.0" prefWidth="400.0">
                <children>
-                  <Label fx:id="errorLabel" text="Id or password are wrong!" textFill="RED" visible="false">
+                  <Label fx:id="errorLabel" text="Id or password are wrong" textFill="RED" visible="false">
                      <VBox.margin>
                         <Insets top="30.0" />
                      </VBox.margin>

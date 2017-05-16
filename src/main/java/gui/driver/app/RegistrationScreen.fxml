@@ -21,7 +21,7 @@
                         <Font size="50.0" />
                      </font>
                      <HBox.margin>
-                        <Insets bottom="15.0" />
+                        <Insets bottom="10.0" />
                      </HBox.margin>
                   </Label>
                </children>
@@ -35,7 +35,7 @@
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="idField" prefHeight="35.0" promptText="Id" style="-fx-border-color: #C4C4C4;">
+                        <TextField fx:id="idField" prefHeight="40.0" promptText="Id" style="-fx-border-color: #C4C4C4;">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
@@ -51,7 +51,7 @@
                               <Insets left="5.0" top="2.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="emailField" prefHeight="35.0" promptText="Email" style="-fx-border-color: #C4C4C4;">
+                        <TextField fx:id="emailField" prefHeight="40.0" promptText="Email" style="-fx-border-color: #C4C4C4;">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
@@ -67,7 +67,7 @@
                               <Insets left="5.0" top="2.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="carNumField" prefHeight="35.0" promptText="Car number" style="-fx-border-color: #C4C4C4;">
+                        <TextField fx:id="carNumField" prefHeight="40.0" promptText="Car number" style="-fx-border-color: #C4C4C4;">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
@@ -91,7 +91,7 @@
                               <Insets top="20.0" />
                            </VBox.margin>
                         </Label>
-                        <PasswordField fx:id="pwField" prefHeight="35.0" promptText="Password" style="-fx-border-color: #C4C4C4;">
+                        <PasswordField fx:id="pwField" prefHeight="40.0" promptText="Password" style="-fx-border-color: #C4C4C4;">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
@@ -107,7 +107,7 @@
                               <Insets left="5.0" top="2.0" />
                            </VBox.margin>
                         </Label>
-                        <PasswordField fx:id="confirmPwField" prefHeight="35.0" promptText="Confirm Password" style="-fx-border-color: #C4C4C4;">
+                        <PasswordField fx:id="confirmPwField" prefHeight="40.0" promptText="Confirm Password" style="-fx-border-color: #C4C4C4;">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
@@ -125,7 +125,7 @@
                         </Label>
                         <VBox alignment="TOP_CENTER" prefHeight="150.0" prefWidth="385.0">
                            <children>
-                              <Button fx:id="createButton" mnemonicParsing="false" onAction="#createButtonClicked" prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: #607d8b;" text="CREATE NEW ACCOUNT" textFill="WHITE">
+                              <Button fx:id="createButton" mnemonicParsing="false" onAction="#createButtonClicked" prefHeight="40.0" prefWidth="250.0" style="-fx-background-color: #607d8b;" text="CREATE NEW ACCOUNT" textFill="WHITE">
                                  <VBox.margin>
                                     <Insets top="35.0" />
                                  </VBox.margin>
@@ -133,7 +133,7 @@
                                     <Font name="System Bold" size="15.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="35.0" prefWidth="250.0" style="-fx-background-color: #F4F4F4; -fx-border-color: #607d8b;" text="BACK TO LOGIN" textFill="#607d8b">
+                              <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="40.0" prefWidth="250.0" style="-fx-background-color: #F4F4F4; -fx-border-color: #607d8b;" text="BACK TO LOGIN" textFill="#607d8b">
                                  <font>
                                     <Font name="System Bold" size="15.0" />
                                  </font>
