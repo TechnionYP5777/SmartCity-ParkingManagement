@@ -12,8 +12,8 @@ import org.parse4j.ParseException;
 
 import data.members.Area;
 import data.members.MapLocation;
-import data.members.ParkingArea;
-import data.members.ParkingAreas;
+//import data.members.ParkingArea;
+//import data.members.ParkingAreas;
 //import data.members.ParkingAreasM;
 import data.members.ParkingSlot;
 import data.members.ParkingSlotStatus;
@@ -28,7 +28,7 @@ public class populateDB {
 		} catch (final Exception ¢) {
 			System.out.println("Something went wrong. Could not add the parking slots");
 			¢.printStackTrace();
-		}
+		} /*
 		try {
 			insertParkingArea();
 		} catch (final Exception ¢) {
@@ -40,7 +40,7 @@ public class populateDB {
 		} catch (final Exception ¢) {
 			System.out.println("Something went wrong. Could not add the parking areas");
 			¢.printStackTrace();
-		}
+		}*/
 		System.out.println("Done Populating DB");
 
 	}
@@ -128,8 +128,8 @@ public class populateDB {
 			}
 
 		try {
-			final ParkingArea area2 = new ParkingArea(id, name, new MapLocation(lat, lon), slots, defaultColor);
-		} catch (final ParseException ¢) {
+			//final ParkingArea area2 = new ParkingArea(id, name, new MapLocation(lat, lon), slots, defaultColor);
+		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			return false;
 		}
@@ -138,7 +138,7 @@ public class populateDB {
 
 	@SuppressWarnings("unused")
 	private static Boolean insertAreasToDB(final String[] args) {
-		final Set<ParkingArea> area = new HashSet<ParkingArea>();
+		/*inal Set<ParkingArea> area = new HashSet<ParkingArea>();
 		for (final String arg : args)
 			try {
 				area.add(new ParkingArea(arg));
@@ -152,7 +152,7 @@ public class populateDB {
 		} catch (final ParseException ¢) {
 			¢.printStackTrace();
 			return false;
-		}
+		}*/
 		return true;
 	}
 }

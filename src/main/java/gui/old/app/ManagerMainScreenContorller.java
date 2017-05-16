@@ -29,8 +29,8 @@ import com.jfoenix.controls.JFXButton;
 import com.lynden.gmapsfx.GoogleMapView;
 
 import data.members.MapLocation;
-import data.members.ParkingArea;
-import data.members.ParkingAreas;
+//import data.members.ParkingArea;
+//import data.members.ParkingAreas;
 import gui.map.ManegerMap;
 
 public class ManagerMainScreenContorller implements Initializable {
@@ -95,21 +95,21 @@ public class ManagerMainScreenContorller implements Initializable {
 		editBtn.setDisable(true);
 
 		// Initialize parking areas list
-		final ParkingAreas pa = new ParkingAreas();
+		//final ParkingAreas pa = new ParkingAreas();
 		try {
-			parkingAreasListView.setItems(FXCollections.observableList((ArrayList<String>) pa.getParkingAreasNames()));
-		} catch (final ParseException ¢) {
+			//parkingAreasListView.setItems(FXCollections.observableList((ArrayList<String>) pa.getParkingAreasNames()));
+		} catch (final Exception ¢) {
 			¢.printStackTrace();
 		}
 
 		// Initialize map
-		final ParkingAreas pareas = new ParkingAreas();
+		//final ParkingAreas pareas = new ParkingAreas();
 		HashMap<String, MapLocation> locations = new HashMap<>();
 		final HashMap<String, String> colors = new HashMap<>();
 		try {
-			locations = pareas.getParkingAreasLocation();
-			pareas.getParkingAreasColor().forEach((k, v) -> colors.put(k, v.name()));
-		} catch (final ParseException e1) {
+			//locations = pareas.getParkingAreasLocation();
+			//pareas.getParkingAreasColor().forEach((k, v) -> colors.put(k, v.name()));
+		} catch (final Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
@@ -124,10 +124,10 @@ public class ManagerMainScreenContorller implements Initializable {
 		mapVBox.getChildren().addAll(view);
 
 		// Initialize total slots amount
-		final ParkingAreas parkingAreas = new ParkingAreas();
+		//final ParkingAreas parkingAreas = new ParkingAreas();
 		try {
-			allFreeSlots = parkingAreas.getNumOfFreeSlots();
-			allTakenSlots = parkingAreas.getNumOfTakenSlots();
+			//allFreeSlots = parkingAreas.getNumOfFreeSlots();
+			//allTakenSlots = parkingAreas.getNumOfTakenSlots();
 		} catch (final Exception e) {
 			allTakenSlots = allFreeSlots = 0;
 			freeSlotsLbl.setTextFill(Color.web("#cc3300"));
@@ -147,12 +147,12 @@ public class ManagerMainScreenContorller implements Initializable {
 			}
 			map.focusOnParkingArea(next);
 			editBtn.setDisable(false);
-			ParkingArea area;
+			//ParkingArea area;
 			int freeSlots = 0, takenSlots = 0;
 			try {
-				area = new ParkingArea(next);
-				freeSlots = (int) area.getFreeSlots().stream().count();
-				takenSlots = (int) area.getTakenSlots().stream().count();
+				//area = new ParkingArea(next);
+				//freeSlots = (int) area.getFreeSlots().stream().count();
+				//takenSlots = (int) area.getTakenSlots().stream().count();
 				freeSlotsLbl.setTextFill(Color.web("#000"));
 				takenSlotsLbl.setTextFill(Color.web("#000"));
 				totalSlotsLbl.setTextFill(Color.web("#000"));

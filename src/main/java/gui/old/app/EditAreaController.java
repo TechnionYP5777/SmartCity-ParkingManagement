@@ -14,7 +14,7 @@ import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXToggleButton;
 
 import data.members.DurationType;
-import data.members.ParkingArea;
+//import data.members.ParkingArea;
 import data.members.StickersColor;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -98,7 +98,7 @@ public class EditAreaController implements Initializable {
 		final Date date = durationType != DurationType.TEMPORARY ? null
 				: Date.from(untilDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
 		System.out.println("Data sent to update is:");
-		System.out.println(parkingAreaElement.getAreaId());
+		//System.out.println(parkingAreaElement.getAreaId());
 		System.out.println(slotsField.getText());
 		System.out.println(StickersColor.valueOf(selectedColor.toUpperCase()));
 		System.out.println(durationType);
@@ -122,7 +122,7 @@ public class EditAreaController implements Initializable {
 		}
 	}
 
-	private static ParkingArea parkingAreaElement;
+	//private static ParkingArea parkingAreaElement;
 
 	// Toggle Switch preparations
 	private final SimpleBooleanProperty switchedOn = new SimpleBooleanProperty(false);
@@ -133,7 +133,7 @@ public class EditAreaController implements Initializable {
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle __) {
-		areaLbl.setText(parkingAreaElement.getName());
+		//areaLbl.setText(parkingAreaElement.getName());
 //		new SelectAnArea().getAllPossibleColors().forEach(c -> {
 //			final JFXRadioButton rbtn = new JFXRadioButton(
 //					Character.toUpperCase(c.charAt(0)) + c.substring(1).toLowerCase());
@@ -187,11 +187,11 @@ public class EditAreaController implements Initializable {
 	}
 
 	public static void display(final String parkingAreaID) throws IOException, ParseException {
-		parkingAreaElement = new ParkingArea(parkingAreaID);
+		//parkingAreaElement = new ParkingArea(parkingAreaID);
 		final Stage window = new Stage();
 		final Parent editAreaParent = FXMLLoader.load(EditAreaController.class.getResource("EditArea.fxml"));
 		window.initModality(Modality.APPLICATION_MODAL);
-		window.setTitle("Edit Parking Area: " + parkingAreaElement.getName());
+		//window.setTitle("Edit Parking Area: " + parkingAreaElement.getName());
 		window.setScene(new Scene(editAreaParent));
 		window.showAndWait();
 	}
