@@ -1,14 +1,27 @@
 language: java
-jdk: oraclejdk8
+
+jdk:
+ - oraclejdk8
+ 
+sudo: false
 addons:
  apt:
   packages:
    - oracle-java8-installer
+
+# safe list: add here branches you want to verify the build & tests will pass
+branches:
+ only:
+  - master
+
+
 # add this if you use maven for your project and want to verify mvn build is successful and all unit tests pass.
 script:
  - mvn test
  - mvn cobertura:cobertura
 
+
+# running coverage tool
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 

@@ -28,7 +28,7 @@ public class orderTest {
 			this.startDate = startTime + "";
 			this.driverId= "3333333";
 			new Order("3333333", "123", startTime, endTime);
-			Thread.sleep(6000);
+			Thread.sleep(10000);
 			
 			String id=this.driverId + "" + startDate + "1";
 			Order o = new Order(id);
@@ -85,7 +85,7 @@ public class orderTest {
 			this.startDate = startTime + "";
 			this.driverId= "3333333";
 			new Order("3333333", "123", startTime, endTime);
-			Thread.sleep(6000);
+			Thread.sleep(10000);
 
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
@@ -107,7 +107,7 @@ public class orderTest {
 			this.startDate = startTime + "";
 			this.driverId= "3333333";
 			new Order("3333333", "123", startTime, endTime);
-			Thread.sleep(6000);
+			Thread.sleep(10000);
 			
 			String id=this.driverId + "" + startDate + "1";
 			Order o = new Order(id);
