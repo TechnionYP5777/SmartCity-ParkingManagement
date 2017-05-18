@@ -22,7 +22,7 @@ public class LoginContorller {
 	@FXML
 	private Hyperlink forgotPwHyperLink;
 	@FXML
-	private Label errorLabel;
+	private Label statusLabel;
 	@FXML
 	private Button loginButton;
 	@FXML
@@ -41,20 +41,26 @@ public class LoginContorller {
 		
 		String id = idField.getText();
 		String pw = pwField.getText();
+		statusLabel.setText("ID or Password are wrong");
 		
 		if (id.equals("") || pw.equals("")){
-			errorLabel.setVisible(true);
+			statusLabel.setVisible(true);
 			return;		
 		}
 				
 		try {
+			
 			DBManager.login("Driver", "id", id, "password", pw);
+			statusLabel.setText("Successful login");
+			statusLabel.setStyle(" -fx-text-fill: green; -fx-font-size: 15px; -fx-font-weight: bold");
+			statusLabel.setVisible(true);
+
 			// TODO: direct to or's screen
 
 		} catch (LoginException e){
 			String err = e.toString();
 			if (err.equals("user doesn't exists") || err.equals("password doesn't match")){
-				errorLabel.setVisible(true);
+				statusLabel.setVisible(true);
 				return;		
 			}
 
