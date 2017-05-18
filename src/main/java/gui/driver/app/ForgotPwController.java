@@ -65,15 +65,15 @@ public class ForgotPwController {
 		upperStatusLabel.setVisible(true);
 		lowerStatusLabel.setVisible(true);
 		
-		
-		//TODO: run separate thread with this:
-		
-		Thread.sleep(3000);
-		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-		window.setTitle("Login");
-		Parent root = FXMLLoader.load(getClass().getResource("LoginScreen.fxml")); 
-		window.setScene(new Scene(root,400,500));		
-		window.show();
+		/* TODO: run separate thread with this:
+		 
+			Thread.sleep(3000);
+			Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+			window.setTitle("Login");
+			Parent root = FXMLLoader.load(getClass().getResource("LoginScreen.fxml")); 
+			window.setScene(new Scene(root,400,500));		
+			window.show(); */
+			
 		
 	}
 }

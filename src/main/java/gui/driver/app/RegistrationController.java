@@ -44,6 +44,8 @@ public class RegistrationController {
 	private Label pwLabel;
 	@FXML
 	private Label confirmPwLabel;
+	@FXML
+	private Label statusLabel;
 	
 	@FXML
 	public void backButtonClicked(ActionEvent event) throws Exception {
@@ -60,6 +62,7 @@ public class RegistrationController {
 		carNumLabel.setVisible(false);
 		pwLabel.setVisible(false);
 		confirmPwLabel.setVisible(false);
+		statusLabel.setVisible(false);
 		
 		idField.setStyle("-fx-border-color: #C4C4C4 ; -fx-border-width: 1px ;");
 		emailField.setStyle("-fx-border-color: #C4C4C4 ; -fx-border-width: 1px ;");
@@ -122,12 +125,15 @@ public class RegistrationController {
 	
 			try {
 				DBManager.register("Driver", keys, fields);
-				// TODO: notify about user Creation
+				statusLabel.setVisible(true);
+				// TODO: redirect to screen
 				
 			} catch(LoginException e){
 				if(e.toString() == "user already exists"){
-					idField.setText("User with such id already exists");
-					idField.setVisible(true);
+					
+					idLabel.setText("User with such id already exists");
+					idField.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
+					idLabel.setVisible(true);
 				}
 			}
 		}
