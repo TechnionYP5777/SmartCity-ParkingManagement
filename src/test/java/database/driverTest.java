@@ -192,16 +192,22 @@ public class driverTest {
 			Assert.fail();
 		}
 	}
-/*	
+	
 	@Test
 	public void testSetCarId(){
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Map<String, Object> keys = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		keys.put("id", "333333333");
+		fields.put("id", "333333333");
+		fields.put("email", "stam2@gmail.com");
+		fields.put("carId", "1234568");
+		fields.put("password", "1234567");
+		Mockito.when(dbm.getObjectFieldsByKey("Driver", keys)).thenReturn(fields);
 		try{
-			new Driver("333333333").setCarId("1234568");
-			Thread.sleep(6000);
-			Driver d =new Driver("333333333");
-			Thread.sleep(6000);
+			new Driver("333333333",dbm).setCarId("1234568");
+			Driver d =new Driver("333333333",dbm);
 			Assert.assertEquals("1234568",d.getCarId());
-			Thread.sleep(6000);
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
@@ -210,11 +216,18 @@ public class driverTest {
 	
 	@Test
 	public void testSetPassword(){
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Map<String, Object> keys = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		keys.put("id", "333333333");
+		fields.put("id", "333333333");
+		fields.put("email", "stam2@gmail.com");
+		fields.put("carId", "1234568");
+		fields.put("password", "12345678");
+		Mockito.when(dbm.getObjectFieldsByKey("Driver", keys)).thenReturn(fields);
 		try{
-			new Driver("333333333").setPassword("12345678");
-			Thread.sleep(6000);
-			Assert.assertEquals("12345678",new Driver("333333333").getPassword());
-			Thread.sleep(6000);
+			new Driver("333333333",dbm).setPassword("12345678");
+			Assert.assertEquals("12345678",new Driver("333333333",dbm).getPassword());
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
@@ -223,9 +236,10 @@ public class driverTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void checkIdNull() {
-		DBManager.initialize();
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		dbm.initialize();
 		try {
-			new Driver(null, "stam@gmail.com", "1234567", "1234567");
+			new Driver(null, "stam@gmail.com", "1234567", "1234567",dbm);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -233,9 +247,10 @@ public class driverTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void checkEmailNull() {
-		DBManager.initialize();
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		dbm.initialize();
 		try {
-			new Driver("333333333", null, "1234567", "1234567");
+			new Driver("333333333", null, "1234567", "1234567",dbm);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -243,9 +258,10 @@ public class driverTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void checkCarIdNull() {
-		DBManager.initialize();
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		dbm.initialize();
 		try {
-			new Driver("333333333", "stam@gmail.com", null, "1234567");
+			new Driver("333333333", "stam@gmail.com", null, "1234567",dbm);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -253,9 +269,10 @@ public class driverTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void checkPasswordNull() {
-		DBManager.initialize();
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		dbm.initialize();
 		try {
-			new Driver("333333333", "stam@gmail.com", "1234567", null);
+			new Driver("333333333", "stam@gmail.com", "1234567", null,dbm);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -263,9 +280,10 @@ public class driverTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void checkDuplicatedId() {
-		DBManager.initialize();
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		dbm.initialize();
 		try {
-			new Driver("333333333", "stam@gmail.com", "1234567", null);
+			new Driver("333333333", "stam@gmail.com", "1234567", null,dbm);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -273,9 +291,10 @@ public class driverTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void checkIdTest() {
-		DBManager.initialize();
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		dbm.initialize();
 		try {
-			new Driver("333333333").setId(null);
+			new Driver("333333333",dbm).setId(null);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -283,9 +302,18 @@ public class driverTest {
 	
 	@Test
 	public void checkIdTest2() throws InterruptedException {
-		DBManager.initialize();
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Map<String, Object> keys = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		keys.put("id", "333333333");
+		fields.put("id", "333333333");
+		fields.put("email", "stam2@gmail.com");
+		fields.put("carId", "1234568");
+		fields.put("password", "12345678");
+		Mockito.when(dbm.getObjectFieldsByKey("Driver", keys)).thenReturn(fields);
+		dbm.initialize();
 		try {
-			new Driver("333333333").setId("333333333");
+			new Driver("333333333",dbm).setId("333333333");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -293,9 +321,10 @@ public class driverTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void checkCarIdTest() {
-		DBManager.initialize();
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		dbm.initialize();
 		try {
-			new Driver("333333333").setCarId(null);
+			new Driver("333333333",dbm).setCarId(null);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -303,9 +332,10 @@ public class driverTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void checkCarIdTest2() {
-		DBManager.initialize();
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		dbm.initialize();
 		try {
-			new Driver("333333333").setCarId("123");
+			new Driver("333333333",dbm).setCarId("123");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -313,9 +343,10 @@ public class driverTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void checkCarIdTest3() {
-		DBManager.initialize();
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		dbm.initialize();
 		try {
-			new Driver("333333333").setCarId("12345678");
+			new Driver("333333333",dbm).setCarId("12345678");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -323,9 +354,10 @@ public class driverTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void checkPasswordTest() {
-		DBManager.initialize();
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		dbm.initialize();
 		try {
-			new Driver("333333333").setPassword(null);
+			new Driver("333333333",dbm).setPassword(null);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -333,9 +365,10 @@ public class driverTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void checkPasswordTest2() {
-		DBManager.initialize();
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		dbm.initialize();
 		try {
-			new Driver("333333333").setPassword("12345678910");
+			new Driver("333333333",dbm).setPassword("12345678910");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -343,9 +376,10 @@ public class driverTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void checkEmailTest() {
-		DBManager.initialize();
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		dbm.initialize();
 		try {
-			new Driver("333333333").setEmail(null);
+			new Driver("333333333",dbm).setEmail(null);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -353,9 +387,10 @@ public class driverTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void checkEmailTest2() {
-		DBManager.initialize();
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		dbm.initialize();
 		try {
-			new Driver("333333333").setEmail("123");
+			new Driver("333333333",dbm).setEmail("123");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -363,9 +398,10 @@ public class driverTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void checkEmailTest3() {
-		DBManager.initialize();
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		dbm.initialize();
 		try {
-			new Driver("333333333").setEmail("123.com");
+			new Driver("333333333",dbm).setEmail("123.com");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -373,23 +409,30 @@ public class driverTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void checkEmailTest4() {
-		DBManager.initialize();
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		dbm.initialize();
 		try {
-			new Driver("333333333").setEmail("123@com");
+			new Driver("333333333",dbm).setEmail("123@com");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	@After
+	@Test
 	public void finishTest() throws ParseException, InterruptedException {
-		//delete object
-		new Driver("333333333").removeDriverFromDB();
-		Thread.sleep(6000);
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Map<String, Object> keys = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		keys.put("id", "333333333");
+		fields.put("id", "333333333");
+		fields.put("email", "stam@gmail.com");
+		fields.put("carId", "1234567");
+		fields.put("password", "1234567");
+		Mockito.when(dbm.getObjectFieldsByKey("Driver", keys)).thenReturn(fields);
 		
-		new Driver("333333332").removeDriverFromDB();
-		Thread.sleep(6000);
+		new Driver("333333333",dbm).removeDriverFromDB();
+		Mockito.verify(dbm, Mockito.times(2)).initialize();
+		Mockito.verify(dbm, Mockito.times(1)).deleteObject("Driver", fields);
 	}
 
-*/
 }
