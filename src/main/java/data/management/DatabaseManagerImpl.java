@@ -10,7 +10,12 @@ import org.parse4j.callback.SaveCallback;
 
 import Exceptions.LoginException;
 
-public class DatabaseComunicationImpl implements DatabaseManager {
+public class DatabaseManagerImpl implements DatabaseManager {
+	
+	@Override
+	public void initialize() {
+		DBManager.initialize();
+	}
 
 	@Override
 	public void insertObject(String objectClass, Map<String, Object> keyValues, Map<String, Object> fields) {
@@ -64,5 +69,4 @@ public class DatabaseComunicationImpl implements DatabaseManager {
 			throws LoginException {
 		DBManager.register(userClass, userKeys, userFields);
 	}
-
 }

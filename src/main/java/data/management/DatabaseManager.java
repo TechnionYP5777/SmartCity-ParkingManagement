@@ -12,6 +12,8 @@ import Exceptions.LoginException;
 
 public interface DatabaseManager {
 
+	public void initialize();
+	
 	public void insertObject(final String objectClass, Map<String, Object> keyValues,Map<String, Object> fields);
 	
 	public void insertObject(final String objectClass,Map<String, Object> keyValues, Map<String, Object> fields,SaveCallback c);

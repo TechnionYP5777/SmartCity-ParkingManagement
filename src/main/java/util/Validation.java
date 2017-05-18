@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import org.parse4j.ParseException;
 
 import data.management.DBManager;
+import data.management.DatabaseManager;
 import data.members.Area;
 import data.members.MapLocation;
 import data.members.ParkingSlotStatus;
@@ -82,12 +83,12 @@ public class Validation {
 		return b;
 	}
 	
-	public static boolean isIdExist(final String newId){
-		DBManager.initialize();
+	public static boolean isIdExist(final String newId, DatabaseManager dbm){
+		dbm.initialize();
 		final String objectClass = "Driver";
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("id", newId);
-		return (!DBManager.getObjectFieldsByKey(objectClass, key).isEmpty());
+		return (!dbm.getObjectFieldsByKey(objectClass, key).isEmpty());
 	}
 	
 	public static void validateNewParkingSlot(final ParkingSlotStatus s, final StickersColor c, final StickersColor defaultColor, final MapLocation l, final Area a)

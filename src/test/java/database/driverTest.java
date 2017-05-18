@@ -1,91 +1,127 @@
 package database;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.parse4j.ParseException;
 
-import data.management.DBManager;
+import data.management.DatabaseManager;
 import data.members.Driver;
-
+import org.mockito.*;
 public class driverTest {
 	/**
 	 * @author Inbal Matityahu
 	 * @since 5/2/16 This class will test Driver class
 	 */
 	
-	@Before
+	@Test
 	public void setUpTest() throws ParseException, InterruptedException {
-		DBManager.initialize();
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Map<String, Object> keyVal = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		fields.put("email", "stam@gmail.com");
+		fields.put("carId", "1234567");
+		fields.put("password", "1234567");
+		
+		keyVal.put("id", "333333333");
 		try{
 			// create new driver
-			 new Driver("333333333", "stam@gmail.com", "1234567", "1234567");
-			Thread.sleep(6000);
-			
-			new Driver("333333332", "stam@gmail.com", "1234567", "1234567");
-			Thread.sleep(6000);
-
+			 new Driver("333333333", "stam@gmail.com", "1234567", "1234567",dbm);
+			 Mockito.verify(dbm, Mockito.times(1)).initialize();
+			 Mockito.verify(dbm, Mockito.times(1)).insertObject("Driver", keyVal, fields);
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
-			Assert.fail();
 		}
+				
 	}
 	
 	@Test
 	public void testGetId(){
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Map<String, Object> keys = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		keys.put("id", "333333333");
+		fields.put("id", "333333333");
+		Mockito.when(dbm.getObjectFieldsByKey("Driver", keys)).thenReturn(fields);
 		try{
-			Assert.assertEquals(new Driver("333333333").getId(), "333333333");
-			Thread.sleep(10000);
+			Assert.assertEquals(new Driver("333333333", dbm).getId(), "333333333");
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
 	
-
 	@Test
 	public void testGetEmail(){
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Map<String, Object> keys = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		keys.put("id", "333333333");
+		fields.put("id", "333333333");
+		fields.put("email", "stam@gmail.com");
+		Mockito.when(dbm.getObjectFieldsByKey("Driver", keys)).thenReturn(fields);
 		try{
-			Assert.assertEquals(new Driver("333333333").getEmail(), "stam@gmail.com");
-			Thread.sleep(10000);
+			Assert.assertEquals(new Driver("333333333",dbm).getEmail(), "stam@gmail.com");
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
 	
-
 	@Test
 	public void testGetCarId(){
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Map<String, Object> keys = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		keys.put("id", "333333333");
+		fields.put("id", "333333333");
+		fields.put("email", "stam@gmail.com");
+		fields.put("carId", "1234567");
+		Mockito.when(dbm.getObjectFieldsByKey("Driver", keys)).thenReturn(fields);
 		try{
-			Assert.assertEquals(new Driver("333333333").getCarId(), "1234567");
-			Thread.sleep(10000);
+			Assert.assertEquals(new Driver("333333333",dbm).getCarId(), "1234567");
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
 	
-
 	@Test
 	public void testGetPassword(){
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Map<String, Object> keys = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		keys.put("id", "333333333");
+		fields.put("id", "333333333");
+		fields.put("email", "stam@gmail.com");
+		fields.put("carId", "1234567");
+		fields.put("password", "1234567");
+		Mockito.when(dbm.getObjectFieldsByKey("Driver", keys)).thenReturn(fields);
 		try{
-			Assert.assertEquals(new Driver("333333333").getPassword(), "1234567");
-			Thread.sleep(10000);
+			Assert.assertEquals(new Driver("333333333",dbm).getPassword(), "1234567");
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
 	
-
 	@Test
 	public void checkObject(){
-		DBManager.initialize();
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Map<String, Object> keys = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		keys.put("id", "333333333");
+		fields.put("id", "333333333");
+		fields.put("email", "stam@gmail.com");
+		fields.put("carId", "1234567");
+		fields.put("password", "1234567");
+		Mockito.when(dbm.getObjectFieldsByKey("Driver", keys)).thenReturn(fields);
 		try{
-			Driver d = new Driver("333333333");
-			Thread.sleep(6000);	
+			Driver d = new Driver("333333333",dbm);
 			Assert.assertEquals(d.getId(), "333333333");
 			Assert.assertEquals(d.getEmail(), "stam@gmail.com");
 			Assert.assertEquals(d.getCarId(), "1234567");
@@ -96,13 +132,20 @@ public class driverTest {
 		}
 	}
 	
-
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetId() throws InterruptedException{
-		DBManager.initialize();
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Map<String, Object> keys = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		keys.put("id", "333333332");
+		fields.put("id", "333333332");
+		fields.put("email", "stam@gmail.com");
+		fields.put("carId", "1234567");
+		fields.put("password", "1234567");
+		Mockito.when(dbm.getObjectFieldsByKey("Driver", keys)).thenReturn(fields);
+		
 		try{
-			new Driver("333333333").setId("333333332");
-			Thread.sleep(6000);
+			new Driver("333333333",dbm).setId("333333332");
 		}catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -110,16 +153,20 @@ public class driverTest {
 	
 	@Test
 	public void testSetId2() throws InterruptedException{
-		DBManager.initialize();
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Map<String, Object> keys = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		keys.put("id", "333333334");
+		Mockito.when(dbm.getObjectFieldsByKey("Driver", keys)).thenReturn(new HashMap<>());
 		try{
 			
-			new Driver("333333333").setId("333333334");
-			Thread.sleep(6000);
-			String s= new Driver("333333334").getId();
-			Thread.sleep(6000);
+			new Driver("333333333",dbm).setId("333333334");
+			Mockito.when(dbm.getObjectFieldsByKey("Driver", keys)).thenReturn(keys);
+			String s= new Driver("333333334",dbm).getId();
 			Assert.assertEquals("333333334",s);
-			new Driver("333333334").setId("333333333");
-			Thread.sleep(6000);
+			keys.put("id", "333333333");
+			Mockito.when(dbm.getObjectFieldsByKey("Driver", keys)).thenReturn(new HashMap<>());
+			new Driver("333333334",dbm).setId("333333333");
 		}catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -127,18 +174,25 @@ public class driverTest {
 	
 	@Test
 	public void testSetEmail(){
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Map<String, Object> keys = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		keys.put("id", "333333333");
+		fields.put("id", "333333333");
+		fields.put("email", "stam2@gmail.com");
+		fields.put("carId", "1234567");
+		fields.put("password", "1234567");
+		Mockito.when(dbm.getObjectFieldsByKey("Driver", keys)).thenReturn(fields);
 		try{
-			new Driver("333333333").setEmail("stam2@gmail.com");
-			Thread.sleep(6000);
-			Assert.assertEquals("stam2@gmail.com",new Driver("333333333").getEmail());
-			Thread.sleep(6000);
-			new Driver("333333333").setEmail("stam@gmail.com");
+			new Driver("333333333",dbm).setEmail("stam2@gmail.com");
+			Assert.assertEquals("stam2@gmail.com",new Driver("333333333",dbm).getEmail());
+			new Driver("333333333",dbm).setEmail("stam@gmail.com");
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
-	
+/*	
 	@Test
 	public void testSetCarId(){
 		try{
@@ -206,7 +260,6 @@ public class driverTest {
 			e.printStackTrace();
 		}
 	}
-	
 
 	@Test(expected = IllegalArgumentException.class)
 	public void checkDuplicatedId() {
@@ -337,5 +390,6 @@ public class driverTest {
 		new Driver("333333332").removeDriverFromDB();
 		Thread.sleep(6000);
 	}
-	
+
+*/
 }

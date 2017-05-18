@@ -8,6 +8,7 @@ import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
 
 import data.management.DBManager;
+import data.management.DatabaseManager;
 import util.Validation;
 
 public class Driver {
@@ -29,17 +30,19 @@ public class Driver {
 	// The driver's password. Through which the driver can login
 	private String password;
 
+	private DatabaseManager dbm;
+	
 	private final String objectClass = "Driver";
 	
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-	
 	/* Constructors */
 
 	// Create a new driver. Will result in a new driver in the DB.
-	public Driver(final String id, final String email, final String carId, final String password) throws ParseException {
+	public Driver(final String id, final String email, final String carId, final String password, DatabaseManager manager) throws ParseException {
 		LOGGER.info("Create a new driver by id, email, car id, password");
-		DBManager.initialize();
+		this.dbm = manager;
+		dbm.initialize();
 		
 		validateArgument(id, email, carId, password);
 		Map<String, Object> fields = new HashMap<String, Object>(), keyValues = new HashMap<String, Object>();
@@ -48,12 +51,12 @@ public class Driver {
 		fields.put("password", password);
 		
 		keyValues.put("id", id);
-		DBManager.insertObject(objectClass, keyValues, fields);
+		
+		dbm.insertObject(objectClass, keyValues, fields);
 	}
 	
 	public Driver(final ParseObject obj) throws ParseException {
 		LOGGER.info("Create a new driver by Parse object");
-		DBManager.initialize();
 
 		id = obj.getString("id");
 		email = obj.getString("email");
@@ -62,13 +65,14 @@ public class Driver {
 		
 	}
 	
-	public Driver(final String id) throws ParseException {
+	public Driver(final String id , DatabaseManager manager) throws ParseException {
 		LOGGER.info("Create a new driver by id");
-		DBManager.initialize();
+		this.dbm = manager;
+		dbm.initialize();
 
 		Map<String, Object> keys = new HashMap<>();
 		keys.put("id", id);
-		Map<String,Object> returnV = DBManager.getObjectFieldsByKey(objectClass, keys);
+		Map<String,Object> returnV = dbm.getObjectFieldsByKey(objectClass, keys);
 		
 		this.email=returnV.get("email") + "";
 		this.carId= returnV.get("carId") + "";
@@ -80,31 +84,31 @@ public class Driver {
 	/* Getters */
 
 	public String getId() {
-		DBManager.initialize();
+		dbm.initialize();
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("id", id);
-		return DBManager.getObjectFieldsByKey(objectClass, key).get("id") + "";
+		return dbm.getObjectFieldsByKey(objectClass, key).get("id") + "";
 	}
 	
 	public String getEmail() {
-		DBManager.initialize();
+		dbm.initialize();
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("id", id);
-		return DBManager.getObjectFieldsByKey(objectClass, key).get("email") + "";
+		return dbm.getObjectFieldsByKey(objectClass, key).get("email") + "";
 	}
 	
 	public String getCarId() {
-		DBManager.initialize();
+		dbm.initialize();
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("id", id);
-		return DBManager.getObjectFieldsByKey(objectClass, key).get("carId") + "";
+		return dbm.getObjectFieldsByKey(objectClass, key).get("carId") + "";
 	}
 	
 	public String getPassword() {
-		DBManager.initialize();
+		dbm.initialize();
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("id", id);
-		return DBManager.getObjectFieldsByKey(objectClass, key).get("password") + "";
+		return dbm.getObjectFieldsByKey(objectClass, key).get("password") + "";
 	}
 	
 	/* Setters */
@@ -120,7 +124,7 @@ public class Driver {
 				
 			Map<String, Object> keys = new HashMap<String, Object>();
 			keys.put("id", this.id);
-			DBManager.update(objectClass, keys, newFields);
+			dbm.update(objectClass, keys, newFields);
 	}
 
 	public void setEmail(final String newEmail) throws ParseException {
@@ -135,7 +139,7 @@ public class Driver {
 					
 		Map<String, Object> keys = new HashMap<String, Object>();
 		keys.put("id", this.id);
-		DBManager.update(objectClass, keys, newFields);
+		dbm.update(objectClass, keys, newFields);
 	}
 	
 	public void setCarId(final String newCarId) throws ParseException {
@@ -150,7 +154,7 @@ public class Driver {
 							
 		Map<String, Object> keys = new HashMap<String, Object>();
 		keys.put("id", this.id);
-		DBManager.update(objectClass, keys, newFields);
+		dbm.update(objectClass, keys, newFields);
 	}
 	
 	public void setPassword(final String newPassword) throws ParseException {
@@ -165,7 +169,7 @@ public class Driver {
 									
 		Map<String, Object> keys = new HashMap<String, Object>();
 		keys.put("id", this.id);
-		DBManager.update(objectClass, keys, newFields);
+		dbm.update(objectClass, keys, newFields);
 	}
 	
 	/* Methods */
@@ -179,7 +183,7 @@ public class Driver {
 	}
 	
 	private boolean checkId(final String newId) throws ParseException, IllegalArgumentException {
-		return newId != null && (!Validation.isIdExist(newId) || newId.equals(this.id));
+		return newId != null && (!Validation.isIdExist(newId,this.dbm) || newId.equals(this.id));
 	}
 	
 	private void checkEmail(final String email) throws IllegalArgumentException {
@@ -209,12 +213,12 @@ public class Driver {
 	
 	public void removeDriverFromDB() throws ParseException {
 		LOGGER.info("remove driver from DB");
-		DBManager.initialize();
+		dbm.initialize();
 		Map<String, Object> fields = new HashMap<String, Object>();
 		fields.put("email", this.email);
 		fields.put("carId", this.carId);
 		fields.put("password", this.password);
 		fields.put("id", this.id);
-		DBManager.deleteObject(objectClass, fields);
+		dbm.deleteObject(objectClass, fields);
 	}
 }
