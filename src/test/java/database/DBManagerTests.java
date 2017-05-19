@@ -63,21 +63,21 @@ public class DBManagerTests {
 		Kval.put("first", 1);
 		val.put("second",2);
 		AtomicInteger mutex = new AtomicInteger(0);
-		DBManager.insertObject("assaf", Kval, val);
+		DBManager.insertObject("assafDel", Kval, val);
 		try {
 			Thread.sleep(6000);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		DBManager.deleteObject("assaf",Kval);
+		DBManager.deleteObject("assafDel",Kval);
 		try {
 			Thread.sleep(6000);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		DBManager.getObjectByFields("assaf", Kval,new GetCallback<ParseObject>(){
+		DBManager.getObjectByFields("assafDel", Kval,new GetCallback<ParseObject>(){
 
 			@Override
 			public void done(ParseObject arg0, ParseException arg1) {
@@ -86,7 +86,7 @@ public class DBManagerTests {
 		});
 		try {
 			Thread.sleep(6000);
-			assert mutex.compareAndSet(0,1);
+			assert mutex.compareAndSet(1,0);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -105,24 +105,24 @@ public class DBManagerTests {
 		Kval2.put("first", 2);
 		Kval3.put("first", 3);
 		val.put("second",2);
-		DBManager.insertObject("assaf", Kval1, val);
-		DBManager.insertObject("assaf", Kval2, val);
-		DBManager.insertObject("assaf", Kval3, val);
+		DBManager.insertObject("assafGetAll", Kval1, val);
+		DBManager.insertObject("assafGetAll", Kval2, val);
+		DBManager.insertObject("assafGetAll", Kval3, val);
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(6000);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		List<ParseObject> mylist = DBManager.getAllObjects("assaf",2);
+		List<ParseObject> mylist = DBManager.getAllObjects("assafGetAll",2);
 		
 		for(ParseObject p : mylist){
 			System.out.println(p.get("first"));
 			System.out.println(p.get("second"));
 		}
-		assert (mylist.get(0).get("first").equals(3));
-		assert (mylist.get(1).get("first").equals(2));
-		assert (mylist.get(2).get("first").equals(1));
+		assertEquals(mylist.get(0).get("first"), 2);
+		assertEquals(mylist.get(1).get("first"), 1);
+		assertEquals(mylist.get(2).get("first"), 3);
 		
 		}	
 	
@@ -164,14 +164,14 @@ public class DBManagerTests {
 		Map<String,Object> val = new HashMap<String,Object>();
 		Kval.put("first", 1);
 		val.put("second",2);
-		DBManager.insertObject("assaf", Kval, val);
+		DBManager.insertObject("assafKeyTest", Kval, val);
 		try {
 			Thread.sleep(6000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		assert DBManager.getObjectFieldsByKey("assaf",Kval).get("second").equals(2);
+		assert DBManager.getObjectFieldsByKey("assafKeyTest",Kval).get("second").equals(2);
 	}
 
 	@Test
