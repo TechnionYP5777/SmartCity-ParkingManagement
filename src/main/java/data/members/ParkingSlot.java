@@ -11,6 +11,7 @@ import org.parse4j.ParseGeoPoint;
 import org.parse4j.ParseObject;
 
 import data.management.DBManager;
+import data.management.DatabaseManager;
 import util.Validation;
 
 /**
@@ -41,6 +42,8 @@ public class ParkingSlot extends dbMember {
 	// The slot's area
 	private Area area;
 	
+	private DatabaseManager dbm;
+	
 	private final String objectClass = "ParkingSlot";
 	
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -49,10 +52,9 @@ public class ParkingSlot extends dbMember {
 
 	// Create a new parking slot. Will result in a new slot in the DB.
 	public ParkingSlot(final String name, final ParkingSlotStatus status, final StickersColor rank, final StickersColor defaultColor,
-			final MapLocation location, final Date endTime, final Area area) throws ParseException {
+			final MapLocation location, final Date endTime, final Area area, DatabaseManager manager) throws ParseException {
 		LOGGER.info("Create a new parking slot by name, status, color, sticker color, expiration time");
-		
-		DBManager.initialize();
+		this.dbm = manager;
 		
 		validateArgument(status, rank, defaultColor, location, area);
 		Map<String, Object> fields = new HashMap<String, Object>(), keyValues = new HashMap<String, Object>();
@@ -63,11 +65,11 @@ public class ParkingSlot extends dbMember {
 		fields.put("endTime", endTime);
 		fields.put("area", area.ordinal());
 		keyValues.put("name", name);
-		DBManager.insertObject(objectClass, keyValues, fields);
+		dbm.insertObject(objectClass, keyValues, fields);
 	}
 
 	public ParkingSlot(final ParseObject obj) throws ParseException {
-		DBManager.initialize();
+		dbm.initialize();
 		parseObject = obj;
 		name = parseObject.getString("name");
 		status = ParkingSlotStatus.values()[parseObject.getInt("status")];
@@ -81,13 +83,14 @@ public class ParkingSlot extends dbMember {
 		parseObject.save();
 	}
 
-	public ParkingSlot(final String name) throws ParseException {
+	public ParkingSlot(final String name, DatabaseManager manager) throws ParseException {
 		LOGGER.info("Create a new parking slot by name");
-		DBManager.initialize();
+		this.dbm = manager;
+		dbm.initialize();
 
 		Map<String, Object> keys = new HashMap<>();
 		keys.put("name", name);
-		Map<String,Object> returnV = DBManager.getObjectFieldsByKey(objectClass, keys);
+		Map<String,Object> returnV = dbm.getObjectFieldsByKey(objectClass, keys);
 		
 		this.rank=StickersColor.values()[(int)returnV.get("rank")];
 		
@@ -109,25 +112,25 @@ public class ParkingSlot extends dbMember {
 	public String getName() {
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("name", name);
-		return DBManager.getObjectFieldsByKey("ParkingSlot", key).get("name") + "";
+		return dbm.getObjectFieldsByKey("ParkingSlot", key).get("name") + "";
 	}
 
 	public ParkingSlotStatus getStatus() {
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("name", name);
-		return ParkingSlotStatus.values()[(int)DBManager.getObjectFieldsByKey("ParkingSlot", key).get("status")];
+		return ParkingSlotStatus.values()[(int)dbm.getObjectFieldsByKey("ParkingSlot", key).get("status")];
 	}
 
 	public StickersColor getRank() {
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("name", name);
-		return StickersColor.values()[(int)DBManager.getObjectFieldsByKey("ParkingSlot", key).get("rank")];
+		return StickersColor.values()[(int)dbm.getObjectFieldsByKey("ParkingSlot", key).get("rank")];
 	}
 
 	public MapLocation getLocation() {
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("name", name);
-		Map<String,Object> returnV = DBManager.getObjectFieldsByKey(objectClass, key);
+		Map<String,Object> returnV = dbm.getObjectFieldsByKey(objectClass, key);
 		return new MapLocation(((ParseGeoPoint) returnV.get("location")).getLatitude(),
 				((ParseGeoPoint) returnV.get("location")).getLongitude());
 	}
@@ -135,20 +138,20 @@ public class ParkingSlot extends dbMember {
 	public StickersColor getDefaultColor() {
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("name", name);
-		return StickersColor.values()[(int)DBManager.getObjectFieldsByKey("ParkingSlot", key).get("defaultColor")];
+		return StickersColor.values()[(int)dbm.getObjectFieldsByKey("ParkingSlot", key).get("defaultColor")];
 	}
 
 	public Date getEndTime() {
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("name", name);
-		return ((Date) DBManager.getObjectFieldsByKey(objectClass, key).get("endTime"));
+		return ((Date) dbm.getObjectFieldsByKey(objectClass, key).get("endTime"));
 	
 	}
 	
 	public Area getArea() {
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("name", name);
-		return Area.values()[(int)DBManager.getObjectFieldsByKey("ParkingSlot", key).get("area")];
+		return Area.values()[(int)dbm.getObjectFieldsByKey("ParkingSlot", key).get("area")];
 	}
 
 	/* Setters */
@@ -168,7 +171,7 @@ public class ParkingSlot extends dbMember {
 		
 		Map<String, Object> keys = new HashMap<String, Object>();
 		keys.put("name", this.name);
-		DBManager.update(objectClass, keys, newFields);
+		dbm.update(objectClass, keys, newFields);
 	}
 
 	public void setStatus(final ParkingSlotStatus s) throws ParseException {
@@ -187,7 +190,7 @@ public class ParkingSlot extends dbMember {
 		
 		Map<String, Object> keys = new HashMap<String, Object>();
 		keys.put("name", this.name);
-		DBManager.update(objectClass, keys, newFields);
+		dbm.update(objectClass, keys, newFields);
 	}
 
 	public void setRank(final StickersColor c) throws ParseException {
@@ -206,7 +209,7 @@ public class ParkingSlot extends dbMember {
 		
 		Map<String, Object> keys = new HashMap<String, Object>();
 		keys.put("name", this.name);
-		DBManager.update(objectClass, keys, newFields);
+		dbm.update(objectClass, keys, newFields);
 	}
 
 	public void setLocation(final MapLocation l) throws ParseException {
@@ -225,7 +228,7 @@ public class ParkingSlot extends dbMember {
 		
 		Map<String, Object> keys = new HashMap<String, Object>();
 		keys.put("name", this.name);
-		DBManager.update(objectClass, keys, newFields);
+		dbm.update(objectClass, keys, newFields);
 	}
 
 	public void setDefaultColor(final StickersColor defaultColor) throws ParseException {
@@ -244,7 +247,7 @@ public class ParkingSlot extends dbMember {
 		
 		Map<String, Object> keys = new HashMap<String, Object>();
 		keys.put("name", this.name);
-		DBManager.update(objectClass, keys, newFields);
+		dbm.update(objectClass, keys, newFields);
 	}
 	
 	public void setArea(final Area newArea) throws ParseException {
@@ -263,7 +266,7 @@ public class ParkingSlot extends dbMember {
 		
 		Map<String, Object> keys = new HashMap<String, Object>();
 		keys.put("name", this.name);
-		DBManager.update(objectClass, keys, newFields);
+		dbm.update(objectClass, keys, newFields);
 	}
 
 	public void setEndTime(final Date endTime) throws ParseException {
@@ -282,7 +285,7 @@ public class ParkingSlot extends dbMember {
 		
 		Map<String, Object> keys = new HashMap<String, Object>();
 		keys.put("name", this.name);
-		DBManager.update(objectClass, keys, newFields);
+		dbm.update(objectClass, keys, newFields);
 	}
 	
 	/* Methods */
@@ -311,7 +314,7 @@ public class ParkingSlot extends dbMember {
 		
 		fields.put("endTime", endTime);
 		fields.put("name", name);
-		DBManager.deleteObject(objectClass, fields);
+		dbm.deleteObject(objectClass, fields);
 	}
 
 

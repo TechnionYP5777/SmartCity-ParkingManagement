@@ -4,15 +4,22 @@ package database;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.Mockito;
+import org.mockito.Mockito.*;
+import org.mockito.internal.verification.Times;
 import org.parse4j.ParseException;
+import org.parse4j.ParseGeoPoint;
 
 import data.management.DBManager;
+import data.management.DatabaseManager;
 import data.members.ParkingSlot;
 import data.members.StickersColor;
 import util.Log;
@@ -31,16 +38,45 @@ public class parkingSlotTest {
 		}
 	}
 	
+	private DatabaseManager setMock(){
+		DatabaseManager dbm = Mockito.mock(DatabaseManager.class);
+		Map <String, Object> keys = new HashMap<>();
+		Map <String, Object> fields = new HashMap<>();
+		keys.put("name", "testParkingSlot1");
+		
+		fields.put("status", ParkingSlotStatus.FREE.ordinal());
+		fields.put("rank", StickersColor.GREEN.ordinal());
+		fields.put("defaultColor", StickersColor.GREEN.ordinal());
+		fields.put("location", new ParseGeoPoint(32.123, 32.123));
+		fields.put("endTime", new Date());
+		fields.put("area",  Area.TAUB.ordinal());
+		fields.put("name", "testParkingSlot1");
+		
+		Mockito.when(dbm.getObjectFieldsByKey("ParkingSlot",keys)).thenReturn(fields);
+		return dbm;
+	}
+	
 	@Test
 	public void addAndRemove(){
-		DBManager.initialize();
+		DatabaseManager dbm = Mockito.mock(DatabaseManager.class);
+		Map <String, Object> keys = new HashMap<>();
+		Map <String, Object> fields = new HashMap<>();
+		keys.put("name", "testParkingSlot2");
+		
+		fields.put("status", ParkingSlotStatus.FREE.ordinal());
+		fields.put("rank", StickersColor.GREEN.ordinal());
+		fields.put("defaultColor", StickersColor.GREEN.ordinal());
+		fields.put("location", new ParseGeoPoint(32.123, 32.123));
+		fields.put("endTime", new Date());
+		fields.put("area",  Area.TAUB.ordinal());
+		fields.put("name", "testParkingSlot2");
+		
+		Mockito.when(dbm.getObjectFieldsByKey("ParkingSlot",keys)).thenReturn(fields);
 		try{
 			// create new slot
 			new ParkingSlot("testParkingSlot2", ParkingSlotStatus.FREE, StickersColor.GREEN,
-					StickersColor.GREEN, new MapLocation(32.123, 32.123), new Date(), Area.TAUB);
-			Thread.sleep(10000);
-			new ParkingSlot("testParkingSlot2").removeParkingSlotFromDB();
-			Thread.sleep(10000);
+					StickersColor.GREEN, new MapLocation(32.123, 32.123), new Date(), Area.TAUB,dbm);
+			new ParkingSlot("testParkingSlot2",dbm).removeParkingSlotFromDB();
 	
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
@@ -51,12 +87,24 @@ public class parkingSlotTest {
 	
 	@Test
 	public void check(){
-		DBManager.initialize();
+		DatabaseManager dbm = Mockito.mock(DatabaseManager.class);
+		Map <String, Object> keys = new HashMap<>();
+		Map <String, Object> fields = new HashMap<>();
+		keys.put("name", "first");
+		
+		fields.put("status", ParkingSlotStatus.FREE.ordinal());
+		fields.put("rank", StickersColor.BLUE.ordinal());
+		fields.put("defaultColor", StickersColor.BLUE.ordinal());
+		fields.put("location", new ParseGeoPoint(3.12, 3.12));
+		fields.put("endTime", new Date());
+		fields.put("area",  Area.TAUB.ordinal());
+		fields.put("name", "first");
+		Mockito.when(dbm.getObjectFieldsByKey("ParkingSlot",keys)).thenReturn(fields);
+		
 		try{
-			new ParkingSlot("first", ParkingSlotStatus.FREE, StickersColor.BLUE, StickersColor.BLUE, new MapLocation(3.12, 3.12), new Date(), Area.TAUB);
-			Thread.sleep(6000);	
-			ParkingSlot p = new ParkingSlot("first");
-			Thread.sleep(6000);	
+			new ParkingSlot("first", ParkingSlotStatus.FREE, StickersColor.BLUE, StickersColor.BLUE,
+					new MapLocation(3.12, 3.12),new Date(), Area.TAUB,dbm);
+			ParkingSlot p = new ParkingSlot("first",dbm);	
 			Assert.assertEquals(p.getName(), "first");
 			Assert.assertEquals(p.getStatus(), ParkingSlotStatus.FREE);
 			Assert.assertEquals(p.getRank(), StickersColor.BLUE);
@@ -71,23 +119,23 @@ public class parkingSlotTest {
 			Assert.assertEquals(cal.get(Calendar.YEAR), cal2.get(Calendar.YEAR));
 			Assert.assertEquals(p.getLocation().getLat(), 3.12, 0);
 			Assert.assertEquals(p.getLocation().getLon(), 3.12, 0);
-			new ParkingSlot("first").removeParkingSlotFromDB();
-			Thread.sleep(6000);
+			new ParkingSlot("first",dbm).removeParkingSlotFromDB();
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
 	
-	@Before
+	/*TODO : litle problem with the test because the parsegeopoint 
+		created in the class and cannot be passed in the mock process*/
+	@Test
 	public void setUpTest() throws ParseException, InterruptedException {
-		DBManager.initialize();
+		DatabaseManager dbm = Mockito.mock(DatabaseManager.class);
+		
 		try{
 			// create new slot
 			new ParkingSlot("testParkingSlot1", ParkingSlotStatus.FREE, StickersColor.GREEN,
-					StickersColor.GREEN, new MapLocation(32.123, 32.123), new Date(), Area.TAUB);
-			Thread.sleep(10000);
-
+					StickersColor.GREEN, new MapLocation(32.123, 32.123), new Date(), Area.TAUB,dbm);
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
@@ -96,9 +144,10 @@ public class parkingSlotTest {
 	
 	@Test
 	public void testGetName(){
+		DatabaseManager dbm = setMock();
+		
 		try{
-			Assert.assertEquals(new ParkingSlot("testParkingSlot1").getName(), "testParkingSlot1");
-			Thread.sleep(10000);
+			Assert.assertEquals(new ParkingSlot("testParkingSlot1",dbm).getName(), "testParkingSlot1");
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
@@ -107,9 +156,9 @@ public class parkingSlotTest {
 	
 	@Test
 	public void testGetStatus(){
+		DatabaseManager dbm = setMock();
 		try{
-			Assert.assertEquals(new ParkingSlot("testParkingSlot1").getStatus(), ParkingSlotStatus.FREE);
-			Thread.sleep(10000);
+			Assert.assertEquals(new ParkingSlot("testParkingSlot1",dbm).getStatus(), ParkingSlotStatus.FREE);
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
@@ -118,9 +167,9 @@ public class parkingSlotTest {
 	
 	@Test
 	public void testGetArea(){
+		DatabaseManager dbm = setMock();
 		try{
-			Assert.assertEquals(new ParkingSlot("testParkingSlot1").getArea(), Area.TAUB);
-			Thread.sleep(10000);
+			Assert.assertEquals(new ParkingSlot("testParkingSlot1",dbm).getArea(), Area.TAUB);
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
@@ -129,9 +178,9 @@ public class parkingSlotTest {
 	
 	@Test
 	public void testGetRank(){
+		DatabaseManager dbm = setMock();
 		try{
-			Assert.assertEquals(new ParkingSlot("testParkingSlot1").getRank(), StickersColor.GREEN);
-			Thread.sleep(10000);
+			Assert.assertEquals(new ParkingSlot("testParkingSlot1",dbm).getRank(), StickersColor.GREEN);
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
@@ -140,9 +189,9 @@ public class parkingSlotTest {
 	
 	@Test
 	public void testGetLocation(){
+		DatabaseManager dbm = setMock();
 		try{
-			ParkingSlot p =new ParkingSlot("testParkingSlot1");
-			Thread.sleep(10000);
+			ParkingSlot p =new ParkingSlot("testParkingSlot1",dbm);
 			Assert.assertEquals(p.getLocation().getLat(), 32.123, 0);
 			Assert.assertEquals(p.getLocation().getLat(), 32.123, 0);
 		} catch (final Exception ¢) {
@@ -153,9 +202,9 @@ public class parkingSlotTest {
 	
 	@Test
 	public void testGetDefaultColor(){
+		DatabaseManager dbm = setMock();
 		try{
-			Assert.assertEquals(new ParkingSlot("testParkingSlot1").getDefaultColor(), StickersColor.GREEN);
-			Thread.sleep(10000);
+			Assert.assertEquals(new ParkingSlot("testParkingSlot1",dbm).getDefaultColor(), StickersColor.GREEN);
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
@@ -164,9 +213,9 @@ public class parkingSlotTest {
 	
 	@Test
 	public void testGetEndTime(){
+		DatabaseManager dbm = setMock();
 		try{
-			ParkingSlot p =new ParkingSlot("testParkingSlot1");
-			Thread.sleep(10000);
+			ParkingSlot p =new ParkingSlot("testParkingSlot1",dbm);
 			Calendar cal = Calendar.getInstance();
             cal.setTime(p.getEndTime());
             Calendar cal2 = Calendar.getInstance();
@@ -180,13 +229,11 @@ public class parkingSlotTest {
 		}
 	}
 	
-
 	@Test
 	public void testGetObject(){
-		DBManager.initialize();
+		DatabaseManager dbm = setMock();
 		try{
-			ParkingSlot p = new ParkingSlot("testParkingSlot1");
-			Thread.sleep(12000);	
+			ParkingSlot p = new ParkingSlot("testParkingSlot1",dbm);
 			Assert.assertEquals(p.getName(), "testParkingSlot1");
 			Assert.assertEquals(p.getStatus(), ParkingSlotStatus.FREE);
 			Assert.assertEquals(p.getRank(), StickersColor.GREEN);
@@ -209,30 +256,62 @@ public class parkingSlotTest {
 	
 	@Test
 	public void testSetName(){
+		DatabaseManager dbm = setMock();
+		Map <String, Object> keys = new HashMap<>();
+		Map <String, Object> fields = new HashMap<>();
+		keys.put("name", "testParkingSlot1");
+		
+		fields.put("status", ParkingSlotStatus.FREE.ordinal());
+		fields.put("rank", StickersColor.GREEN.ordinal());
+		fields.put("defaultColor", StickersColor.GREEN.ordinal());
+		fields.put("location", new ParseGeoPoint(32.123, 32.123));
+		fields.put("endTime", new Date());
+		fields.put("area",  Area.TAUB.ordinal());
+		fields.put("name", "testParkingSlot1");
+		
+		
 		try{
-			new ParkingSlot("testParkingSlot1").setName("testParkingSlot10");
-			Thread.sleep(6000);
-			Assert.assertEquals(new ParkingSlot("testParkingSlot10").getName(), "testParkingSlot10");
-			Thread.sleep(6000);
-			new ParkingSlot("testParkingSlot10").setName("testParkingSlot1");
-			Thread.sleep(6000);
-			Assert.assertEquals(new ParkingSlot("testParkingSlot1").getName(), "testParkingSlot1");
-			Thread.sleep(6000);
+			new ParkingSlot("testParkingSlot1",dbm).setName("testParkingSlot10");
+			
+			fields.put("name", "testParkingSlot10");
+			keys.put("name", "testParkingSlot10");
+			Mockito.when(dbm.getObjectFieldsByKey("ParkingSlot",keys)).thenReturn(fields);
+			
+			Assert.assertEquals(new ParkingSlot("testParkingSlot10",dbm).getName(), "testParkingSlot10");
+			
+			new ParkingSlot("testParkingSlot10",dbm).setName("testParkingSlot1");
+			fields.put("name", "testParkingSlot1");
+			keys.put("name", "testParkingSlot1");
+			Mockito.when(dbm.getObjectFieldsByKey("ParkingSlot",keys)).thenReturn(fields);
+			
+			Assert.assertEquals(new ParkingSlot("testParkingSlot1",dbm).getName(), "testParkingSlot1");
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
-		
+	
 	@Test
 	public void testSetStatus(){
+		DatabaseManager dbm = setMock();
+		Map <String, Object> keys = new HashMap<>();
+		Map <String, Object> fields = new HashMap<>();
+		keys.put("name", "testParkingSlot1");
+		
+		fields.put("status", ParkingSlotStatus.FREE.ordinal());
+		fields.put("rank", StickersColor.GREEN.ordinal());
+		fields.put("defaultColor", StickersColor.GREEN.ordinal());
+		fields.put("location", new ParseGeoPoint(32.123, 32.123));
+		fields.put("endTime", new Date());
+		fields.put("area",  Area.TAUB.ordinal());
+		fields.put("name", "testParkingSlot1");
+		
 		try{
-			new ParkingSlot("testParkingSlot1").setStatus(ParkingSlotStatus.TAKEN);
-			Thread.sleep(6000);
-			Assert.assertEquals(new ParkingSlot("testParkingSlot1").getStatus(), ParkingSlotStatus.TAKEN);
-			Thread.sleep(6000);
-			new ParkingSlot("testParkingSlot1").setStatus(ParkingSlotStatus.FREE);
-			Thread.sleep(6000);
+			new ParkingSlot("testParkingSlot1",dbm).setStatus(ParkingSlotStatus.TAKEN);
+			fields.put("status", ParkingSlotStatus.TAKEN.ordinal());
+			Mockito.when(dbm.getObjectFieldsByKey("ParkingSlot",keys)).thenReturn(fields);
+			Assert.assertEquals(new ParkingSlot("testParkingSlot1",dbm).getStatus(), ParkingSlotStatus.TAKEN);
+			
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
@@ -241,13 +320,26 @@ public class parkingSlotTest {
 	
 	@Test
 	public void testSetRank(){
+		DatabaseManager dbm = setMock();
+		Map <String, Object> keys = new HashMap<>();
+		Map <String, Object> fields = new HashMap<>();
+		keys.put("name", "testParkingSlot1");
+		
+		fields.put("status", ParkingSlotStatus.FREE.ordinal());
+		fields.put("rank", StickersColor.GREEN.ordinal());
+		fields.put("defaultColor", StickersColor.GREEN.ordinal());
+		fields.put("location", new ParseGeoPoint(32.123, 32.123));
+		fields.put("endTime", new Date());
+		fields.put("area",  Area.TAUB.ordinal());
+		fields.put("name", "testParkingSlot1");
+		
 		try{
-			new ParkingSlot("testParkingSlot1").setRank(StickersColor.BLUE);
-			Thread.sleep(6000);
-			Assert.assertEquals(new ParkingSlot("testParkingSlot1").getRank(), StickersColor.BLUE);
-			Thread.sleep(6000);
-			new ParkingSlot("testParkingSlot1").setRank(StickersColor.GREEN);
-			Thread.sleep(6000);
+			new ParkingSlot("testParkingSlot1",dbm).setRank(StickersColor.BLUE);
+			
+			fields.put("rank", StickersColor.BLUE.ordinal());
+			Mockito.when(dbm.getObjectFieldsByKey("ParkingSlot",keys)).thenReturn(fields);
+
+			Assert.assertEquals(new ParkingSlot("testParkingSlot1",dbm).getRank(), StickersColor.BLUE);
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
@@ -256,31 +348,56 @@ public class parkingSlotTest {
 	
 	@Test
 	public void testSetArea(){
+		DatabaseManager dbm = setMock();
+		Map <String, Object> keys = new HashMap<>();
+		Map <String, Object> fields = new HashMap<>();
+		keys.put("name", "testParkingSlot1");
+		
+		fields.put("status", ParkingSlotStatus.FREE.ordinal());
+		fields.put("rank", StickersColor.GREEN.ordinal());
+		fields.put("defaultColor", StickersColor.GREEN.ordinal());
+		fields.put("location", new ParseGeoPoint(32.123, 32.123));
+		fields.put("endTime", new Date());
+		fields.put("area",  Area.TAUB.ordinal());
+		fields.put("name", "testParkingSlot1");
+		
 		try{
-			new ParkingSlot("testParkingSlot1").setArea(Area.POOL);
-			Thread.sleep(6000);
-			System.out.println("1");
-			Assert.assertEquals(new ParkingSlot("testParkingSlot1").getArea(), Area.POOL);
-			Thread.sleep(6000);
-			System.out.println("2");
-			new ParkingSlot("testParkingSlot1").setArea(Area.TAUB);
-			Thread.sleep(6000);
-			System.out.println("3");
+			new ParkingSlot("testParkingSlot1",dbm).setArea(Area.POOL);
+			
+			fields.put("area",  Area.POOL.ordinal());
+			Mockito.when(dbm.getObjectFieldsByKey("ParkingSlot",keys)).thenReturn(fields);
+			
+			Assert.assertEquals(new ParkingSlot("testParkingSlot1",dbm).getArea(), Area.POOL);
+
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
-	
+
 	@Test
 	public void testSetLocation(){
+		DatabaseManager dbm = setMock();
+		Map <String, Object> keys = new HashMap<>();
+		Map <String, Object> fields = new HashMap<>();
+		keys.put("name", "testParkingSlot1");
+		
+		fields.put("status", ParkingSlotStatus.FREE.ordinal());
+		fields.put("rank", StickersColor.GREEN.ordinal());
+		fields.put("defaultColor", StickersColor.GREEN.ordinal());
+		fields.put("location", new ParseGeoPoint(32.123, 32.123));
+		fields.put("endTime", new Date());
+		fields.put("area",  Area.TAUB.ordinal());
+		fields.put("name", "testParkingSlot1");
+		
 		try{
-			new ParkingSlot("testParkingSlot1").setLocation(new MapLocation(32.12345, 32.12345));
-			Thread.sleep(6000);
-			Assert.assertEquals(new MapLocation(32.12345, 32.12345).getLat(), new ParkingSlot("testParkingSlot1").getLocation().getLat(), 0);
-			Assert.assertEquals(new MapLocation(32.12345, 32.12345).getLon(), new ParkingSlot("testParkingSlot1").getLocation().getLon(), 0);
-			Thread.sleep(6000);
-			new ParkingSlot("testParkingSlot1").setLocation(new MapLocation(32.123, 32.123));
+			new ParkingSlot("testParkingSlot1",dbm).setLocation(new MapLocation(32.12345, 32.12345));
+			
+			fields.put("location", new ParseGeoPoint(32.12345, 32.12345));
+			Mockito.when(dbm.getObjectFieldsByKey("ParkingSlot",keys)).thenReturn(fields);
+			
+			Assert.assertEquals(new MapLocation(32.12345, 32.12345).getLat(), new ParkingSlot("testParkingSlot1",dbm).getLocation().getLat(), 0);
+			Assert.assertEquals(new MapLocation(32.12345, 32.12345).getLon(), new ParkingSlot("testParkingSlot1",dbm).getLocation().getLon(), 0);
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
@@ -289,11 +406,27 @@ public class parkingSlotTest {
 	
 	@Test
 	public void testSetDefaultColor(){
+		DatabaseManager dbm = setMock();
+		Map <String, Object> keys = new HashMap<>();
+		Map <String, Object> fields = new HashMap<>();
+		keys.put("name", "testParkingSlot1");
+		
+		fields.put("status", ParkingSlotStatus.FREE.ordinal());
+		fields.put("rank", StickersColor.GREEN.ordinal());
+		fields.put("defaultColor", StickersColor.GREEN.ordinal());
+		fields.put("location", new ParseGeoPoint(32.123, 32.123));
+		fields.put("endTime", new Date());
+		fields.put("area",  Area.TAUB.ordinal());
+		fields.put("name", "testParkingSlot1");
+		
 		try{
-			new ParkingSlot("testParkingSlot1").setDefaultColor(StickersColor.BLUE);
-			Thread.sleep(6000);
-			Assert.assertEquals(new ParkingSlot("testParkingSlot1").getDefaultColor(), StickersColor.BLUE);
-			Thread.sleep(6000);
+			new ParkingSlot("testParkingSlot1",dbm).setDefaultColor(StickersColor.BLUE);
+			
+			fields.put("defaultColor", StickersColor.BLUE.ordinal());
+			Mockito.when(dbm.getObjectFieldsByKey("ParkingSlot",keys)).thenReturn(fields);
+			
+			Assert.assertEquals(new ParkingSlot("testParkingSlot1",dbm).getDefaultColor(), StickersColor.BLUE);
+			
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
@@ -302,29 +435,45 @@ public class parkingSlotTest {
 	
 	@Test
 	public void testSetEndTime(){
+		DatabaseManager dbm = setMock();
+		Map <String, Object> keys = new HashMap<>();
+		Map <String, Object> fields = new HashMap<>();
+		keys.put("name", "testParkingSlot1");
+		
+		fields.put("status", ParkingSlotStatus.FREE.ordinal());
+		fields.put("rank", StickersColor.GREEN.ordinal());
+		fields.put("defaultColor", StickersColor.GREEN.ordinal());
+		fields.put("location", new ParseGeoPoint(32.123, 32.123));
+		fields.put("endTime", new Date());
+		fields.put("area",  Area.TAUB.ordinal());
+		fields.put("name", "testParkingSlot1");
+		
 		try{
-			new ParkingSlot("testParkingSlot1").setEndTime(new Date());
-			Thread.sleep(6000);
+			new ParkingSlot("testParkingSlot1",dbm).setEndTime(new Date());
 			Calendar cal = Calendar.getInstance();
-            cal.setTime(new ParkingSlot("testParkingSlot1").getEndTime());
+			
+			fields.put("endTime", new Date());
+			Mockito.when(dbm.getObjectFieldsByKey("ParkingSlot",keys)).thenReturn(fields);
+			
+            cal.setTime(new ParkingSlot("testParkingSlot1",dbm).getEndTime());
             Calendar cal2 = Calendar.getInstance();
             cal2.setTime(new Date());
             Assert.assertEquals(cal.get(Calendar.DAY_OF_MONTH), cal2.get(Calendar.DAY_OF_MONTH));
 			Assert.assertEquals(cal.get(Calendar.MONTH), cal2.get(Calendar.MONTH));
 			Assert.assertEquals(cal.get(Calendar.YEAR), cal2.get(Calendar.YEAR));
-			Thread.sleep(6000);
+			
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
 		}
 		
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void checkNameNull() {
-		DBManager.initialize();
+		DatabaseManager dbm = setMock();
 		try {
-			new ParkingSlot("testParkingSlot1").setName(null);
+			new ParkingSlot("testParkingSlot1",dbm).setName(null);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -332,9 +481,9 @@ public class parkingSlotTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void checkColorNull() {
-		DBManager.initialize();
+		DatabaseManager dbm = setMock();
 		try {
-			new ParkingSlot("testParkingSlot1").setRank(null);
+			new ParkingSlot("testParkingSlot1",dbm).setRank(null);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -342,9 +491,9 @@ public class parkingSlotTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void checkDefaultColorNull() {
-		DBManager.initialize();
+		DatabaseManager dbm = setMock();
 		try {
-			new ParkingSlot("testParkingSlot1").setDefaultColor(null);
+			new ParkingSlot("testParkingSlot1",dbm).setDefaultColor(null);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -352,9 +501,9 @@ public class parkingSlotTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void checkEndTimeNull() {
-		DBManager.initialize();
+		DatabaseManager dbm = setMock();
 		try {
-			new ParkingSlot("testParkingSlot1").setEndTime(null);
+			new ParkingSlot("testParkingSlot1",dbm).setEndTime(null);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -362,9 +511,9 @@ public class parkingSlotTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void checkLocationNull() {
-		DBManager.initialize();
+		DatabaseManager dbm = setMock();
 		try {
-			new ParkingSlot("testParkingSlot1").setLocation(null);
+			new ParkingSlot("testParkingSlot1",dbm).setLocation(null);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -372,9 +521,9 @@ public class parkingSlotTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void checkAreaNull() {
-		DBManager.initialize();
+		DatabaseManager dbm = setMock();
 		try {
-			new ParkingSlot("testParkingSlot1").setArea(null);
+			new ParkingSlot("testParkingSlot1",dbm).setArea(null);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -382,9 +531,9 @@ public class parkingSlotTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void checkStatusNull() {
-		DBManager.initialize();
+		DatabaseManager dbm = setMock();
 		try {
-			new ParkingSlot("testParkingSlot1").setStatus(null);
+			new ParkingSlot("testParkingSlot1",dbm).setStatus(null);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -392,22 +541,34 @@ public class parkingSlotTest {
 	
 	@Test
 	public void testChangeStatus(){
+		DatabaseManager dbm = setMock();
+		Map <String, Object> keys = new HashMap<>();
+		Map <String, Object> fields = new HashMap<>();
+		keys.put("name", "testParkingSlot1");
+		
+		fields.put("status", ParkingSlotStatus.TAKEN.ordinal());
+		fields.put("rank", StickersColor.GREEN.ordinal());
+		fields.put("defaultColor", StickersColor.GREEN.ordinal());
+		fields.put("location", new ParseGeoPoint(32.123, 32.123));
+		fields.put("endTime", new Date());
+		fields.put("area",  Area.TAUB.ordinal());
+		fields.put("name", "testParkingSlot1");
+		
 		try{
-			new ParkingSlot("testParkingSlot1").changeStatus(ParkingSlotStatus.TAKEN);
-			Thread.sleep(6000);
-			Assert.assertEquals(new ParkingSlot("testParkingSlot1").getStatus(), ParkingSlotStatus.TAKEN);	
-			Thread.sleep(6000);
-			new ParkingSlot("testParkingSlot1").changeStatus(ParkingSlotStatus.FREE);
+			new ParkingSlot("testParkingSlot1",dbm).changeStatus(ParkingSlotStatus.TAKEN);
+			Mockito.when(dbm.getObjectFieldsByKey("ParkingSlot",keys)).thenReturn(fields);
+			Assert.assertEquals(new ParkingSlot("testParkingSlot1",dbm).getStatus(), ParkingSlotStatus.TAKEN);	
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
 		}
 	}
 	
-	@After
+	@Test
 	public void finishTest() throws ParseException, InterruptedException {
 		// delete objects
-		new ParkingSlot("testParkingSlot1").removeParkingSlotFromDB();
-		Thread.sleep(6000);
+		DatabaseManager dbm = setMock();
+		new ParkingSlot("testParkingSlot1",dbm).removeParkingSlotFromDB();
 	}
+	
 }

@@ -12,6 +12,13 @@ import Exceptions.LoginException;
 
 public class DatabaseManagerImpl implements DatabaseManager {
 	
+	private static DatabaseManagerImpl instance = new DatabaseManagerImpl();
+	
+	public static DatabaseManagerImpl getInstance (){
+		DBManager.initialize();
+		return instance;
+	}
+	
 	@Override
 	public void initialize() {
 		DBManager.initialize();

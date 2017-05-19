@@ -10,6 +10,7 @@ import java.util.Set;
 
 import org.parse4j.ParseException;
 
+import data.management.DatabaseManagerImpl;
 import data.members.Area;
 import data.members.MapLocation;
 //import data.members.ParkingArea;
@@ -103,7 +104,7 @@ public class populateDB {
 		final double lat = Double.parseDouble(args[4]), lon = Double.parseDouble(args[5]);
 		try {
 			final ParkingSlot slot1 = new ParkingSlot(name, status, currentColor, defaultColor, new MapLocation(lat, lon),
-					new Date(),area);
+					new Date(),area, DatabaseManagerImpl.getInstance());
 		} catch (final ParseException ¢) {
 			¢.printStackTrace();
 			return false;
@@ -121,7 +122,7 @@ public class populateDB {
 		final Set<ParkingSlot> slots = new HashSet<ParkingSlot>();
 		for (int nameIndex = 5; nameIndex < args.length; ++nameIndex)
 			try {
-				slots.add(new ParkingSlot(args[nameIndex]));
+				slots.add(new ParkingSlot(args[nameIndex], DatabaseManagerImpl.getInstance()));
 			} catch (final ParseException ¢) {
 				System.out.println("Something went wrong. Could not find the last slot in DB");
 				¢.printStackTrace();
