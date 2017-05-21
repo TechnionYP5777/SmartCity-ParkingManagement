@@ -133,7 +133,7 @@ public class DBManagerTests {
 		Kval.put("first", 1);
 		val.put("second",2);
 		AtomicInteger testResult = new AtomicInteger(0);
-		DBManager.insertObject("assaf", Kval, val);
+		DBManager.insertObject("assafFieldTest", Kval, val);
 		try {
 			Thread.sleep(6000);
 		} catch (InterruptedException e) {
@@ -141,11 +141,11 @@ public class DBManagerTests {
 			e.printStackTrace();
 		}
 		
-		DBManager.getObjectByFields("assaf", Kval, new GetCallback<ParseObject>() {
+		DBManager.getObjectByFields("assafFieldTest", Kval, new GetCallback<ParseObject>() {
 
 			@Override
 			public void done(ParseObject arg0, ParseException arg1) {
-				System.out.println(arg0.get("second"));
+				//System.out.println(arg0.get("second"));
 				if(arg0 != null) testResult.set((int) arg0.get("second"));
 			}
 		});
