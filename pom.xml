@@ -76,6 +76,11 @@
     		<artifactId>jfoenix</artifactId>
     		<version>1.0.0</version>
 		</dependency>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.5</version>
+        </dependency>
 
 	</dependencies>
 

@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
 
-import data.management.DBManager;
 import data.management.DatabaseManager;
 import util.Validation;
 

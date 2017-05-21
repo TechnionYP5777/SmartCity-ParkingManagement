@@ -1,114 +1,114 @@
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot setDefaultColor
+May 21, 2017 4:30:12 PM data.members.ParkingSlot setDefaultColor
 INFO: Set parking slot default color
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot setLocation
+May 21, 2017 4:30:12 PM data.members.ParkingSlot setLocation
 INFO: Set parking slot location
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot setEndTime
+May 21, 2017 4:30:12 PM data.members.ParkingSlot setEndTime
 INFO: Set parking slot expiration time
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot setRank
+May 21, 2017 4:30:12 PM data.members.ParkingSlot setRank
 INFO: Set parking slot color
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot setName
+May 21, 2017 4:30:12 PM data.members.ParkingSlot setName
 INFO: Set parking slot name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name, status, color, sticker color, expiration time
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name, status, color, sticker color, expiration time
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name, status, color, sticker color, expiration time
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot setEndTime
+May 21, 2017 4:30:12 PM data.members.ParkingSlot setEndTime
 INFO: Set parking slot expiration time
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot setArea
+May 21, 2017 4:30:12 PM data.members.ParkingSlot setArea
 INFO: Set parking slot area
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot setStatus
+May 21, 2017 4:30:12 PM data.members.ParkingSlot setStatus
 INFO: Set parking slot status
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot setStatus
+May 21, 2017 4:30:12 PM data.members.ParkingSlot setStatus
 INFO: Set parking slot status
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot setStatus
+May 21, 2017 4:30:12 PM data.members.ParkingSlot setStatus
 INFO: Set parking slot status
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot setLocation
+May 21, 2017 4:30:12 PM data.members.ParkingSlot setLocation
 INFO: Set parking slot location
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot setArea
+May 21, 2017 4:30:12 PM data.members.ParkingSlot setArea
 INFO: Set parking slot area
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot setName
+May 21, 2017 4:30:12 PM data.members.ParkingSlot setName
 INFO: Set parking slot name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot setName
+May 21, 2017 4:30:12 PM data.members.ParkingSlot setName
 INFO: Set parking slot name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot setRank
+May 21, 2017 4:30:12 PM data.members.ParkingSlot setRank
 INFO: Set parking slot color
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 19, 2017 11:08:25 AM data.members.ParkingSlot setDefaultColor
+May 21, 2017 4:30:12 PM data.members.ParkingSlot setDefaultColor
 INFO: Set parking slot default color
-May 19, 2017 11:08:25 AM data.members.ParkingSlot <init>
+May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name

@@ -2,14 +2,14 @@ package database;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.OptionalInt;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
@@ -18,10 +18,19 @@ import org.parse4j.callback.SaveCallback;
 
 import Exceptions.LoginException;
 import data.management.DBManager;
+import util.Log;
 
 public class DBManagerTests {
 
-
+	@BeforeClass
+	public static void classSetUp(){
+		try {		
+			Log.setup();
+		} catch (IOException e) {
+			System.out.println("Could not set up the logger");
+		}
+	}
+	
 	@Before
 	public void initialize(){
 		DBManager.initialize();
