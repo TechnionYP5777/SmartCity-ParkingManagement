@@ -28,6 +28,9 @@ public class Driver {
 
 	// The driver's password. Through which the driver can login
 	private String password;
+	
+	// last driver's parking slot 
+	private String lastSlot;
 
 	private DatabaseManager dbm;
 	
@@ -38,7 +41,7 @@ public class Driver {
 	/* Constructors */
 
 	// Create a new driver. Will result in a new driver in the DB.
-	public Driver(final String id, final String email, final String carId, final String password, DatabaseManager manager) throws ParseException {
+	public Driver(final String id, final String email, final String carId, final String password, final String lastSlot,DatabaseManager manager) throws ParseException {
 		LOGGER.info("Create a new driver by id, email, car id, password");
 		this.dbm = manager;
 		dbm.initialize();
@@ -48,7 +51,7 @@ public class Driver {
 		fields.put("email", email);
 		fields.put("carId", carId);
 		fields.put("password", password);
-		
+		fields.put("lastSlot", lastSlot);
 		keyValues.put("id", id);
 		
 		dbm.insertObject(objectClass, keyValues, fields);
@@ -61,6 +64,7 @@ public class Driver {
 		email = obj.getString("email");
 		carId = obj.getString("carId");
 		password = obj.getString("password");
+		lastSlot = obj.getString("lastSlot");
 		
 	}
 	
@@ -77,6 +81,7 @@ public class Driver {
 		this.carId= returnV.get("carId") + "";
 		this.password= returnV.get("password") + "";
 		this.id=id;
+		this.lastSlot=returnV.get("lastSlot") + "";
 	}
 	
 
@@ -110,6 +115,13 @@ public class Driver {
 		return dbm.getObjectFieldsByKey(objectClass, key).get("password") + "";
 	}
 	
+	public String getLastSlot() {
+		dbm.initialize();
+		Map<String, Object> key = new HashMap<String, Object>();
+		key.put("id", id);
+		return dbm.getObjectFieldsByKey(objectClass, key).get("lastSlot") + "";
+	}
+	
 	/* Setters */
 
 	public void setId(final String newId) throws ParseException, IllegalArgumentException {
@@ -120,7 +132,7 @@ public class Driver {
 			newFields.put("email", this.email);
 			newFields.put("carId", this.carId);
 			newFields.put("password", this.password);
-				
+			newFields.put("lastSlot", this.lastSlot);
 			Map<String, Object> keys = new HashMap<String, Object>();
 			keys.put("id", this.id);
 			dbm.update(objectClass, keys, newFields);
@@ -135,7 +147,7 @@ public class Driver {
 		newFields.put("email", newEmail);
 		newFields.put("carId", this.carId);
 		newFields.put("password", this.password);
-					
+		newFields.put("lastSlot", this.lastSlot);
 		Map<String, Object> keys = new HashMap<String, Object>();
 		keys.put("id", this.id);
 		dbm.update(objectClass, keys, newFields);
@@ -150,7 +162,7 @@ public class Driver {
 		newFields.put("email", this.email);
 		newFields.put("carId", newCarId);
 		newFields.put("password", this.password);
-							
+		newFields.put("lastSlot", this.lastSlot);
 		Map<String, Object> keys = new HashMap<String, Object>();
 		keys.put("id", this.id);
 		dbm.update(objectClass, keys, newFields);
@@ -165,7 +177,21 @@ public class Driver {
 		newFields.put("email", this.email);
 		newFields.put("carId", this.carId);
 		newFields.put("password", newPassword);
-									
+		newFields.put("lastSlot", this.lastSlot);
+		Map<String, Object> keys = new HashMap<String, Object>();
+		keys.put("id", this.id);
+		dbm.update(objectClass, keys, newFields);
+	}
+	
+	public void setLastSlot(final String newSlot) throws ParseException {
+		LOGGER.info("set last slot for driver");
+		
+		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("id", this.id);
+		newFields.put("email", this.email);
+		newFields.put("carId", this.carId);
+		newFields.put("password", this.password);
+		newFields.put("lastSlot", newSlot);
 		Map<String, Object> keys = new HashMap<String, Object>();
 		keys.put("id", this.id);
 		dbm.update(objectClass, keys, newFields);
@@ -217,6 +243,7 @@ public class Driver {
 		fields.put("email", this.email);
 		fields.put("carId", this.carId);
 		fields.put("password", this.password);
+		fields.put("lastSlot", this.lastSlot);
 		fields.put("id", this.id);
 		dbm.deleteObject(objectClass, fields);
 	}
