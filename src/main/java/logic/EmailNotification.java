@@ -55,5 +55,15 @@ public class EmailNotification {
 		String messageText = "Hello, \n This is to inform you that your parking in an illigal spot. \n Please move your car ASAP";
 		EmailNotification.Send(to, "Illigal parking noticiation", messageText);
 	}
+	
+	public static void ParkingConfirmation(String to, String slotName, String startTime, String endTime) throws MessagingException {
+		String messageText = "Hello, \n This is to inform you that your parking in slot "+slotName+" from " +startTime + " to "+endTime+"has been approved. /n Regars";
+		EmailNotification.Send(to, "Parking approval", messageText);
+	}
+	
+	public static void ReviewReminder(String to, String slotName) throws MessagingException{
+		String messageText = "Hello, \n This is to remind you to fill out a review on last prking experience on slot "+slotName+". \n Please loging to the system and fill the short review. / Regards";
+		EmailNotification.Send(to, "Parking review reminder", messageText);
+	}
 
 }

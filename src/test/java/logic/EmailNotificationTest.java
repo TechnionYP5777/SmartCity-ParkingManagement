@@ -1,6 +1,7 @@
 package logic;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import javax.mail.MessagingException;
 
@@ -30,6 +31,28 @@ public class EmailNotificationTest {
 		String to = "parkingmang@gmail.com";
 		try {
 			EmailNotification.IlligalParking(to);
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			Assert.fail();
+		}
+	}
+	
+	@Test
+	public void ParkingApproval(){
+		String to = "parkingmang@gmail.com";
+		try {
+			EmailNotification.ParkingConfirmation(to, "Slot", LocalDateTime.now().toString(), LocalDateTime.now().toString() );
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			Assert.fail();
+		}
+	}
+	
+	@Test
+	public void ReviewReminder(){
+		String to = "parkingmang@gmail.com";
+		try {
+			EmailNotification.ReviewReminder(to, "Slot");
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			Assert.fail();
