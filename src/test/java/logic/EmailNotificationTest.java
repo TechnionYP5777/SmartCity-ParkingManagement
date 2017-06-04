@@ -26,7 +26,7 @@ public class EmailNotificationTest {
 		}
 	}
 	
-	//@Test
+	@Test
 	public void IlligalMes(){
 		String to = "parkingmang@gmail.com";
 		try {
