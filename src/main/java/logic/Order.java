@@ -66,7 +66,7 @@ public class Order {
 		for (int i=0; i<=hours; ++i){
 			++id;
 			idToString=driverId + "" + startTime + id;
-			fields.put("hour", cal.getTime() + "");
+			fields.put("hour", cal.getTime().getHours() + ":"+cal.getTime().getMinutes());
 		    cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
 			keyValues.put("id", idToString);
 			DBManager.insertObject(objectClass, keyValues, fields);
@@ -236,7 +236,7 @@ public class Order {
 	}
 	
 	public void removeOrderFromDB() throws ParseException, InterruptedException {
-		LOGGER.info("delete driver from DB");
+		LOGGER.info("delete order from DB");
 		DBManager.initialize();
 		Map<String, Object> fields = new HashMap<String, Object>();
 		int newid=1;
@@ -247,6 +247,28 @@ public class Order {
 			Thread.sleep(6000);
 			++newid;
 			idToString = driverId + "" + this.date + newid;
+		}
+	}
+	
+	public void CancelOrder(){
+		LOGGER.info("cancel order from DB");
+		DBManager.initialize();
+		Map<String, Object> fields = new HashMap<String, Object>();
+		int newid=1;
+		String idToString = driverId + "" + this.date + newid;
+		
+		for(int i=0; i<this.hoursAmount; ++i){
+			fields.put("id", idToString);
+			
+			try {
+				DBManager.deleteObject(objectClass, fields);
+				Thread.sleep(6000);
+				++newid;
+				idToString = driverId + "" + this.date + newid;
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
 		}
 	}
 	
