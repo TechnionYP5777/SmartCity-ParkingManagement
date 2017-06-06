@@ -1,5 +1,6 @@
 package logic;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -19,6 +20,7 @@ public class orderTest {
 	 */
 	
 	private String startDate;
+	private Date start;
 	private String driverId;
 	private String hour;
 	
@@ -55,6 +57,7 @@ public class orderTest {
 		cal.add(Calendar.HOUR_OF_DAY, 2);
 		Date endTime =cal.getTime();
 		this.startDate = startTime + "";
+		this.start=startTime;
 		this.driverId= "3333333";
 		this.hour=startTime.getHours()+":"+startTime.getMinutes();
 		try {
@@ -99,7 +102,11 @@ public class orderTest {
 	@Test
 	public void checkGetDate() throws ParseException, InterruptedException{
 		String s = this.driverId+this.startDate+"1";
-		Assert.assertEquals(this.startDate, new Order(s).getDate().toString());
+		Calendar cal = Calendar.getInstance(); // creates calendar
+	    cal.setTime(this.start); // sets calendar time/date
+	    SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime());       
+		Assert.assertEquals(onlyDate, new Order(s).getDate().toString());
 		Thread.sleep(6000);
 	}
 	

@@ -1,5 +1,6 @@
 package logic;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -27,7 +28,10 @@ public class Order {
 	private String slotId;
 		
 	// The demand day
-	private Date date;
+	private String date;
+	
+	// The actual date
+	private Date actualDate;
 	
 	// The desired end time
 	private String hour;
@@ -48,14 +52,13 @@ public class Order {
 	// Create a new order. Will result in a new order in the DB.
 	public Order(final String driverId, final String slotId, Date startTime, Date endTime) throws ParseException, InterruptedException {
 		LOGGER.info("Create a new order by slot id, start time, end time");
-
 		DBManager.initialize();
 		checkParameters(driverId, slotId, startTime, endTime);
 		String idToString=driverId + "" + new Date();
 		Map<String, Object> fields = new HashMap<String, Object>(), keyValues = new HashMap<String, Object>();
 		fields.put("driverId", driverId);
 		fields.put("slotId", slotId);
-		fields.put("date", startTime);
+		this.actualDate=startTime;
 		int hours =hoursDifference(endTime, startTime);
 		if (hours<=0)
 			return;
@@ -63,6 +66,9 @@ public class Order {
 		int id=0;
 		Calendar cal = Calendar.getInstance(); // creates calendar
 	    cal.setTime(startTime); // sets calendar time/date
+	    SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime());      
+	    fields.put("date", onlyDate);
 		for (int i=0; i<=hours; ++i){
 			++id;
 			idToString=driverId + "" + startTime + id;
@@ -78,7 +84,7 @@ public class Order {
 		DBManager.initialize();
 
 		this.driverId = obj.getString("driverId");
-		this.date = obj.getDate("date");
+		this.date = obj.getString("date");
 		this.slotId = obj.getString("slotId");
 		this.hour = obj.getString("hour");
 		this.hoursAmount = (int)obj.get("hoursAmount");
@@ -95,7 +101,7 @@ public class Order {
 		
 		this.driverId=returnV.get("driverId") + "";
 		this.slotId= returnV.get("slotId") + "";
-		this.date= (Date)returnV.get("date");
+		this.date= returnV.get("date")+"";
 		this.hour= returnV.get("hour")+"";
 		this.hoursAmount= (int) returnV.get("hoursAmount");
 		this.id=id;
@@ -124,11 +130,11 @@ public class Order {
 		return DBManager.getObjectFieldsByKey(objectClass, key).get("slotId") + "";
 	}
 	
-	public Date getDate() {
+	public String getDate() {
 		DBManager.initialize();
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("id", id);
-		return (Date)DBManager.getObjectFieldsByKey(objectClass, key).get("date");
+		return DBManager.getObjectFieldsByKey(objectClass, key).get("date")+"";
 	}
 	
 	public String getHour() {
@@ -192,9 +198,11 @@ public class Order {
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("driverId", this.driverId);
 		newFields.put("slotId", this.slotId);
-		newFields.put("hour", newStart);
 		newFields.put("date", this.date);
-
+		Calendar cal = Calendar.getInstance(); // creates calendar
+	    cal.setTime(newStart); // sets calendar time/date
+	    String onlyHour=cal.getTime().getHours()+":"+cal.getTime().getMinutes();
+		newFields.put("hour", onlyHour);
 		Map<String, Object> keys = new HashMap<String, Object>();
 		keys.put("id", this.id);
 		DBManager.update(objectClass, keys, newFields);
@@ -206,12 +214,15 @@ public class Order {
 			LOGGER.severe("end time can not be empty!");
 			throw new IllegalArgumentException("end time can not be empty!");
 		}
-		
+		Calendar cal = Calendar.getInstance(); // creates calendar
+	    cal.setTime(newDate); // sets calendar time/date
+	    SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime());      	   
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("driverId", this.driverId);
 		newFields.put("slotId", this.slotId);
 		newFields.put("hour", this.hour);
-		newFields.put("date", newDate);
+		newFields.put("date", onlyDate);
 
 		Map<String, Object> keys = new HashMap<String, Object>();
 		keys.put("id", this.id);
@@ -240,13 +251,13 @@ public class Order {
 		DBManager.initialize();
 		Map<String, Object> fields = new HashMap<String, Object>();
 		int newid=1;
-		String idToString = driverId + "" + this.date + newid;
+		String idToString = driverId + "" + this.actualDate + newid;
 		for(int i=0; i<this.hoursAmount; ++i){
 			fields.put("id", idToString);
 			DBManager.deleteObject(objectClass, fields);
 			Thread.sleep(6000);
 			++newid;
-			idToString = driverId + "" + this.date + newid;
+			idToString = driverId + "" + this.actualDate + newid;
 		}
 	}
 	
@@ -255,7 +266,7 @@ public class Order {
 		DBManager.initialize();
 		Map<String, Object> fields = new HashMap<String, Object>();
 		int newid=1;
-		String idToString = driverId + "" + this.date + newid;
+		String idToString = driverId + "" + this.actualDate + newid;
 		
 		for(int i=0; i<this.hoursAmount; ++i){
 			fields.put("id", idToString);
@@ -264,7 +275,7 @@ public class Order {
 				DBManager.deleteObject(objectClass, fields);
 				Thread.sleep(6000);
 				++newid;
-				idToString = driverId + "" + this.date + newid;
+				idToString = driverId + "" + this.actualDate + newid;
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
