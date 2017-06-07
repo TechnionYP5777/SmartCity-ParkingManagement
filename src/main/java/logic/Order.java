@@ -30,8 +30,8 @@ public class Order {
 	// The demand day
 	private String date;
 	
-	// The desired end time
-	private String hour;
+	// The desired time
+	private int hour;
 	
 	// The desired amount of hours
 	private int hoursAmount;
@@ -68,7 +68,7 @@ public class Order {
 		for (int i=0; i<=hours; ++i){
 			++id;
 			idToString=driverId + "" + onlyDate + id;
-			fields.put("hour", cal.getTime().getHours() + ":"+cal.getTime().getMinutes());
+			fields.put("hour", Integer.valueOf(cal.getTime().getHours()));
 		    cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
 			keyValues.put("id", idToString);
 			DBManager.insertObject(objectClass, keyValues, fields);
@@ -82,7 +82,7 @@ public class Order {
 		this.driverId = obj.getString("driverId");
 		this.date = obj.getString("date");
 		this.slotId = obj.getString("slotId");
-		this.hour = obj.getString("hour");
+		this.hour = obj.getInt("hour");
 		this.hoursAmount = (int)obj.get("hoursAmount");
 		
 	}
@@ -98,7 +98,7 @@ public class Order {
 		this.driverId=returnV.get("driverId") + "";
 		this.slotId= returnV.get("slotId") + "";
 		this.date= returnV.get("date")+"";
-		this.hour= returnV.get("hour")+"";
+		this.hour= (int)returnV.get("hour");
 		this.hoursAmount= (int) returnV.get("hoursAmount");
 		this.id=id;
 	}
@@ -133,11 +133,11 @@ public class Order {
 		return DBManager.getObjectFieldsByKey(objectClass, key).get("date")+"";
 	}
 	
-	public String getHour() {
+	public int getHour() {
 		DBManager.initialize();
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("id", id);
-		return (String) DBManager.getObjectFieldsByKey(objectClass, key).get("hour");
+		return (int) DBManager.getObjectFieldsByKey(objectClass, key).get("hour");
 	}
 	
 	public int getHoursAmount() {
@@ -197,7 +197,7 @@ public class Order {
 		newFields.put("date", this.date);
 		Calendar cal = Calendar.getInstance(); // creates calendar
 	    cal.setTime(newStart); // sets calendar time/date
-	    String onlyHour=cal.getTime().getHours()+":"+cal.getTime().getMinutes();
+	    int onlyHour=cal.getTime().getHours();
 		newFields.put("hour", onlyHour);
 		Map<String, Object> keys = new HashMap<String, Object>();
 		keys.put("id", this.id);

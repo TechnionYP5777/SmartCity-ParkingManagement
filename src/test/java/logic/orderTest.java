@@ -21,7 +21,7 @@ public class orderTest {
 	
 	private String startDate;
 	private String driverId;
-	private String hour;
+	private int hour;
 	
 	@Test
 	public void setUpTest() throws ParseException, InterruptedException {
@@ -61,7 +61,7 @@ public class orderTest {
 	    String onlyDate = format1.format(cal.getTime());    
 		this.startDate = onlyDate;
 		this.driverId= "3333333";
-		this.hour=startTime.getHours()+":"+startTime.getMinutes();
+		this.hour=startTime.getHours();
 		try {
 			new Order("3333333", "123", startTime, endTime);
 			Thread.sleep(6000);
