@@ -20,7 +20,6 @@ public class orderTest {
 	 */
 	
 	private String startDate;
-	private Date start;
 	private String driverId;
 	private String hour;
 	
@@ -37,8 +36,9 @@ public class orderTest {
 			Date endTime =cal.getTime();
 			new Order("3333334", "123", startTime, endTime);
 			Thread.sleep(5000);
-			
-			String id="3333334" + startTime + "1";
+			SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+		    String onlyDate = format1.format(cal.getTime());   
+			String id="3333334" + onlyDate + "1";
 			new Order(id).removeOrderFromDB();
 			Thread.sleep(5000);
 
@@ -56,8 +56,10 @@ public class orderTest {
 		cal.setTime(startTime); // sets calendar time/date
 		cal.add(Calendar.HOUR_OF_DAY, 2);
 		Date endTime =cal.getTime();
-		this.startDate = startTime + "";
-		this.start=startTime;
+		
+	    SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime());    
+		this.startDate = onlyDate;
 		this.driverId= "3333333";
 		this.hour=startTime.getHours()+":"+startTime.getMinutes();
 		try {
@@ -71,7 +73,7 @@ public class orderTest {
 	@After
 	public void finishTests() throws ParseException {
 		String s = this.driverId+this.startDate+"1";
-		try {
+		try {			
 			new Order(s).removeOrderFromDB();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -101,12 +103,8 @@ public class orderTest {
 	
 	@Test
 	public void checkGetDate() throws ParseException, InterruptedException{
-		String s = this.driverId+this.startDate+"1";
-		Calendar cal = Calendar.getInstance(); // creates calendar
-	    cal.setTime(this.start); // sets calendar time/date
-	    SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-	    String onlyDate = format1.format(cal.getTime());       
-		Assert.assertEquals(onlyDate, new Order(s).getDate().toString());
+		String s = this.driverId+this.startDate+"1";      
+		Assert.assertEquals(this.startDate, new Order(s).getDate().toString());
 		Thread.sleep(6000);
 	}
 	
@@ -187,7 +185,9 @@ public class orderTest {
 			new Order("3333334", "123", startTime, endTime);
 			Thread.sleep(10000);
 			System.out.println("1");
-			String id="3333334" + startTime + "1";
+			SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+		    String onlyDate = format1.format(cal.getTime());   
+			String id="3333334" + onlyDate + "1";		
 			new Order(id).removeOrderFromDB();
 			System.out.println("2");
 
@@ -211,7 +211,9 @@ public class orderTest {
 			Date endTime =cal.getTime();
 			new Order("3333334", "123", startTime, endTime);
 			Thread.sleep(10000);
-			String id="3333334" + startTime + "1";			
+			SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+		    String onlyDate = format1.format(cal.getTime());   
+			String id="3333334" + onlyDate + "1";			
 			Thread.sleep(6000);
 			
 			Order o = new Order(id);
