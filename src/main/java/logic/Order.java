@@ -11,6 +11,7 @@ import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
 
 import data.management.DBManager;
+import data.management.DatabaseManager;
 
 public class Order {
 	/**
@@ -38,6 +39,8 @@ public class Order {
 	
 	private final String objectClass = "Order";
 	
+	private DatabaseManager dbm;
+	
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	/* Constructors */
@@ -47,9 +50,12 @@ public class Order {
 	}
 
 	// Create a new order. Will result in a new order in the DB.
-	public Order(final String driverId, final String slotId, Date startTime, Date endTime) throws ParseException, InterruptedException {
+	@SuppressWarnings("deprecation")
+	public Order(final String driverId, final String slotId, Date startTime, Date endTime,DatabaseManager manager) throws ParseException, InterruptedException {
 		LOGGER.info("Create a new order by slot id, start time, end time");
-		DBManager.initialize();
+		this.dbm = manager;
+		dbm.initialize();
+		
 		checkParameters(driverId, slotId, startTime, endTime);
 		Map<String, Object> fields = new HashMap<String, Object>(), keyValues = new HashMap<String, Object>();
 		fields.put("driverId", driverId);
@@ -71,7 +77,7 @@ public class Order {
 			fields.put("hour", Integer.valueOf(cal.getTime().getHours()));
 		    cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
 			keyValues.put("id", idToString);
-			DBManager.insertObject(objectClass, keyValues, fields);
+			dbm.insertObject(objectClass, keyValues, fields);
 			Thread.sleep(6000);
 		}
 	}
@@ -87,13 +93,14 @@ public class Order {
 		
 	}
 	
-	public Order(final String id) throws ParseException {
+	public Order(final String id, DatabaseManager manager) throws ParseException {
 		LOGGER.info("Create a new order by driver id");
-		DBManager.initialize();
+		this.dbm = manager;
+		dbm.initialize();
 		
 		Map<String, Object> keys = new HashMap<>();
 		keys.put("id", id);
-		Map<String,Object> returnV = DBManager.getObjectFieldsByKey(objectClass, keys);
+		Map<String,Object> returnV = dbm.getObjectFieldsByKey(objectClass, keys);
 		
 		this.driverId=returnV.get("driverId") + "";
 		this.slotId= returnV.get("slotId") + "";
@@ -106,45 +113,45 @@ public class Order {
 	/* Getters */
 
 	public String getId() {
-		DBManager.initialize();
+		dbm.initialize();
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("id", id);
-		return DBManager.getObjectFieldsByKey(objectClass, key).get("id") + "";
+		return dbm.getObjectFieldsByKey(objectClass, key).get("id") + "";
 	}
 	
 	public String getDriverId() {
-		DBManager.initialize();
+		dbm.initialize();
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("id", id);
-		return DBManager.getObjectFieldsByKey(objectClass, key).get("driverId") + "";
+		return dbm.getObjectFieldsByKey(objectClass, key).get("driverId") + "";
 	}
 	
 	public String getSlotId() {
-		DBManager.initialize();
+		dbm.initialize();
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("id", id);
-		return DBManager.getObjectFieldsByKey(objectClass, key).get("slotId") + "";
+		return dbm.getObjectFieldsByKey(objectClass, key).get("slotId") + "";
 	}
 	
 	public String getDate() {
-		DBManager.initialize();
+		dbm.initialize();
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("id", id);
-		return DBManager.getObjectFieldsByKey(objectClass, key).get("date")+"";
+		return dbm.getObjectFieldsByKey(objectClass, key).get("date")+"";
 	}
 	
 	public int getHour() {
-		DBManager.initialize();
+		dbm.initialize();
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("id", id);
-		return (int) DBManager.getObjectFieldsByKey(objectClass, key).get("hour");
+		return (int) dbm.getObjectFieldsByKey(objectClass, key).get("hour");
 	}
 	
 	public int getHoursAmount() {
-		DBManager.initialize();
+		dbm.initialize();
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("id", id);
-		return (int) DBManager.getObjectFieldsByKey(objectClass, key).get("hoursAmount");
+		return (int) dbm.getObjectFieldsByKey(objectClass, key).get("hoursAmount");
 	}
 	
 	/* Setters */
@@ -164,7 +171,7 @@ public class Order {
 
 		Map<String, Object> keys = new HashMap<String, Object>();
 		keys.put("id", this.id);
-		DBManager.update(objectClass, keys, newFields);
+		dbm.update(objectClass, keys, newFields);
 	}
 
 	public void setSlotId(final String newSlot) throws ParseException {
@@ -182,7 +189,7 @@ public class Order {
 
 		Map<String, Object> keys = new HashMap<String, Object>();
 		keys.put("id", this.id);
-		DBManager.update(objectClass, keys, newFields);
+		dbm.update(objectClass, keys, newFields);
 	}
 	
 	public void setStartTime(final Date newStart) throws ParseException {
@@ -197,11 +204,12 @@ public class Order {
 		newFields.put("date", this.date);
 		Calendar cal = Calendar.getInstance(); // creates calendar
 	    cal.setTime(newStart); // sets calendar time/date
-	    int onlyHour=cal.getTime().getHours();
+	    @SuppressWarnings("deprecation")
+		int onlyHour=cal.getTime().getHours();
 		newFields.put("hour", onlyHour);
 		Map<String, Object> keys = new HashMap<String, Object>();
 		keys.put("id", this.id);
-		DBManager.update(objectClass, keys, newFields);
+		dbm.update(objectClass, keys, newFields);
 	}
 	
 	public void setDate(final Date newDate) throws ParseException {
@@ -222,7 +230,7 @@ public class Order {
 
 		Map<String, Object> keys = new HashMap<String, Object>();
 		keys.put("id", this.id);
-		DBManager.update(objectClass, keys, newFields);
+		dbm.update(objectClass, keys, newFields);
 	}
 	
 	/* Methods */
@@ -244,13 +252,13 @@ public class Order {
 	
 	public void removeOrderFromDB() throws ParseException, InterruptedException {
 		LOGGER.info("delete order from DB");
-		DBManager.initialize();
+		dbm.initialize();
 		Map<String, Object> fields = new HashMap<String, Object>();
 		int newid=1;
 		String idToString = driverId + "" + this.date + newid;
 		for(int i=0; i<this.hoursAmount; ++i){
 			fields.put("id", idToString);
-			DBManager.deleteObject(objectClass, fields);
+			dbm.deleteObject(objectClass, fields);
 			Thread.sleep(6000);
 			++newid;
 			idToString = driverId + "" + this.date + newid;
@@ -263,12 +271,11 @@ public class Order {
 		Map<String, Object> fields = new HashMap<String, Object>();
 		int newid=1;
 		String idToString = driverId + "" + this.date + newid;
-		System.out.println(idToString);
 		for(int i=0; i<this.hoursAmount; ++i){
 			fields.put("id", idToString);
 			
 			try {
-				DBManager.deleteObject(objectClass, fields);
+				dbm.deleteObject(objectClass, fields);
 				Thread.sleep(6000);
 				++newid;
 				idToString = driverId + "" + this.date + newid;
