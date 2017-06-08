@@ -168,7 +168,22 @@ public class Order {
 		newFields.put("slotId", this.slotId);
 		newFields.put("hour", this.hour);
 		newFields.put("date", this.date);
-
+		newFields.put("id", this.id);
+		newFields.put("hoursAmount", this.hoursAmount);
+		Map<String, Object> keys = new HashMap<String, Object>();
+		keys.put("id", this.id);
+		dbm.update(objectClass, keys, newFields);
+	}
+	
+	public void setHoursAmount(final int newAmount) throws ParseException {
+		LOGGER.info("Set hours amount");
+		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("driverId", this.driverId);
+		newFields.put("slotId", this.slotId);
+		newFields.put("hour", this.hour);
+		newFields.put("date", this.date);
+		newFields.put("id", this.id);
+		newFields.put("hoursAmount", newAmount);
 		Map<String, Object> keys = new HashMap<String, Object>();
 		keys.put("id", this.id);
 		dbm.update(objectClass, keys, newFields);
@@ -186,7 +201,8 @@ public class Order {
 		newFields.put("slotId", newSlot);
 		newFields.put("hour", this.hour);
 		newFields.put("date", this.date);
-
+		newFields.put("id", this.id);
+		newFields.put("hoursAmount", this.hoursAmount);
 		Map<String, Object> keys = new HashMap<String, Object>();
 		keys.put("id", this.id);
 		dbm.update(objectClass, keys, newFields);
@@ -202,6 +218,8 @@ public class Order {
 		newFields.put("driverId", this.driverId);
 		newFields.put("slotId", this.slotId);
 		newFields.put("date", this.date);
+		newFields.put("id", this.id);
+		newFields.put("hoursAmount", this.hoursAmount);
 		Calendar cal = Calendar.getInstance(); // creates calendar
 	    cal.setTime(newStart); // sets calendar time/date
 	    @SuppressWarnings("deprecation")
@@ -227,7 +245,8 @@ public class Order {
 		newFields.put("slotId", this.slotId);
 		newFields.put("hour", this.hour);
 		newFields.put("date", onlyDate);
-
+		newFields.put("id", this.id);
+		newFields.put("hoursAmount", this.hoursAmount);
 		Map<String, Object> keys = new HashMap<String, Object>();
 		keys.put("id", this.id);
 		dbm.update(objectClass, keys, newFields);
@@ -269,6 +288,12 @@ public class Order {
 		LOGGER.info("cancel order from DB");
 		DBManager.initialize();
 		Map<String, Object> fields = new HashMap<String, Object>();
+		fields.put("hoursAmount", this.hoursAmount);
+		fields.put("driverId", this.driverId);
+		fields.put("slotId", this.slotId);
+		fields.put("date", this.date);
+		fields.put("hour", this.hour);
+		fields.put("id",this.id);
 		int newid=1;
 		String idToString = driverId + "" + this.date + newid;
 		for(int i=0; i<this.hoursAmount; ++i){

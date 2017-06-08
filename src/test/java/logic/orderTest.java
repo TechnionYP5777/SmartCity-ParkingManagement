@@ -342,4 +342,195 @@ public class orderTest {
 		}
 	}
 	
+	@Test
+	public void checkCancelOrder(){
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Map<String, Object> keys = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		Date startTime =new Date();
+		Calendar cal = Calendar.getInstance(); // creates calendar
+	    cal.setTime(startTime); // sets calendar time/date
+	    cal.add(Calendar.HOUR_OF_DAY, 2);
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime()); 
+		String s = "3333334"+onlyDate+"1";
+		keys.put("id", s);
+		fields.put("hoursAmount", 1);
+		fields.put("driverId", "3333334");
+		fields.put("slotId", "123");
+		fields.put("date", onlyDate);
+		fields.put("hour", 14);
+		fields.put("id",s);
+		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
+		try{
+			new Order(s,dbm).CancelOrder();;
+			Mockito.verify(dbm, Mockito.times(1)).initialize();
+			s = "3333334"+onlyDate+"1";
+			System.out.println(s);
+			//keys.put("id", s);
+
+			//fields.put("id",s);
+			//fields.put("hour", 15);
+//			fields.put("hoursAmount", 2);
+//			fields.put("driverId", "3333334");
+//			fields.put("slotId", "123");
+//			fields.put("date", onlyDate);
+			Mockito.verify(dbm, Mockito.times(1)).deleteObject("Order", fields);
+
+		}catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void checkSetDriverId(){
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Map<String, Object> keys = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		Date startTime =new Date();
+		Calendar cal = Calendar.getInstance(); // creates calendar
+	    cal.setTime(startTime); // sets calendar time/date
+	    cal.add(Calendar.HOUR_OF_DAY, 2);
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime()); 
+		keys.put("id", "1");
+		fields.put("hoursAmount", 3);
+		fields.put("driverId", "3333334");
+		fields.put("slotId", "123");
+		fields.put("date", onlyDate);
+		fields.put("hour", 2);
+		fields.put("id","1");
+		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
+		try{
+			new Order("1",dbm).setDriverId("3333335");
+			fields.put("driverId", "3333335");
+			Mockito.verify(dbm,Mockito.times(1)).update("Order", keys, fields);
+		}catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void checkSetSlotId(){
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Map<String, Object> keys = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		Date startTime =new Date();
+		Calendar cal = Calendar.getInstance(); // creates calendar
+	    cal.setTime(startTime); // sets calendar time/date
+	    cal.add(Calendar.HOUR_OF_DAY, 2);
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime()); 
+		keys.put("id", "1");
+		fields.put("hoursAmount", 3);
+		fields.put("driverId", "3333334");
+		fields.put("slotId", "123");
+		fields.put("date", onlyDate);
+		fields.put("hour", 2);
+		fields.put("id","1");
+		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
+		try{
+			new Order("1",dbm).setSlotId("122");;
+			fields.put("slotId", "122");
+			Mockito.verify(dbm,Mockito.times(1)).update("Order", keys, fields);
+		}catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void checkSetDate(){
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Map<String, Object> keys = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		Date startTime =new Date();
+		Calendar cal = Calendar.getInstance(); // creates calendar
+	    cal.setTime(startTime); // sets calendar time/date
+	    cal.add(Calendar.HOUR_OF_DAY, 2);
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime()); 
+		keys.put("id", "1");
+		fields.put("hoursAmount", 3);
+		fields.put("id", 1);
+		fields.put("driverId", "3333334");
+		fields.put("slotId", "123");
+		fields.put("date", onlyDate);
+		fields.put("hour", 2);
+		fields.put("id","1");
+		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
+		try{
+			Date newDate=new Date();
+			new Order("1",dbm).setDate(newDate);
+			Calendar cal2 = Calendar.getInstance(); // creates calendar
+		    cal2.setTime(newDate); // sets calendar time/date
+		    cal2.add(Calendar.HOUR_OF_DAY, 2);
+			SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
+		    String onlyDate2 = format2.format(cal.getTime()); 
+			fields.put("date", onlyDate2);
+			Mockito.verify(dbm,Mockito.times(1)).update("Order", keys, fields);
+		}catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Test
+	public void checkSetHour(){
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Map<String, Object> keys = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		Date startTime =new Date();
+		Calendar cal = Calendar.getInstance(); // creates calendar
+	    cal.setTime(startTime); // sets calendar time/date
+	    cal.add(Calendar.HOUR_OF_DAY, 2);
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime()); 
+		keys.put("id", "1");
+		fields.put("hoursAmount", 3);
+		fields.put("driverId", "3333334");
+		fields.put("slotId", "123");
+		fields.put("date", onlyDate);
+		fields.put("hour", new Date().getHours());
+		fields.put("id","1");
+		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
+		try{
+			Calendar cal2 = Calendar.getInstance(); // creates calendar
+		    cal.setTime(startTime); // sets calendar time/date
+		    cal.add(Calendar.HOUR_OF_DAY, 2);
+		    new Order("1",dbm).setStartTime(cal2.getTime());
+		    fields.put("hoursAmount", 3);
+		    fields.put("hour", cal2.getTime().getHours());
+			Mockito.verify(dbm,Mockito.times(1)).update("Order", keys, fields);
+		}catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void checkSetHoursAmount(){
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Map<String, Object> keys = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		Date startTime =new Date();
+		Calendar cal = Calendar.getInstance(); // creates calendar
+	    cal.setTime(startTime); // sets calendar time/date
+	    cal.add(Calendar.HOUR_OF_DAY, 2);
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime()); 
+		keys.put("id", "1");
+		fields.put("hoursAmount", 3);
+		fields.put("driverId", "3333334");
+		fields.put("slotId", "123");
+		fields.put("date", onlyDate);
+		fields.put("hour", 2);
+		fields.put("id","1");
+		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
+		try{
+		    new Order("1",dbm).setHoursAmount(4);
+		    fields.put("hoursAmount", 4);
+			Mockito.verify(dbm,Mockito.times(1)).update("Order", keys, fields);
+		}catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
 }
