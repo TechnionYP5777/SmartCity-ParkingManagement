@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTimePicker?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.driver.app.ChooseDestinationAndTimeController">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="120.0" prefWidth="200.0">
+               <children>
+                  <Label text="Order Parking Slot">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Label text="1.Choose Destination">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" top="20.0" />
+               </VBox.margin>
+            </Label>
+            <HBox alignment="TOP_CENTER" prefHeight="60.0" prefWidth="200.0">
+               <children>
+                  <JFXRadioButton text="Student House">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="destination" />
+                     </toggleGroup>
+                  </JFXRadioButton>
+                  <JFXRadioButton text="Ulman" toggleGroup="$destination" />
+                  <JFXRadioButton text="Taub" toggleGroup="$destination" />
+                  <JFXRadioButton text="Sports Center" toggleGroup="$destination" />
+               </children>
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+            </HBox>
+            <Label text="2.Choose Date &amp; Time">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" top="5.0" />
+               </VBox.margin>
+            </Label>
+            <HBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="200.0">
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+               <children>
+                  <JFXDatePicker promptText="At date" />
+                  <JFXTimePicker promptText="Arrival time" />
+                  <JFXTimePicker promptText="Departure time" />
+               </children>
+            </HBox>
+            <HBox prefHeight="50.0" prefWidth="500.0">
+               <children>
+                  <HBox alignment="BOTTOM_LEFT" prefHeight="50.0" prefWidth="300.0">
+                     <children>
+                        <JFXButton text="Sign out" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="BOTTOM_RIGHT" prefHeight="50.0" prefWidth="300.0">
+                     <children>
+                        <JFXButton text="Continue" />
+                     </children>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</StackPane>

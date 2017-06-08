@@ -1,114 +1,288 @@
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:28 AM logic.EmailNotification Send
+INFO: Create a session object
+Jun 08, 2017 5:11:28 AM logic.EmailNotification Send
+INFO: Create message...
+Jun 08, 2017 5:11:28 AM logic.EmailNotification Send
+INFO: send message...
+Jun 08, 2017 5:11:31 AM logic.EmailNotification Send
+INFO: Message sent successfully...
+Jun 08, 2017 5:11:31 AM logic.EmailNotification Send
+INFO: Create a session object
+Jun 08, 2017 5:11:31 AM logic.EmailNotification Send
+INFO: Create message...
+Jun 08, 2017 5:11:31 AM logic.EmailNotification Send
+INFO: send message...
+Jun 08, 2017 5:11:33 AM logic.EmailNotification Send
+INFO: Message sent successfully...
+Jun 08, 2017 5:11:33 AM logic.EmailNotification Send
+INFO: Create a session object
+Jun 08, 2017 5:11:33 AM logic.EmailNotification Send
+INFO: Create message...
+Jun 08, 2017 5:11:33 AM logic.EmailNotification Send
+INFO: send message...
+Jun 08, 2017 5:11:35 AM logic.EmailNotification Send
+INFO: Message sent successfully...
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id, email, car id, password
+Jun 08, 2017 5:11:35 AM util.Validation validateNewDriver
+WARNING: Driver is not in the right format
+Jun 08, 2017 5:11:35 AM data.members.Driver validateArgument
+SEVERE: illegal arguments!
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver setEmail
+INFO: set email for driver
+Jun 08, 2017 5:11:35 AM util.Validation validateMail
+WARNING: Email is not in the right format: 123
+Jun 08, 2017 5:11:35 AM data.members.Driver checkEmail
+SEVERE: email is illegal!
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver setEmail
+INFO: set email for driver
+Jun 08, 2017 5:11:35 AM util.Validation validateMail
+WARNING: Email is not in the right format: 123.com
+Jun 08, 2017 5:11:35 AM data.members.Driver checkEmail
+SEVERE: email is illegal!
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver setEmail
+INFO: set email for driver
+Jun 08, 2017 5:11:35 AM util.Validation validateMail
+WARNING: Email is not in the right format: 123@com
+Jun 08, 2017 5:11:35 AM data.members.Driver checkEmail
+SEVERE: email is illegal!
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver setPassword
+INFO: set password for driver
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id, email, car id, password
+Jun 08, 2017 5:11:35 AM util.Validation validateNewDriver
+WARNING: Driver is not in the right format
+Jun 08, 2017 5:11:35 AM data.members.Driver validateArgument
+SEVERE: illegal arguments!
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver setEmail
+INFO: set email for driver
+Jun 08, 2017 5:11:35 AM data.members.Driver checkEmail
+SEVERE: email can not be empty!
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver setCarId
+INFO: set car id for driver
+Jun 08, 2017 5:11:35 AM util.Validation validateCarId
+WARNING: Car Id is not in the right format123
+Jun 08, 2017 5:11:35 AM data.members.Driver checkCarId
+SEVERE: carId is illegal! Must contain 7 characters!
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver setCarId
+INFO: set car id for driver
+Jun 08, 2017 5:11:35 AM util.Validation validateCarId
+WARNING: Car Id is not in the right format12345678
+Jun 08, 2017 5:11:35 AM data.members.Driver checkCarId
+SEVERE: carId is illegal! Must contain 7 characters!
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver setLastSlot
+INFO: set last slot for driver
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver setLastSlot
+INFO: set last slot for driver
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id, email, car id, password
+Jun 08, 2017 5:11:35 AM util.Validation validateNewDriver
+WARNING: Driver is not in the right format
+Jun 08, 2017 5:11:35 AM data.members.Driver validateArgument
+SEVERE: illegal arguments!
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id, email, car id, password
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id, email, car id, password
+Jun 08, 2017 5:11:35 AM util.Validation validateNewDriver
+WARNING: Driver is not in the right format
+Jun 08, 2017 5:11:35 AM data.members.Driver validateArgument
+SEVERE: illegal arguments!
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver setCarId
+INFO: set car id for driver
+Jun 08, 2017 5:11:35 AM util.Validation validateCarId
+WARNING: Car Id is not in the right formatnull
+Jun 08, 2017 5:11:35 AM data.members.Driver checkCarId
+SEVERE: carId is illegal! Must contain 7 characters!
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver setPassword
+INFO: set password for driver
+Jun 08, 2017 5:11:35 AM util.Validation validatePassword
+WARNING: Password is not in the right format12345678910
+Jun 08, 2017 5:11:35 AM data.members.Driver checkPassword
+SEVERE: password is illegal! Must contain between 1-10 characters!
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver removeDriverFromDB
+INFO: remove driver from DB
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver setCarId
+INFO: set car id for driver
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver setEmail
+INFO: set email for driver
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id, email, car id, password
+Jun 08, 2017 5:11:35 AM util.Validation validateNewDriver
+WARNING: Driver is not in the right format
+Jun 08, 2017 5:11:35 AM data.members.Driver validateArgument
+SEVERE: illegal arguments!
+Jun 08, 2017 5:11:35 AM data.members.Driver <init>
+INFO: Create a new driver by id
+Jun 08, 2017 5:11:35 AM data.members.Driver setPassword
+INFO: set password for driver
+Jun 08, 2017 5:11:35 AM util.Validation validatePassword
+WARNING: Password is not in the right formatnull
+Jun 08, 2017 5:11:35 AM data.members.Driver checkPassword
+SEVERE: password is illegal! Must contain between 1-10 characters!
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot setDefaultColor
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot setDefaultColor
 INFO: Set parking slot default color
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot setLocation
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot setLocation
 INFO: Set parking slot location
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot setEndTime
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot setEndTime
 INFO: Set parking slot expiration time
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot setRank
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot setRank
 INFO: Set parking slot color
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot setName
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot setName
 INFO: Set parking slot name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name, status, color, sticker color, expiration time
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name, status, color, sticker color, expiration time
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name, status, color, sticker color, expiration time
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot setEndTime
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot setEndTime
 INFO: Set parking slot expiration time
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot setArea
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot setArea
 INFO: Set parking slot area
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot setStatus
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot setStatus
 INFO: Set parking slot status
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot setStatus
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot setStatus
 INFO: Set parking slot status
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot setStatus
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot setStatus
 INFO: Set parking slot status
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot setLocation
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot setLocation
 INFO: Set parking slot location
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot setArea
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot setArea
 INFO: Set parking slot area
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot setName
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot setName
 INFO: Set parking slot name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot setName
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot setName
 INFO: Set parking slot name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot setRank
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot setRank
 INFO: Set parking slot color
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
-May 21, 2017 4:30:12 PM data.members.ParkingSlot setDefaultColor
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot setDefaultColor
 INFO: Set parking slot default color
-May 21, 2017 4:30:12 PM data.members.ParkingSlot <init>
+Jun 08, 2017 5:11:35 AM data.members.ParkingSlot <init>
 INFO: Create a new parking slot by name
