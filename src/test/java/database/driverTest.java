@@ -119,13 +119,14 @@ public class driverTest {
 		fields.put("email", "stam@gmail.com");
 		fields.put("carId", "1234567");
 		fields.put("password", "1234567");
-		fields.put("lastSlot", "123123");
+		fields.put("lastSlot", "12345");
 		Mockito.when(dbm.getObjectFieldsByKey("Driver", keys)).thenReturn(fields);
+		
 		
 		try{
 			new Driver("333333333",dbm).setLastSlot("123123");
-			Assert.assertEquals("123123",new Driver("333333333",dbm).getLastSlot());
-			new Driver("333333333",dbm).setLastSlot("12345");
+			fields.put("lastSlot", "123123");
+			Mockito.verify(dbm,Mockito.times(1)).update("Driver", keys, fields);
 		}catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -141,13 +142,13 @@ public class driverTest {
 		fields.put("email", "stam@gmail.com");
 		fields.put("carId", "1234567");
 		fields.put("password", "1234567");
-		fields.put("lastSlot", null);
+		fields.put("lastSlot", "12345");
 		Mockito.when(dbm.getObjectFieldsByKey("Driver", keys)).thenReturn(fields);
 		
 		try{
 			new Driver("333333333",dbm).setLastSlot(null);
-			Assert.assertEquals("null", new Driver("333333333",dbm).getLastSlot());
-			new Driver("333333333",dbm).setLastSlot("12345");
+			fields.put("lastSlot", null);
+			Mockito.verify(dbm,Mockito.times(1)).update("Driver", keys, fields);
 		}catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -202,16 +203,28 @@ public class driverTest {
 		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
 		Map<String, Object> keys = new HashMap<>();
 		Map<String, Object> fields = new HashMap<>();
+		keys.put("id", "333333333");
+		fields.put("id", "333333333");
+		fields.put("email", "stam@gmail.com");
+		fields.put("carId", "1234567");
+		fields.put("password", "1234567");
+		fields.put("lastSlot", "12345");
+		Mockito.when(dbm.getObjectFieldsByKey("Driver", keys)).thenReturn(fields);
+		Map<String, Object> keys2 = new HashMap<>();
+		Map<String, Object> fields2 = new HashMap<>();
 		keys.put("id", "333333332");
 		fields.put("id", "333333332");
 		fields.put("email", "stam@gmail.com");
 		fields.put("carId", "1234567");
 		fields.put("password", "1234567");
 		fields.put("lastSlot", "12345");
-		Mockito.when(dbm.getObjectFieldsByKey("Driver", keys)).thenReturn(fields);
+		Mockito.when(dbm.getObjectFieldsByKey("Driver", keys2)).thenReturn(fields2);
 		
 		try{
 			new Driver("333333333",dbm).setId("333333332");
+			fields.put("id", "333333332");
+			Mockito.verify(dbm,Mockito.times(1)).update("Driver", keys, fields);
+
 		}catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -244,15 +257,15 @@ public class driverTest {
 		Map<String, Object> fields = new HashMap<>();
 		keys.put("id", "333333333");
 		fields.put("id", "333333333");
-		fields.put("email", "stam2@gmail.com");
+		fields.put("email", "stam@gmail.com");
 		fields.put("carId", "1234567");
 		fields.put("password", "1234567");
 		fields.put("lastSlot", "12345");
 		Mockito.when(dbm.getObjectFieldsByKey("Driver", keys)).thenReturn(fields);
 		try{
 			new Driver("333333333",dbm).setEmail("stam2@gmail.com");
-			Assert.assertEquals("stam2@gmail.com",new Driver("333333333",dbm).getEmail());
-			new Driver("333333333",dbm).setEmail("stam@gmail.com");
+			fields.put("email", "stam2@gmail.com");
+			Mockito.verify(dbm,Mockito.times(1)).update("Driver", keys, fields);
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
@@ -267,14 +280,14 @@ public class driverTest {
 		keys.put("id", "333333333");
 		fields.put("id", "333333333");
 		fields.put("email", "stam2@gmail.com");
-		fields.put("carId", "1234568");
+		fields.put("carId", "1234567");
 		fields.put("password", "1234567");
 		fields.put("lastSlot", "12345");
 		Mockito.when(dbm.getObjectFieldsByKey("Driver", keys)).thenReturn(fields);
 		try{
 			new Driver("333333333",dbm).setCarId("1234568");
-			Driver d =new Driver("333333333",dbm);
-			Assert.assertEquals("1234568",d.getCarId());
+			fields.put("carId", "1234568");
+			Mockito.verify(dbm,Mockito.times(1)).update("Driver", keys, fields);
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
@@ -291,11 +304,12 @@ public class driverTest {
 		fields.put("email", "stam2@gmail.com");
 		fields.put("carId", "1234568");
 		fields.put("lastSlot", "12345");
-		fields.put("password", "12345678");
+		fields.put("password", "1234567");
 		Mockito.when(dbm.getObjectFieldsByKey("Driver", keys)).thenReturn(fields);
 		try{
 			new Driver("333333333",dbm).setPassword("12345678");
-			Assert.assertEquals("12345678",new Driver("333333333",dbm).getPassword());
+			fields.put("password", "12345678");
+			Mockito.verify(dbm,Mockito.times(1)).update("Driver", keys, fields);
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
