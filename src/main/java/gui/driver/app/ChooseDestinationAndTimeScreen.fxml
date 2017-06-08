@@ -61,9 +61,9 @@
                   <Insets top="25.0" />
                </VBox.margin>
                <children>
-                  <JFXDatePicker promptText="At date" />
+                  <JFXDatePicker promptText="At date"/>
                   <JFXTimePicker promptText="Arrival time" />
-                  <JFXTimePicker promptText="Departure time" />
+                  <JFXTimePicker promptText="Departure time"/>
                </children>
             </HBox>
             <HBox prefHeight="50.0" prefWidth="500.0">

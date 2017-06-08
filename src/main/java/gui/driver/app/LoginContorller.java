@@ -54,11 +54,17 @@ public class LoginContorller {
 			statusLabel.setText("Successful login");
 			statusLabel.setStyle(" -fx-text-fill: green; -fx-font-size: 15px; -fx-font-weight: bold");
 			statusLabel.setVisible(true);
-
+			/*
 		 	Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 			window.setTitle("Choose destination and time");
 			Parent root = FXMLLoader.load(getClass().getResource("ChooseDestinationAndTimeScreen.fxml")); 
 			window.setScene(new Scene(root,600,500));		
+			window.show();*/
+			
+			Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+			window.setTitle("Map");
+			Parent root = FXMLLoader.load(getClass().getResource("ChooseParkingSlotScreen.fxml")); 
+			window.setScene(new Scene(root,600,600));		
 			window.show();
 
 		} catch (LoginException e){
