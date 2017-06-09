@@ -16,7 +16,7 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="removeMarkersButton" mnemonicParsing="false" onAction="#deleteMarkers" text="delete markers">
+            <Button fx:id="changeMarkersButton" mnemonicParsing="false" onAction="#changeMarker" text="change Marker">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>

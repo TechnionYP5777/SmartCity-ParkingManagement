@@ -12,6 +12,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.HPos;
 import javafx.scene.control.Label;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 
 public class Login extends Application {
@@ -24,11 +25,18 @@ public class Login extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		/*
 		window = primaryStage;
 		window.setTitle("Login");
 		Parent root = FXMLLoader.load(getClass().getResource("LoginScreen.fxml")); 
 		window.setScene(new Scene(root,400,500));
 		DBManager.initialize();
+		window.show();*/
+		
+		window = primaryStage;
+		window.setTitle("Choose parking slot");
+		Parent root = FXMLLoader.load(getClass().getResource("ChooseParkingSlotScreen.fxml")); 
+		window.setScene(new Scene(root,600,600));		
 		window.show();
 	}
 }

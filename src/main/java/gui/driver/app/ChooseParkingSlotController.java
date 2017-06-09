@@ -13,6 +13,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.scene.web.*;
+import java.net.*;
+import java.io.*;
+
+
 public class ChooseParkingSlotController {
 	
 	@FXML
@@ -20,22 +24,27 @@ public class ChooseParkingSlotController {
 	@FXML
 	private Button addMarkersButton;
 	@FXML
-	private Button removeMarkersButton;
+	private Button changeMarkersButton;
+	
+	private WebEngine engine;
 	
 	@FXML
     protected void initialize(){
-		WebEngine engine = myWebView.getEngine();
-		engine.load("https://www.google.com");
+		engine = myWebView.getEngine();
+		URL url = getClass().getResource("map.html");
+		engine.load(url.toExternalForm());
 		
     }
 	
 	@FXML
 	public void addMarkers(ActionEvent event) throws Exception{
-
+		System.out.println("CALLED");
+			engine.executeScript("addMarker(32.778573, 35.021421);");
 	}
 	@FXML
-	public void deleteMarkers(ActionEvent event) throws Exception{
-
+	public void changeMarker(ActionEvent event) throws Exception{
+		engine.executeScript("setSelected(0);");
+		
 	}
 	
 }
