@@ -21,6 +21,7 @@ import javafx.scene.web.*;
 import java.net.*;
 import java.awt.geom.Point2D;
 import java.io.*;
+import java.util.Scanner;
 
 
 
@@ -82,16 +83,19 @@ public class ChooseParkingSlotController {
 	public ObservableList<Aux> getAuxs(){
 		ObservableList<Aux> auxs = FXCollections.observableArrayList();
 		auxs.add(new Aux("taub1",32.777110, 35.021328, 10, 10, 5.0));
-		idToLocation.put("taub1", 0);
+		nameToIndexMap.put("taub1", 0);
+		//index++;
 		//engine.executeScript("addMarker(32.777110, 35.021328);");
 		auxs.add(new Aux("taub2",32.778147, 35.021843, 10, 10, 5.0));
-		idToLocation.put("taub2", 1);
+		nameToIndexMap.put("taub2", 1);
+		//index++;
 		//engine.executeScript("addMarker(32.778147, 35.021843);");
 		auxs.add(new Aux("pool1",32.778932, 35.019461, 5, 300, 4.5));
-		idToLocation.put("pool1", 2);
+		nameToIndexMap.put("pool1", 2);
+		//index++;
 		//engine.executeScript("addMarker(32.778932, 35.019461);");
 		auxs.add(new Aux("pool2",32.778842, 35.018742, 3, 380, 4.2));
-		idToLocation.put("pool2", 3);
+		nameToIndexMap.put("pool2", 3);
 		//engine.executeScript("addMarker(32.778842, 35.018742);");
 		return auxs;
 	}
@@ -106,17 +110,25 @@ public class ChooseParkingSlotController {
 	@FXML
 	private TableView<Aux> slotsTable;
 	
-	private Map<String, Integer> idToLocation;
-	
-	
+	private Map<String, Integer> nameToIndexMap;
+	private int lastIndex = -1;
 	
 	@FXML
     protected void initialize(){
-		
 		engine = myWebView.getEngine();
 		URL url = getClass().getResource("map.html");
 		engine.load(url.toExternalForm());
-		
+
+		myWebView.getEngine().setOnAlert((WebEvent<String> wEvent) -> {
+			int row = nameToIndexMap.get(wEvent.getData());
+			slotsTable.getSelectionModel().select(row);
+			slotsTable.getSelectionModel().focus(row);
+			if (lastIndex != -1){
+				engine.executeScript("setUnSelected(" + String.valueOf(lastIndex)  + ")");	
+			}
+			engine.executeScript("setSelected(" + row  + ")");
+		});
+		myWebView.getEngine().executeScript("if (!document.getElementById('FirebugLite')){E = document['createElement' + 'NS'] && document.documentElement.namespaceURI;E = E ? document['createElement' + 'NS'](E, 'script') : document['createElement']('script');E['setAttribute']('id', 'FirebugLite');E['setAttribute']('src', 'https://getfirebug.com/' + 'firebug-lite.js' + '#startOpened');E['setAttribute']('FirebugLite', '4');(document['getElementsByTagName']('head')[0] || document['getElementsByTagName']('body')[0]).appendChild(E);E = new Image;E['setAttribute']('src', 'https://getfirebug.com/' + '#startOpened');}");
 		TableColumn<Aux, String> idColumn = new TableColumn<>("id");
 		idColumn.setPrefWidth(100);
 		idColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -133,32 +145,38 @@ public class ChooseParkingSlotController {
 		ratingColumn.setPrefWidth(100);
 		ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
 		
-		idToLocation = new HashMap<String, Integer>();
-		
+		nameToIndexMap = new HashMap<String, Integer>();
 		slotsTable.setItems(getAuxs());
 		slotsTable.getColumns().setAll(idColumn, priceColumn, distanceColumn, ratingColumn);
 		
+		//todo: if no slots
+		//slotsTable.getSelectionModel().selectFirst();
+		
         //Add change listener
-        slotsTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-            //Check whether item is selected and set value of selected item to Label
+       slotsTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+    	   
             if (slotsTable.getSelectionModel().getSelectedItem() != null) {
-            	//engine.executeScript(script)
-                //lblTool.setText(newValue.getTool());
-            	engine.executeScript("setSelected("+idToLocation.get(newValue.getName())+")");
-            	
+            	if(oldValue != null){  
+            		engine.executeScript("setUnSelected(" + String.valueOf(nameToIndexMap.get(oldValue.getName()))  + ")");	
+            	}
+            	lastIndex = nameToIndexMap.get(newValue.getName());
+            	engine.executeScript("setSelected(" + String.valueOf(lastIndex)  + ")");	
+            	//engine.executeScript("refresh()");
             }
         });
+
     }
 	
 	@FXML
 	public void addMarkers(ActionEvent event) throws Exception{
-		engine.executeScript("addMarker(32.777110, 35.021328);");
-		engine.executeScript("addMarker(32.778147, 35.021843);");
-		engine.executeScript("addMarker(32.778932, 35.019461);");
-		engine.executeScript("addMarker(32.778842, 35.018742);");	}
+		engine.executeScript("addMarker(32.777110, 35.021328, 'taub1');");
+		engine.executeScript("addMarker(32.778147, 35.021843, 'taub2');");
+		engine.executeScript("addMarker(32.778932, 35.019461, 'pool1');");
+		engine.executeScript("addMarker(32.778842, 35.018742, 'pool2');");
+	}
 	@FXML
 	public void changeMarker(ActionEvent event) throws Exception{
-		engine.executeScript("setSelected(0);");
+		engine.executeScript("setUnselected();");
 		
 	}
 	

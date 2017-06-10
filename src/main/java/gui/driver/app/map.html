@@ -1,29 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
- <script type="text/javascript">
-	var map;
-	var markers = [];
-	
-	function addMarker(lat, long){
-		marker = new google.maps.Marker({
-		     position: new google.maps.LatLng(lat, long),
-		     icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-		     map: map
-		 });
-		markers.push(marker);
-	}
-	function removeMarker(i){ 
-		markers[i].setMap(null);
-	}
-	function setSelected(i){
-		markers[i].setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
-	}
-	function setUnselected(i){
-		markers[i].setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
-	}
-
-</script>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <style>
        #map {
         height: 500px;
@@ -39,7 +17,8 @@
         var uluru = {lat: 32.777566, lng: 35.022484};
         map = new google.maps.Map(document.getElementById('map'), {
           center: uluru,
-	  zoom: 17
+	  zoom: 17,
+	  mapTypeId: 'satellite'
         });
 
       }
@@ -48,4 +27,53 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdf_kWwYElaUrVTpQStq9aKOF7233z2Ks&callback=initMap">
     </script>
   </body>
+ <script>
+	var map;
+	var markers = [];
+	
+	function addMarker(lat, long, name){
+		
+		var marker = new google.maps.Marker({
+		     position: new google.maps.LatLng(lat, long),
+		     icon: 'red-dot.png',
+		     map: map
+		 });
+		marker.addListener('click', function(){alert(name);});
+		markers.push(marker);
+	}
+	function setSelected(i){
+		//document.getElementById("textLabel").innerHTML = String(i);
+		markers[i].setIcon('green-dot.png');
+		//alert(String("setSelected: i = " + i));
+	}
+	function setUnSelected(i){
+		markers[i].setIcon('red-dot.png');
+		refresh()
+		//alert(String("setUnSelected: i = " + i));
+	}
+	function refresh(){
+		setTimeout(function(){
+			map.setZoom(16);
+			map.setZoom(17);
+		}, 100);
+	}
+	/*
+	function foo()
+		setTimeout(function(){
+			addMarker(32.777110, 35.021328);
+			addMarker(32.778147, 35.021843);
+			//addMarker(32.778932, 35.019461);
+			//markers[0].setIcon('green-dot.png');
+			//map.setZoom(16);
+			setTimeout(function(){
+				markers[0].setIcon('green-dot.png');
+				//alert(markers[0].getIcon());
+				//map.setZoom(16);
+				//setSelected(0);
+		
+			}, 10000);
+
+		}, 10000);
+	}*/
+</script>
 </html>
