@@ -8,19 +8,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.web.WebView?>
 
-<StackPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.driver.app.ChooseParkingSlotController">
+<StackPane prefHeight="600.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.driver.app.ChooseParkingSlotController">
    <children>
-      <HBox prefHeight="100.0" prefWidth="1200.0">
+      <HBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="1250.0">
          <children>
-            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="400.0">
+            <HBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="520.0" prefWidth="410.0">
                <children>
-                  <TableView fx:id="slotsTable" prefHeight="520.0" prefWidth="400.0">
+                  <TableView fx:id="slotsTable" maxHeight="-Infinity" prefHeight="502.0" prefWidth="400.0">
                      <HBox.margin>
-                        <Insets top="5.0" />
+                        <Insets top="7.0" />
                      </HBox.margin>
                   </TableView>
                </children></HBox>
-            <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #3b5998;">
+            <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="810.0" style="-fx-background-color: #3b5998;">
                <children>
                   <WebView fx:id="myWebView" prefHeight="520.0" prefWidth="0.0" />
                   <Button fx:id="addMarkersButton" mnemonicParsing="false" onAction="#addMarkers" text="add markers">
