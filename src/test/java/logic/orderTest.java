@@ -1,5 +1,6 @@
 package logic;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -7,11 +8,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.parse4j.ParseException;
 
 import data.management.DatabaseManager;
+import util.Log;
 
 public class orderTest {
 	
@@ -19,6 +22,14 @@ public class orderTest {
 	 * @author Inbal Matityahu
 	 * @since 8/5/16 This is a testing class to Order class which represent an order for renting a parking slot
 	 */
+	@BeforeClass
+	public static void classSetUp(){
+		try {		
+			Log.setup();
+		} catch (IOException e) {
+			System.out.println("Could not set up the logger");
+		}
+	}
 	
 	@Test
 	public void setUpTest() throws ParseException, InterruptedException {
