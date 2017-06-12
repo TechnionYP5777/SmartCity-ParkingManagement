@@ -36,9 +36,8 @@ public class Login extends Application {
 		window = primaryStage;
 		window.setTitle("Choose parking slot");
 		Parent root = FXMLLoader.load(getClass().getResource("ChooseParkingSlotScreen.fxml")); 
-		window.setScene(new Scene(root,1250,600));		
+		window.setScene(new Scene(root,1250,1000));		
 		window.show();
+
 	}
 }
-
-

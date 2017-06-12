@@ -113,6 +113,11 @@ public class ChooseParkingSlotController {
 	private Map<String, Integer> nameToIndexMap;
 	private int lastIndex = -1;
 	
+	private TableColumn<Aux, String> idColumn;
+	private TableColumn<Aux, Double> priceColumn;
+	private TableColumn<Aux, Double> distanceColumn;
+	private TableColumn<Aux, Double> ratingColumn;
+	
 	@FXML
     protected void initialize(){
 		engine = myWebView.getEngine();
@@ -129,25 +134,24 @@ public class ChooseParkingSlotController {
 			engine.executeScript("setSelected(" + row  + ")");
 		});
 		myWebView.getEngine().executeScript("if (!document.getElementById('FirebugLite')){E = document['createElement' + 'NS'] && document.documentElement.namespaceURI;E = E ? document['createElement' + 'NS'](E, 'script') : document['createElement']('script');E['setAttribute']('id', 'FirebugLite');E['setAttribute']('src', 'https://getfirebug.com/' + 'firebug-lite.js' + '#startOpened');E['setAttribute']('FirebugLite', '4');(document['getElementsByTagName']('head')[0] || document['getElementsByTagName']('body')[0]).appendChild(E);E = new Image;E['setAttribute']('src', 'https://getfirebug.com/' + '#startOpened');}");
-		TableColumn<Aux, String> idColumn = new TableColumn<>("id");
+		idColumn = new TableColumn<>("id");
 		idColumn.setPrefWidth(100);
 		idColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 		
-		TableColumn<Aux, Double> priceColumn = new TableColumn<>("price");
+		priceColumn = new TableColumn<>("price");
 		priceColumn.setPrefWidth(100);
 		priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 		
-		TableColumn<Aux, Double> distanceColumn = new TableColumn<>("distance");
+		distanceColumn = new TableColumn<>("distance");
 		distanceColumn.setPrefWidth(100);
 		distanceColumn.setCellValueFactory(new PropertyValueFactory<>("distance"));
 		
-		TableColumn<Aux, Double> ratingColumn = new TableColumn<>("rating");
+		ratingColumn = new TableColumn<>("rating");
 		ratingColumn.setPrefWidth(100);
 		ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
 		
 		nameToIndexMap = new HashMap<String, Integer>();
-		slotsTable.setItems(getAuxs());
-		slotsTable.getColumns().setAll(idColumn, priceColumn, distanceColumn, ratingColumn);
+
 		
 		//todo: if no slots
 		//slotsTable.getSelectionModel().selectFirst();
@@ -169,10 +173,13 @@ public class ChooseParkingSlotController {
 	
 	@FXML
 	public void addMarkers(ActionEvent event) throws Exception{
+		slotsTable.setItems(getAuxs());
+		slotsTable.getColumns().setAll(idColumn, priceColumn, distanceColumn, ratingColumn);
+		/*
 		engine.executeScript("addMarker(32.777110, 35.021328, 'taub1');");
 		engine.executeScript("addMarker(32.778147, 35.021843, 'taub2');");
 		engine.executeScript("addMarker(32.778932, 35.019461, 'pool1');");
-		engine.executeScript("addMarker(32.778842, 35.018742, 'pool2');");
+		engine.executeScript("addMarker(32.778842, 35.018742, 'pool2');");*/
 	}
 	@FXML
 	public void changeMarker(ActionEvent event) throws Exception{
