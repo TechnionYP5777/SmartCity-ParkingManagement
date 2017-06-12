@@ -1,12 +1,17 @@
 package logic;
 
 import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 
+import org.parse4j.ParseException;
 import org.parse4j.ParseGeoPoint;
 import org.parse4j.ParseObject;
+
+import com.google.common.util.concurrent.SimpleTimeLimiter;
 
 import data.management.DatabaseManager;
 import data.members.ParkingSlot;
@@ -29,30 +34,6 @@ public class ParkingSlotRequest {
 	private int hoursAmunt;
 	private DatabaseManager manager;
 	
-	public class PresentParkingSlot{
-		private String slotName;
-		private Double cost;
-		private Double distance;
-		
-		 public PresentParkingSlot(String slotName, Double cost, Double distance){
-			 this.slotName = slotName;
-			 this.cost = cost;
-			 this.distance = distance;
-		 }
-		
-		 public Double getCost(){
-			return cost;
-		 }
-		 
-		 public Double getDistance(){
-			return distance;
-		 }
-		 
-		 public String getSlotName(){
-			return slotName;
-		 }
-	}
-	
 	public void setDestenation(ParseGeoPoint dest){
 		this.destenation = dest;
 	}
@@ -70,11 +51,14 @@ public class ParkingSlotRequest {
 	
 	private List<String> noHourCollisionParking(List<ParseObject> tempListOrders){
 		List<String> validParking = new ArrayList<String>();
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
 		for(ParseObject p : tempListOrders){
-			int orderTime = Integer.parseInt((p.getString("hour")));
-			Date orderDate = p.getDate("date");
-			if(orderDate.getMonth() == this.dateToPark.getMonth() && orderDate.getDay() == this.dateToPark.getDay()){
-				if(orderTime < this.dateToPark.getHours() || orderTime > this.dateToPark.getHours()+this.hoursAmunt){
+			cal.setTime(this.dateToPark);
+			int orderTime = p.getInt("hour");    
+			String orderDate = p.getString("date");
+			if(formatDate.format(cal.getTime()).equals(orderDate)){
+				if(orderTime < cal.get(Calendar.HOUR_OF_DAY) || orderTime > (cal.get(Calendar.HOUR_OF_DAY)+this.hoursAmunt)){
 					validParking.add(p.getString("slotId"));
 				}
 			}
@@ -114,7 +98,7 @@ public class ParkingSlotRequest {
 		List<ParseObject> tempListOrders = manager.getAllObjects("Order", 600);
 		List<String> validParkings = this.noHourCollisionParking(tempListOrders);
 		
-		List<PresentParkingSlot> returnList = new ArrayList<ParkingSlotRequest.PresentParkingSlot>();
+		List<PresentParkingSlot> returnList = new ArrayList<PresentParkingSlot>();
 		for(ParseObject p : tempListParkingSlot){
 			String parkingName = p.getString("name");
 			if(validParkings.contains(parkingName))
@@ -125,5 +109,18 @@ public class ParkingSlotRequest {
 		}
 		return returnList;
 	}
-	
+
+	public Boolean orderParkingSlot(String driverID, String slotID) throws ParseException, InterruptedException{
+		List<ParseObject> tempListOrders = manager.getAllObjects("Order", 600);
+		List<String> validParkings = this.noHourCollisionParking(tempListOrders);
+		if(validParkings.contains(slotID)) return new Boolean(false);
+		
+		Calendar cal = Calendar.getInstance(); // creates calendar
+	    cal.setTime(dateToPark); // sets calendar time/date
+	    cal.add(Calendar.HOUR_OF_DAY, hoursAmunt);
+		Date endTime =cal.getTime();
+		new Order(driverID, slotID, dateToPark, endTime, manager);
+		return new Boolean(true);
+		
+	}
 }
