@@ -14,20 +14,20 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-<StackPane prefHeight="850.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.driver.app.ChooseParkingSlotController">
+<StackPane prefHeight="900.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.driver.app.ChooseParkingSlotController">
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <VBox prefHeight="310.0" prefWidth="100.0">
+            <VBox prefHeight="280.0" prefWidth="100.0">
                <children>
-                  <HBox alignment="BOTTOM_CENTER" prefHeight="80.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" prefHeight="80.0" prefWidth="200.0">
                      <children>
                         <Label text="Order Parking Slot">
                            <font>
                               <Font name="System Bold" size="36.0" />
                            </font>
                            <HBox.margin>
-                              <Insets bottom="5.0" />
+                              <Insets />
                            </HBox.margin>
                         </Label>
                      </children>
@@ -40,7 +40,7 @@
                         <Insets left="15.0" top="15.0" />
                      </VBox.margin>
                   </Label>
-                  <HBox alignment="TOP_CENTER" prefHeight="60.0" prefWidth="200.0">
+                  <HBox alignment="TOP_CENTER" prefHeight="25.0" prefWidth="200.0">
                      <children>
                         <JFXRadioButton text="Student House">
                            <HBox.margin>
@@ -67,7 +67,7 @@
                         <Insets left="15.0" />
                      </VBox.margin>
                   </Label>
-                  <HBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="200.0">
+                  <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="200.0">
                      <VBox.margin>
                         <Insets top="15.0" />
                      </VBox.margin>
@@ -77,7 +77,23 @@
                         <JFXTimePicker promptText="Departure time" />
                      </children>
                   </HBox>
-                  <Label text="3.Choose Parking Slot">
+                  <HBox alignment="TOP_RIGHT" prefHeight="0.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="continueButton" mnemonicParsing="false" onAction="#continueButtonClicked" prefHeight="29.0" prefWidth="90.0" text="Continue">
+                           <HBox.margin>
+                              <Insets right="115.0" top="5.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="600.0" prefWidth="100.0">
+               <children>
+                  <Label fx:id="chooseParkingSlotLabel" text="3.Choose Parking Slot">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -85,31 +101,37 @@
                         <Insets left="15.0" />
                      </VBox.margin>
                   </Label>
+                  <HBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="1250.0">
+                     <children>
+                        <HBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="520.0" prefWidth="400.0">
+                           <children>
+                              <TableView fx:id="slotsTable" maxHeight="-Infinity" prefHeight="520.0" prefWidth="400.0">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </TableView>
+                           </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </HBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0">
+                           <children>
+                              <WebView fx:id="myWebView" prefHeight="520.0" prefWidth="0.0" />
+                              <Button fx:id="addMarkersButton" mnemonicParsing="false" onAction="#addMarkers" text="add markers">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </HBox>
                </children>
             </VBox>
-            <HBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="1250.0">
-               <children>
-                  <HBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="520.0" prefWidth="410.0">
-                     <children>
-                        <TableView fx:id="slotsTable" maxHeight="-Infinity" prefHeight="502.0" prefWidth="400.0">
-                           <HBox.margin>
-                              <Insets top="7.0" />
-                           </HBox.margin>
-                        </TableView>
-                     </children>
-                  </HBox>
-                  <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="810.0">
-                     <children>
-                        <WebView fx:id="myWebView" prefHeight="520.0" prefWidth="0.0" />
-                        <Button fx:id="addMarkersButton" mnemonicParsing="false" onAction="#addMarkers" text="add markers">
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </Button>
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
          </children>
       </VBox>
    </children>

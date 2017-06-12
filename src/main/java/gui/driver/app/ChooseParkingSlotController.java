@@ -1,8 +1,6 @@
 package gui.driver.app;
 import java.util.HashMap;
 import java.util.Map;
-
-
 import data.management.DBManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +20,7 @@ import java.net.*;
 import java.awt.geom.Point2D;
 import java.io.*;
 import java.util.Scanner;
+import javafx.scene.layout.*;
 
 
 
@@ -119,7 +118,21 @@ public class ChooseParkingSlotController {
 	private TableColumn<Aux, Double> ratingColumn;
 	
 	@FXML
+	private Button continueButton;
+	@FXML
+	private VBox lowerVBox;
+	@FXML
+	private Label chooseParkingSlotLabel;
+	
+	
+	@FXML
     protected void initialize(){
+		
+		chooseParkingSlotLabel.setVisible(false);
+		slotsTable.setVisible(false);
+		myWebView.setVisible(false);
+		addMarkersButton.setVisible(false);
+		
 		engine = myWebView.getEngine();
 		URL url = getClass().getResource("map.html");
 		engine.load(url.toExternalForm());
@@ -135,19 +148,19 @@ public class ChooseParkingSlotController {
 		});
 		myWebView.getEngine().executeScript("if (!document.getElementById('FirebugLite')){E = document['createElement' + 'NS'] && document.documentElement.namespaceURI;E = E ? document['createElement' + 'NS'](E, 'script') : document['createElement']('script');E['setAttribute']('id', 'FirebugLite');E['setAttribute']('src', 'https://getfirebug.com/' + 'firebug-lite.js' + '#startOpened');E['setAttribute']('FirebugLite', '4');(document['getElementsByTagName']('head')[0] || document['getElementsByTagName']('body')[0]).appendChild(E);E = new Image;E['setAttribute']('src', 'https://getfirebug.com/' + '#startOpened');}");
 		idColumn = new TableColumn<>("id");
-		idColumn.setPrefWidth(100);
+		idColumn.setPrefWidth(130);
 		idColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 		
 		priceColumn = new TableColumn<>("price");
-		priceColumn.setPrefWidth(100);
+		priceColumn.setPrefWidth(90);
 		priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 		
 		distanceColumn = new TableColumn<>("distance");
-		distanceColumn.setPrefWidth(100);
+		distanceColumn.setPrefWidth(90);
 		distanceColumn.setCellValueFactory(new PropertyValueFactory<>("distance"));
 		
 		ratingColumn = new TableColumn<>("rating");
-		ratingColumn.setPrefWidth(100);
+		ratingColumn.setPrefWidth(90);
 		ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
 		
 		nameToIndexMap = new HashMap<String, Integer>();
@@ -170,6 +183,24 @@ public class ChooseParkingSlotController {
         });
 
     }
+	
+	@FXML
+	public void continueButtonClicked(ActionEvent event) throws Exception{
+		slotsTable.setItems(getAuxs());
+		slotsTable.getColumns().setAll(idColumn, priceColumn, distanceColumn, ratingColumn);
+		engine.executeScript("addMarker(32.777110, 35.021328, 'taub1');");
+		engine.executeScript("addMarker(32.778147, 35.021843, 'taub2');");
+		engine.executeScript("addMarker(32.778932, 35.019461, 'pool1');");
+		engine.executeScript("addMarker(32.778842, 35.018742, 'pool2');");
+		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		window.setHeight(900);
+		chooseParkingSlotLabel.setVisible(true);
+		slotsTable.setVisible(true);
+		myWebView.setVisible(true);
+		addMarkersButton.setVisible(true);
+
+		
+	}
 	
 	@FXML
 	public void addMarkers(ActionEvent event) throws Exception{
