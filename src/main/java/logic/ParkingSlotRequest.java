@@ -49,8 +49,11 @@ public class ParkingSlotRequest {
 		this.hoursAmunt = hoursAmunt;
 	}
 	
-	private List<String> noHourCollisionParking(List<ParseObject> tempListOrders){
+	private List<String> noHourCollisionParking(List<ParseObject> tempListOrders, List<ParseObject> tempListParkingSlot){
 		List<String> validParking = new ArrayList<String>();
+		for(ParseObject p : tempListParkingSlot){
+			validParking.add(p.getString("name"));
+		}
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
 		for(ParseObject p : tempListOrders){
@@ -58,8 +61,8 @@ public class ParkingSlotRequest {
 			int orderTime = p.getInt("hour");    
 			String orderDate = p.getString("date");
 			if(formatDate.format(cal.getTime()).equals(orderDate)){
-				if(orderTime < cal.get(Calendar.HOUR_OF_DAY) || orderTime > (cal.get(Calendar.HOUR_OF_DAY)+this.hoursAmunt)){
-					validParking.add(p.getString("slotId"));
+				if(orderTime > cal.get(Calendar.HOUR_OF_DAY) || orderTime < (cal.get(Calendar.HOUR_OF_DAY)+this.hoursAmunt)){
+					validParking.remove(p.getString("slotId"));
 				}
 			}
 		}
@@ -96,20 +99,22 @@ public class ParkingSlotRequest {
 	public List<PresentParkingSlot> getAllAvailableParkingSlot(BillingClass costCalculator){
 		List<ParseObject> tempListParkingSlot = manager.getAllObjects("ParkingSlot", 600);
 		List<ParseObject> tempListOrders = manager.getAllObjects("Order", 600);
-		List<String> validParkings = this.noHourCollisionParking(tempListOrders);
+		List<String> validParkings = this.noHourCollisionParking(tempListOrders, tempListParkingSlot);
 		
 		List<PresentParkingSlot> returnList = new ArrayList<PresentParkingSlot>();
 		for(ParseObject p : tempListParkingSlot){
 			String parkingName = p.getString("name");
-			ParseGeoPoint location = p.getParseGeoPoint("location");
-			StickersColor rank = StickersColor.values()[p.getInt("rank")];
-			double ratting = 0; // need to add rating to parkingSlot
-			if(validParkings.contains(parkingName))
-			returnList.add(
-					new PresentParkingSlot(parkingName, location.getLatitude(),location.getLongitude(),
-							costCalculator.calculateCost(rank, distance(location,this.destenation)),
-							distance(p.getParseGeoPoint("location"),this.destenation),ratting)
-					);
+			if(validParkings.contains(parkingName)){
+				ParseGeoPoint location = p.getParseGeoPoint("location");
+				StickersColor rank = StickersColor.values()[p.getInt("rank")];
+				double ratting = 0; // need to add rating to parkingSlot
+				returnList.add(
+						new PresentParkingSlot(parkingName, location.getLatitude(),location.getLongitude(),
+								costCalculator.calculateCost(rank, distance(location,this.destenation)),
+								distance(p.getParseGeoPoint("location"),this.destenation),ratting)
+						);
+			}
+
 			
 		}
 		return returnList;
@@ -117,8 +122,7 @@ public class ParkingSlotRequest {
 
 	public Boolean orderParkingSlot(String driverID, String slotID) throws ParseException, InterruptedException{
 		List<ParseObject> tempListOrders = manager.getAllObjects("Order", 600);
-		List<String> validParkings = this.noHourCollisionParking(tempListOrders);
-		if(validParkings.contains(slotID)) return new Boolean(false);
+		if(!isParkingValid(slotID, tempListOrders)) return new Boolean(false);
 		
 		Calendar cal = Calendar.getInstance(); // creates calendar
 	    cal.setTime(dateToPark); // sets calendar time/date
@@ -128,4 +132,12 @@ public class ParkingSlotRequest {
 		return new Boolean(true);
 		
 	}
+
+	private boolean isParkingValid(String slotID, List<ParseObject> tempListOrders) {
+		for(ParseObject p : tempListOrders){
+			if(slotID.equals(p.getString("slotId"))) return false;
+		}
+		return true;
+	}
+
 }
