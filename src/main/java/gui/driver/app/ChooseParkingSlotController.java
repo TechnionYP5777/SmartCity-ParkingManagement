@@ -1,7 +1,15 @@
 package gui.driver.app;
-import java.util.HashMap;
-import java.util.Map;
+
+import logic.*;
+
+import java.util.*;
+
+import org.parse4j.ParseGeoPoint;
+
 import data.management.DBManager;
+import data.management.DatabaseManager;
+import data.management.DatabaseManagerImpl;
+import data.members.StickersColor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,8 +27,14 @@ import javafx.scene.web.*;
 import java.net.*;
 import java.awt.geom.Point2D;
 import java.io.*;
-import java.util.Scanner;
+
 import javafx.scene.layout.*;
+import javafx.concurrent.*;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+
 
 
 
@@ -79,9 +93,16 @@ public class ChooseParkingSlotController {
 		}
 	}
 
-	public ObservableList<Aux> getAuxs(){
-		ObservableList<Aux> auxs = FXCollections.observableArrayList();
-		auxs.add(new Aux("taub1",32.777110, 35.021328, 10, 10, 5.0));
+	public ObservableList<PresentParkingSlot> getSlots(List<PresentParkingSlot> slots){
+		
+		ObservableList<PresentParkingSlot> returnSlots = FXCollections.observableArrayList();
+		int index = 0;
+		for (PresentParkingSlot slot : slots){
+			returnSlots.add(slot);
+			nameToIndexMap.put(slot.getName(), index);
+			index++;
+		}
+		/*auxs.add(new Aux("taub1",32.777110, 35.021328, 10, 10, 5.0));
 		nameToIndexMap.put("taub1", 0);
 		//index++;
 		//engine.executeScript("addMarker(32.777110, 35.021328);");
@@ -95,8 +116,8 @@ public class ChooseParkingSlotController {
 		//engine.executeScript("addMarker(32.778932, 35.019461);");
 		auxs.add(new Aux("pool2",32.778842, 35.018742, 3, 380, 4.2));
 		nameToIndexMap.put("pool2", 3);
-		//engine.executeScript("addMarker(32.778842, 35.018742);");
-		return auxs;
+		//engine.executeScript("addMarker(32.778842, 35.018742);");*/
+		return returnSlots;
 	}
 	
 	@FXML
@@ -107,15 +128,15 @@ public class ChooseParkingSlotController {
 	private Button changeMarkersButton;
 	private WebEngine engine;
 	@FXML
-	private TableView<Aux> slotsTable;
+	private TableView<PresentParkingSlot> slotsTable;
 	
 	private Map<String, Integer> nameToIndexMap;
 	private int lastIndex = -1;
 	
-	private TableColumn<Aux, String> idColumn;
-	private TableColumn<Aux, Double> priceColumn;
-	private TableColumn<Aux, Double> distanceColumn;
-	private TableColumn<Aux, Double> ratingColumn;
+	private TableColumn<PresentParkingSlot, String> idColumn;
+	private TableColumn<PresentParkingSlot, Double> priceColumn;
+	private TableColumn<PresentParkingSlot, Double> distanceColumn;
+	private TableColumn<PresentParkingSlot, Double> ratingColumn;
 	
 	@FXML
 	private Button continueButton;
@@ -123,19 +144,21 @@ public class ChooseParkingSlotController {
 	private VBox lowerVBox;
 	@FXML
 	private Label chooseParkingSlotLabel;
-	
+	@FXML
+	private ProgressIndicator progressIndicator;
 	
 	@FXML
     protected void initialize(){
 		
-		chooseParkingSlotLabel.setVisible(false);
-		slotsTable.setVisible(false);
-		myWebView.setVisible(false);
-		addMarkersButton.setVisible(false);
+		//chooseParkingSlotLabel.setVisible(false);
+		//slotsTable.setVisible(false);
+		//myWebView.setVisible(false);
+		//addMarkersButton.setVisible(false);
 		
 		engine = myWebView.getEngine();
 		URL url = getClass().getResource("map.html");
 		engine.load(url.toExternalForm());
+		
 
 		myWebView.getEngine().setOnAlert((WebEvent<String> wEvent) -> {
 			int row = nameToIndexMap.get(wEvent.getData());
@@ -181,31 +204,76 @@ public class ChooseParkingSlotController {
             	//engine.executeScript("refresh()");
             }
         });
-
+       
+       
     }
 	
 	@FXML
 	public void continueButtonClicked(ActionEvent event) throws Exception{
-		slotsTable.setItems(getAuxs());
-		slotsTable.getColumns().setAll(idColumn, priceColumn, distanceColumn, ratingColumn);
-		engine.executeScript("addMarker(32.777110, 35.021328, 'taub1');");
-		engine.executeScript("addMarker(32.778147, 35.021843, 'taub2');");
-		engine.executeScript("addMarker(32.778932, 35.019461, 'pool1');");
-		engine.executeScript("addMarker(32.778842, 35.018742, 'pool2');");
-		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-		window.setHeight(900);
-		chooseParkingSlotLabel.setVisible(true);
-		slotsTable.setVisible(true);
-		myWebView.setVisible(true);
-		addMarkersButton.setVisible(true);
+			System.out.println("1");
+	       //final getSlotsTask slotsTask = new getSlotsTask();
+	       
+	       Task<List<PresentParkingSlot>> slotsTask = new Task<List<PresentParkingSlot>>() {
+	            @Override
+	            protected List<PresentParkingSlot> call() throws Exception {
+		        	System.out.println("3");
+		        	ParseGeoPoint point = new ParseGeoPoint(32.777566, 35.022484);
+		        	DatabaseManager d = new DatabaseManagerImpl();
+		        	System.out.println("4");
+		        	ParkingSlotRequest request = new ParkingSlotRequest(point, new Date(), 2, d);
+		        	System.out.println("before request");
+		        	List<PresentParkingSlot> l = request.getAllAvailableParkingSlot(new BillingClass() {
+						
+						@Override
+						public double calculateCost(StickersColor rank, double distance) {
+							// TODO Auto-generated method stub
+							return 0;
+						}
+					});
+		        	System.out.println("COOL");
+		        	for(PresentParkingSlot p: l){
+		        		System.out.println(p.getName());
+		        	}
+		        	return null;
+		        }
+	        };
+	       new Thread(slotsTask).start();
+	       System.out.println("2");
+	       //Here you tell your progress indicator is visible only when the service is runing
+	       
+	       progressIndicator.progressProperty().bind(slotsTask.progressProperty());
+	       
+	       slotsTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+	           @Override
+	           public void handle(WorkerStateEvent workerStateEvent) {
+	        	   progressIndicator.setVisible(false);
+	               	List<PresentParkingSlot> result = slotsTask.getValue();   //here you get the return value of your service
+	               	slotsTable.setItems(getSlots(result));
+	       			slotsTable.getColumns().setAll(idColumn, priceColumn, distanceColumn, ratingColumn);
+	       			for (PresentParkingSlot slot : result){
+	       				engine.executeScript("addMarker(" + slot.getLat() + ", " + slot.getLon() + ", '" + slot.getName() + "');");
+	       			}
+	       			
+	           }
+	       });
+		//engine.executeScript("addMarker(32.777110, 35.021328, 'taub1');");
+		//engine.executeScript("addMarker(32.778147, 35.021843, 'taub2');");
+		//engine.executeScript("addMarker(32.778932, 35.019461, 'pool1');");
+		//engine.executeScript("addMarker(32.778842, 35.018742, 'pool2');");
+		//Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		//window.setHeight(900);
+		//chooseParkingSlotLabel.setVisible(true);
+		//slotsTable.setVisible(true);
+		//myWebView.setVisible(true);
+		//addMarkersButton.setVisible(true);
 
 		
 	}
 	
 	@FXML
 	public void addMarkers(ActionEvent event) throws Exception{
-		slotsTable.setItems(getAuxs());
-		slotsTable.getColumns().setAll(idColumn, priceColumn, distanceColumn, ratingColumn);
+		//slotsTable.setItems(getSlots());
+		//slotsTable.getColumns().setAll(idColumn, priceColumn, distanceColumn, ratingColumn);
 		/*
 		engine.executeScript("addMarker(32.777110, 35.021328, 'taub1');");
 		engine.executeScript("addMarker(32.778147, 35.021843, 'taub2');");

@@ -98,8 +98,4 @@ public class BackgroundWorkerDemo extends Application {
         new Thread(longTask).start();
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
 }
