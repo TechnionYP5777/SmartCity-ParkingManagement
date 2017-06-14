@@ -26,7 +26,7 @@ import Exceptions.LoginException;
 import data.management.DBManager;
 import util.Log;
 
-public class DBManagerTests {
+public class DBManagerTest {
 
 	private class ObjectToDelete{
 		private String className;
