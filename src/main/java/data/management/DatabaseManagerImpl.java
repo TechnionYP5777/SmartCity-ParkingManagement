@@ -62,7 +62,7 @@ public class DatabaseManagerImpl implements DatabaseManager {
 
 	@Override
 	public List<ParseObject> getAllObjects(String objectClass, int startLimit) {
-		return getAllObjects(objectClass, startLimit);
+		return DBManager.getAllObjects(objectClass, startLimit);
 	}
 
 	@Override

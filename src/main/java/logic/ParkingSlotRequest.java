@@ -102,7 +102,7 @@ public class ParkingSlotRequest {
 		for(ParseObject p : tempListParkingSlot){
 			String parkingName = p.getString("name");
 			ParseGeoPoint location = p.getParseGeoPoint("location");
-			StickersColor rank = (StickersColor) p.get("rank");
+			StickersColor rank = StickersColor.values()[p.getInt("rank")];
 			double ratting = 0; // need to add rating to parkingSlot
 			if(validParkings.contains(parkingName))
 			returnList.add(
