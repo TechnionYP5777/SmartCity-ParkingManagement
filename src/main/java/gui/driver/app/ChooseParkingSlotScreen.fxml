@@ -47,12 +47,11 @@
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
-                        </JFXRadioButton>
-                        <JFXRadioButton text="Ulman">
                            <toggleGroup>
                               <ToggleGroup fx:id="destination" />
                            </toggleGroup>
                         </JFXRadioButton>
+                        <JFXRadioButton text="Ulman" toggleGroup="$destination" />
                         <JFXRadioButton text="Taub" toggleGroup="$destination" />
                         <JFXRadioButton text="Sports Center" toggleGroup="$destination" />
                      </children>
@@ -76,19 +75,19 @@
                         <JFXDatePicker promptText="At date" />
                         <JFXTimePicker promptText="Arrival time" />
                         <JFXTimePicker promptText="Departure time" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="TOP_RIGHT" prefHeight="0.0" prefWidth="200.0">
-                     <children>
-                        <ProgressIndicator fx:id="progressIndicator" progress="0.0" />
                         <Button fx:id="continueButton" mnemonicParsing="false" onAction="#continueButtonClicked" prefHeight="29.0" prefWidth="90.0" text="Continue">
                            <HBox.margin>
-                              <Insets right="115.0" top="5.0" />
+                              <Insets left="100.0" top="5.0" />
                            </HBox.margin>
                         </Button>
                      </children>
+                  </HBox>
+                  <HBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="200.0">
+                     <children>
+                        <ProgressIndicator fx:id="progressIndicator" progress="0.0" />
+                     </children>
                      <VBox.margin>
-                        <Insets />
+                        <Insets top="20.0" />
                      </VBox.margin>
                   </HBox>
                </children>
@@ -119,12 +118,7 @@
                         </HBox>
                         <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0">
                            <children>
-                              <WebView fx:id="myWebView" prefHeight="520.0" prefWidth="0.0" />
-                              <Button fx:id="addMarkersButton" mnemonicParsing="false" onAction="#addMarkers" text="add markers">
-                                 <VBox.margin>
-                                    <Insets top="10.0" />
-                                 </VBox.margin>
-                              </Button>
+                              <WebView fx:id="myWebView" prefHeight="520.0" prefWidth="0.0" />    
                            </children>
                         </VBox>
                      </children>

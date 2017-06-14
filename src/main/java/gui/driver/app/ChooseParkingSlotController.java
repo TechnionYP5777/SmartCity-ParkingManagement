@@ -36,62 +36,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 
-
-
 public class ChooseParkingSlotController {
-	public class Aux {
-		private double lat;
-		private double lon;
-		private String name;
-		private double price;
-		private double distance;
-		private double rating;
-		
-		public Aux(String name, double lat, double lon, double price, double distance, double rating){
-			this.lat = lat;
-			this.lon = lon;
-			this.name = name;
-			this.price = price;
-			this.distance = distance;
-			this.rating = rating;
-		}
-		public double getLat(){
-			return this.lat;
-		}
-		public double getLon(){
-			return this.lon;
-		}
-		public String getName(){
-			return this.name;
-		}
-		public double getPrice(){
-			return this.price;
-		}
-		public double getDistance(){
-			return this.distance;
-		}
-		public double getRating(){
-			return this.rating;
-		}
-		public void setLat(double lat){
-			this.lat = lat;
-		}
-		public void setLon(double lon){
-			this.lon = lon;
-		}
-		public void setName(String name){
-			this.name = name;
-		}
-		public void setPrice(double price){
-			this.price = price;
-		}
-		public void setDistance(double distance){
-			this.distance = distance;
-		}
-		public void setRating(double rating){
-			this.rating = rating;
-		}
-	}
 
 	public ObservableList<PresentParkingSlot> getSlots(List<PresentParkingSlot> slots){
 		
@@ -102,28 +47,11 @@ public class ChooseParkingSlotController {
 			nameToIndexMap.put(slot.getName(), index);
 			index++;
 		}
-		/*auxs.add(new Aux("taub1",32.777110, 35.021328, 10, 10, 5.0));
-		nameToIndexMap.put("taub1", 0);
-		//index++;
-		//engine.executeScript("addMarker(32.777110, 35.021328);");
-		auxs.add(new Aux("taub2",32.778147, 35.021843, 10, 10, 5.0));
-		nameToIndexMap.put("taub2", 1);
-		//index++;
-		//engine.executeScript("addMarker(32.778147, 35.021843);");
-		auxs.add(new Aux("pool1",32.778932, 35.019461, 5, 300, 4.5));
-		nameToIndexMap.put("pool1", 2);
-		//index++;
-		//engine.executeScript("addMarker(32.778932, 35.019461);");
-		auxs.add(new Aux("pool2",32.778842, 35.018742, 3, 380, 4.2));
-		nameToIndexMap.put("pool2", 3);
-		//engine.executeScript("addMarker(32.778842, 35.018742);");*/
 		return returnSlots;
 	}
 	
 	@FXML
 	private WebView myWebView;
-	@FXML
-	private Button addMarkersButton;
 	@FXML
 	private Button changeMarkersButton;
 	private WebEngine engine;
@@ -146,14 +74,11 @@ public class ChooseParkingSlotController {
 	private Label chooseParkingSlotLabel;
 	@FXML
 	private ProgressIndicator progressIndicator;
-	
+
 	@FXML
     protected void initialize(){
-		
-		//chooseParkingSlotLabel.setVisible(false);
-		//slotsTable.setVisible(false);
-		//myWebView.setVisible(false);
-		//addMarkersButton.setVisible(false);
+				
+		progressIndicator.setVisible(false);
 		
 		engine = myWebView.getEngine();
 		URL url = getClass().getResource("map.html");
@@ -210,7 +135,6 @@ public class ChooseParkingSlotController {
 	
 	@FXML
 	public void continueButtonClicked(ActionEvent event) throws Exception{
-	       
 	       Task<List<PresentParkingSlot>> slotsTask = new Task<List<PresentParkingSlot>>() {
 	            @Override
 	            protected List<PresentParkingSlot> call() throws Exception {
@@ -231,7 +155,7 @@ public class ChooseParkingSlotController {
 	       new Thread(slotsTask).start();
 	       
 	       progressIndicator.progressProperty().bind(slotsTask.progressProperty());
-	       
+	       progressIndicator.setVisible(true); 
 	       slotsTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
 	           @Override
 	           public void handle(WorkerStateEvent workerStateEvent) {
@@ -245,22 +169,6 @@ public class ChooseParkingSlotController {
 	           }
 	       });
 
-		
-	}
-	
-	@FXML
-	public void addMarkers(ActionEvent event) throws Exception{
-		//slotsTable.setItems(getSlots());
-		//slotsTable.getColumns().setAll(idColumn, priceColumn, distanceColumn, ratingColumn);
-		/*
-		engine.executeScript("addMarker(32.777110, 35.021328, 'taub1');");
-		engine.executeScript("addMarker(32.778147, 35.021843, 'taub2');");
-		engine.executeScript("addMarker(32.778932, 35.019461, 'pool1');");
-		engine.executeScript("addMarker(32.778842, 35.018742, 'pool2');");*/
-	}
-	@FXML
-	public void changeMarker(ActionEvent event) throws Exception{
-		engine.executeScript("setUnselected();");
 		
 	}
 	

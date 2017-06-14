@@ -17,7 +17,7 @@
         var uluru = {lat: 32.777566, lng: 35.022484};
         map = new google.maps.Map(document.getElementById('map'), {
           center: uluru,
-	  zoom: 17,
+	  zoom: 16,
 	  disableDefaultUI: true,
 	  mapTypeId: google.maps.MapTypeId.ROADMAP
         });
@@ -47,12 +47,13 @@
 	}
 	function setUnSelected(i){
 		markers[i].setIcon('red-dot.png');
-		refresh()
+		refresh();
 	}
 	function refresh(){
 		setTimeout(function(){
-			map.setZoom(16);
-			map.setZoom(17);
+			var zoom = map.getZoom();
+			map.setZoom(zoom-1);
+			map.setZoom(zoom);
 		}, 100);
 	}
 
