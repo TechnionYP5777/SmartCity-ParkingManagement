@@ -3,16 +3,22 @@ package database;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
+import org.parse4j.callback.DeleteCallback;
 import org.parse4j.callback.GetCallback;
 import org.parse4j.callback.SaveCallback;
 
@@ -22,8 +28,26 @@ import util.Log;
 
 public class DBManagerTests {
 
+	private class ObjectToDelete{
+		private String className;
+		private Map<String,Object> key;
+		public ObjectToDelete(String className, Map<String,Object> key){
+			this.className = className;
+			this.key = key;
+		}
+		
+		public String getClassName(){
+			return this.className;
+		}
+		
+		public Map<String,Object> getKey(){
+			return this.key;
+		}
+	}
+	private static Collection<ObjectToDelete> objectsToDelete;
 	@BeforeClass
 	public static void classSetUp(){
+		objectsToDelete = new ArrayList<>();
 		try {		
 			Log.setup();
 		} catch (IOException e) {
@@ -63,6 +87,7 @@ public class DBManagerTests {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		objectsToDelete.add(new ObjectToDelete("assaf", Kval));
 	}
 	
 	@Test
@@ -124,16 +149,19 @@ public class DBManagerTests {
 			e1.printStackTrace();
 		}
 		List<ParseObject> mylist = DBManager.getAllObjects("assafGetAll",2);
-		
+		List<Integer> firsts = new ArrayList<>();
 		for(ParseObject p : mylist){
-			System.out.println(p.get("first"));
-			System.out.println(p.get("second"));
+			firsts.add(p.getInt("first"));
 		}
-		assertEquals(mylist.get(0).get("first"), 2);
-		assertEquals(mylist.get(1).get("first"), 1);
-		assertEquals(mylist.get(2).get("first"), 3);
+		assert firsts.contains(1);
+		assert firsts.contains(2);
+		assert firsts.contains(3);
 		
-		}	
+		objectsToDelete.add(new ObjectToDelete("assafGetAll", Kval1));
+		objectsToDelete.add(new ObjectToDelete("assafGetAll", Kval2));
+		objectsToDelete.add(new ObjectToDelete("assafGetAll", Kval3));
+		
+	}	
 	
 	@Test
 	public void getObjectByFieldsTest(){
@@ -165,6 +193,8 @@ public class DBManagerTests {
 			e.printStackTrace();
 		}
 		assert testResult.get() ==2;
+		
+		objectsToDelete.add(new ObjectToDelete("assafFieldTest", Kval));
 	}
 	
 	@Test
@@ -181,26 +211,12 @@ public class DBManagerTests {
 			e.printStackTrace();
 		}
 		assert DBManager.getObjectFieldsByKey("assafKeyTest",Kval).get("second").equals(2);
+		
+		objectsToDelete.add(new ObjectToDelete("assafKeyTest", Kval));
 	}
 
 	@Test
 	public void registerTest(){
-		Map<String,Object> Kval = new HashMap<String,Object>();
-		Map<String,Object> val = new HashMap<String,Object>();
-		Kval.put("id", 2);
-		val.put("password","asdf");
-		val.put("email","asdfasd");
-		val.put("car",123123);
-		try {
-			DBManager.register("assafReg2", Kval, val);
-		} catch (LoginException e) {
-			// TODO Auto-generated catch block
-			assert e.exception.equals("user already exists");
-		}
-	}
-
-	@Test
-	public void loginTest(){
 		Map<String,Object> Kval = new HashMap<String,Object>();
 		Map<String,Object> val = new HashMap<String,Object>();
 		Kval.put("id", "2");
@@ -211,10 +227,28 @@ public class DBManagerTests {
 			DBManager.register("assafReg2", Kval, val);
 		} catch (LoginException e) {
 			// TODO Auto-generated catch block
+			assert false;
+		}
+		
+		objectsToDelete.add(new ObjectToDelete("assafReg2", Kval));
+	}
+
+	@Test
+	public void loginTest(){
+		Map<String,Object> Kval = new HashMap<String,Object>();
+		Map<String,Object> val = new HashMap<String,Object>();
+		Kval.put("id", "1");
+		val.put("password","asdf");
+		val.put("email","asdfasd");
+		val.put("car",123123);
+		try {
+			DBManager.register("assafReg2", Kval, val);
+		} catch (LoginException e) {
+			// TODO Auto-generated catch block
 			assert e.exception.equals("user already exists");
 		}
 		try {
-			DBManager.login("assafReg2","id","2","password", "asdf");
+			DBManager.login("assafReg2","id","1","password", "asdf");
 		} catch (LoginException e) {
 			assert false;
 		}
@@ -228,6 +262,8 @@ public class DBManagerTests {
 		} catch (LoginException e) {
 			e.exception.equals("password doesn't match");
 		}
+		
+		objectsToDelete.add(new ObjectToDelete("assafReg2", Kval));
 	}
 
 	@Test
@@ -236,7 +272,7 @@ public class DBManagerTests {
 		Map<String,Object> val = new HashMap<String,Object>();
 		Kval.put("first", 1);
 		val.put("second",2);
-		DBManager.insertObject("assaf", Kval, val);
+		DBManager.insertObject("assafUpdate", Kval, val);
 		try {
 			Thread.sleep(6000);
 		} catch (InterruptedException e) {
@@ -244,14 +280,16 @@ public class DBManagerTests {
 			e.printStackTrace();
 		}
 		val.put("second",3);
-		DBManager.update("assaf", Kval, val);
+		DBManager.update("assafUpdate", Kval, val);
 		try {
 			Thread.sleep(6000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		assert DBManager.getObjectFieldsByKey("assaf",Kval).get("second").equals(3);
+		assert DBManager.getObjectFieldsByKey("assafUpdate",Kval).get("second").equals(3);
+		
+		objectsToDelete.add(new ObjectToDelete("assafUpdate", Kval));
 	}
 	
 	@Test
@@ -259,5 +297,23 @@ public class DBManagerTests {
 		Map<String,Object> Kval = new HashMap<String,Object>();
 		Kval.put("first", 1);
 		assert DBManager.getObjectFieldsByKey("assafEmpty",Kval).isEmpty();
+	}
+	
+	
+	@AfterClass
+	public static void end() throws InterruptedException{
+		AtomicInteger mutex = new AtomicInteger(objectsToDelete.size());
+		for(ObjectToDelete o : objectsToDelete){
+			DBManager.deleteObject(o.getClassName(),o.getKey(),new DeleteCallback() {
+
+				@Override
+				public void done(ParseException arg0) {
+					synchronized (mutex) {
+						mutex.decrementAndGet();
+					}
+					
+				}});
+		}
+		while (!mutex.compareAndSet(0, 0));
 	}
 }
