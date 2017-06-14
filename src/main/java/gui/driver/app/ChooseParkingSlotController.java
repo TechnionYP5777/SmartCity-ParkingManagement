@@ -210,36 +210,25 @@ public class ChooseParkingSlotController {
 	
 	@FXML
 	public void continueButtonClicked(ActionEvent event) throws Exception{
-			System.out.println("1");
-	       //final getSlotsTask slotsTask = new getSlotsTask();
 	       
 	       Task<List<PresentParkingSlot>> slotsTask = new Task<List<PresentParkingSlot>>() {
 	            @Override
 	            protected List<PresentParkingSlot> call() throws Exception {
-		        	System.out.println("3");
 		        	ParseGeoPoint point = new ParseGeoPoint(32.777566, 35.022484);
 		        	DatabaseManager d = new DatabaseManagerImpl();
-		        	System.out.println("4");
+		        	d.initialize();
 		        	ParkingSlotRequest request = new ParkingSlotRequest(point, new Date(), 2, d);
-		        	System.out.println("before request");
-		        	List<PresentParkingSlot> l = request.getAllAvailableParkingSlot(new BillingClass() {
-						
+		        	return request.getAllAvailableParkingSlot(new BillingClass() {
 						@Override
 						public double calculateCost(StickersColor rank, double distance) {
 							// TODO Auto-generated method stub
 							return 0;
 						}
 					});
-		        	System.out.println("COOL");
-		        	for(PresentParkingSlot p: l){
-		        		System.out.println(p.getName());
-		        	}
-		        	return null;
+
 		        }
 	        };
 	       new Thread(slotsTask).start();
-	       System.out.println("2");
-	       //Here you tell your progress indicator is visible only when the service is runing
 	       
 	       progressIndicator.progressProperty().bind(slotsTask.progressProperty());
 	       
@@ -253,19 +242,8 @@ public class ChooseParkingSlotController {
 	       			for (PresentParkingSlot slot : result){
 	       				engine.executeScript("addMarker(" + slot.getLat() + ", " + slot.getLon() + ", '" + slot.getName() + "');");
 	       			}
-	       			
 	           }
 	       });
-		//engine.executeScript("addMarker(32.777110, 35.021328, 'taub1');");
-		//engine.executeScript("addMarker(32.778147, 35.021843, 'taub2');");
-		//engine.executeScript("addMarker(32.778932, 35.019461, 'pool1');");
-		//engine.executeScript("addMarker(32.778842, 35.018742, 'pool2');");
-		//Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-		//window.setHeight(900);
-		//chooseParkingSlotLabel.setVisible(true);
-		//slotsTable.setVisible(true);
-		//myWebView.setVisible(true);
-		//addMarkersButton.setVisible(true);
 
 		
 	}
