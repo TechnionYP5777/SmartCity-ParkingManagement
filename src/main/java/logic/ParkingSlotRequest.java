@@ -101,10 +101,15 @@ public class ParkingSlotRequest {
 		List<PresentParkingSlot> returnList = new ArrayList<PresentParkingSlot>();
 		for(ParseObject p : tempListParkingSlot){
 			String parkingName = p.getString("name");
+			ParseGeoPoint location = p.getParseGeoPoint("location");
+			StickersColor rank = (StickersColor) p.get("rank");
+			double ratting = 0; // need to add rating to parkingSlot
 			if(validParkings.contains(parkingName))
-			returnList.add(new PresentParkingSlot(parkingName, 
-				costCalculator.calculateCost((StickersColor) p.get("rank"), distance(p.getParseGeoPoint("location"),this.destenation)),
-				distance(p.getParseGeoPoint("location"),this.destenation)));
+			returnList.add(
+					new PresentParkingSlot(parkingName, location.getLatitude(),location.getLongitude(),
+							costCalculator.calculateCost(rank, distance(location,this.destenation)),
+							distance(p.getParseGeoPoint("location"),this.destenation),ratting)
+					);
 			
 		}
 		return returnList;
