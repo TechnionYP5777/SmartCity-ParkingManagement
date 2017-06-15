@@ -55,13 +55,21 @@ public class ParkingSlotRequest {
 			validParking.add(p.getString("name"));
 		}
 		Calendar cal = Calendar.getInstance();
+		int wantedStartingHour = cal.get(Calendar.HOUR_OF_DAY);
 		SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
 		for(ParseObject p : tempListOrders){
 			cal.setTime(this.dateToPark);
-			int orderTime = p.getInt("hour");    
+			int orderTime = p.getInt("hour");
+			int orderTimeAmount = p.getInt("hoursAmount");
+			
+			Boolean validParkingCondition = (orderTime == wantedStartingHour);
+			validParkingCondition = Boolean.logicalOr(validParkingCondition,(orderTime+orderTimeAmount)%24 == (wantedStartingHour+this.hoursAmunt)%24);
+			validParkingCondition = Boolean.logicalOr(validParkingCondition,orderTime<wantedStartingHour && (orderTime+orderTimeAmount)%24 > wantedStartingHour);
+			validParkingCondition = Boolean.logicalOr(validParkingCondition, wantedStartingHour<orderTime && (wantedStartingHour+this.hoursAmunt)%24 > orderTime);
+			
 			String orderDate = p.getString("date");
 			if(formatDate.format(cal.getTime()).equals(orderDate)){
-				if(orderTime > cal.get(Calendar.HOUR_OF_DAY) || orderTime < (cal.get(Calendar.HOUR_OF_DAY)+this.hoursAmunt)){
+				if(validParkingCondition){
 					validParking.remove(p.getString("slotId"));
 				}
 			}
