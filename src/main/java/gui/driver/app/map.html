@@ -30,39 +30,31 @@
   </body>
  <script>
 	var map;
-	var markers = [];
+	var markers = {};
 	
 	function addMarker(lat, long, name){
 		
 		var marker = new google.maps.Marker({
 		     position: new google.maps.LatLng(lat, long),
 		     icon: 'red-dot.png',
-		     map: map
+		     map: map,
 		 });
 		marker.addListener('click', function(){alert(name);});
-		markers.push(marker);
+		markers[name] = marker;
 	}
 	function addDestinationMarker(lat, long){
-       		var image = {
-		  url: '115-256.png',
-		  // This marker is 20 pixels wide by 32 pixels high.
-		  size: new google.maps.Size(48, 48),
-		  // The origin for this image is (0, 0).
-		  origin: new google.maps.Point(0, 0),
-		  // The anchor for this image is the base of the flagpole at (0, 32).
-		  anchor: new google.maps.Point(0, 32)
-		};
 		new google.maps.Marker({
 		     position: new google.maps.LatLng(lat, long),
 		     icon: 'http://maps.google.com/mapfiles/kml/shapes/arrow.png',
 		     map: map
 		 });
 	}
-	function setSelected(i){
-		markers[i].setIcon('green-dot.png');
+	function setSelected(name){
+		markers[name].setIcon('green-dot.png');
+
 	}
-	function setUnSelected(i){
-		markers[i].setIcon('red-dot.png');
+	function setUnSelected(name){
+		markers[name].setIcon('red-dot.png');
 		refresh();
 	}
 	function refresh(){
