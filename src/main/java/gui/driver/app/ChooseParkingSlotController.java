@@ -74,11 +74,20 @@ public class ChooseParkingSlotController {
 	private Label chooseParkingSlotLabel;
 	@FXML
 	private ProgressIndicator progressIndicator;
-
+	@FXML
+	private RadioButton studentHouseRadioButton;
+	@FXML
+	private RadioButton ulmanRadioButton;
+	@FXML
+	private RadioButton taubRadioButton;
+	@FXML
+	private RadioButton sportsCenterRadioButton;
+	
 	@FXML
     protected void initialize(){
 				
 		progressIndicator.setVisible(false);
+		studentHouseRadioButton.setSelected(true);
 		
 		engine = myWebView.getEngine();
 		URL url = getClass().getResource("map.html");
@@ -159,13 +168,28 @@ public class ChooseParkingSlotController {
 	       slotsTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
 	           @Override
 	           public void handle(WorkerStateEvent workerStateEvent) {
-	        	   progressIndicator.setVisible(false);
 	               	List<PresentParkingSlot> result = slotsTask.getValue();   //here you get the return value of your service
 	               	slotsTable.setItems(getSlots(result));
 	       			slotsTable.getColumns().setAll(idColumn, priceColumn, distanceColumn, ratingColumn);
 	       			for (PresentParkingSlot slot : result){
 	       				engine.executeScript("addMarker(" + slot.getLat() + ", " + slot.getLon() + ", '" + slot.getName() + "');");
 	       			}
+	       			progressIndicator.setVisible(false);
+	       			String location = "";
+	       			if(studentHouseRadioButton.isSelected()){
+	       				location = "32.776423, 35.022825";
+	       			}
+					if(ulmanRadioButton.isSelected()){
+						location = "32.777100, 35.023770";
+			       	}
+					if(taubRadioButton.isSelected()){
+						location = "32.777668, 35.021486";
+		   			}
+					if(sportsCenterRadioButton.isSelected()){
+		   				location = "32.779119, 35.019112";
+		   			}
+					//engine.executeScript("map.setCenter(" + location + ")");
+	       			engine.executeScript("addDestinationMarker(" + location + ");");
 	           }
 	       });
 
