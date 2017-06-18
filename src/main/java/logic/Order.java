@@ -1,9 +1,11 @@
 package logic;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -252,13 +254,50 @@ public class Order {
 	/* Methods */
 	
 	//TODO::
-//	public void checkAvaliablity(String slotId, Date start, Date end){
-//		dbm.initialize();
-//		Map<String, Object> key = new HashMap<String, Object>();
-//		key.put("id", id);
-//		return dbm.getObjectByFields("Order", values);
-//	
-//	}
+	public boolean checkAvaliablity(String slotId, Date start, Date end){
+		List<ParseObject> tempListParkingSlot = dbm.getAllObjects("ParkingSlot", 600);
+		List<ParseObject> tempListOrders = dbm.getAllObjects("Order", 600);
+		//check if the demanding parking slot exists 
+		if(!isParkingValid(slotId, tempListParkingSlot)) return new Boolean(false);
+		
+		List<String> validParking = new ArrayList<String>();
+		for(ParseObject p : tempListParkingSlot){
+			validParking.add(p.getString("name"));
+		}
+		Calendar cal = Calendar.getInstance();
+		int wantedStartingHour = cal.get(Calendar.HOUR_OF_DAY);
+		int wantedStartingQuarter = cal.get(Calendar.MINUTE);
+		int wantedTime = wantedStartingHour*4+wantedStartingQuarter;
+		SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+		for(ParseObject p : tempListOrders){
+			cal.setTime(start);
+			int orderTime = p.getInt("hour");
+			int orderTimeAmount = p.getInt("hoursAmount");
+			
+			Boolean validParkingCondition = (orderTime == wantedTime);
+			validParkingCondition = Boolean.logicalOr(validParkingCondition,(orderTime+orderTimeAmount)%(24*4) == (wantedTime+minDifference(start, end))%(24*4));
+			validParkingCondition = Boolean.logicalOr(validParkingCondition,orderTime<wantedTime && (orderTime+orderTimeAmount)%(24*4) > wantedTime);
+			validParkingCondition = Boolean.logicalOr(validParkingCondition, wantedTime<orderTime && (wantedTime+minDifference(start, end))%(24*4) > orderTime);
+			
+			if (validParkingCondition)
+				return new Boolean(false);
+			String orderDate = p.getString("date");
+			if(formatDate.format(cal.getTime()).equals(orderDate)){
+				if(validParkingCondition){
+					return new Boolean(false);
+				}
+			}
+		}
+		return new Boolean(true);
+	
+	}
+	
+	private boolean isParkingValid(String slotID, List<ParseObject> tempListOrders) {
+		for(ParseObject p : tempListOrders){
+			if(slotID.equals(p.getString("slotId"))) return false;
+		}
+		return true;
+	}
 	
 	private static int minDifference(Date date1, Date date2) {
 	    return (int) (date1.getTime() - date2.getTime()) / (1000 * 60 * 15);
