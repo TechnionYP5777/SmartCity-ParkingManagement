@@ -44,8 +44,6 @@ public class ChooseParkingSlotController {
 		int index = 0;
 		for (PresentParkingSlot slot : slots){
 			returnSlots.add(slot);
-			nameToIndexMap.put(slot.getName(), index);
-			index++;
 		}
 		return returnSlots;
 	}
@@ -57,9 +55,6 @@ public class ChooseParkingSlotController {
 	private WebEngine engine;
 	@FXML
 	private TableView<PresentParkingSlot> slotsTable;
-	
-	private Map<String, Integer> nameToIndexMap;
-	private int lastIndex = -1;
 	
 	private TableColumn<PresentParkingSlot, String> idColumn;
 	private TableColumn<PresentParkingSlot, Double> priceColumn;
@@ -74,11 +69,20 @@ public class ChooseParkingSlotController {
 	private Label chooseParkingSlotLabel;
 	@FXML
 	private ProgressIndicator progressIndicator;
-
+	@FXML
+	private RadioButton studentHouseRadioButton;
+	@FXML
+	private RadioButton ulmanRadioButton;
+	@FXML
+	private RadioButton taubRadioButton;
+	@FXML
+	private RadioButton sportsCenterRadioButton;
+	
 	@FXML
     protected void initialize(){
 				
 		progressIndicator.setVisible(false);
+		studentHouseRadioButton.setSelected(true);
 		
 		engine = myWebView.getEngine();
 		URL url = getClass().getResource("map.html");
@@ -86,15 +90,18 @@ public class ChooseParkingSlotController {
 		
 
 		myWebView.getEngine().setOnAlert((WebEvent<String> wEvent) -> {
-			int row = nameToIndexMap.get(wEvent.getData());
-			slotsTable.getSelectionModel().select(row);
-			slotsTable.getSelectionModel().focus(row);
-			if (lastIndex != -1){
-				engine.executeScript("setUnSelected(" + String.valueOf(lastIndex)  + ")");	
+			String clickedName = wEvent.getData();
+			int index = 0;
+			for(PresentParkingSlot parkingSlot :slotsTable.getItems()){
+				if (parkingSlot.getName().equals(clickedName)){
+					slotsTable.getSelectionModel().select(index);
+					slotsTable.getSelectionModel().focus(index);
+					break;
+				}
+				index++;	
 			}
-			engine.executeScript("setSelected(" + row  + ")");
 		});
-		myWebView.getEngine().executeScript("if (!document.getElementById('FirebugLite')){E = document['createElement' + 'NS'] && document.documentElement.namespaceURI;E = E ? document['createElement' + 'NS'](E, 'script') : document['createElement']('script');E['setAttribute']('id', 'FirebugLite');E['setAttribute']('src', 'https://getfirebug.com/' + 'firebug-lite.js' + '#startOpened');E['setAttribute']('FirebugLite', '4');(document['getElementsByTagName']('head')[0] || document['getElementsByTagName']('body')[0]).appendChild(E);E = new Image;E['setAttribute']('src', 'https://getfirebug.com/' + '#startOpened');}");
+		
 		idColumn = new TableColumn<>("id");
 		idColumn.setPrefWidth(130);
 		idColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -111,26 +118,18 @@ public class ChooseParkingSlotController {
 		ratingColumn.setPrefWidth(90);
 		ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
 		
-		nameToIndexMap = new HashMap<String, Integer>();
-
 		
-		//todo: if no slots
-		//slotsTable.getSelectionModel().selectFirst();
-		
-        //Add change listener
        slotsTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
     	   
             if (slotsTable.getSelectionModel().getSelectedItem() != null) {
-            	if(oldValue != null){  
-            		engine.executeScript("setUnSelected(" + String.valueOf(nameToIndexMap.get(oldValue.getName()))  + ")");	
+            	if(oldValue != null){ 
+            		engine.executeScript("setUnSelected('" + oldValue.getName() + "');");	
             	}
-            	lastIndex = nameToIndexMap.get(newValue.getName());
-            	engine.executeScript("setSelected(" + String.valueOf(lastIndex)  + ")");	
-            	//engine.executeScript("refresh()");
+            	engine.executeScript("setSelected('" + newValue.getName()  + "');");	
+            	engine.executeScript("refresh()");
             }
         });
-       
-       
+
     }
 	
 	@FXML
@@ -159,13 +158,32 @@ public class ChooseParkingSlotController {
 	       slotsTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
 	           @Override
 	           public void handle(WorkerStateEvent workerStateEvent) {
-	        	   progressIndicator.setVisible(false);
 	               	List<PresentParkingSlot> result = slotsTask.getValue();   //here you get the return value of your service
 	               	slotsTable.setItems(getSlots(result));
 	       			slotsTable.getColumns().setAll(idColumn, priceColumn, distanceColumn, ratingColumn);
 	       			for (PresentParkingSlot slot : result){
 	       				engine.executeScript("addMarker(" + slot.getLat() + ", " + slot.getLon() + ", '" + slot.getName() + "');");
 	       			}
+	       			progressIndicator.setVisible(false);
+	       			String location = "";
+	       			if(studentHouseRadioButton.isSelected()){
+	       				location = "32.776423, 35.022825";
+	       			}
+					if(ulmanRadioButton.isSelected()){
+						location = "32.777100, 35.023770";
+			       	}
+					if(taubRadioButton.isSelected()){
+						location = "32.777668, 35.021486";
+		   			}
+					if(sportsCenterRadioButton.isSelected()){
+		   				location = "32.779119, 35.019112";
+		   			}
+	       			engine.executeScript("addDestinationMarker(" + location + ");");
+	       			
+	       			if (result.size() != 0){
+	       				slotsTable.getSelectionModel().selectFirst();
+	       			}
+	       			//TODO: if there are no slots, notify the user
 	           }
 	       });
 

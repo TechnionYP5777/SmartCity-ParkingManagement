@@ -30,23 +30,31 @@
   </body>
  <script>
 	var map;
-	var markers = [];
+	var markers = {};
 	
 	function addMarker(lat, long, name){
 		
 		var marker = new google.maps.Marker({
 		     position: new google.maps.LatLng(lat, long),
 		     icon: 'red-dot.png',
-		     map: map
+		     map: map,
 		 });
 		marker.addListener('click', function(){alert(name);});
-		markers.push(marker);
+		markers[name] = marker;
 	}
-	function setSelected(i){
-		markers[i].setIcon('green-dot.png');
+	function addDestinationMarker(lat, long){
+		new google.maps.Marker({
+		     position: new google.maps.LatLng(lat, long),
+		     icon: 'http://maps.google.com/mapfiles/kml/shapes/arrow.png',
+		     map: map
+		 });
 	}
-	function setUnSelected(i){
-		markers[i].setIcon('red-dot.png');
+	function setSelected(name){
+		markers[name].setIcon('green-dot.png');
+
+	}
+	function setUnSelected(name){
+		markers[name].setIcon('red-dot.png');
 		refresh();
 	}
 	function refresh(){

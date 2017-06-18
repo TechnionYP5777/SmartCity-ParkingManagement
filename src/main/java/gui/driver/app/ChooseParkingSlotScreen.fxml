@@ -42,22 +42,19 @@
                      </VBox.margin>
                   </Label>
                   <HBox alignment="TOP_CENTER" prefHeight="25.0" prefWidth="200.0">
-                     <children>
-                        <JFXRadioButton text="Student House">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                           <toggleGroup>
-                              <ToggleGroup fx:id="destination" />
-                           </toggleGroup>
-                        </JFXRadioButton>
-                        <JFXRadioButton text="Ulman" toggleGroup="$destination" />
-                        <JFXRadioButton text="Taub" toggleGroup="$destination" />
-                        <JFXRadioButton text="Sports Center" toggleGroup="$destination" />
-                     </children>
                      <VBox.margin>
                         <Insets top="15.0" />
                      </VBox.margin>
+                     <children>
+                        <JFXRadioButton fx:id="studentHouseRadioButton" text="Student House">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="destinations" />
+                           </toggleGroup>
+                        </JFXRadioButton>
+                        <JFXRadioButton fx:id="ulmanRadioButton" text="Ulman" toggleGroup="$destinations" />
+                        <JFXRadioButton fx:id="taubRadioButton" text="Taub" toggleGroup="$destinations" />
+                        <JFXRadioButton fx:id="sportsCenterRadioButton" text="Sports Center" toggleGroup="$destinations" />
+                     </children>
                   </HBox>
                   <Label text="2.Choose Date &amp; Time">
                      <font>
