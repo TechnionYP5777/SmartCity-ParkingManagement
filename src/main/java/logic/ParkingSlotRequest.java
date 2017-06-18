@@ -56,16 +56,18 @@ public class ParkingSlotRequest {
 		}
 		Calendar cal = Calendar.getInstance();
 		int wantedStartingHour = cal.get(Calendar.HOUR_OF_DAY);
+		int wantedStartingQuarter = cal.get(Calendar.MINUTE);
+		int wantedTime = wantedStartingHour*4+wantedStartingQuarter;
 		SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
 		for(ParseObject p : tempListOrders){
 			cal.setTime(this.dateToPark);
 			int orderTime = p.getInt("hour");
 			int orderTimeAmount = p.getInt("hoursAmount");
 			
-			Boolean validParkingCondition = (orderTime == wantedStartingHour);
-			validParkingCondition = Boolean.logicalOr(validParkingCondition,(orderTime+orderTimeAmount)%24 == (wantedStartingHour+this.hoursAmunt)%24);
-			validParkingCondition = Boolean.logicalOr(validParkingCondition,orderTime<wantedStartingHour && (orderTime+orderTimeAmount)%24 > wantedStartingHour);
-			validParkingCondition = Boolean.logicalOr(validParkingCondition, wantedStartingHour<orderTime && (wantedStartingHour+this.hoursAmunt)%24 > orderTime);
+			Boolean validParkingCondition = (orderTime == wantedTime);
+			validParkingCondition = Boolean.logicalOr(validParkingCondition,(orderTime+orderTimeAmount)%(24*4) == (wantedTime+this.hoursAmunt)%(24*4));
+			validParkingCondition = Boolean.logicalOr(validParkingCondition,orderTime<wantedTime && (orderTime+orderTimeAmount)%(24*4) > wantedTime);
+			validParkingCondition = Boolean.logicalOr(validParkingCondition, wantedTime<orderTime && (wantedTime+this.hoursAmunt)%(24*4) > orderTime);
 			
 			String orderDate = p.getString("date");
 			if(formatDate.format(cal.getTime()).equals(orderDate)){
@@ -134,7 +136,8 @@ public class ParkingSlotRequest {
 		
 		Calendar cal = Calendar.getInstance(); // creates calendar
 	    cal.setTime(dateToPark); // sets calendar time/date
-	    cal.add(Calendar.HOUR_OF_DAY, hoursAmunt);
+	    cal.add(Calendar.HOUR_OF_DAY, hoursAmunt/4);
+	    cal.add(Calendar.MINUTE, hoursAmunt%4);
 		Date endTime =cal.getTime();
 		new Order(driverID, slotID, dateToPark, endTime, manager);
 		return new Boolean(true);
