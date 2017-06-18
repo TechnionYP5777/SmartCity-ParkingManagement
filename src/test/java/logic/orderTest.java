@@ -43,21 +43,114 @@ public class orderTest {
 	    String onlyDate = format1.format(cal.getTime()); 
 	    @SuppressWarnings("deprecation")
 		int hour = startTime.getHours();
-	    System.out.println(hour);
-		String id="3333334" + onlyDate + "3";
+		String id="3333334" + onlyDate + "1";
+		Map<String, Object> keyVal = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		fields.put("hoursAmount", 8);
+		fields.put("driverId", "3333334");
+		fields.put("slotId", "123");
+		fields.put("date", onlyDate);
+		fields.put("hour", hour);
+		keyVal.put("id", id);
+		try{
+			// create new order
+			new Order("3333334", "123", startTime, endTime,dbm);
+			Mockito.verify(dbm, Mockito.times(1)).initialize();
+			Mockito.verify(dbm, Mockito.times(1)).insertObject("Order", keyVal, fields);
+		} catch (final Exception ¢) {
+			¢.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void checkQuarter() throws ParseException, InterruptedException {
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Date startTime =new Date();
+		Calendar cal = Calendar.getInstance(); 
+	    cal.setTime(startTime); 
+	    cal.add(Calendar.HOUR_OF_DAY, 2);
+	    cal.add(Calendar.MINUTE, 15);
+		Date endTime =cal.getTime();
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime()); 
+	    @SuppressWarnings("deprecation")
+		int hour = startTime.getHours();
+		String id="3333334" + onlyDate + "1";
+		Map<String, Object> keyVal = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		fields.put("hoursAmount", 9);
+		fields.put("driverId", "3333334");
+		fields.put("slotId", "123");
+		fields.put("date", onlyDate);
+		fields.put("hour", hour);
+		keyVal.put("id", id);
+		try{
+			// create new order
+			new Order("3333334", "123", startTime, endTime,dbm);
+			Mockito.verify(dbm, Mockito.times(1)).initialize();
+			Mockito.verify(dbm, Mockito.times(1)).insertObject("Order", keyVal, fields);
+		} catch (final Exception ¢) {
+			¢.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void checkQuarter2() throws ParseException, InterruptedException {
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Date startTime =new Date();
+		Calendar cal = Calendar.getInstance(); 
+	    cal.setTime(startTime); 
+	    cal.add(Calendar.MINUTE, 15);
+		Date endTime =cal.getTime();
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime()); 
+	    @SuppressWarnings("deprecation")
+		int hour = startTime.getHours();
+		String id="3333334" + onlyDate + "1";
+		Map<String, Object> keyVal = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		fields.put("hoursAmount", 1);
+		fields.put("driverId", "3333334");
+		fields.put("slotId", "123");
+		fields.put("date", onlyDate);
+		fields.put("hour", hour);
+		keyVal.put("id", id);
+		try{
+			// create new order
+			new Order("3333334", "123", startTime, endTime,dbm);
+			Mockito.verify(dbm, Mockito.times(1)).initialize();
+			Mockito.verify(dbm, Mockito.times(1)).insertObject("Order", keyVal, fields);
+		} catch (final Exception ¢) {
+			¢.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void checkQuarter3() throws ParseException, InterruptedException {
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Date startTime =new Date();
+		Calendar cal = Calendar.getInstance(); 
+	    cal.setTime(startTime); 
+	    cal.add(Calendar.MINUTE, 45);
+		Date endTime =cal.getTime();
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime()); 
+	    @SuppressWarnings("deprecation")
+		int hour = startTime.getHours();
+		String id="3333334" + onlyDate + "1";
 		Map<String, Object> keyVal = new HashMap<>();
 		Map<String, Object> fields = new HashMap<>();
 		fields.put("hoursAmount", 3);
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
 		fields.put("date", onlyDate);
-		fields.put("hour", hour+2);
+		fields.put("hour", hour);
 		keyVal.put("id", id);
 		try{
 			// create new order
 			new Order("3333334", "123", startTime, endTime,dbm);
 			Mockito.verify(dbm, Mockito.times(1)).initialize();
-			Mockito.verify(dbm, Mockito.times(3)).insertObject("Order", keyVal, fields);
+			Mockito.verify(dbm, Mockito.times(1)).insertObject("Order", keyVal, fields);
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 		}

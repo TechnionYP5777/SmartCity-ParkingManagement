@@ -60,10 +60,10 @@ public class Order {
 		Map<String, Object> fields = new HashMap<String, Object>(), keyValues = new HashMap<String, Object>();
 		fields.put("driverId", driverId);
 		fields.put("slotId", slotId);
-		int hours =hoursDifference(endTime, startTime);
+		int hours =minDifference(endTime, startTime);
 		if (hours<=0)
 			return;
-		fields.put("hoursAmount", hours + 1);
+		fields.put("hoursAmount", hours);
 		int id=0;
 		Calendar cal = Calendar.getInstance(); // creates calendar
 	    cal.setTime(startTime); // sets calendar time/date
@@ -71,15 +71,12 @@ public class Order {
 	    String onlyDate = format1.format(cal.getTime());      
 		String idToString=driverId + "" + onlyDate;
 	    fields.put("date", onlyDate);
-		for (int i=0; i<=hours; ++i){
-			++id;
-			idToString=driverId + "" + onlyDate + id;
-			fields.put("hour", Integer.valueOf(cal.getTime().getHours()));
-		    cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
-			keyValues.put("id", idToString);
-			dbm.insertObject(objectClass, keyValues, fields);
-			Thread.sleep(6000);
-		}
+		++id;
+		idToString=driverId + "" + onlyDate + id;
+		fields.put("hour", Integer.valueOf(cal.getTime().getHours()));
+		keyValues.put("id", idToString);
+		dbm.insertObject(objectClass, keyValues, fields);
+		Thread.sleep(6000);
 	}
 	
 	public Order(final ParseObject obj) throws ParseException {
@@ -254,8 +251,17 @@ public class Order {
 	
 	/* Methods */
 	
-	private static int hoursDifference(Date date1, Date date2) {
-	    return (int) (date1.getTime() - date2.getTime()) / (1000 * 60 * 60);
+	//TODO::
+//	public void checkAvaliablity(String slotId, Date start, Date end){
+//		dbm.initialize();
+//		Map<String, Object> key = new HashMap<String, Object>();
+//		key.put("id", id);
+//		return dbm.getObjectByFields("Order", values);
+//	
+//	}
+	
+	private static int minDifference(Date date1, Date date2) {
+	    return (int) (date1.getTime() - date2.getTime()) / (1000 * 60 * 15);
 	}
 	
 	private static void checkParameters(final String driverId, final String slotId, Date startTime, Date endTime) throws ParseException{
@@ -275,13 +281,8 @@ public class Order {
 		Map<String, Object> fields = new HashMap<String, Object>();
 		int newid=1;
 		String idToString = driverId + "" + this.date + newid;
-		for(int i=0; i<this.hoursAmount; ++i){
-			fields.put("id", idToString);
-			dbm.deleteObject(objectClass, fields);
-			Thread.sleep(6000);
-			++newid;
-			idToString = driverId + "" + this.date + newid;
-		}
+		fields.put("id", idToString);
+		dbm.deleteObject(objectClass, fields);
 	}
 	
 	public void CancelOrder(){
@@ -296,19 +297,9 @@ public class Order {
 		fields.put("id",this.id);
 		int newid=1;
 		String idToString = driverId + "" + this.date + newid;
-		for(int i=0; i<this.hoursAmount; ++i){
-			fields.put("id", idToString);
-			
-			try {
-				dbm.deleteObject(objectClass, fields);
-				Thread.sleep(6000);
-				++newid;
-				idToString = driverId + "" + this.date + newid;
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
-		}
+		fields.put("id", idToString);
+		dbm.deleteObject(objectClass, fields);
+		
 	}
 	
 }
