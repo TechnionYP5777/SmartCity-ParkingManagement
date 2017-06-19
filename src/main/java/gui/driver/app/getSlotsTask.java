@@ -4,7 +4,7 @@ import javafx.concurrent.*;
 import java.util.*;
 import org.parse4j.ParseGeoPoint;
 import data.management.*;
-
+import data.members.ParkingSlot;
 import data.members.StickersColor;
 
 public class getSlotsTask extends Service<List<PresentParkingSlot>> {
@@ -20,10 +20,14 @@ public class getSlotsTask extends Service<List<PresentParkingSlot>> {
 		        	System.out.println("4");
 		        	ParkingSlotRequest request = new ParkingSlotRequest(point, new Date(), 2, d);
 		        	System.out.println("before request");
-		        	List<PresentParkingSlot> l = request.getAllAvailableParkingSlot(new Billing() {
-						
+		        	List<PresentParkingSlot> l = request.getAllAvailableParkingSlot(new Billing() {				
 						@Override
 						public double calculateCost(StickersColor rank, double distance) {
+							// TODO Auto-generated method stub
+							return 0;
+						}
+						@Override
+						public double calculateCostBySlot(ParkingSlot slot, ParseGeoPoint point) {
 							// TODO Auto-generated method stub
 							return 0;
 						}
