@@ -260,18 +260,28 @@ public class Order {
 		int wantedStartingQuarter = cal.get(Calendar.MINUTE);
 		int wantedStartTime = wantedStartingHour*4+wantedStartingQuarter;
 		SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
-		System.out.println(tempListOrders.size());
 		for(ParseObject p : tempListOrders){
 			cal.setTime(start);
 			int orderStartTime = p.getInt("hour");
 			int orderTimeAmount = p.getInt("hoursAmount");
 			int orderEndTime = orderStartTime+orderTimeAmount;
-
-			Boolean noValidParkingCondition = (orderStartTime == wantedStartTime);
-			noValidParkingCondition = Boolean.logicalOr(noValidParkingCondition,(orderEndTime)%(24*4) == (wantedStartTime+duration)%(24*4));
-			noValidParkingCondition = Boolean.logicalOr(noValidParkingCondition,orderStartTime<wantedStartTime && (orderEndTime)%(24*4) > wantedStartTime);
-			noValidParkingCondition = Boolean.logicalOr(noValidParkingCondition, wantedStartTime<orderStartTime && (wantedStartTime+duration)%(24*4) > orderStartTime);
-
+			
+			System.out.println("demand:");
+			System.out.println("start: "+wantedStartingHour);
+			System.out.println("start quart: "+wantedStartingQuarter);
+			System.out.println("hour: "+wantedStartTime);
+			System.out.println("exist:");
+			System.out.println("start: "+orderStartTime);
+			System.out.println("hour: "+orderTimeAmount);
+			System.out.println("finish: "+orderEndTime);
+			
+			
+			Boolean noValidParkingCondition = (orderStartTime == wantedStartingHour);
+			noValidParkingCondition = Boolean.logicalOr(noValidParkingCondition,(orderEndTime*4) == (wantedStartingHour*4+duration));
+			noValidParkingCondition = Boolean.logicalOr(noValidParkingCondition,orderStartTime<wantedStartTime && (orderEndTime) > wantedStartTime);
+			noValidParkingCondition = Boolean.logicalOr(noValidParkingCondition, wantedStartTime<orderStartTime && (wantedStartingHour*4+duration) > (orderStartTime*4));
+			if (noValidParkingCondition)
+				return new Boolean(false);
 			String orderDate = p.getString("date");
 			if(formatDate.format(cal.getTime()).equals(orderDate)){
 				if(noValidParkingCondition){
@@ -280,7 +290,6 @@ public class Order {
 			}
 		}
 		return new Boolean(true);
-	
 	}
 	
 	private static int minDifference(Date date1, Date date2) {
