@@ -141,9 +141,8 @@ public class ParkingSlotRequestTest {
 		ParseGeoPoint point = new ParseGeoPoint(32.777566, 35.022484);
     	DatabaseManager d = Mockito.mock(DatabaseManager.class);
     	BillingClass b = Mockito.mock(BillingClass.class);
-    	Date date = new Date();
     	Calendar cal = Calendar.getInstance();
-    	cal.setTime(date);
+    	cal.set(2017, 12, 11, 11, 0);
     	SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
     	
     	List<ParseObject> parkingSlots = new ArrayList<>();
@@ -158,9 +157,9 @@ public class ParkingSlotRequestTest {
     	List<ParseObject> orders = new ArrayList<>();
     	for(int i = 0; i<5; i++){
     		ParseObject p = new ParseObject("Order");
-    		p.put("hour", (cal.get(Calendar.HOUR_OF_DAY)+1+i)%24);
-    		p.put("date",formatDate.format((new Date())));
-    		p.put("hoursAmount",1);
+    		p.put("hour", (cal.get(Calendar.HOUR_OF_DAY)*4+4+i*4)%(24*4));
+    		p.put("date",formatDate.format(cal.getTime()));
+    		p.put("hoursAmount",4);
     		p.put("slotId", i+"");
     		orders.add(p);
     	}
@@ -168,7 +167,7 @@ public class ParkingSlotRequestTest {
     	Mockito.when(d.getAllObjects("Order", 600)).thenReturn(orders);
     	Mockito.when(d.getAllObjects("ParkingSlot", 600)).thenReturn(parkingSlots);
     	
-    	ParkingSlotRequest request = new ParkingSlotRequest(point,date , 2, d);
+    	ParkingSlotRequest request = new ParkingSlotRequest(point,cal.getTime() , 8, d);
     	List<PresentParkingSlot> checkList = request.getAllAvailableParkingSlot(b);
     	System.out.println(checkList.size());
     	assertTrue(checkList.size() == 4);
@@ -187,9 +186,8 @@ public class ParkingSlotRequestTest {
 		ParseGeoPoint point = new ParseGeoPoint(32.777566, 35.022484);
     	DatabaseManager d = Mockito.mock(DatabaseManager.class);
     	BillingClass b = Mockito.mock(BillingClass.class);
-    	Date date = new Date();
     	Calendar cal = Calendar.getInstance();
-    	cal.setTime(date);
+    	cal.set(2017, 12, 11, 11, 0);
     	SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
     	
     	List<ParseObject> parkingSlots = new ArrayList<>();
@@ -204,9 +202,9 @@ public class ParkingSlotRequestTest {
     	List<ParseObject> orders = new ArrayList<>();
     	for(int i = 0; i<5; i++){
     		ParseObject p = new ParseObject("Order");
-    		p.put("hour", (cal.get(Calendar.HOUR_OF_DAY))%24);
-    		p.put("date",formatDate.format((new Date())));
-    		p.put("hoursAmount",1);
+    		p.put("hour", (cal.get(Calendar.HOUR_OF_DAY)*4)%(24*4));
+    		p.put("date",formatDate.format(cal.getTime()));
+    		p.put("hoursAmount",4);
     		p.put("slotId", i+"");
     		orders.add(p);
     	}
@@ -214,7 +212,7 @@ public class ParkingSlotRequestTest {
     	Mockito.when(d.getAllObjects("Order", 600)).thenReturn(orders);
     	Mockito.when(d.getAllObjects("ParkingSlot", 600)).thenReturn(parkingSlots);
     	
-    	ParkingSlotRequest request = new ParkingSlotRequest(point,date , 2, d);
+    	ParkingSlotRequest request = new ParkingSlotRequest(point,cal.getTime() , 8, d);
     	List<PresentParkingSlot> checkList = request.getAllAvailableParkingSlot(b);
     	System.out.println(checkList.size());
     	assertTrue(checkList.isEmpty());
