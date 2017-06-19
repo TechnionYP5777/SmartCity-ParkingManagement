@@ -2,9 +2,11 @@ package logic;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Assert;
@@ -12,6 +14,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.parse4j.ParseException;
+import org.parse4j.ParseObject;
 
 import data.management.DatabaseManager;
 import util.Log;
@@ -639,4 +642,126 @@ public class orderTest {
 		}
 	}
 	
+	@Test
+	public void checkAvaliability() throws InterruptedException{
+		DatabaseManager d = Mockito.mock(DatabaseManager.class);
+		List<ParseObject> orders = new ArrayList<>();
+		ParseObject p = new ParseObject("Order");
+		Date startTime =new Date();		
+		Calendar cal = Calendar.getInstance(); 
+	    cal.setTime(startTime); 
+	    @SuppressWarnings("deprecation")
+		int curHour= cal.getTime().getHours();
+	    cal.add(Calendar.HOUR_OF_DAY, 2);
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime()); 
+		p.put("hoursAmount", 3);
+		p.put("driverId", "3333334");
+		p.put("slotId", "123");
+		p.put("date", onlyDate);
+		p.put("hour", curHour);
+		p.put("id","1");
+		orders.add(p);
+    	Mockito.when(d.getAllObjects("Order", 600)).thenReturn(orders);
+		Assert.assertFalse((new Order(d).checkAvaliablity("123", startTime, 1)));
+	}
+	
+	@Test
+	public void checkAvaliability2() throws InterruptedException{
+		DatabaseManager d = Mockito.mock(DatabaseManager.class);
+		List<ParseObject> orders = new ArrayList<>();
+		ParseObject p = new ParseObject("Order");
+		Date startTime =new Date();		
+		Calendar cal = Calendar.getInstance(); 
+	    cal.setTime(startTime); 
+	    @SuppressWarnings("deprecation")
+		int curHour= cal.getTime().getHours();
+	    cal.add(Calendar.HOUR_OF_DAY, 3);
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime()); 
+		p.put("hoursAmount", 3);
+		p.put("driverId", "3333334");
+		p.put("slotId", "123");
+		p.put("date", onlyDate);
+		p.put("hour", curHour);
+		p.put("id","1");
+		orders.add(p);
+    	Mockito.when(d.getAllObjects("Order", 600)).thenReturn(orders);
+		Assert.assertFalse((new Order(d).checkAvaliablity("123", startTime, 1)));
+	}
+	
+	@Test
+	public void checkAvaliability3() throws InterruptedException{
+		DatabaseManager d = Mockito.mock(DatabaseManager.class);
+		List<ParseObject> orders = new ArrayList<>();
+		ParseObject p = new ParseObject("Order");
+		Date startTime =new Date();		
+		Calendar cal = Calendar.getInstance(); 
+	    cal.setTime(startTime); 
+	    @SuppressWarnings("deprecation")
+		int curHour= cal.getTime().getHours();
+	    cal.add(Calendar.HOUR_OF_DAY, 1);
+	    System.out.println(curHour);
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime()); 
+		p.put("hoursAmount", 3);
+		p.put("driverId", "3333334");
+		p.put("slotId", "123");
+		p.put("date", onlyDate);
+		p.put("hour", curHour);
+		p.put("id","1");
+		orders.add(p);
+    	Mockito.when(d.getAllObjects("Order", 600)).thenReturn(orders);
+		Assert.assertTrue((new Order(d).checkAvaliablity("123", cal.getTime(), 1)));
+	}
+	
+	@Test
+	public void checkAvaliability4() throws InterruptedException{
+		DatabaseManager d = Mockito.mock(DatabaseManager.class);
+		List<ParseObject> orders = new ArrayList<>();
+		ParseObject p = new ParseObject("Order");
+		Date startTime =new Date();		
+		Calendar cal = Calendar.getInstance(); 
+	    cal.setTime(startTime); 
+	    @SuppressWarnings("deprecation")
+		int curHour= cal.getTime().getHours();
+	    cal.add(Calendar.HOUR_OF_DAY, 1);
+	    System.out.println(curHour);
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime()); 
+		p.put("hoursAmount", 3);
+		p.put("driverId", "3333334");
+		p.put("slotId", "123");
+		p.put("date", onlyDate);
+		p.put("hour", curHour);
+		p.put("id","1");
+		orders.add(p);
+    	Mockito.when(d.getAllObjects("Order", 600)).thenReturn(orders);
+		Assert.assertTrue((new Order(d).checkAvaliablity("124", cal.getTime(), 1)));
+	}
+	
+	//TODO: complete and check this test
+	public void checkAvaliability5() throws InterruptedException{
+		DatabaseManager d = Mockito.mock(DatabaseManager.class);
+		List<ParseObject> orders = new ArrayList<>();
+		ParseObject p = new ParseObject("Order");
+		Date startTime =new Date();		
+		Calendar cal = Calendar.getInstance(); 
+	    cal.setTime(startTime); 
+	    @SuppressWarnings("deprecation")
+		int curHour= cal.getTime().getHours();
+	    cal.add(Calendar.HOUR_OF_DAY, 1);
+	    System.out.println(curHour);
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime()); 
+		p.put("hoursAmount", 4);
+		p.put("driverId", "3333334");
+		p.put("slotId", "123");
+		p.put("date", onlyDate);
+		p.put("hour", curHour);
+		p.put("id","1");
+		orders.add(p);
+    	Mockito.when(d.getAllObjects("Order", 600)).thenReturn(orders);
+		Assert.assertFalse((new Order(d).checkAvaliablity("124", cal.getTime(), 1)));
+	}
 }
