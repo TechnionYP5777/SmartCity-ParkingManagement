@@ -37,11 +37,12 @@ public class orderTest {
 		Date startTime =new Date();
 		Calendar cal = Calendar.getInstance(); // creates calendar
 	    cal.setTime(startTime); // sets calendar time/date
+	    SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime()); 
+	   
 	    cal.add(Calendar.HOUR_OF_DAY, 2);
 		Date endTime =cal.getTime();
-		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-	    String onlyDate = format1.format(cal.getTime()); 
-	    @SuppressWarnings("deprecation")
+		 @SuppressWarnings("deprecation")
 		int hour = startTime.getHours();
 		String id="3333334" + onlyDate + "1";
 		Map<String, Object> keyVal = new HashMap<>();
@@ -68,12 +69,13 @@ public class orderTest {
 		Date startTime =new Date();
 		Calendar cal = Calendar.getInstance(); 
 	    cal.setTime(startTime); 
+	    SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime()); 
+	    
 	    cal.add(Calendar.HOUR_OF_DAY, 2);
 	    cal.add(Calendar.MINUTE, 15);
 		Date endTime =cal.getTime();
-		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-	    String onlyDate = format1.format(cal.getTime()); 
-	    @SuppressWarnings("deprecation")
+		@SuppressWarnings("deprecation")
 		int hour = startTime.getHours();
 		String id="3333334" + onlyDate + "1";
 		Map<String, Object> keyVal = new HashMap<>();
@@ -550,7 +552,6 @@ public class orderTest {
 		Date startTime =new Date();
 		Calendar cal = Calendar.getInstance(); // creates calendar
 	    cal.setTime(startTime); // sets calendar time/date
-	    cal.add(Calendar.HOUR_OF_DAY, 2);
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
 		keys.put("id", "1");
@@ -637,4 +638,5 @@ public class orderTest {
 			e.printStackTrace();
 		}
 	}
+	
 }
