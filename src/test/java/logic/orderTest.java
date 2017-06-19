@@ -62,7 +62,6 @@ public class orderTest {
 		}
 	}
 	
-	@Test
 	public void checkQuarter() throws ParseException, InterruptedException {
 		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
 		Date startTime =new Date();
