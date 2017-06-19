@@ -20,7 +20,7 @@ public class getSlotsTask extends Service<List<PresentParkingSlot>> {
 		        	System.out.println("4");
 		        	ParkingSlotRequest request = new ParkingSlotRequest(point, new Date(), 2, d);
 		        	System.out.println("before request");
-		        	List<PresentParkingSlot> l = request.getAllAvailableParkingSlot(new BillingClass() {
+		        	List<PresentParkingSlot> l = request.getAllAvailableParkingSlot(new Billing() {
 						
 						@Override
 						public double calculateCost(StickersColor rank, double distance) {

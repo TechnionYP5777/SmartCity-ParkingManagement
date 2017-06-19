@@ -109,7 +109,7 @@ public class ParkingSlotRequest {
 	 * @param maxCost
 	 * @return
 	 */
-	public List<PresentParkingSlot> getAllAvailableParkingSlot(BillingClass costCalculator){
+	public List<PresentParkingSlot> getAllAvailableParkingSlot(Billing costCalculator){
 		List<ParseObject> tempListParkingSlot = manager.getAllObjects("ParkingSlot", 600);
 		List<ParseObject> tempListOrders = manager.getAllObjects("Order", 600);
 		List<String> validParkings = this.noHourCollisionParking(tempListOrders, tempListParkingSlot);

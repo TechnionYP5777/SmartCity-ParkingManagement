@@ -141,7 +141,7 @@ public class ChooseParkingSlotController {
 		        	DatabaseManager d = new DatabaseManagerImpl();
 		        	d.initialize();
 		        	ParkingSlotRequest request = new ParkingSlotRequest(point, new Date(), 2, d);
-		        	return request.getAllAvailableParkingSlot(new BillingClass() {
+		        	return request.getAllAvailableParkingSlot(new Billing() {
 						@Override
 						public double calculateCost(StickersColor rank, double distance) {
 							// TODO Auto-generated method stub
