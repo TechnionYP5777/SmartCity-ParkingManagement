@@ -49,34 +49,37 @@ public class ParkingSlotRequest {
 		this.hoursAmunt = hoursAmunt;
 	}
 	
-	private List<String> noHourCollisionParking(List<ParseObject> tempListOrders, List<ParseObject> tempListParkingSlot){
-		List<String> validParking = new ArrayList<String>();
-		for(ParseObject p : tempListParkingSlot){
-			validParking.add(p.getString("name"));
-		}
+	private Boolean orderInTime(ParseObject order){
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(this.dateToPark);
 		int wantedStartingHour = cal.get(Calendar.HOUR_OF_DAY);
 		int wantedStartingQuarter = cal.get(Calendar.MINUTE);
 		int wantedStartTime = wantedStartingHour*4+wantedStartingQuarter;
 		SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
-
+		
+		int orderStartTime = order.getInt("hour");
+		int orderTimeAmount = order.getInt("hoursAmount");
+		int orderEndTime = orderStartTime+orderTimeAmount;
+		String orderDate = order.getString("date");
+		
+		Boolean noValidParkingCondition = (orderStartTime == wantedStartTime);
+		noValidParkingCondition = Boolean.logicalOr(noValidParkingCondition,(orderEndTime)%(24*4) == (wantedStartTime+this.hoursAmunt)%(24*4));
+		noValidParkingCondition = Boolean.logicalOr(noValidParkingCondition,orderStartTime<wantedStartTime && (orderEndTime)%(24*4) > wantedStartTime);
+		noValidParkingCondition = Boolean.logicalOr(noValidParkingCondition, wantedStartTime<orderStartTime && (wantedStartTime+this.hoursAmunt)%(24*4) > orderStartTime);
+		noValidParkingCondition = Boolean.logicalAnd(noValidParkingCondition, formatDate.format(cal.getTime()).equals(orderDate));
+		
+		return (!noValidParkingCondition);
+	}
+	
+	private List<String> noHourCollisionParking(List<ParseObject> tempListOrders, List<ParseObject> tempListParkingSlot){
+		List<String> validParking = new ArrayList<String>();
+		for(ParseObject p : tempListParkingSlot){
+			validParking.add(p.getString("name"));
+		}
+		
 		for(ParseObject p : tempListOrders){
-			cal.setTime(this.dateToPark);
-			int orderStartTime = p.getInt("hour");
-			int orderTimeAmount = p.getInt("hoursAmount");
-			int orderEndTime = orderStartTime+orderTimeAmount;
-
-			Boolean noValidParkingCondition = (orderStartTime == wantedStartTime);
-			noValidParkingCondition = Boolean.logicalOr(noValidParkingCondition,(orderEndTime)%(24*4) == (wantedStartTime+this.hoursAmunt)%(24*4));
-			noValidParkingCondition = Boolean.logicalOr(noValidParkingCondition,orderStartTime<wantedStartTime && (orderEndTime)%(24*4) > wantedStartTime);
-			noValidParkingCondition = Boolean.logicalOr(noValidParkingCondition, wantedStartTime<orderStartTime && (wantedStartTime+this.hoursAmunt)%(24*4) > orderStartTime);
-
-			String orderDate = p.getString("date");
-			if(formatDate.format(cal.getTime()).equals(orderDate)){
-				if(noValidParkingCondition){
-					validParking.remove(p.getString("slotId"));
-				}
+			if(!orderInTime(p)){
+				validParking.remove(p.getString("slotId"));
 			}
 		}
 		
@@ -141,6 +144,7 @@ public class ParkingSlotRequest {
 	    cal.setTime(dateToPark); // sets calendar time/date
 	    cal.add(Calendar.HOUR_OF_DAY, hoursAmunt/4);
 	    cal.add(Calendar.MINUTE, hoursAmunt%4);
+	    
 		Date endTime =cal.getTime();
 		new Order(driverID, slotID, dateToPark, endTime, manager);
 		return new Boolean(true);
@@ -149,7 +153,10 @@ public class ParkingSlotRequest {
 
 	private boolean isParkingValid(String slotID, List<ParseObject> tempListOrders) {
 		for(ParseObject p : tempListOrders){
-			if(slotID.equals(p.getString("slotId"))) return false;
+			if(!orderInTime(p) && slotID.equals(p.getString("slotId"))){
+				return false;
+			}
+				
 		}
 		return true;
 	}
