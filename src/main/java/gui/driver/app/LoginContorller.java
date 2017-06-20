@@ -87,7 +87,7 @@ public class LoginContorller {
             		return e.toString();
         		}
   	
-            	return "success";
+            	return "success:" + id;
 	        }
         };
        new Thread(loginTask).start();
@@ -107,11 +107,17 @@ public class LoginContorller {
 				statusLabel.setVisible(true);
 				return;
    			}
-   			if(result.equals("success")){
+   			if(result.contains("success:")){
    				try {
 	   				Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 	   				window.setTitle("Choose parking slot");
-	   				Parent root = FXMLLoader.load(getClass().getResource("ChooseParkingSlotScreen.fxml")); 
+	   				
+	   				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ChooseParkingSlotScreen.fxml"));     
+
+	   				Parent root = (Parent)fxmlLoader.load();          
+	   				ChooseParkingSlotController controller = fxmlLoader.<ChooseParkingSlotController>getController();
+	   				controller.setUserId(result.substring(8));
+
 	   				window.setScene(new Scene(root,1300,900));		
 	   				window.show();
    				}

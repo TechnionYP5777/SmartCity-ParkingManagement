@@ -86,10 +86,15 @@ public class ChooseParkingSlotController {
 	@FXML
 	private JFXTimePicker departureTimePicker;
 	
+	private ParkingSlotRequest request;
+	private String userId;
+	
+	public void setUserId(String id){
+		this.userId = id;
+	}
 	
 	@FXML
     protected void initialize(){
-				
 		progressIndicator.setVisible(false);
 		studentHouseRadioButton.setSelected(true);
 		
@@ -138,7 +143,8 @@ public class ChooseParkingSlotController {
             	engine.executeScript("refresh()");
             }
         });
-
+       
+       request = null;
     }
 	
 	private int roundMinutes(int minutes, boolean roundUp){
@@ -165,6 +171,7 @@ public class ChooseParkingSlotController {
 		return minutes;
 	}
 	
+	
 	@FXML
 	@SuppressWarnings("deprecation")
 	public void continueButtonClicked(ActionEvent event) throws Exception{
@@ -180,7 +187,9 @@ public class ChooseParkingSlotController {
 		        	LocalTime arrivalTime = arrivalTimePicker.getValue();
 		        	LocalTime departureTime = departureTimePicker.getValue();
 		        	
-		        	
+		        	System.out.println(date.getMonthValue());
+		        	System.out.println(date.getYear());
+		        	System.out.println(date.getDayOfMonth());
 		        	// TODO: clean map!
 		        	
 		        	if (date == null || arrivalTime == null || departureTime == null){
@@ -191,10 +200,14 @@ public class ChooseParkingSlotController {
 		        	Date arrivalDateTime = new Date(date.getYear(), date.getMonthValue(), date.getDayOfMonth(),
 		        			arrivalTime.getHour(), roundMinutes(arrivalTime.getMinute(), false));
 		        	
+		        	/*Date da = new Date(date.getYear(),date.getMonthValue(),date.getDayOfMonth(),
+		        			arrivalTime.getHour(), arrivalTime.getMinute()-10);
+		        	System.out.println(da.toString());
+		        	
 		        	if (new Date(date.getYear(),date.getMonthValue(),date.getDayOfMonth(),
-		        			arrivalTime.getHour(), arrivalTime.getMinute()).before(new Date())){
+		        			arrivalTime.getHour(), arrivalTime.getMinute()).before(new Date().setMinutes(-10))){
 		        		// TODO: notify user.
-		        	}
+		        	}*/
 		        	if (!arrivalTime.isBefore(departureTime)){
 		        		System.out.println("Your departure time must be after your arrival time");
 		        		return null;
@@ -208,9 +221,9 @@ public class ChooseParkingSlotController {
 		        		quartersCounter = departureTime.getHour()*4 + departureMinutes/15;
 		        	}
 		        	int diff = quartersCounter - (arrivalDateTime.getHours()*4 + arrivalDateTime.getMinutes()/15);
-		        			        	
+		        	System.out.println(diff);
 		   
-		        	ParkingSlotRequest request = new ParkingSlotRequest(point, arrivalDateTime, diff, d);
+		        	request = new ParkingSlotRequest(point, arrivalDateTime, diff, d);
 		        	return request.getAllAvailableParkingSlot(new Billing() {
 						@Override
 						public double calculateCost(StickersColor rank, double distance) {
@@ -265,6 +278,22 @@ public class ChooseParkingSlotController {
 	       			//TODO: if there are no slots, notify the user
 	           }
 	       });
+
+		
+	}
+	
+	@FXML
+	public void orderButtonClicked(ActionEvent event) throws Exception{
+		if (request == null){
+			return;
+		}
+		if (slotsTable.getSelectionModel().getSelectedItem() == null){
+			return;
+		} else {
+			String parkingSlotId = slotsTable.getSelectionModel().getSelectedItem().getName();
+			System.out.println(parkingSlotId);
+			request.orderParkingSlot(userId, parkingSlotId);
+		}
 
 		
 	}

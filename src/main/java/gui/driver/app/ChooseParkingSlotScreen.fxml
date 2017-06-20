@@ -69,9 +69,9 @@
                         <Insets top="15.0" />
                      </VBox.margin>
                      <children>
-                        <JFXDatePicker fx:id='datePicker' promptText="At date" />
-                        <JFXTimePicker fx:id='arrivalTimePicker' promptText="Arrival time"/>
-                        <JFXTimePicker fx:id='departureTimePicker' promptText="Departure time"/>
+                        <JFXDatePicker fx:id="datePicker" promptText="At date" />
+                        <JFXTimePicker fx:id="arrivalTimePicker" promptText="Arrival time" />
+                        <JFXTimePicker fx:id="departureTimePicker" promptText="Departure time" />
                      </children>
                   </HBox>
                   <HBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="200.0">
@@ -91,7 +91,7 @@
                         <Insets />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="215.0" text="Order selected parking slot">
+                  <Button mnemonicParsing="false" onAction="#orderButtonClicked" prefHeight="29.0" prefWidth="215.0" text="Order selected parking slot">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
