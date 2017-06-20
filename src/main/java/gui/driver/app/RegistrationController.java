@@ -64,7 +64,7 @@ public class RegistrationController {
 		 Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 			window.setTitle("Login");
 			Parent root = FXMLLoader.load(getClass().getResource("LoginScreen.fxml")); 
-			window.setScene(new Scene(root,400,500));		
+			window.setScene(new Scene(root,400,550));		
 			window.show();
 	}
 	private void setAllFieldsAndLabels() {
