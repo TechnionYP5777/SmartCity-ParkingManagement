@@ -161,7 +161,7 @@ public class LoginContorller {
 	 	Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 		window.setTitle("Registration");
 		Parent root = FXMLLoader.load(getClass().getResource("RegistrationScreen.fxml")); 
-		window.setScene(new Scene(root,400,700));		
+		window.setScene(new Scene(root,400,750));		
 		window.show();
 
 

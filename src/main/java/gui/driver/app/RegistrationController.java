@@ -4,7 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import util.Validation;
 import data.management.DBManager;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.*;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -13,6 +16,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Label;
 
 import Exceptions.LoginException;
@@ -46,6 +50,14 @@ public class RegistrationController {
 	private Label confirmPwLabel;
 	@FXML
 	private Label statusLabel;
+	@FXML
+	private ProgressIndicator progressIndicator;
+	
+	
+	@FXML
+    protected void initialize(){
+		progressIndicator.setVisible(false);
+	}
 	
 	@FXML
 	public void backButtonClicked(ActionEvent event) throws Exception {
@@ -115,27 +127,57 @@ public class RegistrationController {
 			confirmPwLabel.setVisible(true);
 		}
 		
-		if (valid){
-			
-			Map<String, Object> fields = new HashMap<String, Object>(), keys = new HashMap<String, Object>();
-			keys.put("id", id);
-			fields.put("email", email);
-			fields.put("carId", carNum);
-			fields.put("password", pw);
-	
-			try {
-				DBManager.register("Driver", keys, fields);
-				statusLabel.setVisible(true);
-				// TODO: redirect to screen
-				
-			} catch(LoginException e){
-				if(e.toString() == "user already exists"){
-					
-					idLabel.setText("User with such id already exists");
-					idField.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
-					idLabel.setVisible(true);
-				}
-			}
+		if (valid){	
+			statusLabel.setVisible(true);
+			Task<String> registrationTask = new Task<String>() {
+	            @Override
+	            protected String call() throws Exception {	
+	            	Map<String, Object> fields = new HashMap<String, Object>(), keys = new HashMap<String, Object>();
+	    			keys.put("id", id);
+	    			fields.put("email", email);
+	    			fields.put("carId", carNum);
+	    			fields.put("password", pw);
+	    			try {
+	    				DBManager.register("Driver", keys, fields);  			
+	            	} catch (LoginException e){
+	            		return e.toString();
+	        		}
+	            	return "success";
+		        }
+	        };
+	       new Thread(registrationTask).start();
+	       
+	       progressIndicator.progressProperty().bind(registrationTask.progressProperty());
+	       progressIndicator.setVisible(true); 
+	       
+	       registrationTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+	           @Override
+	           public void handle(WorkerStateEvent workerStateEvent) {
+	        	   progressIndicator.setVisible(false);
+	               String result =  registrationTask.getValue();
+	               
+		   			if (result.equals("user already exists")){
+		   				statusLabel.setVisible(false);
+						idLabel.setText("User with such id already exists");
+						idField.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
+						idLabel.setVisible(true);
+						return;
+		   			}
+		   			if(result.equals("success")){
+		   				try {
+			   				Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+			   				window.setTitle("Choose parking slot");
+			   				Parent root = FXMLLoader.load(getClass().getResource("ChooseParkingSlotScreen.fxml")); 
+			   				window.setScene(new Scene(root,1300,900));		
+			   				window.show();
+		   				}
+		   				catch (Exception e){
+		   					
+		   				}
+		   				
+		   			}
+	           }
+	       });
 		}
 	}
 	
