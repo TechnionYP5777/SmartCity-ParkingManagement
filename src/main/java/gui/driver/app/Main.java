@@ -15,7 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 
-public class Login extends Application {
+public class Main extends Application {
 	
 	Stage window;
 	
@@ -25,19 +25,19 @@ public class Login extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		/*
+		
 		window = primaryStage;
 		window.setTitle("Login");
 		Parent root = FXMLLoader.load(getClass().getResource("LoginScreen.fxml")); 
-		window.setScene(new Scene(root,400,500));
+		window.setScene(new Scene(root,400,550));
 		DBManager.initialize();
-		window.show();*/
-		
+		window.show();
+		/*
 		window = primaryStage;
 		window.setTitle("Choose parking slot");
 		Parent root = FXMLLoader.load(getClass().getResource("ChooseParkingSlotScreen.fxml")); 
 		window.setScene(new Scene(root,1300,900));		
-		window.show();
+		window.show();*/
 
 	}
 }

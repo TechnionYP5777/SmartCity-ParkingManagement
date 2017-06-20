@@ -5,13 +5,14 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.driver.app.LoginContorller">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.driver.app.LoginContorller">
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
@@ -48,11 +49,16 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Hyperlink>
-            <VBox alignment="TOP_CENTER" prefHeight="180.0" prefWidth="400.0">
+            <VBox alignment="TOP_CENTER" prefHeight="230.0" prefWidth="400.0">
                <children>
-                  <Label fx:id="statusLabel" text="status label" textFill="RED" visible="false">
+                  <ProgressIndicator fx:id="progressIndicator" progress="0.0">
                      <VBox.margin>
                         <Insets top="30.0" />
+                     </VBox.margin>
+                  </ProgressIndicator>
+                  <Label fx:id="statusLabel" text="status label" textFill="RED" visible="false">
+                     <VBox.margin>
+                        <Insets top="10.0" />
                      </VBox.margin>
                      <font>
                         <Font name="System Bold" size="15.0" />
