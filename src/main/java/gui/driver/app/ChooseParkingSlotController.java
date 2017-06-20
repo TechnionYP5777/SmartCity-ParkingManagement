@@ -9,6 +9,7 @@ import org.parse4j.ParseGeoPoint;
 import data.management.DBManager;
 import data.management.DatabaseManager;
 import data.management.DatabaseManagerImpl;
+import data.members.ParkingSlot;
 import data.members.StickersColor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -166,9 +167,14 @@ public class ChooseParkingSlotController {
 		        	}
 		   
 		        	ParkingSlotRequest request = new ParkingSlotRequest(point, new Date(), 2, d);
-		        	return request.getAllAvailableParkingSlot(new BillingClass() {
+		        	return request.getAllAvailableParkingSlot(new Billing() {
 						@Override
 						public double calculateCost(StickersColor rank, double distance) {
+							// TODO Auto-generated method stub
+							return 0;
+						}
+						@Override
+						public double calculateCostBySlot(ParkingSlot slot, ParseGeoPoint point) {
 							// TODO Auto-generated method stub
 							return 0;
 						}
