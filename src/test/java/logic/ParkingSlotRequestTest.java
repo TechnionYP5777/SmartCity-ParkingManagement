@@ -223,7 +223,7 @@ public class ParkingSlotRequestTest {
 	public void testNewOrderWithCollision() throws ParseException, InterruptedException{
 		ParseGeoPoint point = new ParseGeoPoint(32.777566, 35.022484);
     	DatabaseManager d = Mockito.mock(DatabaseManager.class);
-    	BillingClass b = Mockito.mock(BillingClass.class);
+    	Billing b = Mockito.mock(Billing.class);
     	Calendar cal = Calendar.getInstance();
     	cal.set(2017, 12, 11, 11, 0);
     	SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
@@ -249,7 +249,7 @@ public class ParkingSlotRequestTest {
 	public void testNewOrderSuccessful() throws ParseException, InterruptedException{
 		ParseGeoPoint point = new ParseGeoPoint(32.777566, 35.022484);
     	DatabaseManager d = Mockito.mock(DatabaseManager.class);
-    	BillingClass b = Mockito.mock(BillingClass.class);
+    	Billing b = Mockito.mock(Billing.class);
     	Calendar cal = Calendar.getInstance();
     	cal.set(2017, 12, 11, 11, 0);
     	SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
