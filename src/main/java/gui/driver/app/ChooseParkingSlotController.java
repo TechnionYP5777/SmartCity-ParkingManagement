@@ -34,7 +34,8 @@ import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-
+import com.jfoenix.controls.*;
+import java.time.*;
 
 public class ChooseParkingSlotController {
 
@@ -77,6 +78,13 @@ public class ChooseParkingSlotController {
 	private RadioButton taubRadioButton;
 	@FXML
 	private RadioButton sportsCenterRadioButton;
+	@FXML
+	private JFXDatePicker datePicker;
+	@FXML
+	private JFXTimePicker arrivalTimePicker;
+	@FXML
+	private JFXTimePicker departureTimePicker;
+	
 	
 	@FXML
     protected void initialize(){
@@ -140,6 +148,23 @@ public class ChooseParkingSlotController {
 		        	ParseGeoPoint point = new ParseGeoPoint(32.777566, 35.022484);
 		        	DatabaseManager d = new DatabaseManagerImpl();
 		        	d.initialize();
+		        	
+		        	LocalDate date = datePicker.getValue();
+		        	LocalTime arrivalTime = arrivalTimePicker.getValue();
+		        	LocalTime departureTime = departureTimePicker.getValue();
+		        	
+		        	if (date == null || arrivalTime == null || departureTime == null){
+		        		// TODO: notify user.
+		        	}
+		        	
+		        	if (new Date(date.getYear(),date.getMonthValue(),date.getDayOfMonth(),
+		        			arrivalTime.getHour(), arrivalTime.getMinute()).before(new Date())){
+		        		// TODO: notify user.
+		        	}
+		        	if (!arrivalTime.isBefore(departureTime)){
+		        		// TODO: notify user.
+		        	}
+		   
 		        	ParkingSlotRequest request = new ParkingSlotRequest(point, new Date(), 2, d);
 		        	return request.getAllAvailableParkingSlot(new BillingClass() {
 						@Override
