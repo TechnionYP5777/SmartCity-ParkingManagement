@@ -25,7 +25,7 @@ public class ParkingSlotRequestTest {
 		
     	ParseGeoPoint point = new ParseGeoPoint(32.777566, 35.022484);
     	DatabaseManager d = Mockito.mock(DatabaseManager.class);
-    	BillingClass b = Mockito.mock(BillingClass.class);
+    	Billing b = Mockito.mock(Billing.class);
     	Date date = new Date();
     	
     	Mockito.when(d.getAllObjects("Order", 600)).thenReturn(new ArrayList<ParseObject>());
@@ -41,7 +41,7 @@ public class ParkingSlotRequestTest {
 		
     	ParseGeoPoint point = new ParseGeoPoint(0,0);
     	DatabaseManager d = Mockito.mock(DatabaseManager.class);
-    	BillingClass b = new BasicBillingClass();
+    	Billing b = new BasicBilling();
     	Date date = new Date();
     	
     	List<ParseObject> parkingSlots = new ArrayList<>();
@@ -74,7 +74,7 @@ public class ParkingSlotRequestTest {
 		
     	ParseGeoPoint point = new ParseGeoPoint(32.777566, 35.022484);
     	DatabaseManager d = Mockito.mock(DatabaseManager.class);
-    	BillingClass b = Mockito.mock(BillingClass.class);
+    	Billing b = Mockito.mock(Billing.class);
     	Date date = new Date();
     	
     	List<ParseObject> orders = new ArrayList<>();
@@ -99,7 +99,7 @@ public class ParkingSlotRequestTest {
 		
     	ParseGeoPoint point = new ParseGeoPoint(32.777566, 35.022484);
     	DatabaseManager d = Mockito.mock(DatabaseManager.class);
-    	BillingClass b = Mockito.mock(BillingClass.class);
+    	Billing b = Mockito.mock(Billing.class);
     	Date date = new Date(2018,11,11);
     	
     	List<ParseObject> parkingSlots = new ArrayList<>();
@@ -141,7 +141,7 @@ public class ParkingSlotRequestTest {
 		
 		ParseGeoPoint point = new ParseGeoPoint(32.777566, 35.022484);
     	DatabaseManager d = Mockito.mock(DatabaseManager.class);
-    	BillingClass b = Mockito.mock(BillingClass.class);
+    	Billing b = Mockito.mock(Billing.class);
     	Calendar cal = Calendar.getInstance();
     	cal.set(2017, 12, 11, 11, 0);
     	SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
@@ -186,7 +186,7 @@ public class ParkingSlotRequestTest {
 		
 		ParseGeoPoint point = new ParseGeoPoint(32.777566, 35.022484);
     	DatabaseManager d = Mockito.mock(DatabaseManager.class);
-    	BillingClass b = Mockito.mock(BillingClass.class);
+    	Billing b = Mockito.mock(Billing.class);
     	Calendar cal = Calendar.getInstance();
     	cal.set(2017, 12, 11, 11, 0);
     	SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");

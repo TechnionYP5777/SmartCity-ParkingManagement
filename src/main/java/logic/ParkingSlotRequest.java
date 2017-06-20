@@ -5,17 +5,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Set;
 
 import org.parse4j.ParseException;
 import org.parse4j.ParseGeoPoint;
 import org.parse4j.ParseObject;
 
-import com.google.common.util.concurrent.SimpleTimeLimiter;
 
 import data.management.DatabaseManager;
-import data.members.ParkingSlot;
-import data.members.ParkingSlotStatus;
 import data.members.StickersColor;
 
 
@@ -112,7 +108,7 @@ public class ParkingSlotRequest {
 	 * @param maxCost
 	 * @return
 	 */
-	public List<PresentParkingSlot> getAllAvailableParkingSlot(BillingClass costCalculator){
+	public List<PresentParkingSlot> getAllAvailableParkingSlot(Billing costCalculator){
 		List<ParseObject> tempListParkingSlot = manager.getAllObjects("ParkingSlot", 600);
 		List<ParseObject> tempListOrders = manager.getAllObjects("Order", 600);
 		List<String> validParkings = this.noHourCollisionParking(tempListOrders, tempListParkingSlot);

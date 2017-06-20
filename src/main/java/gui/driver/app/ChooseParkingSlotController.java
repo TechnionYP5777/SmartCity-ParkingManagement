@@ -9,6 +9,7 @@ import org.parse4j.ParseGeoPoint;
 import data.management.DBManager;
 import data.management.DatabaseManager;
 import data.management.DatabaseManagerImpl;
+import data.members.ParkingSlot;
 import data.members.StickersColor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,7 +35,8 @@ import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-
+import com.jfoenix.controls.*;
+import java.time.*;
 
 public class ChooseParkingSlotController {
 
@@ -77,10 +79,22 @@ public class ChooseParkingSlotController {
 	private RadioButton taubRadioButton;
 	@FXML
 	private RadioButton sportsCenterRadioButton;
+	@FXML
+	private JFXDatePicker datePicker;
+	@FXML
+	private JFXTimePicker arrivalTimePicker;
+	@FXML
+	private JFXTimePicker departureTimePicker;
+	
+	private ParkingSlotRequest request;
+	private String userId;
+	
+	public void setUserId(String id){
+		this.userId = id;
+	}
 	
 	@FXML
     protected void initialize(){
-				
 		progressIndicator.setVisible(false);
 		studentHouseRadioButton.setSelected(true);
 		
@@ -129,21 +143,95 @@ public class ChooseParkingSlotController {
             	engine.executeScript("refresh()");
             }
         });
-
+       
+       request = null;
     }
 	
+	private int roundMinutes(int minutes, boolean roundUp){
+		if (0 < minutes && minutes < 15){
+			if(roundUp)
+				return 15;
+			return 0;
+		}
+		if (15 < minutes && minutes < 30){
+			if(roundUp)
+				return 30;
+			return 15;
+		}
+		if (30 < minutes && minutes < 45){
+			if(roundUp)
+				return 45;
+			return 30;
+		}
+		if (45 < minutes && minutes < 60){
+			if(roundUp)
+				return 60;
+			return 45;
+		}
+		return minutes;
+	}
+	
+	
 	@FXML
+	@SuppressWarnings("deprecation")
 	public void continueButtonClicked(ActionEvent event) throws Exception{
 	       Task<List<PresentParkingSlot>> slotsTask = new Task<List<PresentParkingSlot>>() {
 	            @Override
 	            protected List<PresentParkingSlot> call() throws Exception {
+	            	
 		        	ParseGeoPoint point = new ParseGeoPoint(32.777566, 35.022484);
 		        	DatabaseManager d = new DatabaseManagerImpl();
 		        	d.initialize();
-		        	ParkingSlotRequest request = new ParkingSlotRequest(point, new Date(), 2, d);
-		        	return request.getAllAvailableParkingSlot(new BillingClass() {
+		        	
+		        	LocalDate date = datePicker.getValue();
+		        	LocalTime arrivalTime = arrivalTimePicker.getValue();
+		        	LocalTime departureTime = departureTimePicker.getValue();
+		        	
+		        	System.out.println(date.getMonthValue());
+		        	System.out.println(date.getYear());
+		        	System.out.println(date.getDayOfMonth());
+		        	// TODO: clean map!
+		        	
+		        	if (date == null || arrivalTime == null || departureTime == null){
+		        		System.out.println("You have to fill all the date and time fields");
+		        		return null;
+		        	}
+		        	
+		        	Date arrivalDateTime = new Date(date.getYear(), date.getMonthValue(), date.getDayOfMonth(),
+		        			arrivalTime.getHour(), roundMinutes(arrivalTime.getMinute(), false));
+		        	
+		        	/*Date da = new Date(date.getYear(),date.getMonthValue(),date.getDayOfMonth(),
+		        			arrivalTime.getHour(), arrivalTime.getMinute()-10);
+		        	System.out.println(da.toString());
+		        	
+		        	if (new Date(date.getYear(),date.getMonthValue(),date.getDayOfMonth(),
+		        			arrivalTime.getHour(), arrivalTime.getMinute()).before(new Date().setMinutes(-10))){
+		        		// TODO: notify user.
+		        	}*/
+		        	if (!arrivalTime.isBefore(departureTime)){
+		        		System.out.println("Your departure time must be after your arrival time");
+		        		return null;
+		        	}
+		        	
+		        	int departureMinutes = roundMinutes(departureTime.getMinute(), true);
+		        	int quartersCounter = 0;
+		        	if (departureMinutes == 60){
+		        		quartersCounter = (departureTime.getHour() + 1)*4;
+		        	} else {
+		        		quartersCounter = departureTime.getHour()*4 + departureMinutes/15;
+		        	}
+		        	int diff = quartersCounter - (arrivalDateTime.getHours()*4 + arrivalDateTime.getMinutes()/15);
+		        	System.out.println(diff);
+		   
+		        	request = new ParkingSlotRequest(point, arrivalDateTime, diff, d);
+		        	return request.getAllAvailableParkingSlot(new Billing() {
 						@Override
 						public double calculateCost(StickersColor rank, double distance) {
+							// TODO Auto-generated method stub
+							return 0;
+						}
+						@Override
+						public double calculateCostBySlot(ParkingSlot slot, ParseGeoPoint point) {
 							// TODO Auto-generated method stub
 							return 0;
 						}
@@ -159,6 +247,10 @@ public class ChooseParkingSlotController {
 	           @Override
 	           public void handle(WorkerStateEvent workerStateEvent) {
 	               	List<PresentParkingSlot> result = slotsTask.getValue();   //here you get the return value of your service
+	               	if (result == null){
+	               		progressIndicator.setVisible(false);
+	               		return;
+	               	}
 	               	slotsTable.setItems(getSlots(result));
 	       			slotsTable.getColumns().setAll(idColumn, priceColumn, distanceColumn, ratingColumn);
 	       			for (PresentParkingSlot slot : result){
@@ -186,6 +278,22 @@ public class ChooseParkingSlotController {
 	       			//TODO: if there are no slots, notify the user
 	           }
 	       });
+
+		
+	}
+	
+	@FXML
+	public void orderButtonClicked(ActionEvent event) throws Exception{
+		if (request == null){
+			return;
+		}
+		if (slotsTable.getSelectionModel().getSelectedItem() == null){
+			return;
+		} else {
+			String parkingSlotId = slotsTable.getSelectionModel().getSelectedItem().getName();
+			System.out.println(parkingSlotId);
+			request.orderParkingSlot(userId, parkingSlotId);
+		}
 
 		
 	}

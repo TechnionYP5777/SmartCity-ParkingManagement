@@ -1,15 +1,32 @@
 package gui.driver.app;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import logic.Billing;
+import logic.ParkingSlotRequest;
+import logic.PresentParkingSlot;
 import javafx.scene.*;
 import javafx.fxml.*;
 import data.management.DBManager;
+import data.management.DatabaseManager;
+import data.management.DatabaseManagerImpl;
+import data.members.ParkingSlot;
+import data.members.StickersColor;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.*;
-import javafx.fxml.FXMLLoader;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Date;
+import java.util.List;
+
+import org.parse4j.ParseGeoPoint;
+
 import Exceptions.LoginException;
 
 
@@ -27,6 +44,14 @@ public class LoginContorller {
 	private Button loginButton;
 	@FXML
 	private Button createNewButton;
+	@FXML
+	private ProgressIndicator progressIndicator;
+	
+	
+	@FXML
+    protected void initialize(){
+		progressIndicator.setVisible(false);
+	}
 	
 	@FXML
 	public void forgotPwClicked(ActionEvent event) throws Exception {
@@ -47,7 +72,67 @@ public class LoginContorller {
 			statusLabel.setVisible(true);
 			return;		
 		}
-				
+		
+		statusLabel.setText("Loading...");
+		statusLabel.setStyle(" -fx-text-fill: black; -fx-font-size: 15px; -fx-font-weight: normal");
+		statusLabel.setVisible(true);
+		
+		Task<String> loginTask = new Task<String>() {
+            @Override
+            protected String call() throws Exception {	
+            	try {
+	            	DBManager.login("Driver", "id", id, "password", pw);
+	    			
+            	} catch (LoginException e){
+            		return e.toString();
+        		}
+  	
+            	return "success:" + id;
+	        }
+        };
+       new Thread(loginTask).start();
+       
+       progressIndicator.progressProperty().bind(loginTask.progressProperty());
+       progressIndicator.setVisible(true); 
+       
+       loginTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+           @Override
+           public void handle(WorkerStateEvent workerStateEvent) {
+        	   progressIndicator.setVisible(false);
+               String result =  loginTask.getValue();
+               
+   			if (result.equals("user doesn't exists") || result.equals("password doesn't match")){
+				statusLabel.setText("ID or Password are wrong");
+				statusLabel.setStyle(" -fx-text-fill: red; -fx-font-size: 15px; -fx-font-weight: bold");
+				statusLabel.setVisible(true);
+				return;
+   			}
+   			if(result.contains("success:")){
+   				try {
+	   				Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+	   				window.setTitle("Choose parking slot");
+	   				
+	   				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ChooseParkingSlotScreen.fxml"));     
+
+	   				Parent root = (Parent)fxmlLoader.load();          
+	   				ChooseParkingSlotController controller = fxmlLoader.<ChooseParkingSlotController>getController();
+	   				controller.setUserId(result.substring(8));
+
+	   				window.setScene(new Scene(root,1300,900));		
+	   				window.show();
+   				}
+   				catch (Exception e){
+   					
+   				}
+   				
+   			}
+               
+
+       			
+
+           }
+       });
+		/*
 		try {
 			
 			DBManager.login("Driver", "id", id, "password", pw);
@@ -65,7 +150,7 @@ public class LoginContorller {
 			window.setTitle("Map");
 			Parent root = FXMLLoader.load(getClass().getResource("ChooseParkingSlotScreen.fxml")); 
 			window.setScene(new Scene(root,600,600));		
-			window.show();*/
+			window.show();
 
 		} catch (LoginException e){
 			String err = e.toString();
@@ -74,7 +159,7 @@ public class LoginContorller {
 				return;		
 			}
 
-		}
+		}*/
 		
 	}
 	@FXML
@@ -82,7 +167,7 @@ public class LoginContorller {
 	 	Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 		window.setTitle("Registration");
 		Parent root = FXMLLoader.load(getClass().getResource("RegistrationScreen.fxml")); 
-		window.setScene(new Scene(root,400,700));		
+		window.setScene(new Scene(root,400,750));		
 		window.show();
 
 

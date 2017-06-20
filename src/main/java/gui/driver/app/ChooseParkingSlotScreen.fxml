@@ -69,14 +69,9 @@
                         <Insets top="15.0" />
                      </VBox.margin>
                      <children>
-                        <JFXDatePicker promptText="At date" />
-                        <JFXTimePicker promptText="Arrival time" />
-                        <JFXTimePicker promptText="Departure time" />
-                        <Button fx:id="continueButton" mnemonicParsing="false" onAction="#continueButtonClicked" prefHeight="29.0" prefWidth="90.0" text="Continue">
-                           <HBox.margin>
-                              <Insets left="100.0" top="5.0" />
-                           </HBox.margin>
-                        </Button>
+                        <JFXDatePicker fx:id="datePicker" promptText="At date" />
+                        <JFXTimePicker fx:id="arrivalTimePicker" promptText="Arrival time" />
+                        <JFXTimePicker fx:id="departureTimePicker" promptText="Departure time" />
                      </children>
                   </HBox>
                   <HBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="200.0">
@@ -89,6 +84,20 @@
                   </HBox>
                </children>
             </VBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="continueButton" mnemonicParsing="false" onAction="#continueButtonClicked" prefHeight="29.0" prefWidth="215.0" text="Show parking slots on screen">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#orderButtonClicked" prefHeight="29.0" prefWidth="215.0" text="Order selected parking slot">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
             <VBox prefHeight="600.0" prefWidth="100.0">
                <children>
                   <Label fx:id="chooseParkingSlotLabel" text="3.Choose Parking Slot">

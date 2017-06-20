@@ -133,6 +133,10 @@ public class ParkingSlot extends dbMember {
 		return new MapLocation(((ParseGeoPoint) returnV.get("location")).getLatitude(),
 				((ParseGeoPoint) returnV.get("location")).getLongitude());
 	}
+	
+	public ParseGeoPoint getParseGeoPoint(){
+		return new ParseGeoPoint(location.getLat(), location.getLon());
+	}
 
 	public StickersColor getDefaultColor() {
 		Map<String, Object> key = new HashMap<String, Object>();

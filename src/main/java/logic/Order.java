@@ -1,7 +1,6 @@
 package logic;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -47,8 +46,8 @@ public class Order {
 	
 	/* Constructors */
 	
-	public Order(){
-		
+	public Order(DatabaseManager manager){
+		this.dbm=manager;
 	}
 
 	// Create a new order. Will result in a new order in the DB.
@@ -253,50 +252,44 @@ public class Order {
 	
 	/* Methods */
 	
-	//TODO::
-	public boolean checkAvaliablity(String slotId, Date start, Date end){
-		List<ParseObject> tempListParkingSlot = dbm.getAllObjects("ParkingSlot", 600);
+	public boolean checkAvaliablity(String slotId, Date start, int duration){
 		List<ParseObject> tempListOrders = dbm.getAllObjects("Order", 600);
-		//check if the demanding parking slot exists 
-		if(!isParkingValid(slotId, tempListParkingSlot)) return new Boolean(false);
-		
-		List<String> validParking = new ArrayList<String>();
-		for(ParseObject p : tempListParkingSlot){
-			validParking.add(p.getString("name"));
-		}
 		Calendar cal = Calendar.getInstance();
+		cal.setTime(start);
 		int wantedStartingHour = cal.get(Calendar.HOUR_OF_DAY);
 		int wantedStartingQuarter = cal.get(Calendar.MINUTE);
-		int wantedTime = wantedStartingHour*4+wantedStartingQuarter;
+		int wantedStartTime = wantedStartingHour*4+wantedStartingQuarter;
 		SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
 		for(ParseObject p : tempListOrders){
 			cal.setTime(start);
-			int orderTime = p.getInt("hour");
+			int orderStartTime = p.getInt("hour");
 			int orderTimeAmount = p.getInt("hoursAmount");
+			int orderEndTime = orderStartTime+orderTimeAmount;
 			
-			Boolean validParkingCondition = (orderTime == wantedTime);
-			validParkingCondition = Boolean.logicalOr(validParkingCondition,(orderTime+orderTimeAmount)%(24*4) == (wantedTime+minDifference(start, end))%(24*4));
-			validParkingCondition = Boolean.logicalOr(validParkingCondition,orderTime<wantedTime && (orderTime+orderTimeAmount)%(24*4) > wantedTime);
-			validParkingCondition = Boolean.logicalOr(validParkingCondition, wantedTime<orderTime && (wantedTime+minDifference(start, end))%(24*4) > orderTime);
+			System.out.println("demand:");
+			System.out.println("start: "+wantedStartingHour);
+			System.out.println("start quart: "+wantedStartingQuarter);
+			System.out.println("hour: "+wantedStartTime);
+			System.out.println("exist:");
+			System.out.println("start: "+orderStartTime);
+			System.out.println("hour: "+orderTimeAmount);
+			System.out.println("finish: "+orderEndTime);
 			
-			if (validParkingCondition)
+			
+			Boolean noValidParkingCondition = (orderStartTime == wantedStartingHour);
+			noValidParkingCondition = Boolean.logicalOr(noValidParkingCondition,(orderEndTime*4) == (wantedStartingHour*4+duration));
+			noValidParkingCondition = Boolean.logicalOr(noValidParkingCondition,orderStartTime<wantedStartTime && (orderEndTime) > wantedStartTime);
+			noValidParkingCondition = Boolean.logicalOr(noValidParkingCondition, wantedStartTime<orderStartTime && (wantedStartingHour*4+duration) > (orderStartTime*4));
+			if (noValidParkingCondition)
 				return new Boolean(false);
 			String orderDate = p.getString("date");
 			if(formatDate.format(cal.getTime()).equals(orderDate)){
-				if(validParkingCondition){
+				if(noValidParkingCondition){
 					return new Boolean(false);
 				}
 			}
 		}
 		return new Boolean(true);
-	
-	}
-	
-	private boolean isParkingValid(String slotID, List<ParseObject> tempListOrders) {
-		for(ParseObject p : tempListOrders){
-			if(slotID.equals(p.getString("slotId"))) return false;
-		}
-		return true;
 	}
 	
 	private static int minDifference(Date date1, Date date2) {
