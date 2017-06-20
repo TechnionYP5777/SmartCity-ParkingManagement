@@ -36,6 +36,9 @@ import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import com.jfoenix.controls.*;
+
+import Exceptions.LoginException;
+
 import java.time.*;
 
 public class ChooseParkingSlotController {
@@ -175,6 +178,7 @@ public class ChooseParkingSlotController {
 	@FXML
 	@SuppressWarnings("deprecation")
 	public void continueButtonClicked(ActionEvent event) throws Exception{
+		
 	       Task<List<PresentParkingSlot>> slotsTask = new Task<List<PresentParkingSlot>>() {
 	            @Override
 	            protected List<PresentParkingSlot> call() throws Exception {
@@ -284,15 +288,42 @@ public class ChooseParkingSlotController {
 	
 	@FXML
 	public void orderButtonClicked(ActionEvent event) throws Exception{
+		
 		if (request == null){
 			return;
 		}
+		
 		if (slotsTable.getSelectionModel().getSelectedItem() == null){
 			return;
 		} else {
+			
 			String parkingSlotId = slotsTable.getSelectionModel().getSelectedItem().getName();
-			System.out.println(parkingSlotId);
-			request.orderParkingSlot(userId, parkingSlotId);
+			
+			Task<Boolean> orderTask = new Task<Boolean>() {
+	            @Override
+	            protected Boolean call() throws Exception {	
+	            	return request.orderParkingSlot(userId, parkingSlotId);
+		        }
+	        };
+	       new Thread(orderTask).start();
+			
+	       progressIndicator.progressProperty().bind(orderTask.progressProperty());
+	       progressIndicator.setVisible(true); 
+	       
+	       orderTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+	           @Override
+	           public void handle(WorkerStateEvent workerStateEvent) {
+	        	   progressIndicator.setVisible(false);
+	               boolean result =  orderTask.getValue();
+	               if(result){
+	            	   System.out.println("SUCCESS");
+	               } else {
+	            	   System.out.println("FAILURE");
+	               }
+	   			}
+
+	       });
+			
 		}
 
 		
