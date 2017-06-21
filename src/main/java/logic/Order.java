@@ -51,7 +51,6 @@ public class Order {
 	}
 
 	// Create a new order. Will result in a new order in the DB.
-	@SuppressWarnings("deprecation")
 	public Order(final String driverId, final String slotId, Date startTime, Date endTime,DatabaseManager manager) throws ParseException, InterruptedException {
 		LOGGER.info("Create a new order by slot id, start time, end time");
 		this.dbm = manager;
@@ -74,7 +73,7 @@ public class Order {
 	    fields.put("date", onlyDate);
 		++id;
 		idToString=driverId + "" + onlyDate + id;
-		fields.put("hour", Integer.valueOf(cal.getTime().getHours()));
+		fields.put("hour", getHourInQuarter(startTime));
 		keyValues.put("id", idToString);
 		dbm.insertObject(objectClass, keyValues, fields);
 		Thread.sleep(6000);
@@ -218,10 +217,7 @@ public class Order {
 		newFields.put("date", this.date);
 		newFields.put("id", this.id);
 		newFields.put("hoursAmount", this.hoursAmount);
-		Calendar cal = Calendar.getInstance(); // creates calendar
-	    cal.setTime(newStart); // sets calendar time/date
-	    @SuppressWarnings("deprecation")
-		int onlyHour=cal.getTime().getHours();
+		int onlyHour=this.getHourInQuarter(newStart);
 		newFields.put("hour", onlyHour);
 		Map<String, Object> keys = new HashMap<String, Object>();
 		keys.put("id", this.id);
@@ -251,6 +247,30 @@ public class Order {
 	}
 	
 	/* Methods */
+
+	public int getHourInQuarter(Date demandDate){
+		Calendar cal = Calendar.getInstance(); 
+	    cal.setTime(demandDate); 
+		@SuppressWarnings("deprecation")
+		int hour = Integer.valueOf(cal.getTime().getHours());
+		hour = hour*4;
+		@SuppressWarnings("deprecation")
+		int min = Integer.valueOf(cal.getTime().getMinutes());
+		switch (min){
+			case 0: 
+				break;
+			case 15:
+				hour=hour+1;
+				break;
+			case 30:
+				hour=hour+2;
+				break;
+			case 45:
+				hour=hour+3;
+				break;
+		}
+		return hour;
+	}
 	
 	public boolean checkAvaliablity(String slotId, Date start, int duration){
 		List<ParseObject> tempListOrders = dbm.getAllObjects("Order", 600);
@@ -265,17 +285,6 @@ public class Order {
 			int orderStartTime = p.getInt("hour");
 			int orderTimeAmount = p.getInt("hoursAmount");
 			int orderEndTime = orderStartTime+orderTimeAmount;
-			
-			System.out.println("demand:");
-			System.out.println("start: "+wantedStartingHour);
-			System.out.println("start quart: "+wantedStartingQuarter);
-			System.out.println("hour: "+wantedStartTime);
-			System.out.println("exist:");
-			System.out.println("start: "+orderStartTime);
-			System.out.println("hour: "+orderTimeAmount);
-			System.out.println("finish: "+orderEndTime);
-			
-			
 			Boolean noValidParkingCondition = (orderStartTime == wantedStartingHour);
 			noValidParkingCondition = Boolean.logicalOr(noValidParkingCondition,(orderEndTime*4) == (wantedStartingHour*4+duration));
 			noValidParkingCondition = Boolean.logicalOr(noValidParkingCondition,orderStartTime<wantedStartTime && (orderEndTime) > wantedStartTime);
