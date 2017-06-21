@@ -19,10 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.Label;
 import javafx.scene.web.*;
 import java.net.*;
 import java.awt.geom.Point2D;
@@ -43,15 +40,23 @@ public class MainScreenController {
 	@FXML
 	private Button newOrderButton;
 	@FXML
-	private TableView futureOrdersTable;
+	private TableView<PresentOrder> futureOrdersTable;
 	@FXML
 	private Button cancelOrderButton;
 	@FXML
-	private TableView ordersHistoryTable;
+	private TableView<PresentOrder> ordersHistoryTable;
+	@FXML
+	private TableColumn<PresentOrder, String> parkingSlotIdColumn;
+	@FXML
+	private TableColumn<PresentOrder, Date> startTimeColumn;
+	@FXML
+	private TableColumn<PresentOrder, Date> finishTimeColumn;
+	@FXML
+	private TableColumn<PresentOrder, Double> priceColumn;
 	
 	@FXML
     protected void initialize(){
-		
+		setColumns();
 	}
 	@FXML
 	public void newOrderButtonClicked(ActionEvent event) throws Exception {
@@ -62,4 +67,21 @@ public class MainScreenController {
 		System.out.println("cancelOrderButtonClicked");
 	}
 	
+	private void setColumns(){
+		parkingSlotIdColumn = new TableColumn<>("slot id");
+		parkingSlotIdColumn.setPrefWidth(100);
+		parkingSlotIdColumn.setCellValueFactory(new PropertyValueFactory<>("parkingSlotId"));
+		
+		startTimeColumn = new TableColumn<>("start time");
+		startTimeColumn.setPrefWidth(100);
+		startTimeColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+		
+		finishTimeColumn = new TableColumn<>("finish time");
+		finishTimeColumn.setPrefWidth(100);
+		finishTimeColumn.setCellValueFactory(new PropertyValueFactory<>("finishTime"));
+		
+		priceColumn = new TableColumn<>("price");
+		priceColumn.setPrefWidth(100);
+		priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+	}
 }
