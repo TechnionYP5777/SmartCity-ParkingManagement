@@ -8,12 +8,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<StackPane prefHeight="600.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane prefHeight="600.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.driver.app.MainScreenController">
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <Button mnemonicParsing="false" text="New order">
+            <Button fx:id="newOrderButton" mnemonicParsing="false" onAction="#newOrderButtonClicked" text="New order">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
@@ -26,12 +25,12 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </Label>
-            <TableView prefHeight="200.0" prefWidth="200.0">
+            <TableView fx:id="futureOrdersTable" prefHeight="200.0" prefWidth="200.0">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TableView>
-            <Button mnemonicParsing="false" text="Cancel selected order">
+            <Button fx:id="cancelOrderButton" mnemonicParsing="false" onAction="#cancelOrderButtonClicked" text="Cancel selected order">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -44,7 +43,7 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </Label>
-            <TableView prefHeight="200.0" prefWidth="200.0">
+            <TableView fx:id="ordersHistoryTable" prefHeight="200.0" prefWidth="200.0">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
