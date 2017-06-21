@@ -110,15 +110,12 @@ public class LoginContorller {
    			if(result.contains("success:")){
    				try {
 	   				Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-	   				window.setTitle("Choose parking slot");
-	   				
-	   				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ChooseParkingSlotScreen.fxml"));     
-
+	   				window.setTitle("Main Screen");
+	   				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainScreen.fxml"));     
 	   				Parent root = (Parent)fxmlLoader.load();          
-	   				ChooseParkingSlotController controller = fxmlLoader.<ChooseParkingSlotController>getController();
+	   				MainScreenController controller = fxmlLoader.<MainScreenController>getController();
 	   				controller.setUserId(result.substring(8));
-
-	   				window.setScene(new Scene(root,1300,900));		
+	   				window.setScene(new Scene(root,750,650));		
 	   				window.show();
    				}
    				catch (Exception e){
@@ -127,39 +124,8 @@ public class LoginContorller {
    				
    			}
                
-
-       			
-
            }
        });
-		/*
-		try {
-			
-			DBManager.login("Driver", "id", id, "password", pw);
-			statusLabel.setText("Successful login");
-			statusLabel.setStyle(" -fx-text-fill: green; -fx-font-size: 15px; -fx-font-weight: bold");
-			statusLabel.setVisible(true);
-			
-		 	Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-			window.setTitle("Choose destination and time");
-			Parent root = FXMLLoader.load(getClass().getResource("ChooseDestinationAndTimeScreen.fxml")); 
-			window.setScene(new Scene(root,600,500));		
-			window.show();
-			/*
-			Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-			window.setTitle("Map");
-			Parent root = FXMLLoader.load(getClass().getResource("ChooseParkingSlotScreen.fxml")); 
-			window.setScene(new Scene(root,600,600));		
-			window.show();
-
-		} catch (LoginException e){
-			String err = e.toString();
-			if (err.equals("user doesn't exists") || err.equals("password doesn't match")){
-				statusLabel.setVisible(true);
-				return;		
-			}
-
-		}*/
 		
 	}
 	@FXML

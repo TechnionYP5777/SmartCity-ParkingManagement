@@ -53,14 +53,32 @@ public class MainScreenController {
 	private TableColumn<PresentOrder, Date> finishTimeColumn;
 	@FXML
 	private TableColumn<PresentOrder, Double> priceColumn;
+	@FXML
+	private ProgressIndicator progressIndicator;
+	
+	private String userId;
 	
 	@FXML
     protected void initialize(){
+		
+		progressIndicator.setVisible(false);
+		newOrderButton.setDisable(true);
+		cancelOrderButton.setDisable(true);
+		
 		setColumns();
+		getUserIdAndSetOrders();
 	}
 	@FXML
 	public void newOrderButtonClicked(ActionEvent event) throws Exception {
-		System.out.println("newOrderButtonClicked");
+		
+			Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+			window.setTitle("New Order");
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ChooseParkingSlotScreen.fxml"));     
+			Parent root = (Parent)fxmlLoader.load();          
+			ChooseParkingSlotController controller = fxmlLoader.<ChooseParkingSlotController>getController();
+			controller.setUserId(userId);
+			window.setScene(new Scene(root,1300,900));		
+			window.show();
 	}
 	@FXML
 	public void cancelOrderButtonClicked(ActionEvent event) throws Exception {
@@ -68,20 +86,51 @@ public class MainScreenController {
 	}
 	
 	private void setColumns(){
+		
 		parkingSlotIdColumn = new TableColumn<>("slot id");
-		parkingSlotIdColumn.setPrefWidth(100);
+		parkingSlotIdColumn.setPrefWidth(180);
 		parkingSlotIdColumn.setCellValueFactory(new PropertyValueFactory<>("parkingSlotId"));
 		
 		startTimeColumn = new TableColumn<>("start time");
-		startTimeColumn.setPrefWidth(100);
+		startTimeColumn.setPrefWidth(180);
 		startTimeColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
 		
 		finishTimeColumn = new TableColumn<>("finish time");
-		finishTimeColumn.setPrefWidth(100);
+		finishTimeColumn.setPrefWidth(180);
 		finishTimeColumn.setCellValueFactory(new PropertyValueFactory<>("finishTime"));
 		
 		priceColumn = new TableColumn<>("price");
-		priceColumn.setPrefWidth(100);
+		priceColumn.setPrefWidth(180);
 		priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+		
+		futureOrdersTable.getColumns().setAll(parkingSlotIdColumn, startTimeColumn, finishTimeColumn, priceColumn);
+		ordersHistoryTable.getColumns().setAll(parkingSlotIdColumn, startTimeColumn, finishTimeColumn, priceColumn);
+		
+	}
+	
+	private ObservableList<PresentOrder> getOrders(List<PresentOrder> orders){
+		ObservableList<PresentOrder> returnOrders = FXCollections.observableArrayList();
+		for (PresentOrder order : orders){
+			returnOrders.add(order);
+		}
+		return returnOrders;
+	}
+
+	private void getUserIdAndSetOrders(){
+		
+	}
+	public void setUserId(String userId){
+		this.userId = userId;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+

@@ -60,10 +60,13 @@ public class ChooseParkingSlotController {
 	private WebEngine engine;
 	@FXML
 	private TableView<PresentParkingSlot> slotsTable;
-	
+	@FXML
 	private TableColumn<PresentParkingSlot, String> idColumn;
+	@FXML
 	private TableColumn<PresentParkingSlot, Double> priceColumn;
+	@FXML
 	private TableColumn<PresentParkingSlot, Double> distanceColumn;
+	@FXML
 	private TableColumn<PresentParkingSlot, Double> ratingColumn;
 	
 	@FXML
