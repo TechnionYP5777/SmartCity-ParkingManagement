@@ -32,8 +32,11 @@ public class Order {
 	// The demand day
 	private String date;
 	
-	// The desired time
+	// The desired time in quarters
 	private int hour;
+	
+	// The desired time
+	private String actualHour;
 	
 	// The desired amount of hours
 	private int hoursAmount;
@@ -51,6 +54,7 @@ public class Order {
 	}
 
 	// Create a new order. Will result in a new order in the DB.
+	@SuppressWarnings("deprecation")
 	public Order(final String driverId, final String slotId, Date startTime, Date endTime,DatabaseManager manager) throws ParseException, InterruptedException {
 		LOGGER.info("Create a new order by slot id, start time, end time");
 		this.dbm = manager;
@@ -64,15 +68,14 @@ public class Order {
 		if (hours<=0)
 			return;
 		fields.put("hoursAmount", hours);
-		int id=0;
 		Calendar cal = Calendar.getInstance(); // creates calendar
 	    cal.setTime(startTime); // sets calendar time/date
 	    SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime());      
 		String idToString=driverId + "" + onlyDate;
 	    fields.put("date", onlyDate);
-		++id;
-		idToString=driverId + "" + onlyDate + id;
+	    fields.put("actualHour", cal.getTime().getHours()+":"+cal.getTime().getMinutes());
+		idToString=createIdString(driverId, slotId, onlyDate, cal.getTime().getHours()+":"+cal.getTime().getMinutes());
 		fields.put("hour", getHourInQuarter(startTime));
 		keyValues.put("id", idToString);
 		dbm.insertObject(objectClass, keyValues, fields);
@@ -81,13 +84,13 @@ public class Order {
 	
 	public Order(final ParseObject obj) throws ParseException {
 		DBManager.initialize();
-
+		this.id = obj.getString("id");
 		this.driverId = obj.getString("driverId");
 		this.date = obj.getString("date");
 		this.slotId = obj.getString("slotId");
 		this.hour = obj.getInt("hour");
+		this.actualHour = obj.getString("actualHour");
 		this.hoursAmount = (int)obj.get("hoursAmount");
-		
 	}
 	
 	public Order(final String id, DatabaseManager manager) throws ParseException {
@@ -98,7 +101,7 @@ public class Order {
 		Map<String, Object> keys = new HashMap<>();
 		keys.put("id", id);
 		Map<String,Object> returnV = dbm.getObjectFieldsByKey(objectClass, keys);
-		
+		this.actualHour =returnV.get("actualHour") + "";
 		this.driverId=returnV.get("driverId") + "";
 		this.slotId= returnV.get("slotId") + "";
 		this.date= returnV.get("date")+"";
@@ -114,6 +117,13 @@ public class Order {
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("id", id);
 		return dbm.getObjectFieldsByKey(objectClass, key).get("id") + "";
+	}
+	
+	public String getActualHour() {
+		dbm.initialize();
+		Map<String, Object> key = new HashMap<String, Object>();
+		key.put("id", id);
+		return dbm.getObjectFieldsByKey(objectClass, key).get("actualHour") + "";
 	}
 	
 	public String getDriverId() {
@@ -161,6 +171,7 @@ public class Order {
 		}
 		
 		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("actualHour", this.actualHour);
 		newFields.put("driverId", newDriverId);
 		newFields.put("slotId", this.slotId);
 		newFields.put("hour", this.hour);
@@ -175,6 +186,7 @@ public class Order {
 	public void setHoursAmount(final int newAmount) throws ParseException {
 		LOGGER.info("Set hours amount");
 		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("actualHour", this.actualHour);
 		newFields.put("driverId", this.driverId);
 		newFields.put("slotId", this.slotId);
 		newFields.put("hour", this.hour);
@@ -194,6 +206,7 @@ public class Order {
 		}
 
 		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("actualHour", this.actualHour);
 		newFields.put("driverId", this.driverId);
 		newFields.put("slotId", newSlot);
 		newFields.put("hour", this.hour);
@@ -212,6 +225,7 @@ public class Order {
 			throw new IllegalArgumentException("start date can not be empty!");
 		}
 		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("actualHour", this.actualHour);
 		newFields.put("driverId", this.driverId);
 		newFields.put("slotId", this.slotId);
 		newFields.put("date", this.date);
@@ -235,6 +249,7 @@ public class Order {
 	    SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime());      	   
 		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("actualHour", this.actualHour);
 		newFields.put("driverId", this.driverId);
 		newFields.put("slotId", this.slotId);
 		newFields.put("hour", this.hour);
@@ -246,8 +261,35 @@ public class Order {
 		dbm.update(objectClass, keys, newFields);
 	}
 	
+	@SuppressWarnings("deprecation")
+	public void setActualHour(final Date newDate) throws ParseException {
+		LOGGER.info("Set order actual hour");
+		if (newDate == null){
+			LOGGER.severe("end time can not be empty!");
+			throw new IllegalArgumentException("end time can not be empty!");
+		}
+		Calendar cal = Calendar.getInstance(); // creates calendar
+	    cal.setTime(newDate); // sets calendar time/date    	   
+		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("actualHour", cal.getTime().getHours()+":"+cal.getTime().getMinutes());
+		newFields.put("driverId", this.driverId);
+		newFields.put("slotId", this.slotId);
+		newFields.put("hour", this.hour);
+		newFields.put("date", this.date);
+		newFields.put("id", this.id);
+		newFields.put("hoursAmount", this.hoursAmount);
+		Map<String, Object> keys = new HashMap<String, Object>();
+		keys.put("id", this.id);
+		dbm.update(objectClass, keys, newFields);
+	}
+	
 	/* Methods */
 
+	public String createIdString(final String driverId, final String slotId, String startTime, String hour){
+		String s=driverId+" "+startTime+" "+hour+" "+slotId;
+		return s;
+	}
+	
 	public int getHourInQuarter(Date demandDate){
 		Calendar cal = Calendar.getInstance(); 
 	    cal.setTime(demandDate); 
@@ -320,8 +362,7 @@ public class Order {
 		LOGGER.info("delete order from DB");
 		dbm.initialize();
 		Map<String, Object> fields = new HashMap<String, Object>();
-		int newid=1;
-		String idToString = driverId + "" + this.date + newid;
+		String idToString=createIdString(this.driverId, this.slotId, this.date, this.actualHour);
 		fields.put("id", idToString);
 		dbm.deleteObject(objectClass, fields);
 	}
@@ -335,9 +376,9 @@ public class Order {
 		fields.put("slotId", this.slotId);
 		fields.put("date", this.date);
 		fields.put("hour", this.hour);
+		fields.put("actualHour", this.actualHour);
 		fields.put("id",this.id);
-		int newid=1;
-		String idToString = driverId + "" + this.date + newid;
+		String idToString = createIdString(driverId, slotId, date, actualHour);
 		fields.put("id", idToString);
 		dbm.deleteObject(objectClass, fields);
 		

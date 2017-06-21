@@ -48,9 +48,12 @@ public class orderTest {
 	   
 	    cal.add(Calendar.HOUR_OF_DAY, 2);
 		Date endTime =cal.getTime();
-		String id="3333334" + onlyDate + "1";
+		String client = "3333334";
+		String hourToString = "1:30";
+		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		Map<String, Object> keyVal = new HashMap<>();
 		Map<String, Object> fields = new HashMap<>();
+		fields.put("actualHour","1:30");
 		fields.put("hoursAmount", 8);
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
@@ -82,7 +85,9 @@ public class orderTest {
 	    cal.add(Calendar.HOUR_OF_DAY, 2);
 	    cal.add(Calendar.MINUTE, 15);
 		Date endTime =cal.getTime();
-		String id="3333334" + onlyDate + "1";
+		String client = "3333334";
+		String hourToString = "1:15";
+		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		Map<String, Object> keyVal = new HashMap<>();
 		Map<String, Object> fields = new HashMap<>();
 		fields.put("hoursAmount", 9);
@@ -90,6 +95,8 @@ public class orderTest {
 		fields.put("slotId", "123");
 		fields.put("date", onlyDate);
 		fields.put("hour", 5);
+		fields.put("actualHour","1:15");
+
 		keyVal.put("id", id);
 		try{
 			// create new order
@@ -113,11 +120,14 @@ public class orderTest {
 		Date endTime =cal.getTime();
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
-		String id="3333334" + onlyDate + "1";
+	    String client = "3333334";
+		String hourToString = "1:15";
+		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		Map<String, Object> keyVal = new HashMap<>();
 		Map<String, Object> fields = new HashMap<>();
 		fields.put("hoursAmount", 0);
 		fields.put("driverId", "3333334");
+		fields.put("actualHour","1:15");
 		fields.put("slotId", "123");
 		fields.put("date", onlyDate);
 		fields.put("hour", 5);
@@ -145,10 +155,13 @@ public class orderTest {
 	    String onlyDate = format1.format(cal.getTime()); 
 		cal.add(Calendar.HOUR_OF_DAY, 2);
 		Date endTime =cal.getTime();
-		String id="3333334" + onlyDate + "1";
+		String client = "3333334";
+		String hourToString = "1:45";
+		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		Map<String, Object> keyVal = new HashMap<>();
 		Map<String, Object> fields = new HashMap<>();
 		fields.put("hoursAmount", 8);
+		fields.put("actualHour","1:45");
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
 		fields.put("date", onlyDate);
@@ -164,6 +177,7 @@ public class orderTest {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test
 	public void checkGetOrderId() throws ParseException, InterruptedException{
 		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
@@ -175,17 +189,20 @@ public class orderTest {
 	    cal.add(Calendar.HOUR_OF_DAY, 2);
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
-		String s = "333333333"+onlyDate+"1";
-		keys.put("id", s);
+		String client = "333333333";
+		String hourToString = cal.getTime().getHours()+":"+cal.getTime().getMinutes();
+		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
+		keys.put("id", id);
 		fields.put("hoursAmount", 3);
+		fields.put("actualHour",cal.getTime().getHours()+":"+cal.getTime().getMinutes());
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
 		fields.put("date", onlyDate);
 		fields.put("hour", 2);
-		fields.put("id",s);
+		fields.put("id",id);
 		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
 		try{
-			Assert.assertEquals(new Order(s, dbm).getId(), s);
+			Assert.assertEquals(new Order(id, dbm).getId(), id);
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
@@ -203,17 +220,22 @@ public class orderTest {
 	    cal.add(Calendar.HOUR_OF_DAY, 2);
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
-		String s = "333333333"+onlyDate+"1";
-		keys.put("id", s);
+		String client = "333333333";
+		@SuppressWarnings("deprecation")
+		String hourToString = cal.getTime().getHours()+":"+cal.getTime().getMinutes();
+		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
+		
+		keys.put("id", id);
 		fields.put("hoursAmount", 3);
+		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
 		fields.put("date", onlyDate);
 		fields.put("hour", 2);
-		fields.put("id",s);
+		fields.put("id",id);
 		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
 		try{
-			Assert.assertEquals(new Order(s, dbm).getSlotId(), "123");
+			Assert.assertEquals(new Order(id, dbm).getSlotId(), "123");
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
@@ -231,17 +253,22 @@ public class orderTest {
 	    cal.add(Calendar.HOUR_OF_DAY, 2);
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
-		String s = "333333334"+onlyDate+"1";
-		keys.put("id", s);
+		String client = "3333334";
+		@SuppressWarnings("deprecation")
+		String hourToString = cal.getTime().getHours()+":"+cal.getTime().getMinutes();
+		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
+		
+		keys.put("id", id);
 		fields.put("hoursAmount", 3);
+		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
 		fields.put("date", onlyDate);
 		fields.put("hour", 2);
-		fields.put("id",s);
+		fields.put("id",id);
 		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
 		try{
-			Assert.assertEquals(new Order(s, dbm).getDriverId(), "3333334");
+			Assert.assertEquals(new Order(id, dbm).getDriverId(), "3333334");
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
@@ -259,17 +286,22 @@ public class orderTest {
 	    cal.add(Calendar.HOUR_OF_DAY, 2);
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
-		String s = "333333334"+onlyDate+"1";
-		keys.put("id", s);
+	    String client = "3333334";
+		@SuppressWarnings("deprecation")
+		String hourToString = cal.getTime().getHours()+":"+cal.getTime().getMinutes();
+		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
+		
+		keys.put("id", id);
 		fields.put("hoursAmount", 3);
+		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
 		fields.put("date", onlyDate);
 		fields.put("hour", 2);
-		fields.put("id",s);
+		fields.put("id",id);
 		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
 		try{
-			Assert.assertEquals(new Order(s, dbm).getDate(), onlyDate);
+			Assert.assertEquals(new Order(id, dbm).getDate(), onlyDate);
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
@@ -287,20 +319,91 @@ public class orderTest {
 	    cal.add(Calendar.HOUR_OF_DAY, 2);
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
-		String s = "333333334"+onlyDate+"1";
-		keys.put("id", s);
+		String client = "333333334";
+		@SuppressWarnings("deprecation")
+		String hourToString = cal.getTime().getHours()+":"+cal.getTime().getMinutes();
+		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
+		
+		keys.put("id", id);
+		fields.put("actualHour","1");
 		fields.put("hoursAmount", 3);
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
 		fields.put("date", onlyDate);
 		fields.put("hour", 2);
-		fields.put("id",s);
+		fields.put("id",id);
 		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
 		try{
-			Assert.assertEquals(new Order(s, dbm).getHour(), 2);
+			Assert.assertEquals(new Order(id, dbm).getHour(), 2);
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
+		}
+	}
+	
+	@Test
+	public void checkGetActualHour() throws ParseException, InterruptedException{
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Map<String, Object> keys = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		Date startTime =new Date();
+		Calendar cal = Calendar.getInstance(); // creates calendar
+	    cal.setTime(startTime); // sets calendar time/date
+	    cal.add(Calendar.HOUR_OF_DAY, 2);
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime()); 
+		String client = "333333334";
+		@SuppressWarnings("deprecation")
+		String hourToString = cal.getTime().getHours()+":"+cal.getTime().getMinutes();
+		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
+		
+		keys.put("id", id);
+		fields.put("actualHour",hourToString);
+		fields.put("hoursAmount", 3);
+		fields.put("driverId", "3333334");
+		fields.put("slotId", "123");
+		fields.put("date", onlyDate);
+		fields.put("hour", 2);
+		fields.put("id",id);
+		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
+		try{
+			Assert.assertEquals(new Order(id, dbm).getActualHour(), hourToString);
+		} catch (final Exception ¢) {
+			¢.printStackTrace();
+			Assert.fail();
+		}
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Test
+	public void checkSetActualHour(){
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Map<String, Object> keys = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		Date startTime =new Date();
+		Calendar cal = Calendar.getInstance(); // creates calendar
+	    cal.setTime(startTime); // sets calendar time/date
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime()); 
+		keys.put("id", "1");
+		fields.put("hoursAmount", 3);
+		fields.put("actualHour","1");
+		fields.put("id", 1);
+		fields.put("driverId", "3333334");
+		fields.put("slotId", "123");
+		fields.put("date", onlyDate);
+		fields.put("hour", 2);
+		fields.put("id","1");
+		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
+		try{
+			Calendar cal2 = Calendar.getInstance(); // creates calendar
+		    cal2.setTime(startTime); // sets calendar time/date
+		    cal2.add(Calendar.HOUR_OF_DAY, 2);
+			new Order("1",dbm).setActualHour(cal2.getTime());
+			fields.put("actualHour", cal2.getTime().getHours()+":"+cal2.getTime().getMinutes());
+			Mockito.verify(dbm,Mockito.times(1)).update("Order", keys, fields);
+		}catch (ParseException e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -315,17 +418,22 @@ public class orderTest {
 	    cal.add(Calendar.HOUR_OF_DAY, 2);
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
-		String s = "333333334"+onlyDate+"1";
-		keys.put("id", s);
+		String client = "333333333";
+		@SuppressWarnings("deprecation")
+		String hourToString = cal.getTime().getHours()+":"+cal.getTime().getMinutes();
+		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
+		
+		keys.put("id", id);
 		fields.put("hoursAmount", 3);
+		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
 		fields.put("date", onlyDate);
 		fields.put("hour", 2);
-		fields.put("id",s);
+		fields.put("id",id);
 		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
 		try{
-			Assert.assertEquals(new Order(s, dbm).getHoursAmount(), 3);
+			Assert.assertEquals(new Order(id, dbm).getHoursAmount(), 3);
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
@@ -343,14 +451,19 @@ public class orderTest {
 	    cal.add(Calendar.HOUR_OF_DAY, 2);
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
-		String s = "333333334"+onlyDate+"1";
-		keys.put("id", s);
+		String client = "333333333";
+		@SuppressWarnings("deprecation")
+		String hourToString = cal.getTime().getHours()+":"+cal.getTime().getMinutes();
+		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
+		
+		keys.put("id", id);
 		fields.put("hoursAmount", 3);
+		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
 		fields.put("date", onlyDate);
 		fields.put("hour", 2);
-		fields.put("id",s);
+		fields.put("id",id);
 		cal.add(Calendar.HOUR_OF_DAY, 2);
 		Date endTime =cal.getTime();
 		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
@@ -374,14 +487,19 @@ public class orderTest {
 	    cal.add(Calendar.HOUR_OF_DAY, 2);
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
-		String s = "333333334"+onlyDate+"1";
-		keys.put("id", s);
+	    String client = "333333333";
+		@SuppressWarnings("deprecation")
+		String hourToString = cal.getTime().getHours()+":"+cal.getTime().getMinutes();
+		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
+		
+		keys.put("id", id);
 		fields.put("hoursAmount", 3);
+		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
 		fields.put("date", onlyDate);
 		fields.put("hour", 2);
-		fields.put("id",s);
+		fields.put("id",id);
 		cal.add(Calendar.HOUR_OF_DAY, 2);
 		Date endTime =cal.getTime();
 		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
@@ -405,14 +523,19 @@ public class orderTest {
 	    cal.add(Calendar.HOUR_OF_DAY, 2);
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
-		String s = "333333334"+onlyDate+"1";
-		keys.put("id", s);
+	    String client = "333333333";
+		@SuppressWarnings("deprecation")
+		String hourToString = cal.getTime().getHours()+":"+cal.getTime().getMinutes();
+		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
+		
+		keys.put("id", id);
 		fields.put("hoursAmount", 3);
+		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
 		fields.put("date", onlyDate);
 		fields.put("hour", 2);
-		fields.put("id",s);
+		fields.put("id",id);
 		cal.add(Calendar.HOUR_OF_DAY, 2);
 		Date endTime =cal.getTime();
 		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
@@ -436,14 +559,19 @@ public class orderTest {
 	    cal.add(Calendar.HOUR_OF_DAY, 2);
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
-		String s = "333333334"+onlyDate+"1";
-		keys.put("id", s);
+	    String client = "333333333";
+		@SuppressWarnings("deprecation")
+		String hourToString = cal.getTime().getHours()+":"+cal.getTime().getMinutes();
+		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
+		
+	    keys.put("id", id);
 		fields.put("hoursAmount", 3);
+		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
 		fields.put("date", onlyDate);
 		fields.put("hour", 2);
-		fields.put("id",s);
+		fields.put("id",id);
 		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
 		try{
 			new Order("3333333", "123", startTime, null,dbm);
@@ -465,28 +593,23 @@ public class orderTest {
 	    cal.add(Calendar.HOUR_OF_DAY, 2);
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
-		String s = "3333334"+onlyDate+"1";
-		keys.put("id", s);
+		String client = "3333334";
+		@SuppressWarnings("deprecation")
+		String hourToString = cal.getTime().getHours()+":"+cal.getTime().getMinutes();
+		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
+		
+		keys.put("id", id);
+		fields.put("actualHour",hourToString);
 		fields.put("hoursAmount", 1);
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
 		fields.put("date", onlyDate);
 		fields.put("hour", 14);
-		fields.put("id",s);
+		fields.put("id",id);
 		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
 		try{
-			new Order(s,dbm).CancelOrder();;
+			new Order(id,dbm).CancelOrder();;
 			Mockito.verify(dbm, Mockito.times(1)).initialize();
-			s = "3333334"+onlyDate+"1";
-			System.out.println(s);
-			//keys.put("id", s);
-
-			//fields.put("id",s);
-			//fields.put("hour", 15);
-//			fields.put("hoursAmount", 2);
-//			fields.put("driverId", "3333334");
-//			fields.put("slotId", "123");
-//			fields.put("date", onlyDate);
 			Mockito.verify(dbm, Mockito.times(1)).deleteObject("Order", fields);
 
 		}catch (ParseException e) {
@@ -507,6 +630,7 @@ public class orderTest {
 	    String onlyDate = format1.format(cal.getTime()); 
 		keys.put("id", "1");
 		fields.put("hoursAmount", 3);
+		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
 		fields.put("date", onlyDate);
@@ -540,6 +664,7 @@ public class orderTest {
 		fields.put("date", onlyDate);
 		fields.put("hour", 2);
 		fields.put("id","1");
+		fields.put("actualHour","1");
 		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
 		try{
 			new Order("1",dbm).setSlotId("122");;
@@ -562,6 +687,7 @@ public class orderTest {
 	    String onlyDate = format1.format(cal.getTime()); 
 		keys.put("id", "1");
 		fields.put("hoursAmount", 3);
+		fields.put("actualHour","1");
 		fields.put("id", 1);
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
@@ -600,6 +726,7 @@ public class orderTest {
 	    String onlyDate = format1.format(cal2.getTime()); 
 		keys.put("id", "1");
 		fields.put("hoursAmount", 3);
+		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
 		fields.put("date", onlyDate);
@@ -633,6 +760,7 @@ public class orderTest {
 	    String onlyDate = format1.format(cal2.getTime()); 
 		keys.put("id", "1");
 		fields.put("hoursAmount", 3);
+		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
 		fields.put("date", onlyDate);
@@ -666,6 +794,7 @@ public class orderTest {
 	    String onlyDate = format1.format(cal2.getTime()); 
 		keys.put("id", "1");
 		fields.put("hoursAmount", 3);
+		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
 		fields.put("date", onlyDate);
@@ -700,6 +829,7 @@ public class orderTest {
 	    String onlyDate = format1.format(cal2.getTime()); 
 		keys.put("id", "1");
 		fields.put("hoursAmount", 3);
+		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
 		fields.put("date", onlyDate);
@@ -731,6 +861,7 @@ public class orderTest {
 	    String onlyDate = format1.format(cal.getTime()); 
 		keys.put("id", "1");
 		fields.put("hoursAmount", 3);
+		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
 		fields.put("date", onlyDate);
