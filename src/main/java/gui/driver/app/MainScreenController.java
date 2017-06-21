@@ -118,6 +118,28 @@ public class MainScreenController {
 
 	private void getUserIdAndSetOrders(){
 		
+		Task<Void> getUserIdTask = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {	
+            	while(userId == null){
+            		
+            	}
+            	return null;
+	        }
+        };
+       new Thread(getUserIdTask).start();
+       
+       progressIndicator.progressProperty().bind(getUserIdTask.progressProperty());
+       progressIndicator.setVisible(true); 
+       
+       getUserIdTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+           @Override
+           public void handle(WorkerStateEvent workerStateEvent) {
+        	   progressIndicator.setVisible(false);
+        	   System.out.println(userId);
+        	   newOrderButton.setDisable(false);
+           }
+       });
 	}
 	public void setUserId(String userId){
 		this.userId = userId;
