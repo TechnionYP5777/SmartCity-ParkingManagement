@@ -1122,7 +1122,69 @@ public class orderTest {
 	}
 	
 	@Test
-	public void checkTwoOrdersADaySameHours(){
+	public void twoOrdersADayOtherHoursSameSlots(){
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.HOUR_OF_DAY,1);
+		cal.set(Calendar.MINUTE,30);
+		cal.set(Calendar.SECOND,0);
+		cal.set(Calendar.MILLISECOND,0);
+		Date startTime = cal.getTime();
+	    SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime()); 
+	   
+	    cal.add(Calendar.HOUR_OF_DAY, 2);
+		Date endTime =cal.getTime();
+		String client = "3333334";
+		String hourToString = "1:30";
+		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
+		Map<String, Object> keyVal = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		fields.put("actualHour","1:30");
+		fields.put("hoursAmount", 8);
+		fields.put("driverId", "3333334");
+		fields.put("slotId", "123");
+		fields.put("date", onlyDate);
+		fields.put("hour", 6);
+		keyVal.put("id", id);
+		
+		Calendar cal2 = Calendar.getInstance();
+		cal2.set(Calendar.HOUR_OF_DAY,10);
+		cal2.set(Calendar.MINUTE,30);
+		cal2.set(Calendar.SECOND,0);
+		cal2.set(Calendar.MILLISECOND,0);
+		Date startTime2 = cal2.getTime();
+	    SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate2 = format2.format(cal2.getTime()); 
+	   
+	    cal2.add(Calendar.HOUR_OF_DAY, 2);
+		Date endTime2 =cal2.getTime();
+		String client2 = "3333334";
+		String hourToString2 = "10:30";
+		String id2=new Order(dbm).createIdString(client2, "123", onlyDate2, hourToString2);
+		Map<String, Object> keyVal2 = new HashMap<>();
+		Map<String, Object> fields2 = new HashMap<>();
+		fields2.put("actualHour","10:30");
+		fields2.put("hoursAmount", 8);
+		fields2.put("driverId", "3333334");
+		fields2.put("slotId", "123");
+		fields2.put("date", onlyDate2);
+		fields2.put("hour", 42);
+		keyVal2.put("id", id2);
+		try{
+			// create new order
+			new Order("3333334", "123", startTime, endTime,dbm);
+			new Order("3333334", "123", startTime2, endTime2,dbm);
+			Mockito.verify(dbm, Mockito.times(2)).initialize();
+			Mockito.verify(dbm, Mockito.times(1)).insertObject("Order", keyVal, fields);
+			Mockito.verify(dbm, Mockito.times(1)).insertObject("Order", keyVal2, fields2);
+		} catch (final Exception ¢) {
+			¢.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void checkTwoOrdersADaySameHoursDiffSlots(){
 		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.HOUR_OF_DAY,1);
@@ -1178,6 +1240,67 @@ public class orderTest {
 			Mockito.verify(dbm, Mockito.times(2)).initialize();
 			Mockito.verify(dbm, Mockito.times(1)).insertObject("Order", keyVal, fields);
 			Mockito.verify(dbm, Mockito.times(1)).insertObject("Order", keyVal2, fields2);
+		} catch (final Exception ¢) {
+			¢.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void checkTwoOrdersADaySameHoursSameSlots(){
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.HOUR_OF_DAY,1);
+		cal.set(Calendar.MINUTE,30);
+		cal.set(Calendar.SECOND,0);
+		cal.set(Calendar.MILLISECOND,0);
+		Date startTime = cal.getTime();
+	    SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime()); 
+	   
+	    cal.add(Calendar.HOUR_OF_DAY, 2);
+		Date endTime =cal.getTime();
+		String client = "3333334";
+		String hourToString = "1:30";
+		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
+		Map<String, Object> keyVal = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		fields.put("actualHour","1:30");
+		fields.put("hoursAmount", 8);
+		fields.put("driverId", "3333334");
+		fields.put("slotId", "123");
+		fields.put("date", onlyDate);
+		fields.put("hour", 6);
+		keyVal.put("id", id);
+		
+		Calendar cal2 = Calendar.getInstance();
+		cal2.set(Calendar.HOUR_OF_DAY,1);
+		cal2.set(Calendar.MINUTE,30);
+		cal2.set(Calendar.SECOND,0);
+		cal2.set(Calendar.MILLISECOND,0);
+		Date startTime2 = cal2.getTime();
+	    SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate2 = format2.format(cal2.getTime()); 
+	   
+	    cal2.add(Calendar.HOUR_OF_DAY, 2);
+		Date endTime2 =cal2.getTime();
+		String client2 = "3333334";
+		String hourToString2 = "1:30";
+		String id2=new Order(dbm).createIdString(client2, "123", onlyDate2, hourToString2);
+		Map<String, Object> keyVal2 = new HashMap<>();
+		Map<String, Object> fields2 = new HashMap<>();
+		fields2.put("actualHour","1:30");
+		fields2.put("hoursAmount", 8);
+		fields2.put("driverId", "3333334");
+		fields2.put("slotId", "123");
+		fields2.put("date", onlyDate2);
+		fields2.put("hour", 6);
+		keyVal2.put("id", id2);
+		try{
+			// create new order
+			new Order("3333334", "123", startTime, endTime,dbm);
+			new Order("3333334", "123", startTime2, endTime2,dbm);
+			Mockito.verify(dbm, Mockito.times(2)).initialize();
+			Mockito.verify(dbm, Mockito.times(2)).insertObject("Order", keyVal, fields);
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 		}
