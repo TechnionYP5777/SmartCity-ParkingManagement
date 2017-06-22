@@ -65,21 +65,19 @@ public class Order {
 		fields.put("driverId", driverId);
 		fields.put("slotId", slotId);
 		int hours =minDifference(endTime, startTime);
-		if (hours<=0)
+		if(hours<=0)
 			return;
 		fields.put("hoursAmount", hours);
 		Calendar cal = Calendar.getInstance(); // creates calendar
 	    cal.setTime(startTime); // sets calendar time/date
 	    SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime());      
-		String idToString=driverId + "" + onlyDate;
+		String idToString=createIdString(driverId, slotId, onlyDate, cal.getTime().getHours()+":"+cal.getTime().getMinutes());
 	    fields.put("date", onlyDate);
 	    fields.put("actualHour", cal.getTime().getHours()+":"+cal.getTime().getMinutes());
-		idToString=createIdString(driverId, slotId, onlyDate, cal.getTime().getHours()+":"+cal.getTime().getMinutes());
 		fields.put("hour", getHourInQuarter(startTime));
 		keyValues.put("id", idToString);
 		dbm.insertObject(objectClass, keyValues, fields);
-		Thread.sleep(6000);
 	}
 	
 	public Order(final ParseObject obj) throws ParseException {

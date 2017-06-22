@@ -1059,8 +1059,8 @@ public class orderTest {
 		Assert.assertTrue(47==new Order(d).getHourInQuarter(date));
 	}
 	
-	//TODO: fix test
-	public void checkTwoOrdersADayOtherHours(){
+	@Test
+	public void twoOrdersADayOtherHoursOtherSlots(){
 		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.HOUR_OF_DAY,1);
@@ -1096,7 +1096,7 @@ public class orderTest {
 	    String onlyDate2 = format2.format(cal2.getTime()); 
 	   
 	    cal2.add(Calendar.HOUR_OF_DAY, 2);
-		Date endTime2 =cal.getTime();
+		Date endTime2 =cal2.getTime();
 		String client2 = "3333334";
 		String hourToString2 = "10:30";
 		String id2=new Order(dbm).createIdString(client2, "321", onlyDate2, hourToString2);
@@ -1107,7 +1107,7 @@ public class orderTest {
 		fields2.put("driverId", "3333334");
 		fields2.put("slotId", "321");
 		fields2.put("date", onlyDate2);
-		fields2.put("hour", 6);
+		fields2.put("hour", 42);
 		keyVal2.put("id", id2);
 		try{
 			// create new order
@@ -1121,7 +1121,7 @@ public class orderTest {
 		}
 	}
 	
-	//TODO: fix test
+	@Test
 	public void checkTwoOrdersADaySameHours(){
 		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
 		Calendar cal = Calendar.getInstance();
@@ -1158,7 +1158,7 @@ public class orderTest {
 	    String onlyDate2 = format2.format(cal2.getTime()); 
 	   
 	    cal2.add(Calendar.HOUR_OF_DAY, 2);
-		Date endTime2 =cal.getTime();
+		Date endTime2 =cal2.getTime();
 		String client2 = "3333334";
 		String hourToString2 = "1:30";
 		String id2=new Order(dbm).createIdString(client2, "321", onlyDate2, hourToString2);
@@ -1175,7 +1175,7 @@ public class orderTest {
 			// create new order
 			new Order("3333334", "123", startTime, endTime,dbm);
 			new Order("3333334", "321", startTime2, endTime2,dbm);
-			Mockito.verify(dbm, Mockito.times(1)).initialize();
+			Mockito.verify(dbm, Mockito.times(2)).initialize();
 			Mockito.verify(dbm, Mockito.times(1)).insertObject("Order", keyVal, fields);
 			Mockito.verify(dbm, Mockito.times(1)).insertObject("Order", keyVal2, fields2);
 		} catch (final Exception ¢) {
@@ -1183,7 +1183,7 @@ public class orderTest {
 		}
 	}
 	
-	//TODO: fix test
+	@Test
 	public void checkSameSlotDiffTime(){
 		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
 		Calendar cal = Calendar.getInstance();
@@ -1220,7 +1220,7 @@ public class orderTest {
 	    String onlyDate2 = format2.format(cal2.getTime()); 
 	   
 	    cal2.add(Calendar.HOUR_OF_DAY, 2);
-		Date endTime2 =cal.getTime();
+		Date endTime2 =cal2.getTime();
 		String client2 = "3333334";
 		String hourToString2 = "10:30";
 		String id2=new Order(dbm).createIdString(client2, "123", onlyDate2, hourToString2);
@@ -1231,7 +1231,7 @@ public class orderTest {
 		fields2.put("driverId", "3333334");
 		fields2.put("slotId", "123");
 		fields2.put("date", onlyDate2);
-		fields2.put("hour", 6);
+		fields2.put("hour", 42);
 		keyVal2.put("id", id2);
 		try{
 			// create new order
