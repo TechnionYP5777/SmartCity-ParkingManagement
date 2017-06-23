@@ -47,6 +47,7 @@ public class Order {
 	private final String objectClass = "Order";
 	
 	private DatabaseManager dbm;
+
 	
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
@@ -58,7 +59,7 @@ public class Order {
 
 	// Create a new order. Will result in a new order in the DB.
 	@SuppressWarnings("deprecation")
-	public Order(final String driverId, final String slotId, Date startTime, Date endTime,int price, DatabaseManager manager) throws ParseException, InterruptedException {
+	public Order(final String driverId, final String slotId, Date startTime, Date endTime,double price, DatabaseManager manager) throws ParseException, InterruptedException {
 		LOGGER.info("Create a new order by slot id, start time, end time");
 		this.dbm = manager;
 		dbm.initialize();
@@ -420,6 +421,23 @@ public class Order {
 		fields.put("id", idToString);
 		dbm.deleteObject(objectClass, fields);
 		
+	}
+	
+	public void setReview(){
+		LOGGER.info("Set reviewe");      	   
+		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("price", this.price);
+		newFields.put("actualHour", this.actualHour);
+		newFields.put("driverId", this.driverId);
+		newFields.put("slotId", this.slotId);
+		newFields.put("hour", this.hour);
+		newFields.put("date", this.date);
+		newFields.put("id", this.id);
+		newFields.put("hoursAmount", this.hoursAmount);
+		newFields.put("reviewed", true);
+		Map<String, Object> keys = new HashMap<String, Object>();
+		keys.put("id", this.id);
+		dbm.update(objectClass, keys, newFields);
 	}
 	
 }
