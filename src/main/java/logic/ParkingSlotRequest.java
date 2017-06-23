@@ -132,7 +132,7 @@ public class ParkingSlotRequest {
 		return returnList;
 	}
 
-	public Boolean orderParkingSlot(String driverID, String slotID) throws ParseException, InterruptedException{
+	public Boolean orderParkingSlot(String driverID, String slotID,int price) throws ParseException, InterruptedException{
 		List<ParseObject> tempListOrders = manager.getAllObjects("Order", 600);
 		if(!isParkingValid(slotID, tempListOrders)) return new Boolean(false);
 		
@@ -142,7 +142,7 @@ public class ParkingSlotRequest {
 	    cal.add(Calendar.MINUTE, hoursAmunt%4);
 	    
 		Date endTime =cal.getTime();
-		new Order(driverID, slotID, dateToPark, endTime, manager);
+		new Order(driverID, slotID, dateToPark, endTime,price, manager);
 		return new Boolean(true);
 		
 	}

@@ -94,6 +94,8 @@ public class ChooseParkingSlotController {
 	
 	private ParkingSlotRequest request;
 	private String userId;
+	private int price;
+
 	
 	public void setUserId(String id){
 		this.userId = id;
@@ -300,7 +302,7 @@ public class ChooseParkingSlotController {
 			Task<Boolean> orderTask = new Task<Boolean>() {
 	            @Override
 	            protected Boolean call() throws Exception {	
-	            	return request.orderParkingSlot(userId, parkingSlotId);
+	            	return request.orderParkingSlot(userId, parkingSlotId,price);
 		        }
 	        };
 	       new Thread(orderTask).start();

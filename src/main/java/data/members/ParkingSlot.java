@@ -41,6 +41,12 @@ public class ParkingSlot extends dbMember {
 	// The slot's area
 	private Area area;
 	
+	// The slot's total rating
+	private int rating;
+	
+	//number of voting to the specific slot
+	private int numOfVoters;
+	
 	private DatabaseManager dbm;
 	
 	private final String objectClass = "ParkingSlot";
@@ -51,11 +57,10 @@ public class ParkingSlot extends dbMember {
 
 	// Create a new parking slot. Will result in a new slot in the DB.
 	public ParkingSlot(final String name, final ParkingSlotStatus status, final StickersColor rank, final StickersColor defaultColor,
-			final MapLocation location, final Date endTime, final Area area, DatabaseManager manager) throws ParseException {
+			final MapLocation location, final Date endTime, final Area area, final int rating, final int voting, DatabaseManager manager) throws ParseException {
 		LOGGER.info("Create a new parking slot by name, status, color, sticker color, expiration time");
 		this.dbm = manager;
-		
-		validateArgument(status, rank, defaultColor, location, area);
+		validateArgument(status, rank, defaultColor, location, area, rating, voting);
 		Map<String, Object> fields = new HashMap<String, Object>(), keyValues = new HashMap<String, Object>();
 		fields.put("status", status.ordinal());
 		fields.put("rank", rank.ordinal());
@@ -63,6 +68,8 @@ public class ParkingSlot extends dbMember {
 		fields.put("location", new ParseGeoPoint(location.getLat(), location.getLon()));
 		fields.put("endTime", endTime);
 		fields.put("area", area.ordinal());
+		fields.put("rating", rating);
+		fields.put("numOfVoters", voting);
 		keyValues.put("name", name);
 		dbm.insertObject(objectClass, keyValues, fields);
 	}
@@ -92,7 +99,8 @@ public class ParkingSlot extends dbMember {
 		Map<String,Object> returnV = dbm.getObjectFieldsByKey(objectClass, keys);
 		
 		this.rank=StickersColor.values()[(int)returnV.get("rank")];
-		
+		this.numOfVoters=(int)returnV.get("numOfVoters");
+		this.rating=(int)returnV.get("rating");
 		this.defaultColor= StickersColor.values()[(int)returnV.get("defaultColor")];
 		this.area= Area.values()[(int)returnV.get("area")];
 		this.endTime= (Date) returnV.get("endTime");
@@ -112,6 +120,18 @@ public class ParkingSlot extends dbMember {
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("name", name);
 		return dbm.getObjectFieldsByKey("ParkingSlot", key).get("name") + "";
+	}
+	
+	public int getRating() {
+		Map<String, Object> key = new HashMap<String, Object>();
+		key.put("name", name);
+		return (int) dbm.getObjectFieldsByKey("ParkingSlot", key).get("rating");
+	}
+	
+	public int getNumOfVoters() {
+		Map<String, Object> key = new HashMap<String, Object>();
+		key.put("name", name);
+		return (int) dbm.getObjectFieldsByKey("ParkingSlot", key).get("numOfVoters");
 	}
 
 	public ParkingSlotStatus getStatus() {
@@ -165,6 +185,8 @@ public class ParkingSlot extends dbMember {
 			throw new IllegalArgumentException("name can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", name);
+		newFields.put("rating", this.rating);
+		newFields.put("numOfVoters", this.numOfVoters);
 		newFields.put("rank", this.rank.ordinal());
 		newFields.put("defaultColor", this.defaultColor.ordinal());
 		newFields.put("status", this.status.ordinal());
@@ -184,6 +206,8 @@ public class ParkingSlot extends dbMember {
 			throw new IllegalArgumentException("status can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
+		newFields.put("rating", this.rating);
+		newFields.put("numOfVoters", this.numOfVoters);
 		newFields.put("rank", this.rank.ordinal());
 		newFields.put("defaultColor", this.defaultColor.ordinal());
 		newFields.put("status", s.ordinal());
@@ -203,6 +227,8 @@ public class ParkingSlot extends dbMember {
 			throw new IllegalArgumentException("rank can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
+		newFields.put("rating", this.rating);
+		newFields.put("numOfVoters", this.numOfVoters);
 		newFields.put("rank", c.ordinal());
 		newFields.put("defaultColor", this.defaultColor.ordinal());
 		newFields.put("status", this.status.ordinal());
@@ -222,6 +248,8 @@ public class ParkingSlot extends dbMember {
 			throw new IllegalArgumentException("location can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
+		newFields.put("rating", this.rating);
+		newFields.put("numOfVoters", this.numOfVoters);
 		newFields.put("rank", this.rank.ordinal());
 		newFields.put("defaultColor", this.defaultColor.ordinal());
 		newFields.put("status", this.status.ordinal());
@@ -241,6 +269,8 @@ public class ParkingSlot extends dbMember {
 			throw new IllegalArgumentException("default color can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
+		newFields.put("rating", this.rating);
+		newFields.put("numOfVoters", this.numOfVoters);
 		newFields.put("rank", this.rank.ordinal());
 		newFields.put("defaultColor", defaultColor.ordinal());
 		newFields.put("status", this.status.ordinal());
@@ -260,6 +290,8 @@ public class ParkingSlot extends dbMember {
 			throw new IllegalArgumentException("area can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
+		newFields.put("rating", this.rating);
+		newFields.put("numOfVoters", this.numOfVoters);
 		newFields.put("rank", this.rank.ordinal());
 		newFields.put("defaultColor", this.defaultColor.ordinal());
 		newFields.put("status", this.status.ordinal());
@@ -279,6 +311,49 @@ public class ParkingSlot extends dbMember {
 			throw new IllegalArgumentException("end time can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
+		newFields.put("rating", this.rating);
+		newFields.put("numOfVoters", this.numOfVoters);
+		newFields.put("rank", this.rank.ordinal());
+		newFields.put("defaultColor", this.defaultColor.ordinal());
+		newFields.put("status", this.status.ordinal());
+		newFields.put("endTime", endTime);
+		newFields.put("area", this.area.ordinal());
+		newFields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
+		
+		Map<String, Object> keys = new HashMap<String, Object>();
+		keys.put("name", this.name);
+		dbm.update(objectClass, keys, newFields);
+	}
+	
+	public void setRating(final int newRating) throws ParseException {
+		LOGGER.info("Set parking slot rating");
+		if (newRating < 0)
+			throw new IllegalArgumentException("end time can not be empty!");
+		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("name", this.name);
+		newFields.put("rating", newRating);
+		newFields.put("numOfVoters", this.numOfVoters);
+		newFields.put("rank", this.rank.ordinal());
+		newFields.put("defaultColor", this.defaultColor.ordinal());
+		newFields.put("status", this.status.ordinal());
+		newFields.put("endTime", endTime);
+		newFields.put("area", this.area.ordinal());
+		newFields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
+		
+		Map<String, Object> keys = new HashMap<String, Object>();
+		keys.put("name", this.name);
+		dbm.update(objectClass, keys, newFields);
+	}
+	
+	public void setNumOfVoters(final int newNumOfVoters) throws ParseException {
+		LOGGER.info("Set parking slot rating");
+		
+		if (newNumOfVoters < 0)
+			throw new IllegalArgumentException("end time can not be empty!");
+		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("name", this.name);
+		newFields.put("rating", this.rating);
+		newFields.put("numOfVoters", newNumOfVoters);
 		newFields.put("rank", this.rank.ordinal());
 		newFields.put("defaultColor", this.defaultColor.ordinal());
 		newFields.put("status", this.status.ordinal());
@@ -293,8 +368,8 @@ public class ParkingSlot extends dbMember {
 	
 	/* Methods */
 
-	private void validateArgument(final ParkingSlotStatus s, final StickersColor c, final StickersColor defaultColor, final MapLocation l, final Area a) {
-		Validation.validateNewParkingSlot(s, c, defaultColor, l,a);
+	private void validateArgument(final ParkingSlotStatus s, final StickersColor c, final StickersColor defaultColor, final MapLocation l, final Area a, final int r, final int numOfV) {
+		Validation.validateNewParkingSlot(s, c, defaultColor, l,a, r, numOfV);
 	}
 
 	public void changeStatus(final ParkingSlotStatus newStatus) {
@@ -314,7 +389,8 @@ public class ParkingSlot extends dbMember {
 		fields.put("defaultColor", defaultColor.ordinal());
 		fields.put("area", area.ordinal());
 		fields.put("location", new ParseGeoPoint(location.getLat(), location.getLon()));
-		
+		fields.put("rating", rating);
+		fields.put("numOfVoters", numOfVoters);
 		fields.put("endTime", endTime);
 		fields.put("name", name);
 		dbm.deleteObject(objectClass, fields);
