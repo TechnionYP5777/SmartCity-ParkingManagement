@@ -69,6 +69,10 @@ public class Order {
 		fields.put("slotId", slotId);
 		fields.put("price", price);
 		int hours =minDifference(endTime, startTime);
+		if(price<0){
+			LOGGER.severe("order price have to be positive!");
+			throw new IllegalArgumentException("order price have to be positive!");
+		}
 		if(hours<=0)
 			return;
 		fields.put("hoursAmount", hours);

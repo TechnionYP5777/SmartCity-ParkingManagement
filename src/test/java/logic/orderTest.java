@@ -283,6 +283,74 @@ public class orderTest {
 	}
 	
 	@Test
+	public void checkGetPrice() throws ParseException, InterruptedException{
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Map<String, Object> keys = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		Date startTime =new Date();
+		Calendar cal = Calendar.getInstance(); // creates calendar
+	    cal.setTime(startTime); // sets calendar time/date
+	    cal.add(Calendar.HOUR_OF_DAY, 2);
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime()); 
+		String client = "3333334";
+		@SuppressWarnings("deprecation")
+		String hourToString = cal.getTime().getHours()+":"+cal.getTime().getMinutes();
+		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
+		
+		keys.put("id", id);
+		fields.put("price", 10);
+		fields.put("hoursAmount", 3);
+		fields.put("actualHour","1");
+		fields.put("driverId", "3333334");
+		fields.put("slotId", "123");
+		fields.put("date", onlyDate);
+		fields.put("hour", 2);
+		fields.put("id",id);
+		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
+		try{
+			Assert.assertEquals(new Order(id, dbm).getPrice(), 10);
+		} catch (final Exception ¢) {
+			¢.printStackTrace();
+			Assert.fail();
+		}
+	}
+	
+	@Test
+	public void checkPriceZero() throws ParseException, InterruptedException{
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Map<String, Object> keys = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		Date startTime =new Date();
+		Calendar cal = Calendar.getInstance(); // creates calendar
+	    cal.setTime(startTime); // sets calendar time/date
+	    cal.add(Calendar.HOUR_OF_DAY, 2);
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime()); 
+		String client = "3333334";
+		@SuppressWarnings("deprecation")
+		String hourToString = cal.getTime().getHours()+":"+cal.getTime().getMinutes();
+		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
+		
+		keys.put("id", id);
+		fields.put("price", 0);
+		fields.put("hoursAmount", 3);
+		fields.put("actualHour","1");
+		fields.put("driverId", "3333334");
+		fields.put("slotId", "123");
+		fields.put("date", onlyDate);
+		fields.put("hour", 2);
+		fields.put("id",id);
+		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
+		try{
+			Assert.assertEquals(new Order(id, dbm).getPrice(), 0);
+		} catch (final Exception ¢) {
+			¢.printStackTrace();
+			Assert.fail();
+		}
+	}
+	
+	@Test
 	public void checkGetDate() throws ParseException, InterruptedException{
 		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
 		Map<String, Object> keys = new HashMap<>();
@@ -581,6 +649,41 @@ public class orderTest {
 		
 	    keys.put("id", id);
 	    fields.put("price", 10);
+		fields.put("hoursAmount", 3);
+		fields.put("actualHour","1");
+		fields.put("driverId", "3333334");
+		fields.put("slotId", "123");
+		fields.put("date", onlyDate);
+		fields.put("hour", 2);
+		fields.put("id",id);
+		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
+		try{
+			new Order("3333333", "123", startTime, null,10,dbm);
+			Mockito.verify(dbm,Mockito.times(1)).update("Order", keys, fields);
+
+		}catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void checkIfPricePositive() throws ParseException, InterruptedException{
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Map<String, Object> keys = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		Date startTime =new Date();
+		Calendar cal = Calendar.getInstance(); // creates calendar
+	    cal.setTime(startTime); // sets calendar time/date
+	    cal.add(Calendar.HOUR_OF_DAY, 2);
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime()); 
+	    String client = "333333333";
+		@SuppressWarnings("deprecation")
+		String hourToString = cal.getTime().getHours()+":"+cal.getTime().getMinutes();
+		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
+		
+	    keys.put("id", id);
+	    fields.put("price", -10);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
