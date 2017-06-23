@@ -5,7 +5,7 @@ import logic.*;
 import java.util.*;
 
 import org.parse4j.ParseGeoPoint;
-
+import java.util.Calendar;
 import data.management.DBManager;
 import data.management.DatabaseManager;
 import data.management.DatabaseManagerImpl;
@@ -187,30 +187,27 @@ public class ChooseParkingSlotController {
 	            protected List<PresentParkingSlot> call() throws Exception {
 	            	
 		        	ParseGeoPoint point = new ParseGeoPoint(32.777566, 35.022484);
-		        	DatabaseManager d = new DatabaseManagerImpl();
+		        	DatabaseManager d = DatabaseManagerImpl.getInstance();
 		        	d.initialize();
 		        	
 		        	LocalDate date = datePicker.getValue();
 		        	LocalTime arrivalTime = arrivalTimePicker.getValue();
 		        	LocalTime departureTime = departureTimePicker.getValue();
-		        	
-		        	System.out.println(date.getMonthValue());
-		        	System.out.println(date.getYear());
-		        	System.out.println(date.getDayOfMonth());
+
 		        	// TODO: clean map!
 		        	
 		        	if (date == null || arrivalTime == null || departureTime == null){
 		        		System.out.println("You have to fill all the date and time fields");
 		        		return null;
 		        	}
+		        	Calendar arrivalDateTime = Calendar.getInstance();
+		        	arrivalDateTime.set(Calendar.YEAR, date.getYear());
+		        	arrivalDateTime.set(Calendar.MONTH, date.getMonthValue());
+		        	arrivalDateTime.set(Calendar.DAY_OF_MONTH,date.getDayOfMonth());
+		        	arrivalDateTime.set(Calendar.HOUR, arrivalTime.getHour());
+		        	arrivalDateTime.set(Calendar.MINUTE, roundMinutes(arrivalTime.getMinute(), false));
 		        	
-		        	Date arrivalDateTime = new Date(date.getYear(), date.getMonthValue(), date.getDayOfMonth(),
-		        			arrivalTime.getHour(), roundMinutes(arrivalTime.getMinute(), false));
-		        	
-		        	/*Date da = new Date(date.getYear(),date.getMonthValue(),date.getDayOfMonth(),
-		        			arrivalTime.getHour(), arrivalTime.getMinute()-10);
-		        	System.out.println(da.toString());
-		        	
+		        	/*
 		        	if (new Date(date.getYear(),date.getMonthValue(),date.getDayOfMonth(),
 		        			arrivalTime.getHour(), arrivalTime.getMinute()).before(new Date().setMinutes(-10))){
 		        		// TODO: notify user.
@@ -227,10 +224,8 @@ public class ChooseParkingSlotController {
 		        	} else {
 		        		quartersCounter = departureTime.getHour()*4 + departureMinutes/15;
 		        	}
-		        	int diff = quartersCounter - (arrivalDateTime.getHours()*4 + arrivalDateTime.getMinutes()/15);
-		        	System.out.println(diff);
-		   
-		        	request = new ParkingSlotRequest(point, arrivalDateTime, diff, d);
+		        	int diff = quartersCounter - (arrivalDateTime.get(Calendar.HOUR)*4 + arrivalDateTime.get(Calendar.MINUTE)/15);
+		        	request = new ParkingSlotRequest(point, arrivalDateTime.getTime(), diff, d);
 		        	return request.getAllAvailableParkingSlot(new Billing() {
 						@Override
 						public double calculateCost(StickersColor rank, double distance) {
