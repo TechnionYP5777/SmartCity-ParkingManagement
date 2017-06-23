@@ -53,7 +53,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		Map<String, Object> keyVal = new HashMap<>();
 		Map<String, Object> fields = new HashMap<>();
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("actualHour","1:30");
 		fields.put("hoursAmount", 8);
 		fields.put("driverId", "3333334");
@@ -91,7 +91,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		Map<String, Object> keyVal = new HashMap<>();
 		Map<String, Object> fields = new HashMap<>();
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("hoursAmount", 9);
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
@@ -163,7 +163,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		Map<String, Object> keyVal = new HashMap<>();
 		Map<String, Object> fields = new HashMap<>();
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("hoursAmount", 8);
 		fields.put("actualHour","1:45");
 		fields.put("driverId", "3333334");
@@ -1241,7 +1241,7 @@ public class orderTest {
 		Map<String, Object> keyVal = new HashMap<>();
 		Map<String, Object> fields = new HashMap<>();
 		fields.put("actualHour","1:30");
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("hoursAmount", 8);
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
@@ -1266,7 +1266,7 @@ public class orderTest {
 		Map<String, Object> keyVal2 = new HashMap<>();
 		Map<String, Object> fields2 = new HashMap<>();
 		fields2.put("actualHour","10:30");
-		fields2.put("price", 10);
+		fields2.put("price", 10.0);
 		fields2.put("hoursAmount", 8);
 		fields2.put("driverId", "3333334");
 		fields2.put("slotId", "321");
@@ -1306,7 +1306,7 @@ public class orderTest {
 		Map<String, Object> fields = new HashMap<>();
 		fields.put("actualHour","1:30");
 		fields.put("hoursAmount", 8);
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
 		fields.put("date", onlyDate);
@@ -1331,7 +1331,7 @@ public class orderTest {
 		Map<String, Object> fields2 = new HashMap<>();
 		fields2.put("actualHour","10:30");
 		fields2.put("hoursAmount", 8);
-		fields2.put("price", 10);
+		fields2.put("price", 10.0);
 		fields2.put("driverId", "3333334");
 		fields2.put("slotId", "123");
 		fields2.put("date", onlyDate2);
@@ -1369,7 +1369,7 @@ public class orderTest {
 		Map<String, Object> keyVal = new HashMap<>();
 		Map<String, Object> fields = new HashMap<>();
 		fields.put("actualHour","1:30");
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("hoursAmount", 8);
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
@@ -1394,7 +1394,7 @@ public class orderTest {
 		Map<String, Object> keyVal2 = new HashMap<>();
 		Map<String, Object> fields2 = new HashMap<>();
 		fields2.put("actualHour","1:30");
-		fields2.put("price", 10);
+		fields2.put("price", 10.0);
 		fields2.put("hoursAmount", 8);
 		fields2.put("driverId", "3333334");
 		fields2.put("slotId", "321");
@@ -1433,7 +1433,7 @@ public class orderTest {
 		Map<String, Object> keyVal = new HashMap<>();
 		Map<String, Object> fields = new HashMap<>();
 		fields.put("actualHour","1:30");
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("hoursAmount", 8);
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
@@ -1459,7 +1459,7 @@ public class orderTest {
 		Map<String, Object> fields2 = new HashMap<>();
 		fields2.put("actualHour","1:30");
 		fields2.put("hoursAmount", 8);
-		fields2.put("price", 10);
+		fields2.put("price", 10.0);
 		fields2.put("driverId", "3333334");
 		fields2.put("slotId", "123");
 		fields2.put("date", onlyDate2);
@@ -1499,7 +1499,7 @@ public class orderTest {
 		fields.put("hoursAmount", 8);
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("date", onlyDate);
 		fields.put("hour", 6);
 		keyVal.put("id", id);
@@ -1521,7 +1521,7 @@ public class orderTest {
 		Map<String, Object> keyVal2 = new HashMap<>();
 		Map<String, Object> fields2 = new HashMap<>();
 		fields2.put("actualHour","10:30");
-		fields2.put("price", 10);
+		fields2.put("price", 10.0);
 		fields2.put("hoursAmount", 8);
 		fields2.put("driverId", "3333334");
 		fields2.put("slotId", "123");
@@ -1530,8 +1530,8 @@ public class orderTest {
 		keyVal2.put("id", id2);
 		try{
 			// create new order
-			new Order("3333334", "123", startTime, endTime,10,dbm);
-			new Order("3333334", "123", startTime2, endTime2,10,dbm);
+			new Order("3333334", "123", startTime, endTime,10.0,dbm);
+			new Order("3333334", "123", startTime2, endTime2,10.0,dbm);
 			Mockito.verify(dbm, Mockito.times(2)).initialize();
 			Mockito.verify(dbm, Mockito.times(1)).insertObject("Order", keyVal, fields);
 			Mockito.verify(dbm, Mockito.times(1)).insertObject("Order", keyVal2, fields2);
