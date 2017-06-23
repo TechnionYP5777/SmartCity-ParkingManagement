@@ -50,7 +50,7 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </Label>
-            <TableView fx:id="ordersHistoryTable" prefHeight="200.0" prefWidth="200.0">
+            <TableView fx:id="pastOrdersTable" prefHeight="200.0" prefWidth="200.0">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>

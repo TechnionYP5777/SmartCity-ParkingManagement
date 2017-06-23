@@ -22,6 +22,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.*;
 import java.net.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.awt.geom.Point2D;
 import java.io.*;
 
@@ -44,7 +46,7 @@ public class MainScreenController {
 	@FXML
 	private Button cancelOrderButton;
 	@FXML
-	private TableView<PresentOrder> ordersHistoryTable;
+	private TableView<PresentOrder> pastOrdersTable;
 	@FXML
 	private TableColumn<PresentOrder, String> parkingSlotIdColumn;
 	@FXML
@@ -104,18 +106,10 @@ public class MainScreenController {
 		priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 		
 		futureOrdersTable.getColumns().setAll(parkingSlotIdColumn, startTimeColumn, finishTimeColumn, priceColumn);
-		ordersHistoryTable.getColumns().setAll(parkingSlotIdColumn, startTimeColumn, finishTimeColumn, priceColumn);
+		pastOrdersTable.getColumns().setAll(parkingSlotIdColumn, startTimeColumn, finishTimeColumn, priceColumn);
 		
 	}
 	
-	private ObservableList<PresentOrder> getOrders(List<PresentOrder> orders){
-		ObservableList<PresentOrder> returnOrders = FXCollections.observableArrayList();
-		for (PresentOrder order : orders){
-			returnOrders.add(order);
-		}
-		return returnOrders;
-	}
-
 	private void getUserIdAndSetOrders(){
 		
 		Task<Void> getUserIdTask = new Task<Void>() {
@@ -136,13 +130,65 @@ public class MainScreenController {
            @Override
            public void handle(WorkerStateEvent workerStateEvent) {
         	   progressIndicator.setVisible(false);
-        	   System.out.println(userId);
         	   newOrderButton.setDisable(false);
+        	   setOrders();
            }
        });
 	}
 	public void setUserId(String userId){
 		this.userId = userId;
+	}
+	
+	public void setOrders(){
+		System.out.println("setOrders");
+		Task<List<PresentOrder>> ordersTask = new Task<List<PresentOrder>>() {
+            @Override
+            protected List<PresentOrder> call() throws Exception {
+            	
+	        	DatabaseManager d = DatabaseManagerImpl.getInstance();
+	        	d.initialize();
+	        	return UserOrderManaging.getUserOrders(userId, d);
+	        }
+        };
+       new Thread(ordersTask).start();
+       
+       progressIndicator.progressProperty().bind(ordersTask.progressProperty());
+       progressIndicator.setVisible(true); 
+       
+       ordersTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+           @Override
+           public void handle(WorkerStateEvent workerStateEvent) {
+               	List<PresentOrder> result = ordersTask.getValue(); 
+               	
+               	if (result == null){
+               		progressIndicator.setVisible(false);
+               		return;
+               	}
+               	
+               	ObservableList<PresentOrder> futureOrders = FXCollections.observableArrayList();
+            	ObservableList<PresentOrder> pastOrders = FXCollections.observableArrayList();
+               	
+            	for (PresentOrder order: result){
+            		if (order.getFinishTime().before(new Date())){
+            			System.out.println(order.getID());
+            			pastOrders.add(order);
+            		} else {
+            			futureOrders.add(order);
+            		}
+            	}
+            	futureOrdersTable.setItems(futureOrders);
+            	pastOrdersTable.setItems(pastOrders);
+
+                progressIndicator.setVisible(false); 
+           }
+       });
+		
+		
+		
+		
+		
+		
+		
 	}
 }
 
