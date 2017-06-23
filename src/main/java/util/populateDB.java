@@ -100,11 +100,13 @@ public class populateDB {
 		final ParkingSlotStatus status = ParkingSlotStatus.valueOf(args[1]);
 		//ADDED
 		final Area area=Area.valueOf(args[6]);
+		final int rating = Integer.valueOf(args[7]);
+		final int numOfVoting = Integer.valueOf(args[8]);
 		final StickersColor currentColor = StickersColor.valueOf(args[2]), defaultColor = StickersColor.valueOf(args[3]);
 		final double lat = Double.parseDouble(args[4]), lon = Double.parseDouble(args[5]);
 		try {
 			final ParkingSlot slot1 = new ParkingSlot(name, status, currentColor, defaultColor, new MapLocation(lat, lon),
-					new Date(),area, DatabaseManagerImpl.getInstance());
+					new Date(),area, rating, numOfVoting,DatabaseManagerImpl.getInstance());
 		} catch (final ParseException ¢) {
 			¢.printStackTrace();
 			return false;

@@ -49,6 +49,8 @@ public class parkingSlotTest {
 		fields.put("defaultColor", StickersColor.GREEN.ordinal());
 		fields.put("location", new ParseGeoPoint(32.123, 32.123));
 		fields.put("endTime", new Date());
+		fields.put("rating", 10);
+		fields.put("numOfVoting", 2);
 		fields.put("area",  Area.TAUB.ordinal());
 		fields.put("name", "testParkingSlot1");
 		
@@ -69,13 +71,15 @@ public class parkingSlotTest {
 		fields.put("location", new ParseGeoPoint(32.123, 32.123));
 		fields.put("endTime", new Date());
 		fields.put("area",  Area.TAUB.ordinal());
+		fields.put("rating", 10);
+		fields.put("numOfVoting", 2);
 		fields.put("name", "testParkingSlot2");
 		
 		Mockito.when(dbm.getObjectFieldsByKey("ParkingSlot",keys)).thenReturn(fields);
 		try{
 			// create new slot
 			new ParkingSlot("testParkingSlot2", ParkingSlotStatus.FREE, StickersColor.GREEN,
-					StickersColor.GREEN, new MapLocation(32.123, 32.123), new Date(), Area.TAUB,dbm);
+					StickersColor.GREEN, new MapLocation(32.123, 32.123), new Date(), Area.TAUB,10,2,dbm);
 			new ParkingSlot("testParkingSlot2",dbm).removeParkingSlotFromDB();
 	
 		} catch (final Exception ¢) {
@@ -99,11 +103,13 @@ public class parkingSlotTest {
 		fields.put("endTime", new Date());
 		fields.put("area",  Area.TAUB.ordinal());
 		fields.put("name", "first");
+		fields.put("rating", 10);
+		fields.put("numOfVoting", 2);
 		Mockito.when(dbm.getObjectFieldsByKey("ParkingSlot",keys)).thenReturn(fields);
 		
 		try{
 			new ParkingSlot("first", ParkingSlotStatus.FREE, StickersColor.BLUE, StickersColor.BLUE,
-					new MapLocation(3.12, 3.12),new Date(), Area.TAUB,dbm);
+					new MapLocation(3.12, 3.12),new Date(), Area.TAUB,10,2,dbm);
 			ParkingSlot p = new ParkingSlot("first",dbm);	
 			Assert.assertEquals(p.getName(), "first");
 			Assert.assertEquals(p.getStatus(), ParkingSlotStatus.FREE);
@@ -135,7 +141,7 @@ public class parkingSlotTest {
 		try{
 			// create new slot
 			new ParkingSlot("testParkingSlot1", ParkingSlotStatus.FREE, StickersColor.GREEN,
-					StickersColor.GREEN, new MapLocation(32.123, 32.123), new Date(), Area.TAUB,dbm);
+					StickersColor.GREEN, new MapLocation(32.123, 32.123), new Date(), Area.TAUB,10,2,dbm);
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
@@ -268,6 +274,8 @@ public class parkingSlotTest {
 		fields.put("endTime", new Date());
 		fields.put("area",  Area.TAUB.ordinal());
 		fields.put("name", "testParkingSlot1");
+		fields.put("rating", 10);
+		fields.put("numOfVoting", 2);
 		
 		
 		try{
@@ -305,6 +313,8 @@ public class parkingSlotTest {
 		fields.put("endTime", new Date());
 		fields.put("area",  Area.TAUB.ordinal());
 		fields.put("name", "testParkingSlot1");
+		fields.put("rating", 10);
+		fields.put("numOfVoting", 2);
 		
 		try{
 			new ParkingSlot("testParkingSlot1",dbm).setStatus(ParkingSlotStatus.TAKEN);
@@ -331,6 +341,8 @@ public class parkingSlotTest {
 		fields.put("location", new ParseGeoPoint(32.123, 32.123));
 		fields.put("endTime", new Date());
 		fields.put("area",  Area.TAUB.ordinal());
+		fields.put("rating", 10);
+		fields.put("numOfVoting", 2);
 		fields.put("name", "testParkingSlot1");
 		
 		try{
@@ -352,7 +364,8 @@ public class parkingSlotTest {
 		Map <String, Object> keys = new HashMap<>();
 		Map <String, Object> fields = new HashMap<>();
 		keys.put("name", "testParkingSlot1");
-		
+		fields.put("rating", 10);
+		fields.put("numOfVoting", 2);
 		fields.put("status", ParkingSlotStatus.FREE.ordinal());
 		fields.put("rank", StickersColor.GREEN.ordinal());
 		fields.put("defaultColor", StickersColor.GREEN.ordinal());
@@ -389,6 +402,8 @@ public class parkingSlotTest {
 		fields.put("endTime", new Date());
 		fields.put("area",  Area.TAUB.ordinal());
 		fields.put("name", "testParkingSlot1");
+		fields.put("rating", 10);
+		fields.put("numOfVoting", 2);
 		
 		try{
 			new ParkingSlot("testParkingSlot1",dbm).setLocation(new MapLocation(32.12345, 32.12345));
@@ -417,6 +432,8 @@ public class parkingSlotTest {
 		fields.put("location", new ParseGeoPoint(32.123, 32.123));
 		fields.put("endTime", new Date());
 		fields.put("area",  Area.TAUB.ordinal());
+		fields.put("rating", 10);
+		fields.put("numOfVoting", 2);
 		fields.put("name", "testParkingSlot1");
 		
 		try{
@@ -446,6 +463,8 @@ public class parkingSlotTest {
 		fields.put("location", new ParseGeoPoint(32.123, 32.123));
 		fields.put("endTime", new Date());
 		fields.put("area",  Area.TAUB.ordinal());
+		fields.put("rating", 10);
+		fields.put("numOfVoting", 2);
 		fields.put("name", "testParkingSlot1");
 		
 		try{
@@ -553,6 +572,8 @@ public class parkingSlotTest {
 		fields.put("endTime", new Date());
 		fields.put("area",  Area.TAUB.ordinal());
 		fields.put("name", "testParkingSlot1");
+		fields.put("rating", 10);
+		fields.put("numOfVoting", 2);
 		
 		try{
 			new ParkingSlot("testParkingSlot1",dbm).changeStatus(ParkingSlotStatus.TAKEN);
