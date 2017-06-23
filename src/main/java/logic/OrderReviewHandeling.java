@@ -4,11 +4,18 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
+import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
+import org.parse4j.callback.GetCallback;
 
+import Exceptions.NotExists;
 import data.management.DatabaseManager;
+import data.members.ParkingSlot;
 
 public class OrderReviewHandeling {
 
@@ -17,7 +24,7 @@ public class OrderReviewHandeling {
 		Calendar SartTime = Calendar.getInstance();
 		Calendar EndTiem = Calendar.getInstance();
 		for(ParseObject p : db.getAllObjects("Order", 100)){
-			if(!p.getString("driverId").equals(userID))
+			if(!p.getString("driverId").equals(userID) || p.getBoolean("reviewed"))
 				continue;
 			String date[] = p.getString("date").split("-");
 			SartTime.set(Integer.parseInt(date[0]),
@@ -38,8 +45,14 @@ public class OrderReviewHandeling {
 		return ordersList;
 	}
 	
-	public static void giveReviewToParkingSlot(PresentOrder order, int review){
-		
+	public static void giveReviewToParkingSlot(PresentOrder order, int review,DatabaseManager db) throws ParseException{
+		Map<String,Object> values = new HashMap<>();
+		values.put("name",order.getParkingSlotId());
+		ParkingSlot p = new ParkingSlot(order.getParkingSlotId(), db);
+		p.setRating((p.getRating()*p.getNumOfVoters()+review)/(p.getNumOfVoters()+1));
+		p.setNumOfVoters(p.getNumOfVoters()+1);
+		Order o = new Order(order.getID(),db);
+		o.setReview();
 	}
 	
 	
