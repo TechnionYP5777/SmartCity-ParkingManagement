@@ -58,7 +58,7 @@ public class LoginContorller {
 	 	Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 		window.setTitle("Forgot your password");
 		Parent root = FXMLLoader.load(getClass().getResource("ForgotPwScreen.fxml")); 
-		window.setScene(new Scene(root,400,500));		
+		window.setScene(new Scene(root,400,550));		
 		window.show();
 	}
 	@FXML
