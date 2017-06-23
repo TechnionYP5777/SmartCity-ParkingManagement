@@ -25,15 +25,15 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		/*
+
 		window = primaryStage;
-		window.setTitle("Main Screen");
-		Parent root = FXMLLoader.load(getClass().getResource("MainScreen.fxml")); 
-		window.setScene(new Scene(root,750,650));
+		window.setTitle("Rating");
+		Parent root = FXMLLoader.load(getClass().getResource("RatingScreen.fxml")); 
+		window.setScene(new Scene(root,500,400));
 		DBManager.initialize();
-		window.show();*/
+		window.show();
 		
-		
+		/*
 		window = primaryStage;
 		window.setTitle("Login");
 		Parent root = FXMLLoader.load(getClass().getResource("LoginScreen.fxml")); 
