@@ -53,6 +53,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		Map<String, Object> keyVal = new HashMap<>();
 		Map<String, Object> fields = new HashMap<>();
+		fields.put("price", 10);
 		fields.put("actualHour","1:30");
 		fields.put("hoursAmount", 8);
 		fields.put("driverId", "3333334");
@@ -62,7 +63,7 @@ public class orderTest {
 		keyVal.put("id", id);
 		try{
 			// create new order
-			new Order("3333334", "123", startTime, endTime,dbm);
+			new Order("3333334", "123", startTime, endTime,10,dbm);
 			Mockito.verify(dbm, Mockito.times(1)).initialize();
 			Mockito.verify(dbm, Mockito.times(1)).insertObject("Order", keyVal, fields);
 		} catch (final Exception ¢) {
@@ -90,6 +91,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		Map<String, Object> keyVal = new HashMap<>();
 		Map<String, Object> fields = new HashMap<>();
+		fields.put("price", 10);
 		fields.put("hoursAmount", 9);
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
@@ -100,7 +102,7 @@ public class orderTest {
 		keyVal.put("id", id);
 		try{
 			// create new order
-			new Order("3333334", "123", startTime, endTime,dbm);
+			new Order("3333334", "123", startTime, endTime,10,dbm);
 			Mockito.verify(dbm, Mockito.times(1)).initialize();
 			Mockito.verify(dbm, Mockito.times(1)).insertObject("Order", keyVal, fields);
 		} catch (final Exception ¢) {
@@ -125,6 +127,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		Map<String, Object> keyVal = new HashMap<>();
 		Map<String, Object> fields = new HashMap<>();
+		fields.put("price", 10);
 		fields.put("hoursAmount", 0);
 		fields.put("driverId", "3333334");
 		fields.put("actualHour","1:15");
@@ -134,7 +137,7 @@ public class orderTest {
 		keyVal.put("id", id);
 		try{
 			// create new order
-			new Order("3333334", "123", date, endTime,dbm);
+			new Order("3333334", "123", date, endTime,10,dbm);
 			Mockito.verify(dbm, Mockito.times(1)).initialize();
 			Mockito.verify(dbm, Mockito.times(0)).insertObject("Order", keyVal, fields);
 		} catch (final Exception ¢) {
@@ -160,6 +163,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		Map<String, Object> keyVal = new HashMap<>();
 		Map<String, Object> fields = new HashMap<>();
+		fields.put("price", 10);
 		fields.put("hoursAmount", 8);
 		fields.put("actualHour","1:45");
 		fields.put("driverId", "3333334");
@@ -169,7 +173,7 @@ public class orderTest {
 		keyVal.put("id", id);
 		try{
 			// create new order
-			new Order("3333334", "123", date, endTime,dbm);
+			new Order("3333334", "123", date, endTime,10,dbm);
 			Mockito.verify(dbm, Mockito.times(1)).initialize();
 			Mockito.verify(dbm, Mockito.times(1)).insertObject("Order", keyVal, fields);
 		} catch (final Exception ¢) {
@@ -193,6 +197,7 @@ public class orderTest {
 		String hourToString = cal.getTime().getHours()+":"+cal.getTime().getMinutes();
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		keys.put("id", id);
+		fields.put("price", 10);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour",cal.getTime().getHours()+":"+cal.getTime().getMinutes());
 		fields.put("driverId", "3333334");
@@ -226,6 +231,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		
 		keys.put("id", id);
+		fields.put("price", 10);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -259,6 +265,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		
 		keys.put("id", id);
+		fields.put("price", 10);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -292,6 +299,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		
 		keys.put("id", id);
+		fields.put("price", 10);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -325,6 +333,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		
 		keys.put("id", id);
+		fields.put("price", 10);
 		fields.put("actualHour","1");
 		fields.put("hoursAmount", 3);
 		fields.put("driverId", "3333334");
@@ -358,6 +367,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		
 		keys.put("id", id);
+		fields.put("price", 10);
 		fields.put("actualHour",hourToString);
 		fields.put("hoursAmount", 3);
 		fields.put("driverId", "3333334");
@@ -386,6 +396,7 @@ public class orderTest {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
 		keys.put("id", "1");
+		fields.put("price", 10);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("id", 1);
@@ -424,6 +435,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		
 		keys.put("id", id);
+		fields.put("price", 10);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -457,6 +469,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		
 		keys.put("id", id);
+		fields.put("price", 10);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -468,7 +481,7 @@ public class orderTest {
 		Date endTime =cal.getTime();
 		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
 		try{
-			new Order(null, "123", startTime, endTime,dbm);
+			new Order(null, "123", startTime, endTime,10,dbm);
 			Mockito.verify(dbm,Mockito.times(1)).update("Order", keys, fields);
 
 		}catch (ParseException e) {
@@ -493,6 +506,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		
 		keys.put("id", id);
+		fields.put("price", 10);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -504,7 +518,7 @@ public class orderTest {
 		Date endTime =cal.getTime();
 		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
 		try{
-			new Order("3333333", null, startTime, endTime,dbm);
+			new Order("3333333", null, startTime, endTime,10,dbm);
 			Mockito.verify(dbm,Mockito.times(1)).update("Order", keys, fields);
 
 		}catch (ParseException e) {
@@ -529,6 +543,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		
 		keys.put("id", id);
+		fields.put("price", 10);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -540,7 +555,7 @@ public class orderTest {
 		Date endTime =cal.getTime();
 		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
 		try{
-			new Order("3333333", "123", null, endTime,dbm);
+			new Order("3333333", "123", null, endTime,10,dbm);
 			Mockito.verify(dbm,Mockito.times(1)).update("Order", keys, fields);
 
 		}catch (ParseException e) {
@@ -565,6 +580,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		
 	    keys.put("id", id);
+	    fields.put("price", 10);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -574,7 +590,7 @@ public class orderTest {
 		fields.put("id",id);
 		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
 		try{
-			new Order("3333333", "123", startTime, null,dbm);
+			new Order("3333333", "123", startTime, null,10,dbm);
 			Mockito.verify(dbm,Mockito.times(1)).update("Order", keys, fields);
 
 		}catch (ParseException e) {
@@ -599,6 +615,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		
 		keys.put("id", id);
+		fields.put("price", 10);
 		fields.put("actualHour",hourToString);
 		fields.put("hoursAmount", 1);
 		fields.put("driverId", "3333334");
@@ -629,6 +646,7 @@ public class orderTest {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
 		keys.put("id", "1");
+		fields.put("price", 10);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -658,6 +676,7 @@ public class orderTest {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
 		keys.put("id", "1");
+		fields.put("price", 10);
 		fields.put("hoursAmount", 3);
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
@@ -686,6 +705,7 @@ public class orderTest {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
 		keys.put("id", "1");
+		fields.put("price", 10);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("id", 1);
@@ -725,6 +745,7 @@ public class orderTest {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal2.getTime()); 
 		keys.put("id", "1");
+		fields.put("price", 10);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -759,6 +780,7 @@ public class orderTest {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal2.getTime()); 
 		keys.put("id", "1");
+		fields.put("price", 10);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -793,6 +815,7 @@ public class orderTest {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal2.getTime()); 
 		keys.put("id", "1");
+		fields.put("price", 10);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -828,6 +851,7 @@ public class orderTest {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal2.getTime()); 
 		keys.put("id", "1");
+		fields.put("price", 10);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -860,6 +884,7 @@ public class orderTest {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
 		keys.put("id", "1");
+		fields.put("price", 10);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -891,6 +916,7 @@ public class orderTest {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
 		p.put("hoursAmount", 3);
+		p.put("price", 10);
 		p.put("driverId", "3333334");
 		p.put("slotId", "123");
 		p.put("date", onlyDate);
@@ -915,6 +941,7 @@ public class orderTest {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
 		p.put("hoursAmount", 3);
+		p.put("price", 10);
 		p.put("driverId", "3333334");
 		p.put("slotId", "123");
 		p.put("date", onlyDate);
@@ -940,6 +967,7 @@ public class orderTest {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
 		p.put("hoursAmount", 3);
+		p.put("price", 10);
 		p.put("driverId", "3333334");
 		p.put("slotId", "123");
 		p.put("date", onlyDate);
@@ -965,6 +993,7 @@ public class orderTest {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
 		p.put("hoursAmount", 3);
+		p.put("price", 10);
 		p.put("driverId", "3333334");
 		p.put("slotId", "123");
 		p.put("date", onlyDate);
@@ -1079,6 +1108,7 @@ public class orderTest {
 		Map<String, Object> keyVal = new HashMap<>();
 		Map<String, Object> fields = new HashMap<>();
 		fields.put("actualHour","1:30");
+		fields.put("price", 10);
 		fields.put("hoursAmount", 8);
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
@@ -1103,6 +1133,7 @@ public class orderTest {
 		Map<String, Object> keyVal2 = new HashMap<>();
 		Map<String, Object> fields2 = new HashMap<>();
 		fields2.put("actualHour","10:30");
+		fields2.put("price", 10);
 		fields2.put("hoursAmount", 8);
 		fields2.put("driverId", "3333334");
 		fields2.put("slotId", "321");
@@ -1111,8 +1142,8 @@ public class orderTest {
 		keyVal2.put("id", id2);
 		try{
 			// create new order
-			new Order("3333334", "123", startTime, endTime,dbm);
-			new Order("3333334", "321", startTime2, endTime2,dbm);
+			new Order("3333334", "123", startTime, endTime,10,dbm);
+			new Order("3333334", "321", startTime2, endTime2,10,dbm);
 			Mockito.verify(dbm, Mockito.times(2)).initialize();
 			Mockito.verify(dbm, Mockito.times(1)).insertObject("Order", keyVal, fields);
 			Mockito.verify(dbm, Mockito.times(1)).insertObject("Order", keyVal2, fields2);
@@ -1142,6 +1173,7 @@ public class orderTest {
 		Map<String, Object> fields = new HashMap<>();
 		fields.put("actualHour","1:30");
 		fields.put("hoursAmount", 8);
+		fields.put("price", 10);
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
 		fields.put("date", onlyDate);
@@ -1166,6 +1198,7 @@ public class orderTest {
 		Map<String, Object> fields2 = new HashMap<>();
 		fields2.put("actualHour","10:30");
 		fields2.put("hoursAmount", 8);
+		fields2.put("price", 10);
 		fields2.put("driverId", "3333334");
 		fields2.put("slotId", "123");
 		fields2.put("date", onlyDate2);
@@ -1173,8 +1206,8 @@ public class orderTest {
 		keyVal2.put("id", id2);
 		try{
 			// create new order
-			new Order("3333334", "123", startTime, endTime,dbm);
-			new Order("3333334", "123", startTime2, endTime2,dbm);
+			new Order("3333334", "123", startTime, endTime,10,dbm);
+			new Order("3333334", "123", startTime2, endTime2,10,dbm);
 			Mockito.verify(dbm, Mockito.times(2)).initialize();
 			Mockito.verify(dbm, Mockito.times(1)).insertObject("Order", keyVal, fields);
 			Mockito.verify(dbm, Mockito.times(1)).insertObject("Order", keyVal2, fields2);
@@ -1203,6 +1236,7 @@ public class orderTest {
 		Map<String, Object> keyVal = new HashMap<>();
 		Map<String, Object> fields = new HashMap<>();
 		fields.put("actualHour","1:30");
+		fields.put("price", 10);
 		fields.put("hoursAmount", 8);
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
@@ -1227,6 +1261,7 @@ public class orderTest {
 		Map<String, Object> keyVal2 = new HashMap<>();
 		Map<String, Object> fields2 = new HashMap<>();
 		fields2.put("actualHour","1:30");
+		fields2.put("price", 10);
 		fields2.put("hoursAmount", 8);
 		fields2.put("driverId", "3333334");
 		fields2.put("slotId", "321");
@@ -1235,8 +1270,8 @@ public class orderTest {
 		keyVal2.put("id", id2);
 		try{
 			// create new order
-			new Order("3333334", "123", startTime, endTime,dbm);
-			new Order("3333334", "321", startTime2, endTime2,dbm);
+			new Order("3333334", "123", startTime, endTime,10,dbm);
+			new Order("3333334", "321", startTime2, endTime2,10,dbm);
 			Mockito.verify(dbm, Mockito.times(2)).initialize();
 			Mockito.verify(dbm, Mockito.times(1)).insertObject("Order", keyVal, fields);
 			Mockito.verify(dbm, Mockito.times(1)).insertObject("Order", keyVal2, fields2);
@@ -1265,6 +1300,7 @@ public class orderTest {
 		Map<String, Object> keyVal = new HashMap<>();
 		Map<String, Object> fields = new HashMap<>();
 		fields.put("actualHour","1:30");
+		fields.put("price", 10);
 		fields.put("hoursAmount", 8);
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
@@ -1290,6 +1326,7 @@ public class orderTest {
 		Map<String, Object> fields2 = new HashMap<>();
 		fields2.put("actualHour","1:30");
 		fields2.put("hoursAmount", 8);
+		fields2.put("price", 10);
 		fields2.put("driverId", "3333334");
 		fields2.put("slotId", "123");
 		fields2.put("date", onlyDate2);
@@ -1297,8 +1334,8 @@ public class orderTest {
 		keyVal2.put("id", id2);
 		try{
 			// create new order
-			new Order("3333334", "123", startTime, endTime,dbm);
-			new Order("3333334", "123", startTime2, endTime2,dbm);
+			new Order("3333334", "123", startTime, endTime,10,dbm);
+			new Order("3333334", "123", startTime2, endTime2,10,dbm);
 			Mockito.verify(dbm, Mockito.times(2)).initialize();
 			Mockito.verify(dbm, Mockito.times(2)).insertObject("Order", keyVal, fields);
 		} catch (final Exception ¢) {
@@ -1329,6 +1366,7 @@ public class orderTest {
 		fields.put("hoursAmount", 8);
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
+		fields.put("price", 10);
 		fields.put("date", onlyDate);
 		fields.put("hour", 6);
 		keyVal.put("id", id);
@@ -1350,6 +1388,7 @@ public class orderTest {
 		Map<String, Object> keyVal2 = new HashMap<>();
 		Map<String, Object> fields2 = new HashMap<>();
 		fields2.put("actualHour","10:30");
+		fields2.put("price", 10);
 		fields2.put("hoursAmount", 8);
 		fields2.put("driverId", "3333334");
 		fields2.put("slotId", "123");
@@ -1358,8 +1397,8 @@ public class orderTest {
 		keyVal2.put("id", id2);
 		try{
 			// create new order
-			new Order("3333334", "123", startTime, endTime,dbm);
-			new Order("3333334", "123", startTime2, endTime2,dbm);
+			new Order("3333334", "123", startTime, endTime,10,dbm);
+			new Order("3333334", "123", startTime2, endTime2,10,dbm);
 			Mockito.verify(dbm, Mockito.times(2)).initialize();
 			Mockito.verify(dbm, Mockito.times(1)).insertObject("Order", keyVal, fields);
 			Mockito.verify(dbm, Mockito.times(1)).insertObject("Order", keyVal2, fields2);

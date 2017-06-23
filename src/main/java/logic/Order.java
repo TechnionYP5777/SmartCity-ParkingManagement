@@ -41,6 +41,9 @@ public class Order {
 	// The desired amount of hours
 	private int hoursAmount;
 	
+	// order's price
+	private int price;
+	
 	private final String objectClass = "Order";
 	
 	private DatabaseManager dbm;
@@ -55,7 +58,7 @@ public class Order {
 
 	// Create a new order. Will result in a new order in the DB.
 	@SuppressWarnings("deprecation")
-	public Order(final String driverId, final String slotId, Date startTime, Date endTime,DatabaseManager manager) throws ParseException, InterruptedException {
+	public Order(final String driverId, final String slotId, Date startTime, Date endTime,int price, DatabaseManager manager) throws ParseException, InterruptedException {
 		LOGGER.info("Create a new order by slot id, start time, end time");
 		this.dbm = manager;
 		dbm.initialize();
@@ -64,6 +67,7 @@ public class Order {
 		Map<String, Object> fields = new HashMap<String, Object>(), keyValues = new HashMap<String, Object>();
 		fields.put("driverId", driverId);
 		fields.put("slotId", slotId);
+		fields.put("price", price);
 		int hours =minDifference(endTime, startTime);
 		if(hours<=0)
 			return;
@@ -89,6 +93,7 @@ public class Order {
 		this.hour = obj.getInt("hour");
 		this.actualHour = obj.getString("actualHour");
 		this.hoursAmount = (int)obj.get("hoursAmount");
+		this.price = (int)obj.get("price");
 	}
 	
 	public Order(final String id, DatabaseManager manager) throws ParseException {
@@ -105,6 +110,7 @@ public class Order {
 		this.date= returnV.get("date")+"";
 		this.hour= (int)returnV.get("hour");
 		this.hoursAmount= (int) returnV.get("hoursAmount");
+		this.price= (int) returnV.get("price");
 		this.id=id;
 	}
 
@@ -152,6 +158,13 @@ public class Order {
 		return (int) dbm.getObjectFieldsByKey(objectClass, key).get("hour");
 	}
 	
+	public int getPrice() {
+		dbm.initialize();
+		Map<String, Object> key = new HashMap<String, Object>();
+		key.put("id", id);
+		return (int) dbm.getObjectFieldsByKey(objectClass, key).get("price");
+	}
+	
 	public int getHoursAmount() {
 		dbm.initialize();
 		Map<String, Object> key = new HashMap<String, Object>();
@@ -169,6 +182,7 @@ public class Order {
 		}
 		
 		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("price", this.price);
 		newFields.put("actualHour", this.actualHour);
 		newFields.put("driverId", newDriverId);
 		newFields.put("slotId", this.slotId);
@@ -184,6 +198,7 @@ public class Order {
 	public void setHoursAmount(final int newAmount) throws ParseException {
 		LOGGER.info("Set hours amount");
 		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("price", this.price);
 		newFields.put("actualHour", this.actualHour);
 		newFields.put("driverId", this.driverId);
 		newFields.put("slotId", this.slotId);
@@ -191,6 +206,22 @@ public class Order {
 		newFields.put("date", this.date);
 		newFields.put("id", this.id);
 		newFields.put("hoursAmount", newAmount);
+		Map<String, Object> keys = new HashMap<String, Object>();
+		keys.put("id", this.id);
+		dbm.update(objectClass, keys, newFields);
+	}
+	
+	public void setPrice(final int newPrice) throws ParseException {
+		LOGGER.info("Set hours amount");
+		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("price", newPrice);
+		newFields.put("actualHour", this.actualHour);
+		newFields.put("driverId", this.driverId);
+		newFields.put("slotId", this.slotId);
+		newFields.put("hour", this.hour);
+		newFields.put("date", this.date);
+		newFields.put("id", this.id);
+		newFields.put("hoursAmount", this.hoursAmount);
 		Map<String, Object> keys = new HashMap<String, Object>();
 		keys.put("id", this.id);
 		dbm.update(objectClass, keys, newFields);
@@ -204,6 +235,7 @@ public class Order {
 		}
 
 		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("price", this.price);
 		newFields.put("actualHour", this.actualHour);
 		newFields.put("driverId", this.driverId);
 		newFields.put("slotId", newSlot);
@@ -223,6 +255,7 @@ public class Order {
 			throw new IllegalArgumentException("start date can not be empty!");
 		}
 		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("price", this.price);
 		newFields.put("actualHour", this.actualHour);
 		newFields.put("driverId", this.driverId);
 		newFields.put("slotId", this.slotId);
@@ -247,6 +280,7 @@ public class Order {
 	    SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime());      	   
 		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("price", this.price);
 		newFields.put("actualHour", this.actualHour);
 		newFields.put("driverId", this.driverId);
 		newFields.put("slotId", this.slotId);
@@ -269,6 +303,7 @@ public class Order {
 		Calendar cal = Calendar.getInstance(); // creates calendar
 	    cal.setTime(newDate); // sets calendar time/date    	   
 		Map<String, Object> newFields = new HashMap<String, Object>();
+		newFields.put("price", this.price);
 		newFields.put("actualHour", cal.getTime().getHours()+":"+cal.getTime().getMinutes());
 		newFields.put("driverId", this.driverId);
 		newFields.put("slotId", this.slotId);
@@ -369,6 +404,7 @@ public class Order {
 		LOGGER.info("cancel order from DB");
 		DBManager.initialize();
 		Map<String, Object> fields = new HashMap<String, Object>();
+		fields.put("price", this.price);
 		fields.put("hoursAmount", this.hoursAmount);
 		fields.put("driverId", this.driverId);
 		fields.put("slotId", this.slotId);

@@ -241,7 +241,7 @@ public class ParkingSlotRequestTest {
     	}
     	
     	Mockito.when(d.getAllObjects("Order", 600)).thenReturn(orders);
-    	assertFalse(psr.orderParkingSlot("1321321", "1"));
+    	assertFalse(psr.orderParkingSlot("1321321", "1",10));
     	
 	}
 
@@ -267,7 +267,7 @@ public class ParkingSlotRequestTest {
     	}
     	
     	Mockito.when(d.getAllObjects("Order", 600)).thenReturn(orders);
-    	assertTrue(psr.orderParkingSlot("1321321", "1"));
+    	assertTrue(psr.orderParkingSlot("1321321", "1",10));
 	}
 
 }
