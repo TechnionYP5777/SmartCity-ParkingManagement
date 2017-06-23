@@ -66,21 +66,36 @@ public class RatingScreenController {
 	private ArrayList<ImageView> images;
 	private Image fullStarImage;
 	private Image emptyStarImage;
+	private int rating;
+	private String userId;
+	private String parkingSlotId;
 	
 	@FXML
     protected void initialize(){
+		ratingLabel.setVisible(false);
+		rating = -1;
 		setImages();
-
 	}
 	
 	@FXML
 	public void notNowButtonClicked(ActionEvent event) throws Exception{
-		System.out.println("notNowButtonClicked");
+		// TODO: disable button untill there is no userId
+			Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+			window.setTitle("Main Screen");
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainScreen.fxml"));     
+			Parent root = (Parent)fxmlLoader.load();          
+			MainScreenController controller = fxmlLoader.<MainScreenController>getController();
+			controller.setUserId(userId);
+			window.setScene(new Scene(root,750,650));		
+			window.show();
 	}
 	
 	@FXML
 	public void submitButtonClicked(ActionEvent event) throws Exception{
-		System.out.println("submitButtonClicked");
+		if (rating == -1){
+			// TODO: notify user to choose ratings
+		}
+		// TODO: update ratings at db
 	}
 	
 	private void setImages(){
@@ -115,6 +130,7 @@ public class RatingScreenController {
 		StarClickedAux(4);
 	}
 	public void StarClickedAux(int index){
+		this.rating = index+1;
 		for (int i = 0; i < images.size(); i++){
 			if (i <= index){
 				images.get(i).setImage(fullStarImage);
@@ -122,8 +138,29 @@ public class RatingScreenController {
 			}
 			images.get(i).setImage(emptyStarImage);
 		}
+	
+		if (index == 0){
+			ratingLabel.setText("Very Bad");
+		}
+		else if (index == 1){
+			ratingLabel.setText("Bad");
+		}
+		else if (index == 2){
+			ratingLabel.setText("Okay");
+		}
+		else if (index == 3){
+			ratingLabel.setText("Good");
+		} 
+		else{ // index = 4
+			ratingLabel.setText("Very Good");
+		} 
+		ratingLabel.setVisible(true);
 	}
-	
-	
+	public void setUserId(String userId){
+		this.userId = userId;
+	}
+	public void setParkingSlotId(String parkingSlotId){
+		this.parkingSlotId = parkingSlotId;
+	}
 	
 }
