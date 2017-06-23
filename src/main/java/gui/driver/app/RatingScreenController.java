@@ -63,12 +63,14 @@ public class RatingScreenController {
 	private Button notNowButton;
 	@FXML
 	private Button submitButton;
-	
 	private ArrayList<ImageView> images;
+	private Image fullStarImage;
+	private Image emptyStarImage;
 	
 	@FXML
     protected void initialize(){
-		System.out.println("initialize");
+		setImages();
+
 	}
 	
 	@FXML
@@ -79,6 +81,47 @@ public class RatingScreenController {
 	@FXML
 	public void submitButtonClicked(ActionEvent event) throws Exception{
 		System.out.println("submitButtonClicked");
+	}
+	
+	private void setImages(){
+		
+		images = new ArrayList<ImageView>();
+		images.add(0, firstStarImage);
+		images.add(1, secondStarImage);
+		images.add(2, thirdStarImage);
+		images.add(3, fourthStarImage);
+		images.add(4, fifthStarImage);
+		
+		fullStarImage = new Image(getClass().getResource("full_star.png").toExternalForm());
+		emptyStarImage = new Image(getClass().getResource("empty_star.png").toExternalForm());
+		
+		for (ImageView image: images){
+			image.setImage(emptyStarImage);
+		}
+	}
+	public void firstStarClicked(){
+		StarClickedAux(0);
+	}
+	public void secondStarClicked(){
+		StarClickedAux(1);
+	}
+	public void thirdStarClicked(){
+		StarClickedAux(2);
+	}
+	public void fourthStarClicked(){
+		StarClickedAux(3);
+	}
+	public void fifthStarClicked(){
+		StarClickedAux(4);
+	}
+	public void StarClickedAux(int index){
+		for (int i = 0; i < images.size(); i++){
+			if (i <= index){
+				images.get(i).setImage(fullStarImage);
+				continue;
+			}
+			images.get(i).setImage(emptyStarImage);
+		}
 	}
 	
 	
