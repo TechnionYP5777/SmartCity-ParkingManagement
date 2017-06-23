@@ -45,7 +45,7 @@ public class ParkingSlot extends dbMember {
 	private int rating;
 	
 	//number of voting to the specific slot
-	private int numOfVoting;
+	private int numOfVoters;
 	
 	private DatabaseManager dbm;
 	
@@ -60,8 +60,7 @@ public class ParkingSlot extends dbMember {
 			final MapLocation location, final Date endTime, final Area area, final int rating, final int voting, DatabaseManager manager) throws ParseException {
 		LOGGER.info("Create a new parking slot by name, status, color, sticker color, expiration time");
 		this.dbm = manager;
-		
-		validateArgument(status, rank, defaultColor, location, area);
+		validateArgument(status, rank, defaultColor, location, area, rating, voting);
 		Map<String, Object> fields = new HashMap<String, Object>(), keyValues = new HashMap<String, Object>();
 		fields.put("status", status.ordinal());
 		fields.put("rank", rank.ordinal());
@@ -70,7 +69,7 @@ public class ParkingSlot extends dbMember {
 		fields.put("endTime", endTime);
 		fields.put("area", area.ordinal());
 		fields.put("rating", rating);
-		fields.put("numOfVoting", voting);
+		fields.put("numOfVoters", voting);
 		keyValues.put("name", name);
 		dbm.insertObject(objectClass, keyValues, fields);
 	}
@@ -100,7 +99,7 @@ public class ParkingSlot extends dbMember {
 		Map<String,Object> returnV = dbm.getObjectFieldsByKey(objectClass, keys);
 		
 		this.rank=StickersColor.values()[(int)returnV.get("rank")];
-		this.numOfVoting=(int)returnV.get("numOfVoting");
+		this.numOfVoters=(int)returnV.get("numOfVoters");
 		this.rating=(int)returnV.get("rating");
 		this.defaultColor= StickersColor.values()[(int)returnV.get("defaultColor")];
 		this.area= Area.values()[(int)returnV.get("area")];
@@ -129,10 +128,10 @@ public class ParkingSlot extends dbMember {
 		return (int) dbm.getObjectFieldsByKey("ParkingSlot", key).get("rating");
 	}
 	
-	public int getNumOfVoting() {
+	public int getNumOfVoters() {
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("name", name);
-		return (int) dbm.getObjectFieldsByKey("ParkingSlot", key).get("numOfVoting");
+		return (int) dbm.getObjectFieldsByKey("ParkingSlot", key).get("numOfVoters");
 	}
 
 	public ParkingSlotStatus getStatus() {
@@ -187,7 +186,7 @@ public class ParkingSlot extends dbMember {
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", name);
 		newFields.put("rating", this.rating);
-		newFields.put("numOfVoting", this.numOfVoting);
+		newFields.put("numOfVoters", this.numOfVoters);
 		newFields.put("rank", this.rank.ordinal());
 		newFields.put("defaultColor", this.defaultColor.ordinal());
 		newFields.put("status", this.status.ordinal());
@@ -208,7 +207,7 @@ public class ParkingSlot extends dbMember {
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
 		newFields.put("rating", this.rating);
-		newFields.put("numOfVoting", this.numOfVoting);
+		newFields.put("numOfVoters", this.numOfVoters);
 		newFields.put("rank", this.rank.ordinal());
 		newFields.put("defaultColor", this.defaultColor.ordinal());
 		newFields.put("status", s.ordinal());
@@ -229,7 +228,7 @@ public class ParkingSlot extends dbMember {
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
 		newFields.put("rating", this.rating);
-		newFields.put("numOfVoting", this.numOfVoting);
+		newFields.put("numOfVoters", this.numOfVoters);
 		newFields.put("rank", c.ordinal());
 		newFields.put("defaultColor", this.defaultColor.ordinal());
 		newFields.put("status", this.status.ordinal());
@@ -250,7 +249,7 @@ public class ParkingSlot extends dbMember {
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
 		newFields.put("rating", this.rating);
-		newFields.put("numOfVoting", this.numOfVoting);
+		newFields.put("numOfVoters", this.numOfVoters);
 		newFields.put("rank", this.rank.ordinal());
 		newFields.put("defaultColor", this.defaultColor.ordinal());
 		newFields.put("status", this.status.ordinal());
@@ -271,7 +270,7 @@ public class ParkingSlot extends dbMember {
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
 		newFields.put("rating", this.rating);
-		newFields.put("numOfVoting", this.numOfVoting);
+		newFields.put("numOfVoters", this.numOfVoters);
 		newFields.put("rank", this.rank.ordinal());
 		newFields.put("defaultColor", defaultColor.ordinal());
 		newFields.put("status", this.status.ordinal());
@@ -292,7 +291,7 @@ public class ParkingSlot extends dbMember {
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
 		newFields.put("rating", this.rating);
-		newFields.put("numOfVoting", this.numOfVoting);
+		newFields.put("numOfVoters", this.numOfVoters);
 		newFields.put("rank", this.rank.ordinal());
 		newFields.put("defaultColor", this.defaultColor.ordinal());
 		newFields.put("status", this.status.ordinal());
@@ -313,7 +312,7 @@ public class ParkingSlot extends dbMember {
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
 		newFields.put("rating", this.rating);
-		newFields.put("numOfVoting", this.numOfVoting);
+		newFields.put("numOfVoters", this.numOfVoters);
 		newFields.put("rank", this.rank.ordinal());
 		newFields.put("defaultColor", this.defaultColor.ordinal());
 		newFields.put("status", this.status.ordinal());
@@ -328,13 +327,12 @@ public class ParkingSlot extends dbMember {
 	
 	public void setRating(final int newRating) throws ParseException {
 		LOGGER.info("Set parking slot rating");
-		
-		if (rating <= 0)
+		if (newRating < 0)
 			throw new IllegalArgumentException("end time can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
 		newFields.put("rating", newRating);
-		newFields.put("numOfVoting", this.numOfVoting);
+		newFields.put("numOfVoters", this.numOfVoters);
 		newFields.put("rank", this.rank.ordinal());
 		newFields.put("defaultColor", this.defaultColor.ordinal());
 		newFields.put("status", this.status.ordinal());
@@ -350,12 +348,12 @@ public class ParkingSlot extends dbMember {
 	public void setNumOfVoters(final int newNumOfVoters) throws ParseException {
 		LOGGER.info("Set parking slot rating");
 		
-		if (newNumOfVoters <= 0)
+		if (newNumOfVoters < 0)
 			throw new IllegalArgumentException("end time can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
 		newFields.put("rating", this.rating);
-		newFields.put("numOfVoting", newNumOfVoters);
+		newFields.put("numOfVoters", newNumOfVoters);
 		newFields.put("rank", this.rank.ordinal());
 		newFields.put("defaultColor", this.defaultColor.ordinal());
 		newFields.put("status", this.status.ordinal());
@@ -370,8 +368,8 @@ public class ParkingSlot extends dbMember {
 	
 	/* Methods */
 
-	private void validateArgument(final ParkingSlotStatus s, final StickersColor c, final StickersColor defaultColor, final MapLocation l, final Area a) {
-		Validation.validateNewParkingSlot(s, c, defaultColor, l,a);
+	private void validateArgument(final ParkingSlotStatus s, final StickersColor c, final StickersColor defaultColor, final MapLocation l, final Area a, final int r, final int numOfV) {
+		Validation.validateNewParkingSlot(s, c, defaultColor, l,a, r, numOfV);
 	}
 
 	public void changeStatus(final ParkingSlotStatus newStatus) {
@@ -392,7 +390,7 @@ public class ParkingSlot extends dbMember {
 		fields.put("area", area.ordinal());
 		fields.put("location", new ParseGeoPoint(location.getLat(), location.getLon()));
 		fields.put("rating", rating);
-		fields.put("numOfVoting", numOfVoting);
+		fields.put("numOfVoters", numOfVoters);
 		fields.put("endTime", endTime);
 		fields.put("name", name);
 		dbm.deleteObject(objectClass, fields);

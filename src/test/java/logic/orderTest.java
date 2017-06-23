@@ -768,6 +768,36 @@ public class orderTest {
 	}
 	
 	@Test
+	public void checkSetPrice(){
+		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
+		Map<String, Object> keys = new HashMap<>();
+		Map<String, Object> fields = new HashMap<>();
+		Date startTime =new Date();
+		Calendar cal = Calendar.getInstance(); // creates calendar
+	    cal.setTime(startTime); // sets calendar time/date
+	    cal.add(Calendar.HOUR_OF_DAY, 2);
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	    String onlyDate = format1.format(cal.getTime()); 
+		keys.put("id", "1");
+		fields.put("price", 10);
+		fields.put("hoursAmount", 3);
+		fields.put("actualHour","1");
+		fields.put("driverId", "3333334");
+		fields.put("slotId", "123");
+		fields.put("date", onlyDate);
+		fields.put("hour", 2);
+		fields.put("id","1");
+		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
+		try{
+			new Order("1",dbm).setPrice(20);
+			fields.put("price", 20);
+			Mockito.verify(dbm,Mockito.times(1)).update("Order", keys, fields);
+		}catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
 	public void checkSetSlotId(){
 		DatabaseManager dbm= Mockito.mock(DatabaseManager.class);
 		Map<String, Object> keys = new HashMap<>();

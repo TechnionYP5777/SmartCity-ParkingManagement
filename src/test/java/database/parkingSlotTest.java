@@ -50,7 +50,7 @@ public class parkingSlotTest {
 		fields.put("location", new ParseGeoPoint(32.123, 32.123));
 		fields.put("endTime", new Date());
 		fields.put("rating", 10);
-		fields.put("numOfVoting", 2);
+		fields.put("numOfVoters", 2);
 		fields.put("area",  Area.TAUB.ordinal());
 		fields.put("name", "testParkingSlot1");
 		
@@ -72,7 +72,7 @@ public class parkingSlotTest {
 		fields.put("endTime", new Date());
 		fields.put("area",  Area.TAUB.ordinal());
 		fields.put("rating", 10);
-		fields.put("numOfVoting", 2);
+		fields.put("numOfVoters", 2);
 		fields.put("name", "testParkingSlot2");
 		
 		Mockito.when(dbm.getObjectFieldsByKey("ParkingSlot",keys)).thenReturn(fields);
@@ -104,7 +104,7 @@ public class parkingSlotTest {
 		fields.put("area",  Area.TAUB.ordinal());
 		fields.put("name", "first");
 		fields.put("rating", 10);
-		fields.put("numOfVoting", 2);
+		fields.put("numOfVoters", 2);
 		Mockito.when(dbm.getObjectFieldsByKey("ParkingSlot",keys)).thenReturn(fields);
 		
 		try{
@@ -194,6 +194,28 @@ public class parkingSlotTest {
 	}
 	
 	@Test
+	public void testGetRating(){
+		DatabaseManager dbm = setMock();
+		try{
+			Assert.assertEquals(new ParkingSlot("testParkingSlot1",dbm).getRating(), 10);
+		} catch (final Exception ¢) {
+			¢.printStackTrace();
+			Assert.fail();
+		}
+	}
+	
+	@Test
+	public void testGetNumOfVoters(){
+		DatabaseManager dbm = setMock();
+		try{
+			Assert.assertEquals(new ParkingSlot("testParkingSlot1",dbm).getNumOfVoters(), 2);
+		} catch (final Exception ¢) {
+			¢.printStackTrace();
+			Assert.fail();
+		}
+	}
+	
+	@Test
 	public void testGetLocation(){
 		DatabaseManager dbm = setMock();
 		try{
@@ -254,6 +276,10 @@ public class parkingSlotTest {
 			Assert.assertEquals(cal.get(Calendar.YEAR), cal2.get(Calendar.YEAR));
 			Assert.assertEquals(p.getLocation().getLat(), 32.123, 0);
 			Assert.assertEquals(p.getLocation().getLon(), 32.123, 0);
+			System.out.println(p.getRating());
+			System.out.println(p.getNumOfVoters());
+			Assert.assertEquals(p.getRating(), 10);
+			Assert.assertEquals(p.getNumOfVoters(), 2);
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
@@ -275,7 +301,7 @@ public class parkingSlotTest {
 		fields.put("area",  Area.TAUB.ordinal());
 		fields.put("name", "testParkingSlot1");
 		fields.put("rating", 10);
-		fields.put("numOfVoting", 2);
+		fields.put("numOfVoters", 2);
 		
 		
 		try{
@@ -314,13 +340,71 @@ public class parkingSlotTest {
 		fields.put("area",  Area.TAUB.ordinal());
 		fields.put("name", "testParkingSlot1");
 		fields.put("rating", 10);
-		fields.put("numOfVoting", 2);
+		fields.put("numOfVoters", 2);
 		
 		try{
 			new ParkingSlot("testParkingSlot1",dbm).setStatus(ParkingSlotStatus.TAKEN);
 			fields.put("status", ParkingSlotStatus.TAKEN.ordinal());
 			Mockito.when(dbm.getObjectFieldsByKey("ParkingSlot",keys)).thenReturn(fields);
 			Assert.assertEquals(new ParkingSlot("testParkingSlot1",dbm).getStatus(), ParkingSlotStatus.TAKEN);
+			
+		} catch (final Exception ¢) {
+			¢.printStackTrace();
+			Assert.fail();
+		}
+	}
+	
+	@Test
+	public void testSetRating(){
+		DatabaseManager dbm = setMock();
+		Map <String, Object> keys = new HashMap<>();
+		Map <String, Object> fields = new HashMap<>();
+		keys.put("name", "testParkingSlot1");
+		
+		fields.put("status", ParkingSlotStatus.FREE.ordinal());
+		fields.put("rank", StickersColor.GREEN.ordinal());
+		fields.put("defaultColor", StickersColor.GREEN.ordinal());
+		fields.put("location", new ParseGeoPoint(32.123, 32.123));
+		fields.put("endTime", new Date());
+		fields.put("area",  Area.TAUB.ordinal());
+		fields.put("name", "testParkingSlot1");
+		fields.put("rating", 10);
+		fields.put("numOfVoters", 2);
+		
+		try{
+			new ParkingSlot("testParkingSlot1",dbm).setRating(20);
+			fields.put("rating", 20);
+			Mockito.when(dbm.getObjectFieldsByKey("ParkingSlot",keys)).thenReturn(fields);
+			Assert.assertEquals(new ParkingSlot("testParkingSlot1",dbm).getRating(), 20);
+			
+		} catch (final Exception ¢) {
+			¢.printStackTrace();
+			Assert.fail();
+		}
+	}
+	
+	@Test
+	public void testSetNumOfVoters(){
+		DatabaseManager dbm = setMock();
+		Map <String, Object> keys = new HashMap<>();
+		Map <String, Object> fields = new HashMap<>();
+		keys.put("name", "testParkingSlot1");
+		
+		fields.put("status", ParkingSlotStatus.FREE.ordinal());
+		fields.put("rank", StickersColor.GREEN.ordinal());
+		fields.put("defaultColor", StickersColor.GREEN.ordinal());
+		fields.put("location", new ParseGeoPoint(32.123, 32.123));
+		fields.put("endTime", new Date());
+		fields.put("area",  Area.TAUB.ordinal());
+		fields.put("name", "testParkingSlot1");
+		fields.put("rating", 10);
+		fields.put("numOfVoters", 2);
+		
+		try{
+			new ParkingSlot("testParkingSlot1",dbm).setNumOfVoters(10);
+			fields.put("numOfVoters", 10);
+			Mockito.when(dbm.getObjectFieldsByKey("ParkingSlot",keys)).thenReturn(fields);
+			Assert.assertEquals(new ParkingSlot("testParkingSlot1",dbm).getNumOfVoters(), 10);
 			
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
@@ -342,7 +426,7 @@ public class parkingSlotTest {
 		fields.put("endTime", new Date());
 		fields.put("area",  Area.TAUB.ordinal());
 		fields.put("rating", 10);
-		fields.put("numOfVoting", 2);
+		fields.put("numOfVoters", 2);
 		fields.put("name", "testParkingSlot1");
 		
 		try{
@@ -365,7 +449,7 @@ public class parkingSlotTest {
 		Map <String, Object> fields = new HashMap<>();
 		keys.put("name", "testParkingSlot1");
 		fields.put("rating", 10);
-		fields.put("numOfVoting", 2);
+		fields.put("numOfVoters", 2);
 		fields.put("status", ParkingSlotStatus.FREE.ordinal());
 		fields.put("rank", StickersColor.GREEN.ordinal());
 		fields.put("defaultColor", StickersColor.GREEN.ordinal());
@@ -403,7 +487,7 @@ public class parkingSlotTest {
 		fields.put("area",  Area.TAUB.ordinal());
 		fields.put("name", "testParkingSlot1");
 		fields.put("rating", 10);
-		fields.put("numOfVoting", 2);
+		fields.put("numOfVoters", 2);
 		
 		try{
 			new ParkingSlot("testParkingSlot1",dbm).setLocation(new MapLocation(32.12345, 32.12345));
@@ -433,7 +517,7 @@ public class parkingSlotTest {
 		fields.put("endTime", new Date());
 		fields.put("area",  Area.TAUB.ordinal());
 		fields.put("rating", 10);
-		fields.put("numOfVoting", 2);
+		fields.put("numOfVoters", 2);
 		fields.put("name", "testParkingSlot1");
 		
 		try{
@@ -464,7 +548,7 @@ public class parkingSlotTest {
 		fields.put("endTime", new Date());
 		fields.put("area",  Area.TAUB.ordinal());
 		fields.put("rating", 10);
-		fields.put("numOfVoting", 2);
+		fields.put("numOfVoters", 2);
 		fields.put("name", "testParkingSlot1");
 		
 		try{
@@ -503,6 +587,46 @@ public class parkingSlotTest {
 		DatabaseManager dbm = setMock();
 		try {
 			new ParkingSlot("testParkingSlot1",dbm).setRank(null);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void checkRatingPositive() {
+		DatabaseManager dbm = setMock();
+		try {
+			new ParkingSlot("testParkingSlot1",dbm).setRating(-10);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void checkRatingZero() {
+		DatabaseManager dbm = setMock();
+		try {
+			new ParkingSlot("testParkingSlot1",dbm).setRating(0);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void checkNumOfVotersPositive() {
+		DatabaseManager dbm = setMock();
+		try {
+			new ParkingSlot("testParkingSlot1",dbm).setNumOfVoters(-10);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void checkNumOfVotersZero() {
+		DatabaseManager dbm = setMock();
+		try {
+			new ParkingSlot("testParkingSlot1",dbm).setNumOfVoters(0);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -573,7 +697,7 @@ public class parkingSlotTest {
 		fields.put("area",  Area.TAUB.ordinal());
 		fields.put("name", "testParkingSlot1");
 		fields.put("rating", 10);
-		fields.put("numOfVoting", 2);
+		fields.put("numOfVoters", 2);
 		
 		try{
 			new ParkingSlot("testParkingSlot1",dbm).changeStatus(ParkingSlotStatus.TAKEN);

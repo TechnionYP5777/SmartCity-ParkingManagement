@@ -91,7 +91,7 @@ public class Validation {
 		return (!dbm.getObjectFieldsByKey(objectClass, key).isEmpty());
 	}
 	
-	public static void validateNewParkingSlot(final ParkingSlotStatus s, final StickersColor c, final StickersColor defaultColor, final MapLocation l, final Area a)
+	public static void validateNewParkingSlot(final ParkingSlotStatus s, final StickersColor c, final StickersColor defaultColor, final MapLocation l, final Area a, final int rating, final int numOfVoters)
 			throws IllegalArgumentException {
 		if (s == null){
 			LOGGER.severe("Driver is not in the right format");
@@ -108,6 +108,14 @@ public class Validation {
 		if (a == null){
 			LOGGER.severe("area can not be empty!");
 			throw new IllegalArgumentException("area can not be empty!");
+		}
+		if (rating<=0){
+			LOGGER.severe("rating have to be grater then zero!");
+			throw new IllegalArgumentException("rating have to be grater then zero!");
+		}
+		if (numOfVoters<0){
+			LOGGER.severe("num of voters have to be positive!");
+			throw new IllegalArgumentException("num of voters have to be positive!");
 		}
 		if (l != null)
 			return;
