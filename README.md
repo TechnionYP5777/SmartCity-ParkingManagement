@@ -2,6 +2,8 @@
 
 [![codecov](https://codecov.io/gh/TechnionYP5777/SmartCity-ParkingManagement/branch/master/graph/badge.svg)](https://codecov.io/gh/TechnionYP5777/SmartCity-ParkingManagement)
 
+[![Awesomeness](https://img.shields.io/badge/awesomeness-100%25-blue.svg)](https://shields.io/)
+
 # SmartCity-Parking Management
 
 ![SmartCity logo](https://s24.postimg.org/j36nmvh8l/smart_parking.png) 
