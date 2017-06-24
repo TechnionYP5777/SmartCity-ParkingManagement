@@ -2,7 +2,7 @@
 
 [![codecov](https://codecov.io/gh/TechnionYP5777/SmartCity-ParkingManagement/branch/master/graph/badge.svg)](https://codecov.io/gh/TechnionYP5777/SmartCity-ParkingManagement)
 
-# SmartCity-Parking Management & Navigation
+# SmartCity-Parking Management
 
 ![SmartCity logo](https://s24.postimg.org/j36nmvh8l/smart_parking.png) 
 
