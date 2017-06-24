@@ -20,10 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.Label;
 import javafx.scene.web.*;
 import java.net.*;
 import java.awt.geom.Point2D;
@@ -60,9 +57,14 @@ public class RatingScreenController {
 	@FXML
 	private Label ratingLabel;
 	@FXML
+	private Label statusLabel;
+	@FXML
+	private ProgressIndicator progressIndicator;
+	@FXML
 	private Button notNowButton;
 	@FXML
 	private Button submitButton;
+	
 	private ArrayList<ImageView> images;
 	private Image fullStarImage;
 	private Image emptyStarImage;
@@ -72,14 +74,18 @@ public class RatingScreenController {
 	
 	@FXML
     protected void initialize(){
+		submitButton.setDisable(true);
 		ratingLabel.setVisible(false);
+		statusLabel.setVisible(false);
+		progressIndicator.setVisible(false);
 		rating = -1;
 		setImages();
-		// get fields
+		getUserIdAndOrder();
 	}
 	private void getUserIdAndOrder(){
-		
-		Task<Void> getUserIdTask = new Task<Void>() {
+		statusLabel.setText("Loading...");
+		statusLabel.setVisible(true);
+		Task<Void> getUserDetailsTask = new Task<Void>() {
             @Override
             protected Void call() throws Exception {	
             	while(userId == null){
@@ -91,23 +97,24 @@ public class RatingScreenController {
             	return null;
 	        }
         };
-       new Thread(getUserIdTask).start();
+       new Thread(getUserDetailsTask).start();
        
-       //progressIndicator.progressProperty().bind(getUserIdTask.progressProperty());
-       //progressIndicator.setVisible(true); 
+       progressIndicator.progressProperty().bind(getUserDetailsTask.progressProperty());
+       progressIndicator.setVisible(true); 
        
-       getUserIdTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+       getUserDetailsTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
            @Override
            public void handle(WorkerStateEvent workerStateEvent) {
-        	   //progressIndicator.setVisible(false);
-        	   //newOrderButton.setDisable(false);
-        	   //setOrders();
+        	   headerLabel.setText("Please rate the quality of your last parking experience at " + parkingOrder.getParkingSlotId() + ".");
+        	   submitButton.setDisable(false);
+        	   progressIndicator.setVisible(false);
+        	   statusLabel.setVisible(false);
            }
        });
 	}
 	@FXML
 	public void notNowButtonClicked(ActionEvent event) throws Exception{
-		// TODO: disable button untill there is no userId
+		
 			Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 			window.setTitle("Main Screen");
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainScreen.fxml"));     
@@ -121,15 +128,48 @@ public class RatingScreenController {
 	@FXML
 	public void submitButtonClicked(ActionEvent event) throws Exception{
 		
-
-		
 		if (rating == -1){
-			// TODO: notify user to choose ratings
+			statusLabel.setText("Click on the stars in order to choose the rating");
+			statusLabel.setVisible(true);
 			return;
 		}
-		DatabaseManager d = DatabaseManagerImpl.getInstance();
-       	d.initialize();
-       	OrderReviewHandeling.giveReviewToParkingSlot(parkingOrder, rating, d);
+		
+		statusLabel.setText("Thanks! sending your rating... you will be redirected to main screen");
+		statusLabel.setVisible(true);
+		Task<Void> rateTask = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {	
+            	DatabaseManager d = DatabaseManagerImpl.getInstance();
+               	d.initialize();
+               	OrderReviewHandeling.giveReviewToParkingSlot(parkingOrder, rating, d);
+               	Thread.sleep(1500);
+            	return null;
+	        }
+        };
+       new Thread(rateTask).start();
+       
+       progressIndicator.progressProperty().bind(rateTask.progressProperty());
+       progressIndicator.setVisible(true); 
+       
+       rateTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+           @Override
+           public void handle(WorkerStateEvent workerStateEvent) {
+        	   try{
+	  				Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+	  				window.setTitle("Main Screen");
+	  				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainScreen.fxml"));     
+	  				Parent root = (Parent)fxmlLoader.load();          
+	  				MainScreenController controller = fxmlLoader.<MainScreenController>getController();
+	  				controller.setUserId(userId);
+	  				window.setScene(new Scene(root,750,650));		
+	  				window.show();
+        	   } catch (Exception e){
+        		   
+        	   }
+           }
+       });
+		
+	
 		// TODO: update ratings at db
 	}
 	

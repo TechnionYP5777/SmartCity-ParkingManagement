@@ -168,13 +168,9 @@ public class MainScreenController {
             	ObservableList<PresentOrder> pastOrders = FXCollections.observableArrayList();
             	
             	Date d = new Date();
-            	//System.out.println(d.toString());
             	for (PresentOrder order: result){
-            		//System.out.println(order.getParkingSlotId());
-            		//System.out.println(order.getFinishTime().toString());
-            		
+            		System.out.println(order.getOrderId());
             		if (order.getFinishTime().before(d)){
-            			System.out.println(order.getOrderId());
             			pastOrders.add(order);
             		} else {
             			futureOrders.add(order);
