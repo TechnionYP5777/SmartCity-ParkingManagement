@@ -202,11 +202,12 @@ public class ChooseParkingSlotController {
 		        	}
 		        	Calendar arrivalDateTime = Calendar.getInstance();
 		        	arrivalDateTime.set(Calendar.YEAR, date.getYear());
-		        	arrivalDateTime.set(Calendar.MONTH, date.getMonthValue());
+		        	arrivalDateTime.set(Calendar.MONTH, date.getMonthValue()-1);
+		        	//System.out.println("the month given to the calendar is: " + date.getMonthValue());
 		        	arrivalDateTime.set(Calendar.DAY_OF_MONTH,date.getDayOfMonth());
-		        	arrivalDateTime.set(Calendar.HOUR, arrivalTime.getHour());
+		        	arrivalDateTime.set(Calendar.HOUR_OF_DAY, arrivalTime.getHour());
 		        	arrivalDateTime.set(Calendar.MINUTE, roundMinutes(arrivalTime.getMinute(), false));
-		        	
+		        	//System.out.println("after defining arrivalDateTime, the date is: " + arrivalDateTime.toString());
 		        	/*
 		        	if (new Date(date.getYear(),date.getMonthValue(),date.getDayOfMonth(),
 		        			arrivalTime.getHour(), arrivalTime.getMinute()).before(new Date().setMinutes(-10))){
@@ -225,6 +226,7 @@ public class ChooseParkingSlotController {
 		        		quartersCounter = departureTime.getHour()*4 + departureMinutes/15;
 		        	}
 		        	int diff = quartersCounter - (arrivalDateTime.get(Calendar.HOUR)*4 + arrivalDateTime.get(Calendar.MINUTE)/15);
+		        	//System.out.print("ChooseParkingSlotScreen date is: " + arrivalDateTime.getTime().toString());
 		        	request = new ParkingSlotRequest(point, arrivalDateTime.getTime(), diff, d);
 		        	return request.getAllAvailableParkingSlot(new Billing() {
 						@Override
@@ -300,10 +302,9 @@ public class ChooseParkingSlotController {
 			Task<Boolean> orderTask = new Task<Boolean>() {
 	            @Override
 	            protected Boolean call() throws Exception {	
-	            	//TODO: FIX!
-	            	//return request.orderParkingSlot(userId, parkingSlotId);
 	            	
-	            	return true;
+	            	return request.orderParkingSlot(userId, parkingSlotId, 20);
+	            	
 		        }
 	        };
 	       new Thread(orderTask).start();
