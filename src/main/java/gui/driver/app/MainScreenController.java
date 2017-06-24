@@ -140,7 +140,6 @@ public class MainScreenController {
 	}
 	
 	public void setOrders(){
-		System.out.println("setOrders");
 		Task<List<PresentOrder>> ordersTask = new Task<List<PresentOrder>>() {
             @Override
             protected List<PresentOrder> call() throws Exception {

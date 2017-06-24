@@ -68,15 +68,43 @@ public class RatingScreenController {
 	private Image emptyStarImage;
 	private int rating;
 	private String userId;
-	private String parkingSlotId;
+	private PresentOrder parkingOrder;
 	
 	@FXML
     protected void initialize(){
 		ratingLabel.setVisible(false);
 		rating = -1;
 		setImages();
+		// get fields
 	}
-	
+	private void getUserIdAndOrder(){
+		
+		Task<Void> getUserIdTask = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {	
+            	while(userId == null){
+            		
+            	}
+            	while(parkingOrder == null){
+            		
+            	}
+            	return null;
+	        }
+        };
+       new Thread(getUserIdTask).start();
+       
+       //progressIndicator.progressProperty().bind(getUserIdTask.progressProperty());
+       //progressIndicator.setVisible(true); 
+       
+       getUserIdTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+           @Override
+           public void handle(WorkerStateEvent workerStateEvent) {
+        	   //progressIndicator.setVisible(false);
+        	   //newOrderButton.setDisable(false);
+        	   //setOrders();
+           }
+       });
+	}
 	@FXML
 	public void notNowButtonClicked(ActionEvent event) throws Exception{
 		// TODO: disable button untill there is no userId
@@ -92,9 +120,16 @@ public class RatingScreenController {
 	
 	@FXML
 	public void submitButtonClicked(ActionEvent event) throws Exception{
+		
+
+		
 		if (rating == -1){
 			// TODO: notify user to choose ratings
+			return;
 		}
+		DatabaseManager d = DatabaseManagerImpl.getInstance();
+       	d.initialize();
+       	OrderReviewHandeling.giveReviewToParkingSlot(parkingOrder, rating, d);
 		// TODO: update ratings at db
 	}
 	
@@ -159,8 +194,8 @@ public class RatingScreenController {
 	public void setUserId(String userId){
 		this.userId = userId;
 	}
-	public void setParkingSlotId(String parkingSlotId){
-		this.parkingSlotId = parkingSlotId;
+	public void setParkingOrder(PresentOrder parkingOrder){
+		this.parkingOrder = parkingOrder;
 	}
 	
 }

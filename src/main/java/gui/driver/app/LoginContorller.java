@@ -114,7 +114,10 @@ public class LoginContorller {
    		        	Task<PresentOrder> latestOrderTask = new Task<PresentOrder>() {
 	   		            @Override
 	   		            protected PresentOrder call() throws Exception {	
+	   		            	System.out.println(result.substring(8));
+	   		            	System.out.println(new Date().toString());
 			   	   			List<PresentOrder> pastOrders = OrderReviewHandeling.getUserLastOrder(result.substring(8), new Date(), d);
+			   	   			System.out.println(pastOrders.toString());
 			   	   			if (pastOrders.size() == 0) {
 			   	   				return null;
 			   	   			}
@@ -143,18 +146,24 @@ public class LoginContorller {
 		   	 				catch (Exception e){
 		   	 					
 		   	 				}
+		   	        	   } else {
+		   	        		   try{
+		   	        			   
+			   	        		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		   	    				window.setTitle("Rating Screen");
+		   	    				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("RatingScreen.fxml"));     
+		   	    				Parent root = (Parent)fxmlLoader.load();          
+		   	    				RatingScreenController controller = fxmlLoader.<RatingScreenController>getController();
+		   	    				controller.setUserId(result.substring(8));
+		   	    				controller.setParkingOrder(order);
+		   	    				window.setScene(new Scene(root,600, 400));		
+		   	    				window.show();
+		   	        		   } catch (Exception e){
+		   	        			   
+		   	        		   }
 		   	        	   }
 	   	           		}
 	   		     	});
-	
-
-   					/*
-   					 * 
-   					 * 	
-	        	return UserOrderManaging.getUserOrders(userId, d);
-   					 */
-
-   				
    			}
                
            }
