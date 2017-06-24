@@ -42,7 +42,8 @@ public class GraphPresent extends Application {
         series.setName("Price - Distance");
         
         //get data to present
-        Map<Double, Double> data = Graph.CreatePriceDistanceData(dest);
+        Graph g = new Graph();
+        Map<Double, Double> data = g.CreatePriceDistanceData(dest);
 
         //populating the series with data
         for (Map.Entry<Double, Double> entry : data.entrySet()){

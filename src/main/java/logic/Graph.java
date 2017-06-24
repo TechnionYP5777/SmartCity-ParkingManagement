@@ -20,10 +20,20 @@ import data.members.StickersColor;
  */
 
 public class Graph {
-
+	private DatabaseManager manager;
+	
+	//in default constructor. create the normal dbm
+	public Graph(){
+		manager = new DatabaseManagerImpl();
+	}
+	
+	//for testing, use a mocking dbm
+	public Graph(DatabaseManager dbm){
+		manager = dbm;
+	}
+	
 	// This method will collect data about price vs. distance
-	public static Map<Double, Double> CreatePriceDistanceData(ParseGeoPoint destenation){
-		DatabaseManager manager = new DatabaseManagerImpl();
+	public Map<Double, Double> CreatePriceDistanceData(ParseGeoPoint destenation){
 		manager.initialize();
 		List<ParseObject> allParkingSlot = manager.getAllObjects("ParkingSlot", 600);
 		Map<Double, Double> distanceVsPrice = new HashMap<Double,Double>();
