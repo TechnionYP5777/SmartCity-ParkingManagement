@@ -65,7 +65,7 @@ public class BillingTest {
 	@Test
 	public void BasicBillingBySlot(){
 		ParseGeoPoint gp = new ParseGeoPoint(32.123, 32.123), gp1 = new ParseGeoPoint(12.345, 12.345);
-		double d = Distance(gp,gp1);
+		double d = BasicBilling.Distance(gp,gp1);
 		ParkingSlot p;
 		try {
 			p = new ParkingSlot("testParkingSlot2",dbm);
@@ -95,17 +95,4 @@ public class BillingTest {
 		return new ParkingSlot("testParkingSlot2", ParkingSlotStatus.FREE, StickersColor.GREEN, 
 					StickersColor.GREEN, new MapLocation(32.123, 32.123), new Date(), Area.TAUB,10,2,dbm);
 	}
-	
-	// Calculate the distance between a parking slot, and the destination
-		private static double Distance(ParseGeoPoint parkingSlot, ParseGeoPoint destination) {
-			double lat1 = parkingSlot.getLatitude(), lat2 = destination.getLatitude();
-			double lon1 = parkingSlot.getLongitude(), lon2 = destination.getLongitude();
-			final int R = 6371; // Radius of the earth
-
-		    double latDistance = Math.toRadians(lat2 - lat1), lonDistance = Math.toRadians(lon2 - lon1);
-		    double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2) + Math.cos(Math.toRadians(lat1))
-					* Math.cos(Math.toRadians(lat2)) * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2),
-					c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-		    return R * c * 1000;
-		}
 }
