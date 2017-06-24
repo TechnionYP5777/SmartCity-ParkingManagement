@@ -119,7 +119,7 @@ public class ParkingSlotRequest {
 			if(validParkings.contains(parkingName)){
 				ParseGeoPoint location = p.getParseGeoPoint("location");
 				StickersColor rank = StickersColor.values()[p.getInt("rank")];
-				double ratting = 0; // need to add rating to parkingSlot
+				double ratting = p.getDouble("rating");
 				returnList.add(
 						new PresentParkingSlot(parkingName, location.getLatitude(),location.getLongitude(),
 								costCalculator.calculateCost(rank, distance(location,this.destenation)),
