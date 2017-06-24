@@ -40,7 +40,7 @@ public class EmailNotificationTest {
 	public void ParkingApprovalTest(){
 		String to = "parkingmang@gmail.com";
 		try {
-			EmailNotification.ParkingConfirmation(to, "Slot", LocalDateTime.now().toString(), LocalDateTime.now().toString() );
+			EmailNotification.ParkingConfirmation(to, "Slot", LocalDateTime.now().toString(), LocalDateTime.now().toString(), 0.0 );
 		} catch (MessagingException e) {
 			Assert.fail();
 		}

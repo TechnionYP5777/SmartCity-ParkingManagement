@@ -5,7 +5,7 @@ import logic.*;
 import java.util.*;
 
 import org.parse4j.ParseGeoPoint;
-import java.util.Calendar;
+
 import data.management.DBManager;
 import data.management.DatabaseManager;
 import data.management.DatabaseManagerImpl;
@@ -313,29 +313,13 @@ public class ChooseParkingSlotController {
 	       progressIndicator.progressProperty().bind(orderTask.progressProperty());
 	       progressIndicator.setVisible(true); 
 	       
-	       // TODO: parking slot catched
+
 	       
 	       orderTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
 	           @Override
 	           public void handle(WorkerStateEvent workerStateEvent) {
 	        	   progressIndicator.setVisible(false);
-	               boolean result =  orderTask.getValue();
-	               if(result){
-	            	   System.out.println("SUCCESS");
-	            	   
-		               try{
-			               Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-			               window.setTitle("Main Screen");
-			               FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainScreen.fxml"));     
-			               Parent root = (Parent)fxmlLoader.load();          
-			               MainScreenController controller = fxmlLoader.<MainScreenController>getController();
-			               controller.setUserId(userId);
-			               window.setScene(new Scene(root,750,650));		
-			               window.show();
-		               } catch(Exception e){
-		            	   
-		               }
-	               }
+	        	   handleOrderTask(event, orderTask.getValue(), parkingSlotId);
 
 	   			}
 
@@ -346,4 +330,57 @@ public class ChooseParkingSlotController {
 		
 	}
 	
+	private void handleOrderTask(ActionEvent event, boolean result, String slotId){
+		if(result){
+			
+			Task<Void> sendingEmailTask = new Task<Void>() {
+	            @Override
+	            protected Void call() throws Exception {
+	    			Map<String, Object> key = new HashMap<String, Object>();
+	    			key.put("id", userId);
+	    			Map<String, Object> map = DBManager.getObjectFieldsByKey("Driver", key);
+	    			String emailFromDb = (String)map.get("email");
+	    			// TODO: fix the untill date! and price!
+	            	EmailNotification.ParkingConfirmation(emailFromDb, slotId, request.getDate().toString(), "end date", 2.5);
+	        		return null;
+		        }
+	        };
+	       new Thread(sendingEmailTask).start();
+	       
+	       progressIndicator.progressProperty().bind(sendingEmailTask.progressProperty());
+	       progressIndicator.setVisible(true); 
+	       
+	       sendingEmailTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+	           @Override
+	           public void handle(WorkerStateEvent workerStateEvent) {
+	        	   try{
+	   				Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+	    			window.setTitle("Main Screen");
+	    			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainScreen.fxml"));     
+	    			Parent root = (Parent)fxmlLoader.load();          
+	    			MainScreenController controller = fxmlLoader.<MainScreenController>getController();
+	    			controller.setUserId(userId);
+	    			window.setScene(new Scene(root,750,650));		
+	    			window.show();   
+	        	   } catch(Exception e){
+	        		   
+	        	   }
+	           }
+	       });
+       
+		} else {
+		// TODO: parking slot catched
+		}
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
