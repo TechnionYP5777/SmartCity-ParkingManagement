@@ -48,6 +48,7 @@ public class ChooseParkingSlotController {
 		ObservableList<PresentParkingSlot> returnSlots = FXCollections.observableArrayList();
 		int index = 0;
 		for (PresentParkingSlot slot : slots){
+
 			returnSlots.add(slot);
 		}
 		return returnSlots;

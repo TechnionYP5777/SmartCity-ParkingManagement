@@ -174,7 +174,7 @@ public class MainScreenController {
             		//System.out.println(order.getFinishTime().toString());
             		
             		if (order.getFinishTime().before(d)){
-            			System.out.println(order.getID());
+            			System.out.println(order.getOrderId());
             			pastOrders.add(order);
             		} else {
             			futureOrders.add(order);
