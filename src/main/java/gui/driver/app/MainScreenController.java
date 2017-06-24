@@ -57,6 +57,8 @@ public class MainScreenController {
 	private TableColumn<PresentOrder, Double> priceColumn;
 	@FXML
 	private ProgressIndicator progressIndicator;
+	@FXML
+	private Button logOutButton;
 	
 	private String userId;
 	
@@ -69,6 +71,14 @@ public class MainScreenController {
 		
 		setColumns();
 		getUserIdAndSetOrders();
+	}
+	@FXML void logOutButtonClicked(ActionEvent event) throws Exception {
+		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		window.setTitle("Login");
+		Parent root = FXMLLoader.load(getClass().getResource("LoginScreen.fxml")); 
+		window.setScene(new Scene(root,400,550));
+		DBManager.initialize();
+		window.show();
 	}
 	@FXML
 	public void newOrderButtonClicked(ActionEvent event) throws Exception {
