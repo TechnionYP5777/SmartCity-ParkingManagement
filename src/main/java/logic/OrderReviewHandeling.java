@@ -32,25 +32,26 @@ public class OrderReviewHandeling {
 		List<PresentOrder> ordersList = new ArrayList<>();
 		Calendar current = Calendar.getInstance();
 		current.setTime(currentDate);
-		Calendar SartTime = Calendar.getInstance();
-		Calendar EndTiem = Calendar.getInstance();
+		Calendar StartTime = Calendar.getInstance();
+		Calendar EndTime = Calendar.getInstance();
 		for(ParseObject p : db.getAllObjects("Order", 100)){
 			if(!p.getString("driverId").equals(userID) || p.getBoolean("reviewed"))
 				continue;
 			String date[] = p.getString("date").split("-");
-			SartTime.set(Integer.parseInt(date[0]),
-					Integer.parseInt(date[1]),
+			StartTime.set(Integer.parseInt(date[0]),
+					Integer.parseInt(date[1])-1,
 					Integer.parseInt(date[2]),
 					p.getInt("hour")/4,
 					p.getInt("hour")%4);
-			EndTiem.set(Integer.parseInt(date[0]),
-					Integer.parseInt(date[1]),
+			EndTime.set(Integer.parseInt(date[0]),
+					Integer.parseInt(date[1])-1,
 					Integer.parseInt(date[2]),
 					(p.getInt("hour")+p.getInt("hoursAmount"))/4,
 					(p.getInt("hour")+p.getInt("hoursAmount"))%4);
-			if(SartTime.after(current) || EndTiem.after(current))
+			
+			if(StartTime.after(current) || EndTime.after(current))
 				continue;
-			PresentOrder order = new PresentOrder(p.getString("slotId"),SartTime.getTime(), EndTiem.getTime(), p.getDouble("price"),p.getString("id"));
+			PresentOrder order = new PresentOrder(p.getString("slotId"),StartTime.getTime(), EndTime.getTime(), p.getDouble("price"),p.getString("id"));
 			ordersList.add(order);
 		}
 		

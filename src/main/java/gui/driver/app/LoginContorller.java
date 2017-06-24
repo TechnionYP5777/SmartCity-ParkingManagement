@@ -6,9 +6,6 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import logic.Billing;
-import logic.ParkingSlotRequest;
-import logic.PresentParkingSlot;
 import javafx.scene.*;
 import javafx.fxml.*;
 import data.management.DBManager;
@@ -19,6 +16,7 @@ import data.members.StickersColor;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.*;
+import logic.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -107,27 +105,72 @@ public class LoginContorller {
 				statusLabel.setVisible(true);
 				return;
    			}
+   			
    			if(result.contains("success:")){
-   				try {
-	   				Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-	   				window.setTitle("Main Screen");
-	   				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainScreen.fxml"));     
-	   				Parent root = (Parent)fxmlLoader.load();          
-	   				MainScreenController controller = fxmlLoader.<MainScreenController>getController();
-	   				controller.setUserId(result.substring(8));
-	   				window.setScene(new Scene(root,750,650));		
-	   				window.show();
-   				}
-   				catch (Exception e){
-   					
-   				}
    				
+   					DatabaseManager d = DatabaseManagerImpl.getInstance();
+   		        	d.initialize();
+   		        	
+   		        	Task<PresentOrder> latestOrderTask = new Task<PresentOrder>() {
+	   		            @Override
+	   		            protected PresentOrder call() throws Exception {	
+	   		            	System.out.println(result.substring(8));
+	   		            	System.out.println(new Date().toString());
+			   	   			List<PresentOrder> pastOrders = OrderReviewHandeling.getUserLastOrder(result.substring(8), new Date(), d);
+			   	   			System.out.println(pastOrders.toString());
+			   	   			if (pastOrders.size() == 0) {
+			   	   				return null;
+			   	   			}
+			   	   			return pastOrders.get(0);
+		   		 	    }
+	   		         };
+	   		       new Thread(latestOrderTask).start();
+		   		   progressIndicator.progressProperty().bind(latestOrderTask.progressProperty());
+		   	       progressIndicator.setVisible(true); 
+	   		       
+	   		       latestOrderTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+		   	           @Override
+		   	           public void handle(WorkerStateEvent workerStateEvent) {
+		   	        	   PresentOrder order =  latestOrderTask.getValue();
+		   	        	   if (order == null){
+		   	    			try{
+		   	    				Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		   	    				window.setTitle("Main Screen");
+		   	    				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainScreen.fxml"));     
+		   	    				Parent root = (Parent)fxmlLoader.load();          
+		   	    				MainScreenController controller = fxmlLoader.<MainScreenController>getController();
+		   	    				controller.setUserId(result.substring(8));
+		   	    				window.setScene(new Scene(root,750,650));		
+		   	    				window.show();
+		   	 				}
+		   	 				catch (Exception e){
+		   	 					
+		   	 				}
+		   	        	   } else {
+		   	        		   try{
+		   	        			   
+			   	        		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		   	    				window.setTitle("Rating Screen");
+		   	    				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("RatingScreen.fxml"));     
+		   	    				Parent root = (Parent)fxmlLoader.load();          
+		   	    				RatingScreenController controller = fxmlLoader.<RatingScreenController>getController();
+		   	    				controller.setUserId(result.substring(8));
+		   	    				controller.setParkingOrder(order);
+		   	    				window.setScene(new Scene(root,600, 400));		
+		   	    				window.show();
+		   	        		   } catch (Exception e){
+		   	        			   
+		   	        		   }
+		   	        	   }
+	   	           		}
+	   		     	});
    			}
                
            }
        });
 		
 	}
+	
 	@FXML
 	public void createButtonClicked(ActionEvent event) throws Exception{
 	 	Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();

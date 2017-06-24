@@ -140,7 +140,6 @@ public class MainScreenController {
 	}
 	
 	public void setOrders(){
-		System.out.println("setOrders");
 		Task<List<PresentOrder>> ordersTask = new Task<List<PresentOrder>>() {
             @Override
             protected List<PresentOrder> call() throws Exception {
@@ -167,9 +166,14 @@ public class MainScreenController {
                	
                	ObservableList<PresentOrder> futureOrders = FXCollections.observableArrayList();
             	ObservableList<PresentOrder> pastOrders = FXCollections.observableArrayList();
-               	
+            	
+            	Date d = new Date();
+            	//System.out.println(d.toString());
             	for (PresentOrder order: result){
-            		if (order.getFinishTime().before(new Date())){
+            		//System.out.println(order.getParkingSlotId());
+            		//System.out.println(order.getFinishTime().toString());
+            		
+            		if (order.getFinishTime().before(d)){
             			System.out.println(order.getID());
             			pastOrders.add(order);
             		} else {
