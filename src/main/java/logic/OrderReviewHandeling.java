@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,10 +18,20 @@ import Exceptions.NotExists;
 import data.management.DatabaseManager;
 import data.members.ParkingSlot;
 
+/**
+ * 
+ * @author assaflu
+ * @since 22.6.2017
+ * 
+ * The purpose of this class is to handle the review and rating of order and slots
+ */
+
 public class OrderReviewHandeling {
 
-	public static List<PresentOrder> getUserLastOrder (String userID,DatabaseManager db){
+	public static List<PresentOrder> getUserLastOrder (String userID,Date currentDate,DatabaseManager db){
 		List<PresentOrder> ordersList = new ArrayList<>();
+		Calendar current = Calendar.getInstance();
+		current.setTime(currentDate);
 		Calendar SartTime = Calendar.getInstance();
 		Calendar EndTiem = Calendar.getInstance();
 		for(ParseObject p : db.getAllObjects("Order", 100)){
@@ -37,6 +48,8 @@ public class OrderReviewHandeling {
 					Integer.parseInt(date[2]),
 					(p.getInt("hour")+p.getInt("hoursAmount"))/4,
 					(p.getInt("hour")+p.getInt("hoursAmount"))%4);
+			if(SartTime.after(current) || EndTiem.after(current))
+				continue;
 			PresentOrder order = new PresentOrder(p.getString("slotId"),SartTime.getTime(), EndTiem.getTime(), p.getDouble("price"),p.getString("id"));
 			ordersList.add(order);
 		}

@@ -7,6 +7,14 @@ import org.parse4j.ParseObject;
 
 import data.management.DatabaseManager;
 
+/**
+ * 
+ * @author assaflu
+ * @since 22.6.2017
+ * 
+ * The purpose of this class is to retrive data about user orders
+ */
+
 public class UserOrderManaging {
 	
 	public static List<PresentOrder> getUserOrders(String userID, DatabaseManager db){
