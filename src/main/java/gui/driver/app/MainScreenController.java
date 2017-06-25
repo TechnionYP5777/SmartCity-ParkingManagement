@@ -57,6 +57,8 @@ public class MainScreenController {
 	private TableColumn<PresentOrder, Double> priceColumn;
 	@FXML
 	private ProgressIndicator progressIndicator;
+	@FXML
+	private Button logOutButton;
 	
 	private String userId;
 	
@@ -69,6 +71,14 @@ public class MainScreenController {
 		
 		setColumns();
 		getUserIdAndSetOrders();
+	}
+	@FXML void logOutButtonClicked(ActionEvent event) throws Exception {
+		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		window.setTitle("Login");
+		Parent root = FXMLLoader.load(getClass().getResource("LoginScreen.fxml")); 
+		window.setScene(new Scene(root,400,550));
+		DBManager.initialize();
+		window.show();
 	}
 	@FXML
 	public void newOrderButtonClicked(ActionEvent event) throws Exception {
@@ -106,7 +116,7 @@ public class MainScreenController {
 		priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 		
 		futureOrdersTable.getColumns().setAll(parkingSlotIdColumn, startTimeColumn, finishTimeColumn, priceColumn);
-		pastOrdersTable.getColumns().setAll(parkingSlotIdColumn, startTimeColumn, finishTimeColumn, priceColumn);
+		//pastOrdersTable.getColumns().setAll(parkingSlotIdColumn, startTimeColumn, finishTimeColumn, priceColumn);
 		
 	}
 	
@@ -168,20 +178,15 @@ public class MainScreenController {
             	ObservableList<PresentOrder> pastOrders = FXCollections.observableArrayList();
             	
             	Date d = new Date();
-            	//System.out.println(d.toString());
             	for (PresentOrder order: result){
-            		//System.out.println(order.getParkingSlotId());
-            		//System.out.println(order.getFinishTime().toString());
-            		
             		if (order.getFinishTime().before(d)){
-            			System.out.println(order.getID());
             			pastOrders.add(order);
             		} else {
             			futureOrders.add(order);
             		}
             	}
             	futureOrdersTable.setItems(futureOrders);
-            	pastOrdersTable.setItems(pastOrders);
+            	//pastOrdersTable.setItems(pastOrders);
 
                 progressIndicator.setVisible(false); 
            }

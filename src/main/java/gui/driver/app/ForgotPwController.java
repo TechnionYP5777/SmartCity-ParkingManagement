@@ -13,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import logic.EmailNotification;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
@@ -83,15 +84,47 @@ public class ForgotPwController {
         	   Map<String, Object> result =  getDetailsTask.getValue();
         	   String emailFromDb = (String)result.get("email");
         	   String pwFromDb = (String)result.get("password");
+        	   
         		if (emailFromDb == null || !emailFromDb.equals(email)) {
+        			System.out.println(emailFromDb);
         			statusLabel.setText("ID or Email are wrong");
         			statusLabel.setStyle(" -fx-text-fill: red; -fx-font-size: 15px; -fx-font-weight: bold");
         			statusLabel.setVisible(true);
         		} else {
-        			statusLabel.setVisible(false);
-        			// TODO: send email to the user
+        			
+	            	statusLabel.setText("Password Sent. Redirecting to login");
+        			statusLabel.setStyle(" -fx-text-fill: green; -fx-font-size: 15px; -fx-font-weight: bold");
+        			statusLabel.setVisible(true);
+        			Task<Void> sendingEmailTask = new Task<Void>() {
+        	            @Override
+        	            protected Void call() throws Exception {
+        	            	EmailNotification.PasswordReset(emailFromDb, pwFromDb);
+        	            	Thread.sleep(1500);
+        	        		return null;
+        		        }
+        	        };
+        	       new Thread(sendingEmailTask).start();
+        	       
+        	       progressIndicator.progressProperty().bind(sendingEmailTask.progressProperty());
+        	       progressIndicator.setVisible(true); 
+        	       
+        	       sendingEmailTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+        	           @Override
+        	           public void handle(WorkerStateEvent workerStateEvent) {
+        	        	   try{
+	        	      		 Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+	        	 			window.setTitle("Login");
+	        	 			Parent root = FXMLLoader.load(getClass().getResource("LoginScreen.fxml")); 
+	        	 			window.setScene(new Scene(root,400,550));		
+	        	 			window.show();
+        	        	   } catch(Exception e){
+        	        		   
+        	        	   }
+        	           }
+        	       });
+        	       
+        			
         		}
-        	   progressIndicator.setVisible(false);
                
            }
        });

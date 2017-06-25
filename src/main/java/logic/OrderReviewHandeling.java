@@ -65,7 +65,7 @@ public class OrderReviewHandeling {
 		ParkingSlot p = new ParkingSlot(order.getParkingSlotId(), db);
 		p.setRating((p.getRating()*p.getNumOfVoters()+review)/(p.getNumOfVoters()+1));
 		p.setNumOfVoters(p.getNumOfVoters()+1);
-		Order o = new Order(order.getID(),db);
+		Order o = new Order(order.getOrderId(),db);
 		o.setReview();
 	}
 	

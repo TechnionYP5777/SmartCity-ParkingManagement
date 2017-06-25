@@ -25,8 +25,7 @@ public class About extends AbstractWindow {
 			+ "a map of the Technion withmapping of the parking slots and navigates the customer toward the chosen parking slot \n"
 			+ "in addition there will be a possibility to communicate with other car owners. \n\n"
 			+ "This project is made under the course 'Yearly Project in Software' in Technion Institute of Technology \n"
-			+ "by the skilled students: David Cohen, Zahi Mizrahi, Or Troyaner, Shahar Yair, Inbal Matityahu \n"
-			+ "Dani Shames, Tom Nof, Sefi Albo and Shay Segal.\n";
+			+ "by the skilled students: Inbal Matityahu, Dani Shames, Tom Nof, Assaf Losting.\n";
 
 	public static final String IMAGE = "https://s23.postimg.org/ecvvaduyz/smart_parking.png";
 

@@ -13,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import logic.EmailNotification;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
@@ -165,11 +166,15 @@ public class RegistrationController {
 		   			}
 		   			if(result.equals("success")){
 		   				try {
-			   				Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-			   				window.setTitle("Choose parking slot");
-			   				Parent root = FXMLLoader.load(getClass().getResource("ChooseParkingSlotScreen.fxml")); 
-			   				window.setScene(new Scene(root,1300,900));		
-			   				window.show();
+		   					EmailNotification.SuccessfulRegistration(email);
+		   					Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+	   	    				window.setTitle("Main Screen");
+	   	    				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainScreen.fxml"));     
+	   	    				Parent root = (Parent)fxmlLoader.load();          
+	   	    				MainScreenController controller = fxmlLoader.<MainScreenController>getController();
+	   	    				controller.setUserId(id);
+	   	    				window.setScene(new Scene(root,750,650));		
+	   	    				window.show();   		
 		   				}
 		   				catch (Exception e){
 		   					

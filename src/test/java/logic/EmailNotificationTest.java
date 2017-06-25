@@ -27,34 +27,51 @@ public class EmailNotificationTest {
 	}
 	
 	@Test
-	public void IlligalMes(){
+	public void IlligalMesTest(){
 		String to = "parkingmang@gmail.com";
 		try {
 			EmailNotification.IlligalParking(to);
 		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
 			Assert.fail();
 		}
 	}
 	
 	@Test
-	public void ParkingApproval(){
+	public void ParkingApprovalTest(){
 		String to = "parkingmang@gmail.com";
 		try {
-			EmailNotification.ParkingConfirmation(to, "Slot", LocalDateTime.now().toString(), LocalDateTime.now().toString() );
+			EmailNotification.ParkingConfirmation(to, "Slot", LocalDateTime.now().toString(), LocalDateTime.now().toString(), 0.0 );
 		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
 			Assert.fail();
 		}
 	}
 	
 	@Test
-	public void ReviewReminder(){
+	public void ReviewReminderTest(){
 		String to = "parkingmang@gmail.com";
 		try {
 			EmailNotification.ReviewReminder(to, "Slot");
 		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
+			Assert.fail();
+		}
+	}
+	
+	@Test
+	public void SuccessfulRegistrationTest(){
+		String to = "parkingmang@gmail.com";
+		try {
+			EmailNotification.SuccessfulRegistration(to);
+		} catch (MessagingException e) {
+			Assert.fail();
+		}
+	}
+	
+	@Test
+	public void PasswordResetTest(){
+		String to = "parkingmang@gmail.com";
+		try {
+			EmailNotification.PasswordReset(to, "123456789");
+		} catch (MessagingException e) {
 			Assert.fail();
 		}
 	}

@@ -19,9 +19,10 @@
                   <ProgressIndicator fx:id="progressIndicator" progress="0.0" />
                </children>
             </HBox>
+            <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#logOutButtonClicked" text="Log out" />
             <Button fx:id="newOrderButton" mnemonicParsing="false" onAction="#newOrderButtonClicked" text="New order">
                <VBox.margin>
-                  <Insets />
+                  <Insets top="10.0" />
                </VBox.margin>
             </Button>
             <Label text="Future Orders">
@@ -32,7 +33,7 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </Label>
-            <TableView fx:id="futureOrdersTable" prefHeight="200.0" prefWidth="200.0">
+            <TableView fx:id="futureOrdersTable" prefHeight="195.0" prefWidth="200.0">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
@@ -50,7 +51,7 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </Label>
-            <TableView fx:id="pastOrdersTable" prefHeight="200.0" prefWidth="200.0">
+            <TableView fx:id="pastOrdersTable" prefHeight="195.0" prefWidth="200.0">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>

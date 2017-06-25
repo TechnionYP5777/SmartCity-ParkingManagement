@@ -7,18 +7,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.mockito.Mockito.*;
-import org.mockito.internal.verification.Times;
 import org.parse4j.ParseException;
 import org.parse4j.ParseGeoPoint;
 
-import data.management.DBManager;
 import data.management.DatabaseManager;
 import data.members.ParkingSlot;
 import data.members.StickersColor;
@@ -40,8 +35,7 @@ public class parkingSlotTest {
 	
 	private DatabaseManager setMock(){
 		DatabaseManager dbm = Mockito.mock(DatabaseManager.class);
-		Map <String, Object> keys = new HashMap<>();
-		Map <String, Object> fields = new HashMap<>();
+		Map<String, Object> keys = new HashMap<>(), fields = new HashMap<>();
 		keys.put("name", "testParkingSlot1");
 		
 		fields.put("status", ParkingSlotStatus.FREE.ordinal());
@@ -61,8 +55,7 @@ public class parkingSlotTest {
 	@Test
 	public void addAndRemove(){
 		DatabaseManager dbm = Mockito.mock(DatabaseManager.class);
-		Map <String, Object> keys = new HashMap<>();
-		Map <String, Object> fields = new HashMap<>();
+		Map<String, Object> keys = new HashMap<>(), fields = new HashMap<>();
 		keys.put("name", "testParkingSlot2");
 		
 		fields.put("status", ParkingSlotStatus.FREE.ordinal());
@@ -92,8 +85,7 @@ public class parkingSlotTest {
 	@Test
 	public void check(){
 		DatabaseManager dbm = Mockito.mock(DatabaseManager.class);
-		Map <String, Object> keys = new HashMap<>();
-		Map <String, Object> fields = new HashMap<>();
+		Map<String, Object> keys = new HashMap<>(), fields = new HashMap<>();
 		keys.put("name", "first");
 		
 		fields.put("status", ParkingSlotStatus.FREE.ordinal());
@@ -289,8 +281,7 @@ public class parkingSlotTest {
 	@Test
 	public void testSetName(){
 		DatabaseManager dbm = setMock();
-		Map <String, Object> keys = new HashMap<>();
-		Map <String, Object> fields = new HashMap<>();
+		Map<String, Object> keys = new HashMap<>(), fields = new HashMap<>();
 		keys.put("name", "testParkingSlot1");
 		
 		fields.put("status", ParkingSlotStatus.FREE.ordinal());
@@ -328,8 +319,7 @@ public class parkingSlotTest {
 	@Test
 	public void testSetStatus(){
 		DatabaseManager dbm = setMock();
-		Map <String, Object> keys = new HashMap<>();
-		Map <String, Object> fields = new HashMap<>();
+		Map<String, Object> keys = new HashMap<>(), fields = new HashMap<>();
 		keys.put("name", "testParkingSlot1");
 		
 		fields.put("status", ParkingSlotStatus.FREE.ordinal());
@@ -357,8 +347,7 @@ public class parkingSlotTest {
 	@Test
 	public void testSetRating(){
 		DatabaseManager dbm = setMock();
-		Map <String, Object> keys = new HashMap<>();
-		Map <String, Object> fields = new HashMap<>();
+		Map<String, Object> keys = new HashMap<>(), fields = new HashMap<>();
 		keys.put("name", "testParkingSlot1");
 		
 		fields.put("status", ParkingSlotStatus.FREE.ordinal());
@@ -386,8 +375,7 @@ public class parkingSlotTest {
 	@Test
 	public void testSetNumOfVoters(){
 		DatabaseManager dbm = setMock();
-		Map <String, Object> keys = new HashMap<>();
-		Map <String, Object> fields = new HashMap<>();
+		Map<String, Object> keys = new HashMap<>(), fields = new HashMap<>();
 		keys.put("name", "testParkingSlot1");
 		
 		fields.put("status", ParkingSlotStatus.FREE.ordinal());
@@ -415,8 +403,7 @@ public class parkingSlotTest {
 	@Test
 	public void testSetRank(){
 		DatabaseManager dbm = setMock();
-		Map <String, Object> keys = new HashMap<>();
-		Map <String, Object> fields = new HashMap<>();
+		Map<String, Object> keys = new HashMap<>(), fields = new HashMap<>();
 		keys.put("name", "testParkingSlot1");
 		
 		fields.put("status", ParkingSlotStatus.FREE.ordinal());
@@ -445,8 +432,7 @@ public class parkingSlotTest {
 	@Test
 	public void testSetArea(){
 		DatabaseManager dbm = setMock();
-		Map <String, Object> keys = new HashMap<>();
-		Map <String, Object> fields = new HashMap<>();
+		Map<String, Object> keys = new HashMap<>(), fields = new HashMap<>();
 		keys.put("name", "testParkingSlot1");
 		fields.put("rating", 10);
 		fields.put("numOfVoters", 2);
@@ -475,8 +461,7 @@ public class parkingSlotTest {
 	@Test
 	public void testSetLocation(){
 		DatabaseManager dbm = setMock();
-		Map <String, Object> keys = new HashMap<>();
-		Map <String, Object> fields = new HashMap<>();
+		Map<String, Object> keys = new HashMap<>(), fields = new HashMap<>();
 		keys.put("name", "testParkingSlot1");
 		
 		fields.put("status", ParkingSlotStatus.FREE.ordinal());
@@ -506,8 +491,7 @@ public class parkingSlotTest {
 	@Test
 	public void testSetDefaultColor(){
 		DatabaseManager dbm = setMock();
-		Map <String, Object> keys = new HashMap<>();
-		Map <String, Object> fields = new HashMap<>();
+		Map<String, Object> keys = new HashMap<>(), fields = new HashMap<>();
 		keys.put("name", "testParkingSlot1");
 		
 		fields.put("status", ParkingSlotStatus.FREE.ordinal());
@@ -537,8 +521,7 @@ public class parkingSlotTest {
 	@Test
 	public void testSetEndTime(){
 		DatabaseManager dbm = setMock();
-		Map <String, Object> keys = new HashMap<>();
-		Map <String, Object> fields = new HashMap<>();
+		Map<String, Object> keys = new HashMap<>(), fields = new HashMap<>();
 		keys.put("name", "testParkingSlot1");
 		
 		fields.put("status", ParkingSlotStatus.FREE.ordinal());
@@ -685,8 +668,7 @@ public class parkingSlotTest {
 	@Test
 	public void testChangeStatus(){
 		DatabaseManager dbm = setMock();
-		Map <String, Object> keys = new HashMap<>();
-		Map <String, Object> fields = new HashMap<>();
+		Map<String, Object> keys = new HashMap<>(), fields = new HashMap<>();
 		keys.put("name", "testParkingSlot1");
 		
 		fields.put("status", ParkingSlotStatus.TAKEN.ordinal());
@@ -711,9 +693,7 @@ public class parkingSlotTest {
 	
 	@Test
 	public void finishTest() throws ParseException, InterruptedException {
-		// delete objects
-		DatabaseManager dbm = setMock();
-		new ParkingSlot("testParkingSlot1",dbm).removeParkingSlotFromDB();
+		new ParkingSlot("testParkingSlot1", setMock()).removeParkingSlotFromDB();
 	}
 	
 }
