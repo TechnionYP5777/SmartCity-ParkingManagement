@@ -97,11 +97,17 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#orderButtonClicked" prefHeight="29.0" prefWidth="215.0" text="Order selected parking slot">
+                  <Button fx:id="orderButton" mnemonicParsing="false" onAction="#orderButtonClicked" prefHeight="29.0" prefWidth="215.0" text="Order selected parking slot">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Button>
+                  <Button fx:id="showChartButton" mnemonicParsing="false" onAction="#showChartButtonClicked" prefHeight="29.0" prefWidth="215.0" text="show price-distances chart">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  
                </children>
             </HBox>
             <VBox prefHeight="600.0" prefWidth="100.0">

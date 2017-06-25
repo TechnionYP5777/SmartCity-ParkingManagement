@@ -56,7 +56,7 @@ public class LoginContorller {
 	 	Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 		window.setTitle("Forgot your password");
 		Parent root = FXMLLoader.load(getClass().getResource("ForgotPwScreen.fxml")); 
-		window.setScene(new Scene(root,400,550));		
+		window.setScene(new Scene(root, ScreenSizesConstants.ForgtoPwScreenWidth, ScreenSizesConstants.ForgtoPwScreenHeight));		
 		window.show();
 	}
 	@FXML
@@ -140,7 +140,7 @@ public class LoginContorller {
 		   	    				Parent root = (Parent)fxmlLoader.load();          
 		   	    				MainScreenController controller = fxmlLoader.<MainScreenController>getController();
 		   	    				controller.setUserId(result.substring(8));
-		   	    				window.setScene(new Scene(root,750,650));		
+		   	    				window.setScene(new Scene(root, ScreenSizesConstants.MainScreenWidth, ScreenSizesConstants.MainScreenHeight));		
 		   	    				window.show();
 		   	 				}
 		   	 				catch (Exception e){
@@ -156,7 +156,7 @@ public class LoginContorller {
 		   	    				RatingScreenController controller = fxmlLoader.<RatingScreenController>getController();
 		   	    				controller.setUserId(result.substring(8));
 		   	    				controller.setParkingOrder(order);
-		   	    				window.setScene(new Scene(root,600, 400));		
+		   	    				window.setScene(new Scene(root, ScreenSizesConstants.RatingScreenWidth, ScreenSizesConstants.RatingScreenHeight));		
 		   	    				window.show();
 		   	        		   } catch (Exception e){
 		   	        			   
@@ -176,7 +176,7 @@ public class LoginContorller {
 	 	Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 		window.setTitle("Registration");
 		Parent root = FXMLLoader.load(getClass().getResource("RegistrationScreen.fxml")); 
-		window.setScene(new Scene(root,400,750));		
+		window.setScene(new Scene(root, ScreenSizesConstants.RegistrationScreenWidth, ScreenSizesConstants.RegistrationScreenHeight));		
 		window.show();
 
 

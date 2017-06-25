@@ -1,4 +1,4 @@
-package gui.driver.app;
+	package gui.driver.app;
 
 import logic.*;
 
@@ -93,9 +93,13 @@ public class ChooseParkingSlotController {
 	@FXML
 	private JFXTimePicker departureTimePicker;
 	@FXML
+	private Button orderButton;
+	@FXML
 	private Button backButton;
 	@FXML
 	private Button refreshButton;
+	@FXML
+	private Button showChartButton;
 	
 	private ParkingSlotRequest request;
 	private String userId;
@@ -189,6 +193,10 @@ public class ChooseParkingSlotController {
 	       Task<List<PresentParkingSlot>> slotsTask = new Task<List<PresentParkingSlot>>() {
 	            @Override
 	            protected List<PresentParkingSlot> call() throws Exception {
+	            	
+	            	
+	            	// TODO: CHANGE 
+	            	
 	            	
 		        	ParseGeoPoint point = new ParseGeoPoint(32.777566, 35.022484);
 		        	DatabaseManager d = DatabaseManagerImpl.getInstance();
@@ -363,7 +371,7 @@ public class ChooseParkingSlotController {
 	    			Parent root = (Parent)fxmlLoader.load();          
 	    			MainScreenController controller = fxmlLoader.<MainScreenController>getController();
 	    			controller.setUserId(userId);
-	    			window.setScene(new Scene(root,750,650));		
+	    			window.setScene(new Scene(root, ScreenSizesConstants.MainScreenWidth, ScreenSizesConstants.MainScreenHeight));		
 	    			window.show();   
 	        	   } catch(Exception e){
 	        		   
@@ -384,13 +392,18 @@ public class ChooseParkingSlotController {
 			Parent root = (Parent)fxmlLoader.load();          
 			MainScreenController controller = fxmlLoader.<MainScreenController>getController();
 			controller.setUserId(userId);
-			window.setScene(new Scene(root,750,650));		
+			window.setScene(new Scene(root, ScreenSizesConstants.MainScreenWidth, ScreenSizesConstants.MainScreenHeight));		
 			window.show();
 	}
 	@FXML
 	public void refreshButtonClicked(ActionEvent event) throws Exception{
 		engine.reload();
 		continueButtonClicked(event);
+	}
+	@FXML
+	public void showChartButtonClicked(ActionEvent event) throws Exception{
+		//  change to not only taub!
+		// GraphPresent.PresentGraph(new ParseGeoPoint(32.777566, 35.022484));
 	}
 	
 }

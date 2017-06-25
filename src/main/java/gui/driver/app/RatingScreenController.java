@@ -121,7 +121,7 @@ public class RatingScreenController {
 			Parent root = (Parent)fxmlLoader.load();          
 			MainScreenController controller = fxmlLoader.<MainScreenController>getController();
 			controller.setUserId(userId);
-			window.setScene(new Scene(root,750,650));		
+			window.setScene(new Scene(root, ScreenSizesConstants.MainScreenWidth, ScreenSizesConstants.MainScreenHeight));		
 			window.show();
 	}
 	
@@ -161,7 +161,7 @@ public class RatingScreenController {
 	  				Parent root = (Parent)fxmlLoader.load();          
 	  				MainScreenController controller = fxmlLoader.<MainScreenController>getController();
 	  				controller.setUserId(userId);
-	  				window.setScene(new Scene(root,750,650));		
+	  				window.setScene(new Scene(root, ScreenSizesConstants.MainScreenWidth, ScreenSizesConstants.MainScreenHeight));		
 	  				window.show();
         	   } catch (Exception e){
         		   

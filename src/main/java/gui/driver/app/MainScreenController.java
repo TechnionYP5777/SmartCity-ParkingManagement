@@ -39,29 +39,43 @@ import Exceptions.LoginException;
 
 public class MainScreenController {
 	
+	/**
+	 * @author dshames
+	 * @since 21/6/2017
+	 *  This class contains the controller of the main screen
+	 */
+	
 	@FXML
 	private Button newOrderButton;
 	@FXML
 	private TableView<PresentOrder> futureOrdersTable;
 	@FXML
+	private TableColumn<PresentOrder, String> parkingSlotIdColumnFutureTable;
+	@FXML
+	private TableColumn<PresentOrder, Date> startTimeColumnFutureTable;
+	@FXML
+	private TableColumn<PresentOrder, Date> finishTimeColumnFutureTable;
+	@FXML
+	private TableColumn<PresentOrder, Double> priceColumnFutureTable;
+	@FXML
 	private Button cancelOrderButton;
 	@FXML
 	private TableView<PresentOrder> pastOrdersTable;
 	@FXML
-	private TableColumn<PresentOrder, String> parkingSlotIdColumn;
+	private TableColumn<PresentOrder, String> parkingSlotIdColumnPastTable;
 	@FXML
-	private TableColumn<PresentOrder, Date> startTimeColumn;
+	private TableColumn<PresentOrder, Date> startTimeColumnPastTable;
 	@FXML
-	private TableColumn<PresentOrder, Date> finishTimeColumn;
+	private TableColumn<PresentOrder, Date> finishTimeColumnPastTable;
 	@FXML
-	private TableColumn<PresentOrder, Double> priceColumn;
+	private TableColumn<PresentOrder, Double> priceColumnPastTable;
 	@FXML
 	private ProgressIndicator progressIndicator;
 	@FXML
 	private Button logOutButton;
 	
 	private String userId;
-	
+
 	@FXML
     protected void initialize(){
 		
@@ -72,11 +86,13 @@ public class MainScreenController {
 		setColumns();
 		getUserIdAndSetOrders();
 	}
-	@FXML void logOutButtonClicked(ActionEvent event) throws Exception {
+	
+	@FXML 
+	void logOutButtonClicked(ActionEvent event) throws Exception {
 		Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 		window.setTitle("Login");
 		Parent root = FXMLLoader.load(getClass().getResource("LoginScreen.fxml")); 
-		window.setScene(new Scene(root,400,550));
+		window.setScene(new Scene(root, ScreenSizesConstants.LoginScreenWidth, ScreenSizesConstants.LoginScreenHeight));
 		DBManager.initialize();
 		window.show();
 	}
@@ -89,34 +105,58 @@ public class MainScreenController {
 			Parent root = (Parent)fxmlLoader.load();          
 			ChooseParkingSlotController controller = fxmlLoader.<ChooseParkingSlotController>getController();
 			controller.setUserId(userId);
-			window.setScene(new Scene(root,1300,900));		
+			window.setScene(new Scene(root, ScreenSizesConstants.MapScreenWidth, ScreenSizesConstants.MapScreenHeight));		
 			window.show();
 	}
 	@FXML
 	public void cancelOrderButtonClicked(ActionEvent event) throws Exception {
-		System.out.println("cancelOrderButtonClicked");
+		PresentOrder order = futureOrdersTable.getSelectionModel().getSelectedItem();
+		if (order == null){
+			System.out.println("you didnt select...");
+			return;
+		}
+		if (order.getStartTime().getTime() - new Date().getTime() <	4 * 60 * 60 * 1000){
+			System.out.println("Sorry, you can't cancel a booking less than 4 hours before it starts");
+			return;
+		}
 	}
 	
 	private void setColumns(){
 		
-		parkingSlotIdColumn = new TableColumn<>("slot id");
-		parkingSlotIdColumn.setPrefWidth(180);
-		parkingSlotIdColumn.setCellValueFactory(new PropertyValueFactory<>("parkingSlotId"));
+		parkingSlotIdColumnFutureTable = new TableColumn<>("slot id");
+		parkingSlotIdColumnFutureTable.setPrefWidth(180);
+		parkingSlotIdColumnFutureTable.setCellValueFactory(new PropertyValueFactory<>("parkingSlotId"));
 		
-		startTimeColumn = new TableColumn<>("start time");
-		startTimeColumn.setPrefWidth(180);
-		startTimeColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+		startTimeColumnFutureTable = new TableColumn<>("start time");
+		startTimeColumnFutureTable.setPrefWidth(180);
+		startTimeColumnFutureTable.setCellValueFactory(new PropertyValueFactory<>("startTime"));
 		
-		finishTimeColumn = new TableColumn<>("finish time");
-		finishTimeColumn.setPrefWidth(180);
-		finishTimeColumn.setCellValueFactory(new PropertyValueFactory<>("finishTime"));
+		finishTimeColumnFutureTable = new TableColumn<>("finish time");
+		finishTimeColumnFutureTable.setPrefWidth(180);
+		finishTimeColumnFutureTable.setCellValueFactory(new PropertyValueFactory<>("finishTime"));
 		
-		priceColumn = new TableColumn<>("price");
-		priceColumn.setPrefWidth(180);
-		priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+		priceColumnFutureTable = new TableColumn<>("price");
+		priceColumnFutureTable.setPrefWidth(180);
+		priceColumnFutureTable.setCellValueFactory(new PropertyValueFactory<>("price"));
 		
-		futureOrdersTable.getColumns().setAll(parkingSlotIdColumn, startTimeColumn, finishTimeColumn, priceColumn);
-		//pastOrdersTable.getColumns().setAll(parkingSlotIdColumn, startTimeColumn, finishTimeColumn, priceColumn);
+		parkingSlotIdColumnPastTable = new TableColumn<>("slot id");
+		parkingSlotIdColumnPastTable.setPrefWidth(180);
+		parkingSlotIdColumnPastTable.setCellValueFactory(new PropertyValueFactory<>("parkingSlotId"));
+		
+		startTimeColumnPastTable = new TableColumn<>("start time");
+		startTimeColumnPastTable.setPrefWidth(180);
+		startTimeColumnPastTable.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+		
+		finishTimeColumnPastTable = new TableColumn<>("finish time");
+		finishTimeColumnPastTable.setPrefWidth(180);
+		finishTimeColumnPastTable.setCellValueFactory(new PropertyValueFactory<>("finishTime"));
+		
+		priceColumnPastTable = new TableColumn<>("price");
+		priceColumnPastTable.setPrefWidth(180);
+		priceColumnPastTable.setCellValueFactory(new PropertyValueFactory<>("price"));
+			
+		futureOrdersTable.getColumns().setAll(parkingSlotIdColumnFutureTable, startTimeColumnFutureTable, finishTimeColumnFutureTable, priceColumnFutureTable);
+		pastOrdersTable.getColumns().setAll(parkingSlotIdColumnPastTable, startTimeColumnPastTable, finishTimeColumnPastTable, priceColumnPastTable);
 		
 	}
 	
@@ -177,37 +217,22 @@ public class MainScreenController {
                	ObservableList<PresentOrder> futureOrders = FXCollections.observableArrayList();
             	ObservableList<PresentOrder> pastOrders = FXCollections.observableArrayList();
             	
-            	Date d = new Date();
             	for (PresentOrder order: result){
-            		if (order.getFinishTime().before(d)){
-            			pastOrders.add(order);
-            		} else {
+            		
+            		System.out.println(order.getFinishTime().toString());
+            		
+            		if (order.getStartTime().after(new Date())){
             			futureOrders.add(order);
+            		} else {
+            			pastOrders.add(order);
             		}
             	}
             	futureOrdersTable.setItems(futureOrders);
-            	//pastOrdersTable.setItems(pastOrders);
-
+            	pastOrdersTable.setItems(pastOrders);
+            	cancelOrderButton.setDisable(false);
                 progressIndicator.setVisible(false); 
            }
        });
-		
-		
-		
-		
-		
-		
-		
+			
 	}
 }
-
-
-
-
-
-
-
-
-
-
-

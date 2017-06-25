@@ -28,7 +28,7 @@ public class Main extends Application {
 		window = primaryStage;
 		window.setTitle("Login");
 		Parent root = FXMLLoader.load(getClass().getResource("LoginScreen.fxml")); 
-		window.setScene(new Scene(root,400,550));
+		window.setScene(new Scene(root, ScreenSizesConstants.LoginScreenWidth, ScreenSizesConstants.LoginScreenHeight));
 		DBManager.initialize();
 		window.show();
 	}

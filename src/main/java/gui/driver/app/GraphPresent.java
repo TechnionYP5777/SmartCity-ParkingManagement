@@ -19,6 +19,10 @@ public class GraphPresent extends Application {
 	private static ParseGeoPoint dest;
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
+	public static void main(String[] args){
+		ParseGeoPoint p = new ParseGeoPoint(32.777566, 35.022484);
+		PresentGraph(p);
+	}
 	public static void PresentGraph(ParseGeoPoint p){
 		dest = p;
 		launch();
