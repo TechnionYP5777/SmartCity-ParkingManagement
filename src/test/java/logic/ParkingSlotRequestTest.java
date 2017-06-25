@@ -269,19 +269,4 @@ public class ParkingSlotRequestTest {
     	Mockito.when(d.getAllObjects("Order", 600)).thenReturn(orders);
     	assertTrue(psr.orderParkingSlot("1321321", "1",10));
 	}
-
-	@Test
-	public void MeTest(){
-		ParseGeoPoint point = new ParseGeoPoint(32.777566, 35.022484);
-    	DatabaseManager d = DatabaseManagerImpl.getInstance();
-    	Billing b = Mockito.mock(Billing.class);
-    	Calendar cal = Calendar.getInstance();
-    	cal.set(2017, 12, 11, 11, 0);
-    	SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
-    	
-    	ParkingSlotRequest psr = new ParkingSlotRequest(point, cal.getTime(), 8, d);
-    	for (PresentParkingSlot p: psr.getAllAvailableParkingSlot(b)){
-    		System.out.println(p.getRating());
-    	}
-   	}
 }
