@@ -3,6 +3,8 @@ package logic;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
 
 import data.management.DatabaseManager;
@@ -40,5 +42,10 @@ public class UserOrderManaging {
 		}
 		
 		return ordersList;	
+	}
+	
+	public static void cancleOrder(PresentOrder orederToCancle,DatabaseManager db) throws ParseException, InterruptedException{
+		Order p = new Order(orederToCancle.getOrderId(),db);
+		p.removeOrderFromDB();
 	}
 }
