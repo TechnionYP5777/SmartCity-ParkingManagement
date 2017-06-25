@@ -26,12 +26,12 @@ public class UserOrderManaging {
 				continue;
 			String date[] = p.getString("date").split("-");
 			SartTime.set(Integer.parseInt(date[0]),
-					Integer.parseInt(date[1]),
+					Integer.parseInt(date[1])-1,
 					Integer.parseInt(date[2]),
 					p.getInt("hour")/4,
 					p.getInt("hour")%4);
 			EndTiem.set(Integer.parseInt(date[0]),
-					Integer.parseInt(date[1]),
+					Integer.parseInt(date[1])-1,
 					Integer.parseInt(date[2]),
 					(p.getInt("hour")+p.getInt("hoursAmount"))/4,
 					(p.getInt("hour")+p.getInt("hoursAmount"))%4);
