@@ -116,7 +116,7 @@ public class MainScreenController {
 		priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 		
 		futureOrdersTable.getColumns().setAll(parkingSlotIdColumn, startTimeColumn, finishTimeColumn, priceColumn);
-		pastOrdersTable.getColumns().setAll(parkingSlotIdColumn, startTimeColumn, finishTimeColumn, priceColumn);
+		//pastOrdersTable.getColumns().setAll(parkingSlotIdColumn, startTimeColumn, finishTimeColumn, priceColumn);
 		
 	}
 	
@@ -179,7 +179,6 @@ public class MainScreenController {
             	
             	Date d = new Date();
             	for (PresentOrder order: result){
-            		System.out.println(order.getOrderId());
             		if (order.getFinishTime().before(d)){
             			pastOrders.add(order);
             		} else {
@@ -187,7 +186,7 @@ public class MainScreenController {
             		}
             	}
             	futureOrdersTable.setItems(futureOrders);
-            	pastOrdersTable.setItems(pastOrders);
+            	//pastOrdersTable.setItems(pastOrders);
 
                 progressIndicator.setVisible(false); 
            }

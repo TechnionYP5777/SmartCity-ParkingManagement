@@ -86,9 +86,15 @@
             </VBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="29.0" prefWidth="215.0" text="Back to main screen" />
                   <Button fx:id="continueButton" mnemonicParsing="false" onAction="#continueButtonClicked" prefHeight="29.0" prefWidth="215.0" text="Show parking slots on screen">
                      <HBox.margin>
-                        <Insets />
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refreshButtonClicked" prefHeight="29.0" prefWidth="215.0" text="Refresh map">
+                     <HBox.margin>
+                        <Insets left="10.0" />
                      </HBox.margin>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#orderButtonClicked" prefHeight="29.0" prefWidth="215.0" text="Order selected parking slot">

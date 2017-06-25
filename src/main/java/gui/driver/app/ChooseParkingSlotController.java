@@ -92,6 +92,10 @@ public class ChooseParkingSlotController {
 	private JFXTimePicker arrivalTimePicker;
 	@FXML
 	private JFXTimePicker departureTimePicker;
+	@FXML
+	private Button backButton;
+	@FXML
+	private Button refreshButton;
 	
 	private ParkingSlotRequest request;
 	private String userId;
@@ -180,7 +184,6 @@ public class ChooseParkingSlotController {
 	
 	
 	@FXML
-	@SuppressWarnings("deprecation")
 	public void continueButtonClicked(ActionEvent event) throws Exception{
 		
 	       Task<List<PresentParkingSlot>> slotsTask = new Task<List<PresentParkingSlot>>() {
@@ -371,6 +374,23 @@ public class ChooseParkingSlotController {
 		} else {
 		// TODO: parking slot catched
 		}
+	}
+	
+	@FXML
+	public void backButtonClicked(ActionEvent event) throws Exception{
+			Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+			window.setTitle("Main Screen");
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainScreen.fxml"));     
+			Parent root = (Parent)fxmlLoader.load();          
+			MainScreenController controller = fxmlLoader.<MainScreenController>getController();
+			controller.setUserId(userId);
+			window.setScene(new Scene(root,750,650));		
+			window.show();
+	}
+	@FXML
+	public void refreshButtonClicked(ActionEvent event) throws Exception{
+		engine.reload();
+		continueButtonClicked(event);
 	}
 	
 }
