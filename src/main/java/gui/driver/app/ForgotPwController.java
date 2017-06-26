@@ -95,6 +95,7 @@ public class ForgotPwController {
         			statusLabel.setText("ID or Email are wrong");
         			statusLabel.setStyle(" -fx-text-fill: red; -fx-font-size: 15px; -fx-font-weight: bold");
         			statusLabel.setVisible(true);
+        			progressIndicator.setVisible(false);
         		} else {
         			
 	            	statusLabel.setText("Password Sent. Redirecting to login");

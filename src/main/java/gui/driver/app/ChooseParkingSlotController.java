@@ -189,20 +189,6 @@ public class ChooseParkingSlotController {
 	       				engine.executeScript("addMarker(" + slot.getLat() + ", " + slot.getLon() + ", '" + slot.getName() + "');");
 	       			}
 	       			progressIndicator.setVisible(false);
-	       			String location = "";
-	       			if(studentHouseRadioButton.isSelected()){
-	       				location = "32.776423, 35.022825";
-	       			}
-					if(ulmanRadioButton.isSelected()){
-						location = "32.777100, 35.023770";
-			       	}
-					if(taubRadioButton.isSelected()){
-						location = "32.777668, 35.021486";
-		   			}
-					if(sportsCenterRadioButton.isSelected()){
-		   				location = "32.779119, 35.019112";
-		   			}
-	       			engine.executeScript("map.setCenter(" + location + ");");
 	       			engine.executeScript("firstRefresh();");
 	       			
 	       			if (result.size() != 0){
@@ -247,7 +233,7 @@ public class ChooseParkingSlotController {
 	           @Override
 	           public void handle(WorkerStateEvent workerStateEvent) {
 	        	   progressIndicator.setVisible(false);
-	        	   handleOrderTask(event, orderTask.getValue(), parkingSlotId);
+	        	   handleOrderTask(event, orderTask.getValue(), parkingSlotId, slot.getPrice());
 
 	   			}
 
@@ -258,7 +244,7 @@ public class ChooseParkingSlotController {
 		
 	}
 	
-	private void handleOrderTask(ActionEvent event, boolean result, String slotId){
+	private void handleOrderTask(ActionEvent event, boolean result, String slotId, double price){
 		if(result){
 			
 			Task<Void> sendingEmailTask = new Task<Void>() {
@@ -269,7 +255,7 @@ public class ChooseParkingSlotController {
 	    			Map<String, Object> map = DBManager.getObjectFieldsByKey("Driver", key);
 	    			String emailFromDb = (String)map.get("email");
 	    			// TODO: fix the untill date! and price!
-	            	EmailNotification.ParkingConfirmation(emailFromDb, slotId, request.getDate().toString(), "end date", 2.5);
+	            	EmailNotification.ParkingConfirmation(emailFromDb, slotId, request.getDate().toString(), "end date", price);
 	        		return null;
 		        }
 	        };
