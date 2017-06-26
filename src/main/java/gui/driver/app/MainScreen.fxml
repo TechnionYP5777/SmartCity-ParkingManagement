@@ -10,55 +10,98 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="650.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.driver.app.MainScreenController">
+<StackPane prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.driver.app.MainScreenController">
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="80.0" prefWidth="200.0">
                <children>
-                  <ProgressIndicator fx:id="progressIndicator" progress="0.0" />
+                  <Label text="My Orders">
+                     <font>
+                        <Font name="Arial" size="48.0" />
+                     </font>
+                  </Label>
                </children>
             </HBox>
-            <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#logOutButtonClicked" text="Log out" />
-            <Button fx:id="newOrderButton" mnemonicParsing="false" onAction="#newOrderButtonClicked" text="New order">
+            <HBox prefHeight="45.0" prefWidth="200.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="260.0">
+                     <children>
+                        <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#logOutButtonClicked" prefHeight="35.0" prefWidth="100.0" text="Log out">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="260.0">
+                     <children>
+                        <ProgressIndicator fx:id="progressIndicator" progress="0.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="260.0">
+                     <children>
+                        <Button fx:id="newOrderButton" mnemonicParsing="false" onAction="#newOrderButtonClicked" prefHeight="35.0" prefWidth="100.0" text="New order">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
                <VBox.margin>
-                  <Insets top="10.0" />
+                  <Insets top="15.0" />
                </VBox.margin>
-            </Button>
+            </HBox>
             <Label text="Future Orders">
                <font>
-                  <Font name="Arial" size="15.0" />
+                  <Font name="Arial" size="18.0" />
                </font>
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
             </Label>
-            <TableView fx:id="futureOrdersTable" prefHeight="195.0" prefWidth="200.0">
+            <TableView fx:id="futureOrdersTable" prefHeight="200.0" prefWidth="200.0">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TableView>
-            <Button fx:id="cancelOrderButton" mnemonicParsing="false" onAction="#cancelOrderButtonClicked" text="Cancel selected order">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Button>
+            <VBox alignment="TOP_CENTER" prefHeight="85.0" prefWidth="100.0">
+               <children>
+                  <Label fx:id="statusLabel" text="Status Label" textFill="RED">
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="cancelOrderButton" mnemonicParsing="false" onAction="#cancelOrderButtonClicked" prefHeight="35.0" prefWidth="200.0" text="Cancel selected order">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
             <Label text="Orders History">
                <font>
-                  <Font name="Arial" size="15.0" />
+                  <Font name="Arial" size="18.0" />
                </font>
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
             </Label>
-            <TableView fx:id="pastOrdersTable" prefHeight="195.0" prefWidth="200.0">
+            <TableView fx:id="pastOrdersTable" prefHeight="200.0" prefWidth="200.0">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TableView>
          </children>
          <padding>
-            <Insets left="10.0" right="10.0" top="10.0" />
+            <Insets left="10.0" right="10.0" />
          </padding>
       </VBox>
    </children>

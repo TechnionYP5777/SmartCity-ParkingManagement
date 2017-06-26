@@ -19,8 +19,8 @@ public class ScreenSizesConstants {
 	public static double RatingScreenWidth =  600.0;
 	public static double RatingScreenHeight =  400.0;
 	
-	public static double MainScreenWidth =  750.0;
-	public static double MainScreenHeight =  650.0;
+	public static double MainScreenWidth =  800.0;
+	public static double MainScreenHeight =  750.0;
 	
 	public static double MapScreenWidth =  1300.0;
 	public static double MapScreenHeight =  900.0;

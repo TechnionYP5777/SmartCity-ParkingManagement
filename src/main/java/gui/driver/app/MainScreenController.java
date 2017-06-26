@@ -73,6 +73,8 @@ public class MainScreenController {
 	private ProgressIndicator progressIndicator;
 	@FXML
 	private Button logOutButton;
+	@FXML
+	private Label statusLabel;
 	
 	private String userId;
 
@@ -82,6 +84,7 @@ public class MainScreenController {
 		progressIndicator.setVisible(false);
 		newOrderButton.setDisable(true);
 		cancelOrderButton.setDisable(true);
+		statusLabel.setVisible(false);
 		
 		setColumns();
 		getUserIdAndSetOrders();
@@ -112,47 +115,50 @@ public class MainScreenController {
 	public void cancelOrderButtonClicked(ActionEvent event) throws Exception {
 		PresentOrder order = futureOrdersTable.getSelectionModel().getSelectedItem();
 		if (order == null){
-			System.out.println("you didnt select...");
+			statusLabel.setText("No selection");
+			statusLabel.setVisible(true);
 			return;
 		}
-		if (order.getStartTime().getTime() - new Date().getTime() <	4 * 60 * 60 * 1000){
-			System.out.println("Sorry, you can't cancel a booking less than 4 hours before it starts");
+		if (order.getStartTime().getTime() - new Date().getTime() <=	4 * 60 * 60 * 1000){
+			statusLabel.setText("You can't cancel a booking less than 4 hours before it starts");
+			statusLabel.setVisible(true);
 			return;
 		}
+		
 	}
 	
 	private void setColumns(){
 		
 		parkingSlotIdColumnFutureTable = new TableColumn<>("slot id");
-		parkingSlotIdColumnFutureTable.setPrefWidth(180);
+		parkingSlotIdColumnFutureTable.setPrefWidth(195);
 		parkingSlotIdColumnFutureTable.setCellValueFactory(new PropertyValueFactory<>("parkingSlotId"));
 		
 		startTimeColumnFutureTable = new TableColumn<>("start time");
-		startTimeColumnFutureTable.setPrefWidth(180);
+		startTimeColumnFutureTable.setPrefWidth(195);
 		startTimeColumnFutureTable.setCellValueFactory(new PropertyValueFactory<>("startTime"));
 		
 		finishTimeColumnFutureTable = new TableColumn<>("finish time");
-		finishTimeColumnFutureTable.setPrefWidth(180);
+		finishTimeColumnFutureTable.setPrefWidth(195);
 		finishTimeColumnFutureTable.setCellValueFactory(new PropertyValueFactory<>("finishTime"));
 		
 		priceColumnFutureTable = new TableColumn<>("price");
-		priceColumnFutureTable.setPrefWidth(180);
+		priceColumnFutureTable.setPrefWidth(195);
 		priceColumnFutureTable.setCellValueFactory(new PropertyValueFactory<>("price"));
 		
 		parkingSlotIdColumnPastTable = new TableColumn<>("slot id");
-		parkingSlotIdColumnPastTable.setPrefWidth(180);
+		parkingSlotIdColumnPastTable.setPrefWidth(195);
 		parkingSlotIdColumnPastTable.setCellValueFactory(new PropertyValueFactory<>("parkingSlotId"));
 		
 		startTimeColumnPastTable = new TableColumn<>("start time");
-		startTimeColumnPastTable.setPrefWidth(180);
+		startTimeColumnPastTable.setPrefWidth(195);
 		startTimeColumnPastTable.setCellValueFactory(new PropertyValueFactory<>("startTime"));
 		
 		finishTimeColumnPastTable = new TableColumn<>("finish time");
-		finishTimeColumnPastTable.setPrefWidth(180);
+		finishTimeColumnPastTable.setPrefWidth(195);
 		finishTimeColumnPastTable.setCellValueFactory(new PropertyValueFactory<>("finishTime"));
 		
 		priceColumnPastTable = new TableColumn<>("price");
-		priceColumnPastTable.setPrefWidth(180);
+		priceColumnPastTable.setPrefWidth(195);
 		priceColumnPastTable.setCellValueFactory(new PropertyValueFactory<>("price"));
 			
 		futureOrdersTable.getColumns().setAll(parkingSlotIdColumnFutureTable, startTimeColumnFutureTable, finishTimeColumnFutureTable, priceColumnFutureTable);
