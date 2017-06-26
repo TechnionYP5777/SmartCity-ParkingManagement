@@ -18,7 +18,7 @@
          <children>
             <HBox alignment="BOTTOM_CENTER" prefHeight="125.0" prefWidth="400.0" style="-fx-background-color: #607d8b;">
                <children>
-                  <Label text="Welcome" textFill="WHITE">
+                  <Label fx:id="welcomeLabel" text="Welcome" textFill="WHITE">
                      <font>
                         <Font size="50.0" />
                      </font>

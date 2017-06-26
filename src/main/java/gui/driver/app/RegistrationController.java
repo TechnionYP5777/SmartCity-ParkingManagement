@@ -63,6 +63,11 @@ public class RegistrationController {
 	@FXML
     protected void initialize(){
 		progressIndicator.setVisible(false);
+		idField.setFocusTraversable(false);
+		emailField.setFocusTraversable(false);
+		carNumField.setFocusTraversable(false);
+		pwField.setFocusTraversable(false);
+		confirmPwField.setFocusTraversable(false);
 	}
 	
 	@FXML

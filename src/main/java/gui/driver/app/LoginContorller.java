@@ -49,11 +49,15 @@ public class LoginContorller {
 	private Button createNewButton;
 	@FXML
 	private ProgressIndicator progressIndicator;
-	
+	@FXML
+	private Label welcomeLabel;
 	
 	@FXML
     protected void initialize(){
 		progressIndicator.setVisible(false);
+		idField.setFocusTraversable(false);
+		pwField.setFocusTraversable(false);
+		forgotPwHyperLink.setFocusTraversable(false);
 	}
 	
 	@FXML

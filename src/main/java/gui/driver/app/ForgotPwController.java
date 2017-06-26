@@ -43,6 +43,8 @@ public class ForgotPwController {
     protected void initialize(){
 		progressIndicator.setVisible(false);
 		statusLabel.setVisible(false);
+		idField.setFocusTraversable(false);
+		emailField.setFocusTraversable(false);
 	}
 	@FXML
 	public void backButtonClicked(ActionEvent event) throws Exception {
