@@ -83,7 +83,7 @@ public class RatingScreenController {
 		ratingLabel.setVisible(false);
 		statusLabel.setVisible(false);
 		progressIndicator.setVisible(false);
-		rating = -1;
+		rating = -2;
 		setImages();
 		getUserIdAndOrder();
 	}
@@ -120,26 +120,25 @@ public class RatingScreenController {
 	@FXML
 	public void notNowButtonClicked(ActionEvent event) throws Exception{
 		
-			Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-			window.setTitle("Main Screen");
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainScreen.fxml"));     
-			Parent root = (Parent)fxmlLoader.load();          
-			MainScreenController controller = fxmlLoader.<MainScreenController>getController();
-			controller.setUserId(userId);
-			window.setScene(new Scene(root, ScreenSizesConstants.MainScreenWidth, ScreenSizesConstants.MainScreenHeight));		
-			window.show();
+			rating = -1;
+			submitButtonClicked(event);
 	}
 	
 	@FXML
 	public void submitButtonClicked(ActionEvent event) throws Exception{
 		
-		if (rating == -1){
+		if (rating == -2){
 			statusLabel.setText("Click on the stars in order to choose the rating");
 			statusLabel.setVisible(true);
 			return;
 		}
 		
-		statusLabel.setText("Thanks! sending your rating... you will be redirected to main screen");
+		if (rating == -1){
+			statusLabel.setText("Thanks anyway! redirecting to main screen...");
+		} else {
+			statusLabel.setText("Thanks! sending your rating... you will be redirected to main screen");
+		}
+		
 		statusLabel.setVisible(true);
 		Task<Void> rateTask = new Task<Void>() {
             @Override

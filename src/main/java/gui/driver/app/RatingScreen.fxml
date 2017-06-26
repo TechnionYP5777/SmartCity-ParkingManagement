@@ -56,7 +56,7 @@
             </Label>
             <HBox alignment="CENTER_RIGHT" prefHeight="85.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="notNowButton" mnemonicParsing="false" onAction="#notNowButtonClicked" text="Not Now">
+                  <Button fx:id="notNowButton" mnemonicParsing="false" onAction="#notNowButtonClicked" text="No Thanks">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
