@@ -159,18 +159,7 @@ public class ChooseParkingSlotController {
 		        	int diff = quartersCounter - (arrivalDateTime.get(Calendar.HOUR_OF_DAY)*4 + arrivalDateTime.get(Calendar.MINUTE)/15);
 		        	request = new ParkingSlotRequest(point, arrivalDateTime.getTime(), diff, d);
 		        	
-		        	return request.getAllAvailableParkingSlot(new Billing() {
-						@Override
-						public double calculateCost(StickersColor rank, double distance) {
-							// TODO Auto-generated method stub
-							return 0;
-						}
-						@Override
-						public double calculateCostBySlot(ParkingSlot slot, ParseGeoPoint point) {
-							// TODO Auto-generated method stub
-							return 0;
-						}
-					});
+		        	return request.getAllAvailableParkingSlot(new BasicBilling());
 
 		        }
 	        };
@@ -232,18 +221,18 @@ public class ChooseParkingSlotController {
 		if (request == null){
 			return;
 		}
-		
-		if (slotsTable.getSelectionModel().getSelectedItem() == null){
+		PresentParkingSlot slot = slotsTable.getSelectionModel().getSelectedItem();
+		if (slot == null){
 			return;
 		} else {
 			
-			String parkingSlotId = slotsTable.getSelectionModel().getSelectedItem().getName();
+			String parkingSlotId = slot.getName();
 			
 			Task<Boolean> orderTask = new Task<Boolean>() {
 	            @Override
 	            protected Boolean call() throws Exception {	
 	            	
-	            	return request.orderParkingSlot(userId, parkingSlotId, 20);
+	            	return request.orderParkingSlot(userId, parkingSlotId, slot.getPrice());
 	            	
 		        }
 	        };
