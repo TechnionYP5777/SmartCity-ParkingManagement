@@ -30,6 +30,11 @@ import Exceptions.LoginException;
 
 public class LoginContorller {
 	
+	/**
+	 * @author dshames
+	 *  This class contains the controller of the login screen
+	 */
+	
 	@FXML
 	private TextField idField;
 	@FXML
@@ -114,10 +119,7 @@ public class LoginContorller {
    		        	Task<PresentOrder> latestOrderTask = new Task<PresentOrder>() {
 	   		            @Override
 	   		            protected PresentOrder call() throws Exception {	
-	   		            	System.out.println(result.substring(8));
-	   		            	System.out.println(new Date().toString());
 			   	   			List<PresentOrder> pastOrders = OrderReviewHandeling.getUserLastOrder(result.substring(8), new Date(), d);
-			   	   			System.out.println(pastOrders.toString());
 			   	   			if (pastOrders.size() == 0) {
 			   	   				return null;
 			   	   			}

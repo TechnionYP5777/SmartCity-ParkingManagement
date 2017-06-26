@@ -25,6 +25,11 @@ import Exceptions.LoginException;
 
 public class RegistrationController {
 	
+	/**
+	 * @author dshames
+	 *  This class contains the controller of the registration screen
+	 */
+	
 	@FXML
 	private Button backButton;
 	@FXML

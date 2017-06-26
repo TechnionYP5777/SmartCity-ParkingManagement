@@ -43,6 +43,11 @@ import java.time.*;
 
 public class ChooseParkingSlotController {
 
+	/**
+	 * @author dshames
+	 *  This class contains the controller of the choose parking slot screen
+	 */
+	
 	public ObservableList<PresentParkingSlot> getSlots(List<PresentParkingSlot> slots){
 		
 		ObservableList<PresentParkingSlot> returnSlots = FXCollections.observableArrayList();

@@ -17,6 +17,11 @@ import javafx.scene.Parent;
 
 public class Main extends Application {
 	
+	/**
+	 * @author dshames
+	 *  This is the main of our program
+	 */
+	
 	Stage window;
 	
 	public static void main(String[] args) {

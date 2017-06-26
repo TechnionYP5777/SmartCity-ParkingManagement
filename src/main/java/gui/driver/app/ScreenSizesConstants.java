@@ -1,6 +1,7 @@
 package gui.driver.app;
 
 public class ScreenSizesConstants {
+	
 	/**
 	 * @author dshames
 	 * @since 25/6/2017

@@ -42,6 +42,11 @@ import java.time.*;
 
 public class RatingScreenController {
 	
+	/**
+	 * @author dshames
+	 *  This class contains the controller of the rating screen
+	 */
+	
 	@FXML
 	private Label headerLabel;
 	@FXML

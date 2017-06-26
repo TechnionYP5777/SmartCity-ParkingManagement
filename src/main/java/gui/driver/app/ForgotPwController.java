@@ -21,6 +21,11 @@ import javafx.scene.control.ProgressIndicator;
 
 public class ForgotPwController {
 	
+	/**
+	 * @author dshames
+	 *  This class contains the controller of the forgot my password screen
+	 */
+	
 	@FXML
 	private Button backButton;
 	@FXML

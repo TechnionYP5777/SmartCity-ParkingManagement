@@ -124,7 +124,41 @@ public class MainScreenController {
 			statusLabel.setVisible(true);
 			return;
 		}
-		
+		cancelOrderButton.setDisable(true);
+		Task<Void> cancelOrderTask = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {	
+            	DatabaseManager d = DatabaseManagerImpl.getInstance();
+            	UserOrderManaging.cancleOrder(order, d);
+            	return null;
+	        }
+        };
+       new Thread(cancelOrderTask).start();
+       
+       progressIndicator.progressProperty().bind(cancelOrderTask.progressProperty());
+       progressIndicator.setVisible(true); 
+       
+       cancelOrderTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+           @Override
+           public void handle(WorkerStateEvent workerStateEvent) {
+        	   progressIndicator.setVisible(false);	   
+        	   
+        	   int index = 0;
+        	   ObservableList<PresentOrder> updatedFutureOrders = futureOrdersTable.getItems();
+        	   for (PresentOrder p: updatedFutureOrders){
+        		   if (p.getOrderId().equals(order.getOrderId())){
+        			   updatedFutureOrders.remove(index);
+        			   break;
+        		   }
+        		   index++;
+        	   }
+        	   //futureOrdersTable.getItems().clear();
+        	   //futureOrdersTable.setItems(updatedFutureOrders);
+        	   cancelOrderButton.setDisable(false);
+        	
+           }
+       });
+       
 	}
 	
 	private void setColumns(){
@@ -223,10 +257,7 @@ public class MainScreenController {
                	ObservableList<PresentOrder> futureOrders = FXCollections.observableArrayList();
             	ObservableList<PresentOrder> pastOrders = FXCollections.observableArrayList();
             	
-            	for (PresentOrder order: result){
-            		
-            		System.out.println(order.getFinishTime().toString());
-            		
+            	for (PresentOrder order: result){            		
             		if (order.getStartTime().after(new Date())){
             			futureOrders.add(order);
             		} else {
