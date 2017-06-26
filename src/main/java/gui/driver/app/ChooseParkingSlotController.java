@@ -292,9 +292,10 @@ public class ChooseParkingSlotController {
 		   				location = "32.779119, 35.019112";
 		   			}
 	       			//engine.executeScript("addDestinationMarker(" + location + ");");
+	       			engine.executeScript("firstRefresh();");
 	       			
 	       			if (result.size() != 0){
-	       				slotsTable.getSelectionModel().selectFirst();
+	       				//slotsTable.getSelectionModel().selectFirst();
 	       			}
 	       			//TODO: if there are no slots, notify the user
 	           }

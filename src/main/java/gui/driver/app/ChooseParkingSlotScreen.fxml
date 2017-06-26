@@ -5,10 +5,11 @@
 <?import com.jfoenix.controls.JFXTimePicker?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -19,13 +20,21 @@
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <VBox prefHeight="280.0" prefWidth="100.0">
+            <VBox prefWidth="100.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="80.0" prefWidth="200.0">
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="35.0" prefWidth="215.0" text="Back to main screen">
+                     <VBox.margin>
+                        <Insets left="15.0" top="15.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <HBox alignment="CENTER" prefHeight="70.0" prefWidth="200.0">
                      <children>
                         <Label text="Order Parking Slot">
                            <font>
-                              <Font name="System Bold" size="36.0" />
+                              <Font size="48.0" />
                            </font>
                            <HBox.margin>
                               <Insets />
@@ -46,11 +55,7 @@
                         <Insets top="15.0" />
                      </VBox.margin>
                      <children>
-                        <JFXRadioButton fx:id="studentHouseRadioButton" text="Student House">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="destinations" />
-                           </toggleGroup>
-                        </JFXRadioButton>
+                         <JFXRadioButton fx:id="studentHouseRadioButton" text="Student House" toggleGroup="$destinations" />
                         <JFXRadioButton fx:id="ulmanRadioButton" text="Ulman" toggleGroup="$destinations" />
                         <JFXRadioButton fx:id="taubRadioButton" text="Taub" toggleGroup="$destinations" />
                         <JFXRadioButton fx:id="sportsCenterRadioButton" text="Sports Center" toggleGroup="$destinations" />
@@ -72,26 +77,34 @@
                         <JFXDatePicker fx:id="datePicker" promptText="At date" />
                         <JFXTimePicker fx:id="arrivalTimePicker" promptText="Arrival time" />
                         <JFXTimePicker fx:id="departureTimePicker" promptText="Departure time" />
+                        <Button fx:id="continueButton" mnemonicParsing="false" onAction="#continueButtonClicked" prefHeight="28.0" prefWidth="215.0" text="Update map">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
                      </children>
                   </HBox>
-                  <HBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="200.0">
+                  <VBox alignment="TOP_CENTER" prefHeight="70.0" prefWidth="100.0">
                      <children>
-                        <ProgressIndicator fx:id="progressIndicator" progress="0.0" />
+                        <ProgressIndicator fx:id="progressIndicator" prefHeight="40.0" progress="0.0">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </ProgressIndicator>
+                        <Label text="Label" textFill="RED">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Label>
                      </children>
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin>
-                  </HBox>
+                  </VBox>
                </children>
             </VBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="29.0" prefWidth="215.0" text="Back to main screen" />
-                  <Button fx:id="continueButton" mnemonicParsing="false" onAction="#continueButtonClicked" prefHeight="29.0" prefWidth="215.0" text="Show parking slots on screen">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Button>
                   <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refreshButtonClicked" prefHeight="29.0" prefWidth="215.0" text="Refresh map">
                      <HBox.margin>
                         <Insets left="10.0" />
@@ -110,7 +123,7 @@
                   
                </children>
             </HBox>
-            <VBox prefHeight="600.0" prefWidth="100.0">
+            <VBox prefHeight="500.0" prefWidth="100.0">
                <children>
                   <Label fx:id="chooseParkingSlotLabel" text="3.Choose Parking Slot">
                      <font>
@@ -120,11 +133,11 @@
                         <Insets left="15.0" />
                      </VBox.margin>
                   </Label>
-                  <HBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="1250.0">
+                  <HBox alignment="TOP_CENTER" prefHeight="450.0" prefWidth="1250.0">
                      <children>
                         <HBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="520.0" prefWidth="400.0">
                            <children>
-                              <TableView fx:id="slotsTable" maxHeight="-Infinity" prefHeight="520.0" prefWidth="400.0">
+                              <TableView fx:id="slotsTable" maxHeight="-Infinity" prefHeight="430.0" prefWidth="400.0">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
@@ -134,9 +147,9 @@
                               <Insets />
                            </HBox.margin>
                         </HBox>
-                        <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0">
+                        <VBox alignment="TOP_CENTER" prefHeight="450.0" prefWidth="800.0">
                            <children>
-                              <WebView fx:id="myWebView" prefHeight="520.0" prefWidth="0.0" />    
+                              <WebView fx:id="myWebView" prefHeight="430.0" prefWidth="0.0" />    
                            </children>
                         </VBox>
                      </children>

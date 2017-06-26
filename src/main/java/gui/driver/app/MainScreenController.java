@@ -152,10 +152,7 @@ public class MainScreenController {
         		   }
         		   index++;
         	   }
-        	   //futureOrdersTable.getItems().clear();
-        	   //futureOrdersTable.setItems(updatedFutureOrders);
         	   cancelOrderButton.setDisable(false);
-        	
            }
        });
        
@@ -220,7 +217,6 @@ public class MainScreenController {
            @Override
            public void handle(WorkerStateEvent workerStateEvent) {
         	   progressIndicator.setVisible(false);
-        	   newOrderButton.setDisable(false);
         	   setOrders();
            }
        });
@@ -266,6 +262,7 @@ public class MainScreenController {
             	}
             	futureOrdersTable.setItems(futureOrders);
             	pastOrdersTable.setItems(pastOrders);
+         	   	newOrderButton.setDisable(false);
             	cancelOrderButton.setDisable(false);
                 progressIndicator.setVisible(false); 
            }
