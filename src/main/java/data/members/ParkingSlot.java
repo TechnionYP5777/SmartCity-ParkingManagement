@@ -325,7 +325,7 @@ public class ParkingSlot extends dbMember {
 		dbm.update(objectClass, keys, newFields);
 	}
 	
-	public void setRating(final int newRating) throws ParseException {
+	public void setRating(final double newRating) throws ParseException {
 		LOGGER.info("Set parking slot rating");
 		if (newRating < 0)
 			throw new IllegalArgumentException("end time can not be empty!");

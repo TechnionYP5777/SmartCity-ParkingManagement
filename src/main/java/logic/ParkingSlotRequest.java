@@ -135,7 +135,7 @@ public class ParkingSlotRequest {
 		return returnList;
 	}
 
-	public Boolean orderParkingSlot(String driverID, String slotID,int price) throws ParseException, InterruptedException{
+	public Boolean orderParkingSlot(String driverID, String slotID,double price) throws ParseException, InterruptedException{
 		List<ParseObject> tempListOrders = manager.getAllObjects("Order", 600);
 		if(!isParkingValid(slotID, tempListOrders)) return new Boolean(false);
 		
