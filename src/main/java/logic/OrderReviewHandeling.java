@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.parse4j.ParseException;
@@ -60,14 +61,27 @@ public class OrderReviewHandeling {
 	}
 	
 	public static void giveReviewToParkingSlot(PresentOrder order, int review,DatabaseManager db) throws ParseException{
-		Map<String,Object> values = new HashMap<>();
-		values.put("name",order.getParkingSlotId());
-		ParkingSlot p = new ParkingSlot(order.getParkingSlotId(), db);
-		p.setRating((p.getRating()*p.getNumOfVoters()+review)/(p.getNumOfVoters()+1));
-		p.setNumOfVoters(p.getNumOfVoters()+1);
+		if(review == -1){
+			randomSleep();
+			Map<String,Object> values = new HashMap<>();
+			values.put("name",order.getParkingSlotId());
+			ParkingSlot p = new ParkingSlot(order.getParkingSlotId(), db);
+			p.setRating((p.getRating()*p.getNumOfVoters()+review)/(p.getNumOfVoters()+1));
+			p.setNumOfVoters(p.getNumOfVoters()+1);
+		}
 		Order o = new Order(order.getOrderId(),db);
 		o.setReview();
 	}
 	
+	private static void randomSleep(){
+		Random rand = new Random();
+		int sleepTime = rand.nextInt(2);
+		try {
+			Thread.sleep(500*(sleepTime+1));
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 }
