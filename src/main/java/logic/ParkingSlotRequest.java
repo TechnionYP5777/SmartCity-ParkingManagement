@@ -13,6 +13,7 @@ import org.parse4j.ParseObject;
 
 import data.management.DatabaseManager;
 import data.members.StickersColor;
+import util.Distance;
 
 
 /**
@@ -85,26 +86,6 @@ public class ParkingSlotRequest {
 		return validParking;
 	}
 	
-	private static double distance(ParseGeoPoint p1, ParseGeoPoint p2) {
-
-		double lat1 = p1.getLatitude();
-		double lat2 = p2.getLatitude();
-		double lon1 = p1.getLongitude();
-		double lon2 = p2.getLongitude();
-	    final int R = 6371; // Radius of the earth
-
-	    double latDistance = Math.toRadians(lat2 - lat1);
-	    double lonDistance = Math.toRadians(lon2 - lon1);
-
-	    double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
-	            + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
-	            * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
-	    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-	    double distance = R * c * 1000; // convert to meters
-
-	    return distance;
-	}
-	
 	/**
 	 * Negative value represent no restriction
 	 * @param maxDistance
@@ -125,8 +106,8 @@ public class ParkingSlotRequest {
 				double ratting = p.getDouble("rating");
 				returnList.add(
 						new PresentParkingSlot(parkingName, location.getLatitude(),location.getLongitude(),
-								costCalculator.calculateCost(rank, distance(location,this.destenation)),
-								distance(p.getParseGeoPoint("location"),this.destenation),ratting)
+								costCalculator.calculateCost(rank, Distance.CalcLineDistance(location,this.destenation)),
+								Distance.CalcLineDistance(p.getParseGeoPoint("location"),this.destenation),ratting)
 						);
 			}
 

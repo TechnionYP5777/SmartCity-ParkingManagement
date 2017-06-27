@@ -19,6 +19,7 @@ import data.members.MapLocation;
 import data.members.ParkingSlot;
 import data.members.ParkingSlotStatus;
 import data.members.StickersColor;
+import util.Distance;
 import util.Log;
 
 public class BillingTest {
@@ -65,7 +66,7 @@ public class BillingTest {
 	@Test
 	public void BasicBillingBySlot(){
 		ParseGeoPoint gp = new ParseGeoPoint(32.123, 32.123), gp1 = new ParseGeoPoint(12.345, 12.345);
-		double d = BasicBilling.Distance(gp,gp1);
+		double d = Distance.CalcLineDistance(gp,gp1);
 		ParkingSlot p;
 		try {
 			p = new ParkingSlot("testParkingSlot2",dbm);
