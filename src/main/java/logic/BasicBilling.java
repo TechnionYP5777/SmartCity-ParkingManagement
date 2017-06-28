@@ -8,9 +8,11 @@ import util.Distance;
 
 public class BasicBilling  implements Billing{
 
+	private int pricingIndex = 500;
+	
 	@Override
 	public double calculateCost(StickersColor rank, double distance) {
-		return 10 * rank.ordinal() + 20-distance;
+		return pricingIndex*rank.ordinal() - distance;
 	}
 	
 	@Override
