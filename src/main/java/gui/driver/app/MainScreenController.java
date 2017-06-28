@@ -172,7 +172,7 @@ public class MainScreenController {
 		finishTimeColumnFutureTable.setPrefWidth(195);
 		finishTimeColumnFutureTable.setCellValueFactory(new PropertyValueFactory<>("finishTime"));
 		
-		priceColumnFutureTable = new TableColumn<>("price");
+		priceColumnFutureTable = new TableColumn<>("price(NIS)");
 		priceColumnFutureTable.setPrefWidth(195);
 		priceColumnFutureTable.setCellValueFactory(new PropertyValueFactory<>("price"));
 		
@@ -188,7 +188,7 @@ public class MainScreenController {
 		finishTimeColumnPastTable.setPrefWidth(195);
 		finishTimeColumnPastTable.setCellValueFactory(new PropertyValueFactory<>("finishTime"));
 		
-		priceColumnPastTable = new TableColumn<>("price");
+		priceColumnPastTable = new TableColumn<>("price(NIS)");
 		priceColumnPastTable.setPrefWidth(195);
 		priceColumnPastTable.setCellValueFactory(new PropertyValueFactory<>("price"));
 			
@@ -253,7 +253,11 @@ public class MainScreenController {
                	ObservableList<PresentOrder> futureOrders = FXCollections.observableArrayList();
             	ObservableList<PresentOrder> pastOrders = FXCollections.observableArrayList();
             	
-            	for (PresentOrder order: result){            		
+            	for (PresentOrder order: result){     
+            		
+       				double price = order.getPrice();
+       				order.setPrice(Math.round(price * 100.0) / 100.0);
+            		
             		if (order.getStartTime().after(new Date())){
             			futureOrders.add(order);
             		} else {

@@ -161,7 +161,7 @@ public class ChooseParkingSlotController {
 		        		quartersCounter = departureTime.getHour()*4 + departureMinutes/15;
 		        	}
 		        	int diff = quartersCounter - (arrivalDateTime.get(Calendar.HOUR_OF_DAY)*4 + arrivalDateTime.get(Calendar.MINUTE)/15);
-		        	
+		        	System.out.println(arrivalDateTime.getTime().toString());
 		        	request = new ParkingSlotRequest(point, arrivalDateTime.getTime(), diff, d);
 		        	return request.getAllAvailableParkingSlot(new BasicBilling());
 
@@ -180,6 +180,12 @@ public class ChooseParkingSlotController {
 	               	slotsTable.setItems(getSlots(result));
 	       			slotsTable.getColumns().setAll(idColumn, priceColumn, distanceColumn, ratingColumn);
 	       			for (PresentParkingSlot slot : result){
+	       				double distance = slot.getDistance();
+	       				slot.setDistance(Math.round(distance * 100.0) / 100.0);
+	       				double price = slot.getPrice();
+	       				slot.setPrice(Math.round(price * 100.0) / 100.0);
+	       				double rating = slot.getRating();
+	       				slot.setRating(Math.round(rating * 100.0) / 100.0);
 	       				engine.executeScript("addMarker(" + slot.getLat() + ", " + slot.getLon() + ", '" + slot.getName() + "');");
 	       			}
 	       			progressIndicator.setVisible(false);
@@ -326,19 +332,19 @@ public class ChooseParkingSlotController {
 		});
 		
 		idColumn = new TableColumn<>("id");
-		idColumn.setPrefWidth(130);
+		idColumn.setPrefWidth(100);
 		idColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 		
-		priceColumn = new TableColumn<>("price");
-		priceColumn.setPrefWidth(90);
+		priceColumn = new TableColumn<>("price(NIS)");
+		priceColumn.setPrefWidth(100);
 		priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 		
-		distanceColumn = new TableColumn<>("distance");
-		distanceColumn.setPrefWidth(90);
+		distanceColumn = new TableColumn<>("distance(m)");
+		distanceColumn.setPrefWidth(100);
 		distanceColumn.setCellValueFactory(new PropertyValueFactory<>("distance"));
 		
 		ratingColumn = new TableColumn<>("rating");
-		ratingColumn.setPrefWidth(90);
+		ratingColumn.setPrefWidth(100);
 		ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
 		
 		

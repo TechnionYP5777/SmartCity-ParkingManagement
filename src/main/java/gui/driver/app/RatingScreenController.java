@@ -126,7 +126,7 @@ public class RatingScreenController {
 	
 	@FXML
 	public void submitButtonClicked(ActionEvent event) throws Exception{
-		
+		System.out.println(rating);
 		if (rating == -2){
 			statusLabel.setText("Click on the stars in order to choose the rating");
 			statusLabel.setVisible(true);
