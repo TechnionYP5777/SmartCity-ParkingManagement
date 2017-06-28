@@ -66,10 +66,8 @@ public class OrderReviewHandeling {
 			Map<String,Object> values = new HashMap<>();
 			values.put("name",order.getParkingSlotId());
 			ParkingSlot p = new ParkingSlot(order.getParkingSlotId(), db);
-			p.setRating((p.getRating()*p.getNumOfVoters()+review)/(p.getNumOfVoters()+1));
-			Thread.sleep(3000);
+			p.setRating(p.getRating()+review);
 			p.setNumOfVoters(p.getNumOfVoters()+1);
-			Thread.sleep(3000);
 		}
 		Order o = new Order(order.getOrderId(),db);
 		o.setReview();
