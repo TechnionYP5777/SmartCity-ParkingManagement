@@ -8,10 +8,8 @@
 
 ![SmartCity logo](https://s24.postimg.org/j36nmvh8l/smart_parking.png) 
 
-Smart Parking system is a dynamic management system of parking slots within the Technion. On every parking slot there will be placed a detection sensor that will update in real time the parking slot status.
-Note that a parking slot's status is defined as a tuple of : color , location and taken/not taken.
-
-The system has two type of users : car owners and the security department of the Technion.
+Smart Parking system is a dynamic management system of pricing for parking slots within the Technion. Every parking has a ranking, indicating the 'value' of the parking, and a ratting, indicating the 'value' the users find in this particular parking slot.
+The pricing system is dynamic, and can be adjusyrd accourding to the need. For example, one way to price the slots, is to give all of them the same, constant price. Another way, is to calculate the price accourding to the distance from the destination, with respect to the constant rank. A different way is to base the pricing on the user's ratting.
 
 Given the location and the customer details, the system will provide location of the nearest available parking slot and will update in real time in case of nearer parking slot became available. The system will present a map of the Technion with mapping of the parking slots and navigates the customer toward the chosen parking slot, in addition there will be a possibility to communicate with other car owners.
 
