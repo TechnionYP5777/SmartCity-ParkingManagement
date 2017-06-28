@@ -71,6 +71,12 @@
 			map.setZoom(zoom);
 		}, 1000);
 	}
+	function reloadAux(){
+		for (var key in markers){
+			markers[key].setMap(null);
+			delete markers[key]; 
+		}
+	}
 
 
 </script>
