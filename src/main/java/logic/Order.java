@@ -42,7 +42,7 @@ public class Order {
 	private int hoursAmount;
 	
 	// order's price
-	private int price;
+	private double price;
 	
 	private final String objectClass = "Order";
 	
@@ -115,7 +115,7 @@ public class Order {
 		this.date= returnV.get("date")+"";
 		this.hour= (int)returnV.get("hour");
 		this.hoursAmount= (int) returnV.get("hoursAmount");
-		this.price= (int) returnV.get("price");
+		this.price= (double) returnV.get("price");
 		this.id=id;
 	}
 

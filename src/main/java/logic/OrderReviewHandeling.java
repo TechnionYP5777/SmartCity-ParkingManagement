@@ -60,14 +60,16 @@ public class OrderReviewHandeling {
 		return ordersList;
 	}
 	
-	public static void giveReviewToParkingSlot(PresentOrder order, int review,DatabaseManager db) throws ParseException{
-		if(review == -1){
+	public static void giveReviewToParkingSlot(PresentOrder order, int review,DatabaseManager db) throws ParseException, InterruptedException{
+		if(review != -1){
 			randomSleep();
 			Map<String,Object> values = new HashMap<>();
 			values.put("name",order.getParkingSlotId());
 			ParkingSlot p = new ParkingSlot(order.getParkingSlotId(), db);
 			p.setRating((p.getRating()*p.getNumOfVoters()+review)/(p.getNumOfVoters()+1));
+			Thread.sleep(3000);
 			p.setNumOfVoters(p.getNumOfVoters()+1);
+			Thread.sleep(3000);
 		}
 		Order o = new Order(order.getOrderId(),db);
 		o.setReview();
