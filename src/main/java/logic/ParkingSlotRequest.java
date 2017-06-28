@@ -104,10 +104,11 @@ public class ParkingSlotRequest {
 				ParseGeoPoint location = p.getParseGeoPoint("location");
 				StickersColor rank = StickersColor.values()[p.getInt("rank")];
 				double ratting = p.getDouble("rating");
+				int voters = p.getInt("numOfVoters");
 				returnList.add(
 						new PresentParkingSlot(parkingName, location.getLatitude(),location.getLongitude(),
 								costCalculator.calculateCost(rank, Distance.AirDistance(location,this.destenation)),
-								Distance.AirDistance(p.getParseGeoPoint("location"),this.destenation),ratting)
+								Distance.AirDistance(p.getParseGeoPoint("location"),this.destenation),ratting/voters)
 						);
 			}
 

@@ -325,18 +325,19 @@ public class ParkingSlot extends dbMember {
 		dbm.update(objectClass, keys, newFields);
 	}
 	
-	public void setRating(final double newRating) throws ParseException {
+	public void setRating(final int newRating) throws ParseException {
 		LOGGER.info("Set parking slot rating");
 		if (newRating < 0)
 			throw new IllegalArgumentException("end time can not be empty!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
+		this.rating = newRating;
 		newFields.put("rating", newRating);
 		newFields.put("numOfVoters", this.numOfVoters);
 		newFields.put("rank", this.rank.ordinal());
 		newFields.put("defaultColor", this.defaultColor.ordinal());
 		newFields.put("status", this.status.ordinal());
-		newFields.put("endTime", endTime);
+		newFields.put("endTime", this.endTime);
 		newFields.put("area", this.area.ordinal());
 		newFields.put("location", new ParseGeoPoint(this.location.getLat(), this.location.getLon()));
 		
@@ -349,7 +350,7 @@ public class ParkingSlot extends dbMember {
 		LOGGER.info("Set parking slot rating");
 		
 		if (newNumOfVoters < 0)
-			throw new IllegalArgumentException("end time can not be empty!");
+			throw new IllegalArgumentException("num of voters can not be negative!");
 		Map<String, Object> newFields = new HashMap<String, Object>();
 		newFields.put("name", this.name);
 		newFields.put("rating", this.rating);
