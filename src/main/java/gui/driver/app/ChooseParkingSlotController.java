@@ -100,6 +100,7 @@ public class ChooseParkingSlotController {
 	private String userId;
 	private int errorType;
 	private boolean wasShown;
+	private URL url;
 	
 	
 	@FXML
@@ -116,39 +117,42 @@ public class ChooseParkingSlotController {
 	@FXML
 	public void continueButtonClicked(ActionEvent event) throws Exception{
 			
+		ParseGeoPoint point = getSelectedDestination();
+		
+    	LocalDate date = datePicker.getValue();
+    	LocalTime arrivalTime = arrivalTimePicker.getValue();
+    	LocalTime departureTime = departureTimePicker.getValue();
+    	
+    	if (date == null || arrivalTime == null || departureTime == null){
+    		statusLabel.setText("You have to fill all the date and time fields");
+    		statusLabel.setVisible(true);
+    		return;
+    	}
+    			        	
+    	Calendar arrivalDateTime = Calendar.getInstance();
+    	arrivalDateTime.set(Calendar.YEAR, date.getYear());
+    	arrivalDateTime.set(Calendar.MONTH, date.getMonthValue()-1);
+    	arrivalDateTime.set(Calendar.DAY_OF_MONTH,date.getDayOfMonth());
+    	arrivalDateTime.set(Calendar.HOUR_OF_DAY, arrivalTime.getHour());
+    	arrivalDateTime.set(Calendar.MINUTE, roundMinutes(arrivalTime.getMinute(), false));
+    	arrivalDateTime.set(Calendar.SECOND, 0);
+
+    	if (!arrivalTime.isBefore(departureTime)){
+    		statusLabel.setText("Departure time must be after your arrival time");
+    		statusLabel.setVisible(true);
+    		return;
+    	}
+    	
+    	engine.executeScript("reloadAux();");
+    	slotsTable.getItems().clear();
+	
 	       Task<List<PresentParkingSlot>> slotsTask = new Task<List<PresentParkingSlot>>() {
 	            @Override
 	            protected List<PresentParkingSlot> call() throws Exception {
 	            	
-	            	// TODO: clean map!
 	            	
-		        	ParseGeoPoint point = getSelectedDestination();
-		        	DatabaseManager d = DatabaseManagerImpl.getInstance();
-		        	d.initialize();
-		        	
-		        	LocalDate date = datePicker.getValue();
-		        	LocalTime arrivalTime = arrivalTimePicker.getValue();
-		        	LocalTime departureTime = departureTimePicker.getValue();
-		        	
-		        	errorType = -1;
-		        	if (date == null || arrivalTime == null || departureTime == null){
-		        		errorType = 0;
-		        		return null;
-		        	}
-		        	
-		        	Calendar arrivalDateTime = Calendar.getInstance();
-		        	arrivalDateTime.set(Calendar.YEAR, date.getYear());
-		        	arrivalDateTime.set(Calendar.MONTH, date.getMonthValue()-1);
-		        	arrivalDateTime.set(Calendar.DAY_OF_MONTH,date.getDayOfMonth());
-		        	arrivalDateTime.set(Calendar.HOUR_OF_DAY, arrivalTime.getHour());
-		        	arrivalDateTime.set(Calendar.MINUTE, roundMinutes(arrivalTime.getMinute(), false));
-		        	arrivalDateTime.set(Calendar.SECOND, 0);
-
-		        	if (!arrivalTime.isBefore(departureTime)){
-		        		errorType = 1;
-		        		return null;
-		        	}
-		        	
+	            	DatabaseManager d = DatabaseManagerImpl.getInstance();
+	            	
 		        	int departureMinutes = roundMinutes(departureTime.getMinute(), true);
 		        	int quartersCounter = 0;
 		        	if (departureMinutes == 60){
@@ -157,12 +161,13 @@ public class ChooseParkingSlotController {
 		        		quartersCounter = departureTime.getHour()*4 + departureMinutes/15;
 		        	}
 		        	int diff = quartersCounter - (arrivalDateTime.get(Calendar.HOUR_OF_DAY)*4 + arrivalDateTime.get(Calendar.MINUTE)/15);
-		        	request = new ParkingSlotRequest(point, arrivalDateTime.getTime(), diff, d);
 		        	
+		        	request = new ParkingSlotRequest(point, arrivalDateTime.getTime(), diff, d);
 		        	return request.getAllAvailableParkingSlot(new BasicBilling());
 
 		        }
 	        };
+	        
 	       new Thread(slotsTask).start();
 	       
 	       progressIndicator.progressProperty().bind(slotsTask.progressProperty());
@@ -171,17 +176,6 @@ public class ChooseParkingSlotController {
 	           @Override
 	           public void handle(WorkerStateEvent workerStateEvent) {
 	               	List<PresentParkingSlot> result = slotsTask.getValue();   //here you get the return value of your service
-	               	if (result == null){
-	               		progressIndicator.setVisible(false);
-	               		
-	               		if (errorType == 0){
-	               			statusLabel.setText("You have to fill all the date and time fields");
-	               		} else if (errorType == 1){
-	               			statusLabel.setText("Departure time must be after your arrival time");
-	               		}
-	               		statusLabel.setVisible(true);
-	               		return;
-	               	}
 	               	statusLabel.setVisible(false);
 	               	slotsTable.setItems(getSlots(result));
 	       			slotsTable.getColumns().setAll(idColumn, priceColumn, distanceColumn, ratingColumn);
@@ -192,13 +186,16 @@ public class ChooseParkingSlotController {
 	       			engine.executeScript("firstRefresh();");
 	       			
 	       			if (result.size() != 0){
-	       				//slotsTable.getSelectionModel().selectFirst();
+	       				slotsTable.getSelectionModel().selectFirst();
+	       			} else {
+	       				statusLabel.setText("There are no available parking slots");
+	       	    		statusLabel.setVisible(true);
+	       	    		return;
 	       			}
-	       			//TODO: if there are no slots, notify the user
+	       			
 	           }
 	       });
 
-		
 	}
 	
 	@FXML
@@ -300,8 +297,7 @@ public class ChooseParkingSlotController {
 	}
 	@FXML
 	public void refreshButtonClicked(ActionEvent event) throws Exception{
-		engine.reload();
-		continueButtonClicked(event);
+
 	}
 	@FXML
 	public void showChartButtonClicked(ActionEvent event) throws Exception{
@@ -312,7 +308,7 @@ public class ChooseParkingSlotController {
 	private void setWebViewAndTable(){
 		
 		engine = myWebView.getEngine();
-		URL url = getClass().getResource("map.html");
+		url = getClass().getResource("map.html");
 		engine.load(url.toExternalForm());
 		
 
