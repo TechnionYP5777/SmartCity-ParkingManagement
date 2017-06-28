@@ -76,5 +76,15 @@ public class EmailNotification {
 		String messageText = "Hello, \n Your password is: " + pwd + " . \n Regards";
 		EmailNotification.Send(to, "Password reset", messageText);
 	}
+	
+	public static void ParkingSlotUnAvailable(String to) throws MessagingException{
+		String messageText = "Hello, \n The parking you choose is no longer available. \n Please select a different slot. \n Regards";
+		EmailNotification.Send(to, "Parking slot is no longer available", messageText);
+	}
+	
+	public static void CanceledOrder(String to, String slotName, String startDate) throws MessagingException{
+		String messageText = "Hello, \n Your order for parking " + slotName + " stating on " + startDate + " is canceled . \n Regards";
+		EmailNotification.Send(to, "Cancel order", messageText);
+	}
 
 }

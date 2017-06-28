@@ -75,4 +75,24 @@ public class EmailNotificationTest {
 			Assert.fail();
 		}
 	}
+	
+	@Test
+	public void SlotIsTakenTest(){
+		String to = "parkingmang@gmail.com";
+		try {
+			EmailNotification.ParkingSlotUnAvailable(to);
+		} catch (MessagingException e) {
+			Assert.fail();
+		}
+	}
+	
+	@Test
+	public void CanceledOrder(){
+		String to = "parkingmang@gmail.com";
+		try {
+			EmailNotification.CanceledOrder(to, "testPark", "testDate");
+		} catch (MessagingException e) {
+			Assert.fail();
+		}
+	}
 }
