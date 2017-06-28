@@ -10,6 +10,7 @@ import org.parse4j.ParseObject;
 import data.management.DatabaseManager;
 import data.management.DatabaseManagerImpl;
 import data.members.StickersColor;
+import util.Distance;
 
 /**
  * 
@@ -39,7 +40,7 @@ public class Graph {
 		Map<Double, Double> distanceVsPrice = new HashMap<Double,Double>();
 		for (ParseObject p : allParkingSlot) {
 			StickersColor rank = StickersColor.values()[p.getInt("rank")];
-			double distance = BasicBilling.Distance(p.getParseGeoPoint("location"), destenation);
+			double distance = Distance.AirDistance(p.getParseGeoPoint("location"), destenation);
 			if (!distanceVsPrice.containsKey(distance))
 				distanceVsPrice.put(distance, (new BasicBilling()).calculateCost(rank, distance));		
 		}
