@@ -197,7 +197,7 @@ public class orderTest {
 		String hourToString = cal.getTime().getHours()+":"+cal.getTime().getMinutes();
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		keys.put("id", id);
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour",cal.getTime().getHours()+":"+cal.getTime().getMinutes());
 		fields.put("driverId", "3333334");
@@ -231,7 +231,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		
 		keys.put("id", id);
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -265,7 +265,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		
 		keys.put("id", id);
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -299,7 +299,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		
 		keys.put("id", id);
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -309,7 +309,7 @@ public class orderTest {
 		fields.put("id",id);
 		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
 		try{
-			Assert.assertEquals(new Order(id, dbm).getPrice(), 10);
+			Assert.assertTrue(new Order(id, dbm).getPrice()== 10.0);
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
@@ -333,7 +333,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		
 		keys.put("id", id);
-		fields.put("price", 0);
+		fields.put("price", 0.0);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -343,7 +343,7 @@ public class orderTest {
 		fields.put("id",id);
 		Mockito.when(dbm.getObjectFieldsByKey("Order", keys)).thenReturn(fields);
 		try{
-			Assert.assertEquals(new Order(id, dbm).getPrice(), 0);
+			Assert.assertTrue(new Order(id, dbm).getPrice()== 0.0);
 		} catch (final Exception ¢) {
 			¢.printStackTrace();
 			Assert.fail();
@@ -367,7 +367,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		
 		keys.put("id", id);
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -401,7 +401,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		
 		keys.put("id", id);
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("actualHour","1");
 		fields.put("hoursAmount", 3);
 		fields.put("driverId", "3333334");
@@ -435,7 +435,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		
 		keys.put("id", id);
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("actualHour",hourToString);
 		fields.put("hoursAmount", 3);
 		fields.put("driverId", "3333334");
@@ -464,7 +464,7 @@ public class orderTest {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
 		keys.put("id", "1");
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("id", 1);
@@ -503,7 +503,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		
 		keys.put("id", id);
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -718,7 +718,7 @@ public class orderTest {
 		String id=new Order(dbm).createIdString(client, "123", onlyDate, hourToString);
 		
 		keys.put("id", id);
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("actualHour",hourToString);
 		fields.put("hoursAmount", 1);
 		fields.put("driverId", "3333334");
@@ -749,7 +749,7 @@ public class orderTest {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
 		keys.put("id", "1");
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -779,7 +779,7 @@ public class orderTest {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
 		keys.put("id", "1");
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -809,7 +809,7 @@ public class orderTest {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
 		keys.put("id", "1");
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("hoursAmount", 3);
 		fields.put("driverId", "3333334");
 		fields.put("slotId", "123");
@@ -838,7 +838,7 @@ public class orderTest {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
 		keys.put("id", "1");
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("id", 1);
@@ -878,7 +878,7 @@ public class orderTest {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal2.getTime()); 
 		keys.put("id", "1");
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -913,7 +913,7 @@ public class orderTest {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal2.getTime()); 
 		keys.put("id", "1");
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -948,7 +948,7 @@ public class orderTest {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal2.getTime()); 
 		keys.put("id", "1");
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -984,7 +984,7 @@ public class orderTest {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal2.getTime()); 
 		keys.put("id", "1");
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");
@@ -1017,7 +1017,7 @@ public class orderTest {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	    String onlyDate = format1.format(cal.getTime()); 
 		keys.put("id", "1");
-		fields.put("price", 10);
+		fields.put("price", 10.0);
 		fields.put("hoursAmount", 3);
 		fields.put("actualHour","1");
 		fields.put("driverId", "3333334");

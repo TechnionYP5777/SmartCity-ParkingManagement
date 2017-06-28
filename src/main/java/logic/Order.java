@@ -163,11 +163,11 @@ public class Order {
 		return (int) dbm.getObjectFieldsByKey(objectClass, key).get("hour");
 	}
 	
-	public int getPrice() {
+	public double getPrice() {
 		dbm.initialize();
 		Map<String, Object> key = new HashMap<String, Object>();
 		key.put("id", id);
-		return (int) dbm.getObjectFieldsByKey(objectClass, key).get("price");
+		return (double) dbm.getObjectFieldsByKey(objectClass, key).get("price");
 	}
 	
 	public int getHoursAmount() {

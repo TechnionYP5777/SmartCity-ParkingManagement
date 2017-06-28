@@ -31,12 +31,12 @@ public class UserOrderManaging {
 					Integer.parseInt(date[1])-1,
 					Integer.parseInt(date[2]),
 					p.getInt("hour")/4,
-					15*p.getInt("hour")%4);
+					15*(p.getInt("hour")%4));
 			EndTiem.set(Integer.parseInt(date[0]),
 					Integer.parseInt(date[1])-1,
 					Integer.parseInt(date[2]),
 					(p.getInt("hour")+p.getInt("hoursAmount"))/4,
-					15*(p.getInt("hour")+p.getInt("hoursAmount"))%4);
+					15*((p.getInt("hour")+p.getInt("hoursAmount"))%4));
 			PresentOrder order = new PresentOrder(p.getString("slotId"),SartTime.getTime(), EndTiem.getTime(), p.getDouble("price"),p.getString("id"));
 			ordersList.add(order);
 		}
