@@ -306,7 +306,7 @@ public class ChooseParkingSlotController {
 	@FXML
 	public void showChartButtonClicked(ActionEvent event) throws Exception{
 		//  change to not only taub!
-		// GraphPresent.PresentGraph(new ParseGeoPoint(32.777566, 35.022484));
+		// DistanceGraph.PresentGraph(new ParseGeoPoint(32.777566, 35.022484));
 	}
 	
 	private void setWebViewAndTable(){

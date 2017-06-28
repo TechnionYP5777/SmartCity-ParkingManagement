@@ -14,7 +14,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 
-public class GraphPresent extends Application {
+public class DistanceGraph extends Application {
 
 	private static ParseGeoPoint dest;
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);

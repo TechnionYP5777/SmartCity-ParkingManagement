@@ -46,4 +46,19 @@ public class Graph {
 		}
 		return distanceVsPrice;
 	}
+	
+	// This method will collect data about price vs. rating
+		public Map<Double, Double> CreatePriceRanttingData(ParseGeoPoint destenation){
+			manager.initialize();
+			List<ParseObject> allParkingSlot = manager.getAllObjects("ParkingSlot", 600);
+			Map<Double, Double> ratingVsPrice = new HashMap<Double,Double>();
+			for (ParseObject p : allParkingSlot) {
+				double rating = p.getDouble("rating");
+				StickersColor rank = StickersColor.values()[p.getInt("rank")];
+				double distance = Distance.AirDistance(p.getParseGeoPoint("location"), destenation);
+				if (!ratingVsPrice.containsKey(rating))
+					ratingVsPrice.put(rating, (new BasicBilling()).calculateCost(rank, distance));		
+			}
+			return ratingVsPrice;
+		}
 }
