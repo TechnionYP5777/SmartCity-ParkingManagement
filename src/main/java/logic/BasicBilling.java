@@ -7,12 +7,10 @@ import data.members.StickersColor;
 import util.Distance;
 
 public class BasicBilling  implements Billing{
-
-	private int pricingIndex = 500;
 	
 	@Override
 	public double calculateCost(StickersColor rank, double distance) {
-		return pricingIndex*rank.ordinal() - distance;
+		return 20 + rank.ordinal() - distance/100;
 	}
 	
 	@Override
