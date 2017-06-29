@@ -244,7 +244,6 @@ public class ChooseParkingSlotController {
 			
 		}
 
-		
 	}
 	
 	private void handleOrderTask(ActionEvent event, boolean result, String slotId, double price){
@@ -257,8 +256,8 @@ public class ChooseParkingSlotController {
 	    			key.put("id", userId);
 	    			Map<String, Object> map = DBManager.getObjectFieldsByKey("Driver", key);
 	    			String emailFromDb = (String)map.get("email");
-	    			// TODO: fix the untill date! and price!
-	            	EmailNotification.ParkingConfirmation(emailFromDb, slotId, request.getDate().toString(), "end date", price);
+	    			Date endDate = new Date(request.getDate().getTime() + (request.getHoursAmount() * 15 * 60 * 1000));
+	            	EmailNotification.ParkingConfirmation(emailFromDb, slotId, request.getDate().toString(), endDate.toString(), price);
 	        		return null;
 		        }
 	        };

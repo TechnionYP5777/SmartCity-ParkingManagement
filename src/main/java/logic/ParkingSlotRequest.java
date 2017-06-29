@@ -41,6 +41,9 @@ public class ParkingSlotRequest {
 	public Date getDate(){
 		return this.dateToPark;
 	}
+	public int getHoursAmount(){
+		return this.hoursAmunt;
+	}
 	
 	public ParkingSlotRequest (ParseGeoPoint destenation,Date date,int hoursAmunt, DatabaseManager manager){
 		this.manager = manager;
