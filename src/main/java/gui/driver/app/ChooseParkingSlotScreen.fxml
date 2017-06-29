@@ -80,7 +80,7 @@
                         <JFXDatePicker fx:id="datePicker" promptText="At date" />
                         <JFXTimePicker fx:id="arrivalTimePicker" promptText="Arrival time" />
                         <JFXTimePicker fx:id="departureTimePicker" promptText="Departure time" />
-                        <Button fx:id="continueButton" mnemonicParsing="false" onAction="#continueButtonClicked" prefHeight="28.0" prefWidth="215.0" text="Update map">
+                        <Button fx:id="continueButton" mnemonicParsing="false" onAction="#continueButtonClicked" prefHeight="28.0" prefWidth="215.0" text="Search parking slots">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
