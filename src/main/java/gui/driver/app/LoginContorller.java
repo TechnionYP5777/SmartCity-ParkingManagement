@@ -1,4 +1,5 @@
 package gui.driver.app;
+
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressIndicator;
@@ -11,20 +12,12 @@ import javafx.fxml.*;
 import data.management.DBManager;
 import data.management.DatabaseManager;
 import data.management.DatabaseManagerImpl;
-import data.members.ParkingSlot;
-import data.members.StickersColor;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.*;
 import logic.*;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
-
-import org.parse4j.ParseGeoPoint;
-
 import Exceptions.LoginException;
 
 

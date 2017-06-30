@@ -1,15 +1,9 @@
 package gui.driver.app;
 import logic.*;
-
 import java.util.*;
-
-import org.parse4j.ParseGeoPoint;
-
 import data.management.DBManager;
 import data.management.DatabaseManager;
 import data.management.DatabaseManagerImpl;
-import data.members.ParkingSlot;
-import data.members.StickersColor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,22 +14,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.web.*;
-import java.net.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.awt.geom.Point2D;
-import java.io.*;
-
-import javafx.scene.layout.*;
-import javafx.concurrent.*;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import com.jfoenix.controls.*;
-
-import Exceptions.LoginException;
 
 public class MainScreenController {
 	
@@ -137,6 +118,7 @@ public class MainScreenController {
        
        progressIndicator.progressProperty().bind(cancelOrderTask.progressProperty());
        progressIndicator.setVisible(true); 
+       statusLabel.setVisible(false);
        
        cancelOrderTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
            @Override

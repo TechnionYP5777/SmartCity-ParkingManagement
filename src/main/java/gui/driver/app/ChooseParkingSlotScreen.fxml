@@ -21,7 +21,7 @@
          <children>
             <VBox prefWidth="100.0">
                <children>
-                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="35.0" prefWidth="215.0" text="Back to main screen">
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="29.0" prefWidth="215.0" text="Back to main screen">
                      <VBox.margin>
                         <Insets left="15.0" top="15.0" />
                      </VBox.margin>
@@ -80,16 +80,16 @@
                         <JFXDatePicker fx:id="datePicker" promptText="At date" />
                         <JFXTimePicker fx:id="arrivalTimePicker" promptText="Arrival time" />
                         <JFXTimePicker fx:id="departureTimePicker" promptText="Departure time" />
-                        <Button fx:id="continueButton" mnemonicParsing="false" onAction="#continueButtonClicked" prefHeight="28.0" prefWidth="215.0" text="Search parking slots">
+                        <Button fx:id="continueButton" mnemonicParsing="false" onAction="#continueButtonClicked" prefHeight="29.0" prefWidth="215.0" text="Search parking slots">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
                         </Button>
                      </children>
                   </HBox>
-                  <VBox alignment="TOP_CENTER" prefHeight="70.0" prefWidth="100.0">
+                                   <VBox alignment="TOP_CENTER" minHeight="70.0" prefHeight="70.0" prefWidth="100.0">
                      <children>
-                        <ProgressIndicator fx:id="progressIndicator" prefHeight="40.0" progress="0.0">
+                        <ProgressIndicator fx:id="progressIndicator" minHeight="40.0" prefHeight="40.0" progress="0.0">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
@@ -108,17 +108,17 @@
             </VBox>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refreshButtonClicked" prefHeight="29.0" prefWidth="215.0" text="Refresh map">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Button>
                   <Button fx:id="orderButton" mnemonicParsing="false" onAction="#orderButtonClicked" prefHeight="29.0" prefWidth="215.0" text="Order selected parking slot">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="showChartButton" mnemonicParsing="false" onAction="#showChartButtonClicked" prefHeight="29.0" prefWidth="215.0" text="show price-distances chart">
+                  <Button fx:id="showRatingChartButton" mnemonicParsing="false" onAction="#showRatingChartButtonClicked" prefHeight="29.0" prefWidth="215.0" text="show price-rating chart">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="showDistanceChartButton" mnemonicParsing="false" onAction="#showDistanceChartButtonClicked" prefHeight="29.0" prefWidth="215.0" text="show price-distances chart">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>

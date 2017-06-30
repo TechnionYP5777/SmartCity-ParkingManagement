@@ -1,8 +1,7 @@
 package gui.driver.app;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import Exceptions.LoginException;
 import data.management.DBManager;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;

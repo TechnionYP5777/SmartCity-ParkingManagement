@@ -1,16 +1,11 @@
 	package gui.driver.app;
 
 import logic.*;
-
 import java.util.*;
-
 import org.parse4j.ParseGeoPoint;
-
 import data.management.DBManager;
 import data.management.DatabaseManager;
 import data.management.DatabaseManagerImpl;
-import data.members.ParkingSlot;
-import data.members.StickersColor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,25 +16,22 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Label;
 import javafx.scene.web.*;
 import java.net.*;
-import java.awt.geom.Point2D;
-import java.io.*;
-
 import javafx.scene.layout.*;
-import javafx.concurrent.*;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import com.jfoenix.controls.*;
-
-import Exceptions.LoginException;
-
 import java.time.*;
+import logic.Graph;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Data;
+import java.util.logging.Logger;
 
 public class ChooseParkingSlotController {
 
@@ -90,16 +82,15 @@ public class ChooseParkingSlotController {
 	@FXML
 	private Button backButton;
 	@FXML
-	private Button refreshButton;
+	private Button showRatingChartButton;
 	@FXML
-	private Button showChartButton;
+	private Button showDistanceChartButton;
 	@FXML
 	private Label statusLabel;
 	
 	private ParkingSlotRequest request;
 	private String userId;
-	private int errorType;
-	private boolean wasShown;
+
 	private URL url;
 	
 	
@@ -110,7 +101,6 @@ public class ChooseParkingSlotController {
 		statusLabel.setVisible(false);
 		setWebViewAndTable();
        request = null;
-       wasShown = false;
     }
 	
 	
@@ -142,7 +132,12 @@ public class ChooseParkingSlotController {
     		statusLabel.setVisible(true);
     		return;
     	}
+    	orderButton.setDisable(true);
+    	showRatingChartButton.setDisable(true);
+    	showDistanceChartButton.setDisable(true);
+    	continueButton.setDisable(true);
     	
+    	statusLabel.setVisible(false);
     	engine.executeScript("reloadAux();");
     	slotsTable.getItems().clear();
 	
@@ -191,6 +186,11 @@ public class ChooseParkingSlotController {
 	       			progressIndicator.setVisible(false);
 	       			engine.executeScript("firstRefresh();");
 	       			
+	       		   	orderButton.setDisable(false);
+	       		   	showRatingChartButton.setDisable(false);
+	       		   	showDistanceChartButton.setDisable(false);
+	       	    	continueButton.setDisable(false);
+	       			
 	       			if (result.size() != 0){
 	       				slotsTable.getSelectionModel().selectFirst();
 	       			} else {
@@ -207,13 +207,18 @@ public class ChooseParkingSlotController {
 	@FXML
 	public void orderButtonClicked(ActionEvent event) throws Exception{
 		
-		if (request == null){
-			return;
-		}
 		PresentParkingSlot slot = slotsTable.getSelectionModel().getSelectedItem();
-		if (slot == null){
-			return;
+		if (request == null ||slot == null){
+				statusLabel.setText("Please select a parking slot from the table. If empty, search for slots.");
+   	    		statusLabel.setVisible(true);
+   	    		return;
 		} else {
+			
+	    	orderButton.setDisable(true);
+	    	showRatingChartButton.setDisable(true);
+	    	showDistanceChartButton.setDisable(true);
+	    	continueButton.setDisable(true);
+	    	backButton.setDisable(true);
 			
 			String parkingSlotId = slot.getName();
 			
@@ -239,7 +244,6 @@ public class ChooseParkingSlotController {
 	        	   handleOrderTask(event, orderTask.getValue(), parkingSlotId, slot.getPrice());
 
 	   			}
-
 	       });
 			
 		}
@@ -247,6 +251,7 @@ public class ChooseParkingSlotController {
 	}
 	
 	private void handleOrderTask(ActionEvent event, boolean result, String slotId, double price){
+		    	
 		if(result){
 			
 			Task<Void> sendingEmailTask = new Task<Void>() {
@@ -258,6 +263,11 @@ public class ChooseParkingSlotController {
 	    			String emailFromDb = (String)map.get("email");
 	    			Date endDate = new Date(request.getDate().getTime() + (request.getHoursAmount() * 15 * 60 * 1000));
 	            	EmailNotification.ParkingConfirmation(emailFromDb, slotId, request.getDate().toString(), endDate.toString(), price);
+	            	orderButton.setDisable(false);
+	            	showRatingChartButton.setDisable(false);
+	            	showDistanceChartButton.setDisable(false);
+	            	continueButton.setDisable(false);
+	            	backButton.setDisable(false);
 	        		return null;
 		        }
 	        };
@@ -285,7 +295,14 @@ public class ChooseParkingSlotController {
 	       });
        
 		} else {
-		// TODO: parking slot catched
+
+ 		   statusLabel.setText("The slot you choose got taken. Choose another one or search for new slots.");
+ 		   statusLabel.setVisible(true);
+	       orderButton.setDisable(false);
+	       showRatingChartButton.setDisable(false);
+	       showDistanceChartButton.setDisable(false);
+	       continueButton.setDisable(false);
+	       backButton.setDisable(false);
 		}
 	}
 	
@@ -301,13 +318,72 @@ public class ChooseParkingSlotController {
 			window.show();
 	}
 	@FXML
-	public void refreshButtonClicked(ActionEvent event) throws Exception{
+	public void showRatingChartButtonClicked(ActionEvent event) throws Exception{
+		Stage s = new Stage();
+		s.setTitle("Price - Rating graph");
+        final NumberAxis xAxis = new NumberAxis(), yAxis = new NumberAxis();
+        xAxis.setLabel("Rating");
+        yAxis.setLabel("Price");
 
+        //creating the chart
+        final LineChart<Number,Number> lineChart = new LineChart<Number,Number>(xAxis,yAxis);
+                
+        lineChart.setTitle("Price - Rating");
+        
+        //defining a series
+        XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
+        series.setName("Price - Rating");
+        
+        //get data to present
+        Graph g = new Graph();
+        Map<Double, Double> data = g.CreatePriceRanttingData(getSelectedDestination());
+
+        //populating the series with data
+        for (Map.Entry<Double, Double> entry : data.entrySet()){
+        	Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).info("rating: "+ entry.getKey() + " price: " + entry.getValue());
+        	series.getData().add(new Data<Number, Number>(entry.getKey(), entry.getValue()));
+        }
+	        
+        Scene scene  = new Scene(lineChart,800,600);
+        lineChart.getData().addAll(series);
+       
+        s.setScene(scene);
+        s.show();
 	}
 	@FXML
-	public void showChartButtonClicked(ActionEvent event) throws Exception{
-		//  change to not only taub!
-		// DistanceGraph.PresentGraph(new ParseGeoPoint(32.777566, 35.022484));
+	public void showDistanceChartButtonClicked(ActionEvent event) throws Exception{
+		
+		 Stage s = new Stage();
+	        //Fill stage with content
+			s.setTitle("Price - Distance graph");
+	        final NumberAxis xAxis = new NumberAxis(), yAxis = new NumberAxis();
+	        xAxis.setLabel("Distance");
+	        yAxis.setLabel("Price");
+
+	        //creating the chart
+	        final LineChart<Number,Number> lineChart = new LineChart<Number,Number>(xAxis,yAxis);
+	                
+	        lineChart.setTitle("Price - Distance");
+	        
+	        //defining a series
+	        XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
+	        series.setName("Price - Distance");
+	        
+	        //get data to present
+	        Graph g = new Graph();
+	        Map<Double, Double> data = g.CreatePriceDistanceData(getSelectedDestination());
+
+	        //populating the series with data
+	        for (Map.Entry<Double, Double> entry : data.entrySet()){
+	        	Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).info("distance: "+ entry.getKey() + " price: " + entry.getValue());
+	        	series.getData().add(new Data<Number, Number>(entry.getKey(), entry.getValue()));
+	        }
+		        
+	        Scene scene  = new Scene(lineChart,800,600);
+	        lineChart.getData().addAll(series);
+	       
+	        s.setScene(scene);
+	        s.show();
 	}
 	
 	private void setWebViewAndTable(){

@@ -1,18 +1,11 @@
 package gui.driver.app;
 
 import data.management.DBManager;
-import javafx.*;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.application.Application;
-import javafx.scene.layout.GridPane;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.geometry.Insets;
-import javafx.geometry.HPos;
-import javafx.scene.control.Label;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
+
 import javafx.scene.Parent;
 
 public class Main extends Application {
