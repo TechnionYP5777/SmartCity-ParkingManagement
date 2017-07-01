@@ -34,18 +34,21 @@ public class CombineGraphTest {
 		p1.put("location",new ParseGeoPoint(32.777745,35.024));
 		p1.put("rank", 1);
 		p1.put("rating", 1);
+		p1.put("numOfVoters", 1);
 		
 		ParseObject p2 = new ParseObject("ParkingSlot");
 		p2.put("name", "testSlot2");
 		p2.put("location",new ParseGeoPoint(32.777907,35.023828));
 		p2.put("rank", 2);
 		p2.put("rating", 2);
+		p2.put("numOfVoters", 1);
 		
 		ParseObject p3 = new ParseObject("ParkingSlot");
 		p3.put("name", "testSlot3");
 		p3.put("location",new ParseGeoPoint(32.778015,35.021982));
 		p3.put("rank", 3);
 		p3.put("rating", 3);
+		p3.put("numOfVoters", 1);
 		
 		// insert all slots to array
     	parkingSlots.add(p1);

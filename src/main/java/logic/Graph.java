@@ -52,14 +52,25 @@ public class Graph {
 			manager.initialize();
 			List<ParseObject> allParkingSlot = manager.getAllObjects("ParkingSlot", 600);
 			Map<Double, Double> ratingVsPrice = new HashMap<Double,Double>();
+			Map<Double, Integer> ratingTimes = new HashMap<Double,Integer>();
 			for (ParseObject p : allParkingSlot) {
 				double rating = p.getDouble("rating");
 				int numberOfVoters = p.getInt("numOfVoters");
 				double score = numberOfVoters == 0 ? 0 : rating/numberOfVoters;
 				StickersColor rank = StickersColor.values()[p.getInt("rank")];
 				double distance = Distance.AirDistance(p.getParseGeoPoint("location"), destenation);
-				if (!ratingVsPrice.containsKey(rating))
-					ratingVsPrice.put(score, (new BasicBilling()).calculateCost(rank, distance));		
+				if (ratingVsPrice.containsKey(score)){
+					double combinePrice = ratingVsPrice.get(score)+(new BasicBilling()).calculateCost(rank, distance);
+					ratingVsPrice.put(score, combinePrice);	
+					ratingTimes.put(score, ratingTimes.get(score)+1);
+				}
+				else {
+					ratingVsPrice.put(score, (new BasicBilling()).calculateCost(rank, distance));	
+					ratingTimes.put(score, 1);
+				}
+			}
+			for (Double rate : ratingTimes.keySet()) {
+				ratingVsPrice.put(rate, ratingVsPrice.get(rate)/ratingTimes.get(rate)); 
 			}
 			return ratingVsPrice;
 		}
