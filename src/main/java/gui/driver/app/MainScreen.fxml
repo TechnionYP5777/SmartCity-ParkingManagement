@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -25,29 +26,19 @@
             </HBox>
             <HBox prefHeight="45.0" prefWidth="200.0">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="260.0">
-                     <children>
-                        <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#logOutButtonClicked" prefHeight="35.0" prefWidth="100.0" text="Log out">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="260.0">
-                     <children>
-                        <ProgressIndicator fx:id="progressIndicator" progress="0.0" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="260.0">
-                     <children>
-                        <Button fx:id="newOrderButton" mnemonicParsing="false" onAction="#newOrderButtonClicked" prefHeight="35.0" prefWidth="100.0" text="New order">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </HBox>
+                  <Button fx:id="logOutButton" minWidth="100.0" mnemonicParsing="false" onAction="#logOutButtonClicked" prefHeight="35.0" prefWidth="100.0" text="Log out">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                  <ProgressIndicator fx:id="progressIndicator" minHeight="45.0" minWidth="29.0" prefHeight="45.0" prefWidth="29.0" progress="0.0" />
+                  <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="newOrderButton" minWidth="100.0" mnemonicParsing="false" onAction="#newOrderButtonClicked" prefHeight="35.0" prefWidth="100.0" text="New order">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
                </children>
                <VBox.margin>
                   <Insets top="15.0" />
