@@ -33,17 +33,17 @@ public class RattingGraph extends Application {
 	public void start(Stage s) throws Exception {
 		s.setTitle("Price - Distance graph");
         final NumberAxis xAxis = new NumberAxis(), yAxis = new NumberAxis();
-        xAxis.setLabel("Distance");
+        xAxis.setLabel("Ratting");
         yAxis.setLabel("Price");
 
         //creating the chart
         final LineChart<Number,Number> lineChart = new LineChart<Number,Number>(xAxis,yAxis);
                 
-        lineChart.setTitle("Price - Distance");
+        lineChart.setTitle("Price - Ratting");
         
         //defining a series
         XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
-        series.setName("Price - Distance");
+        series.setName("Price - Ratting");
         
         //get data to present
         Graph g = new Graph();
@@ -51,7 +51,7 @@ public class RattingGraph extends Application {
 
         //populating the series with data
         for (Map.Entry<Double, Double> entry : data.entrySet()){
-        	LOGGER.info("distance: "+ entry.getKey() + " price: " + entry.getValue());
+        	LOGGER.info("ratting: "+ entry.getKey() + " price: " + entry.getValue());
         	series.getData().add(new Data<Number, Number>(entry.getKey(), entry.getValue()));
         }
 	        
