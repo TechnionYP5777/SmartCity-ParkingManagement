@@ -142,36 +142,40 @@ public class MainScreenController {
 	
 	private void setColumns(){
 		
+		// Future orders table
+		
 		parkingSlotIdColumnFutureTable = new TableColumn<>("slot id");
-		parkingSlotIdColumnFutureTable.setPrefWidth(195);
+		parkingSlotIdColumnFutureTable.prefWidthProperty().bind(futureOrdersTable.widthProperty().divide(4));
 		parkingSlotIdColumnFutureTable.setCellValueFactory(new PropertyValueFactory<>("parkingSlotId"));
 		
 		startTimeColumnFutureTable = new TableColumn<>("start time");
-		startTimeColumnFutureTable.setPrefWidth(195);
+		startTimeColumnFutureTable.prefWidthProperty().bind(futureOrdersTable.widthProperty().divide(4));
 		startTimeColumnFutureTable.setCellValueFactory(new PropertyValueFactory<>("startTime"));
 		
 		finishTimeColumnFutureTable = new TableColumn<>("finish time");
-		finishTimeColumnFutureTable.setPrefWidth(195);
+		finishTimeColumnFutureTable.prefWidthProperty().bind(futureOrdersTable.widthProperty().divide(4));
 		finishTimeColumnFutureTable.setCellValueFactory(new PropertyValueFactory<>("finishTime"));
 		
 		priceColumnFutureTable = new TableColumn<>("price(NIS)");
-		priceColumnFutureTable.setPrefWidth(195);
+		priceColumnFutureTable.prefWidthProperty().bind(futureOrdersTable.widthProperty().divide(4));
 		priceColumnFutureTable.setCellValueFactory(new PropertyValueFactory<>("price"));
 		
+		// Past orders table
+		
 		parkingSlotIdColumnPastTable = new TableColumn<>("slot id");
-		parkingSlotIdColumnPastTable.setPrefWidth(195);
+		parkingSlotIdColumnPastTable.prefWidthProperty().bind(pastOrdersTable.widthProperty().divide(4));
 		parkingSlotIdColumnPastTable.setCellValueFactory(new PropertyValueFactory<>("parkingSlotId"));
 		
 		startTimeColumnPastTable = new TableColumn<>("start time");
-		startTimeColumnPastTable.setPrefWidth(195);
+		startTimeColumnPastTable.prefWidthProperty().bind(pastOrdersTable.widthProperty().divide(4));
 		startTimeColumnPastTable.setCellValueFactory(new PropertyValueFactory<>("startTime"));
 		
 		finishTimeColumnPastTable = new TableColumn<>("finish time");
-		finishTimeColumnPastTable.setPrefWidth(195);
+		finishTimeColumnPastTable.prefWidthProperty().bind(pastOrdersTable.widthProperty().divide(4));
 		finishTimeColumnPastTable.setCellValueFactory(new PropertyValueFactory<>("finishTime"));
 		
 		priceColumnPastTable = new TableColumn<>("price(NIS)");
-		priceColumnPastTable.setPrefWidth(195);
+		priceColumnPastTable.prefWidthProperty().bind(pastOrdersTable.widthProperty().divide(4));
 		priceColumnPastTable.setCellValueFactory(new PropertyValueFactory<>("price"));
 			
 		futureOrdersTable.getColumns().setAll(parkingSlotIdColumnFutureTable, startTimeColumnFutureTable, finishTimeColumnFutureTable, priceColumnFutureTable);

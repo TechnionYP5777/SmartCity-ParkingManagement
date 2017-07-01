@@ -138,9 +138,9 @@
                   </Label>
                   <HBox alignment="TOP_CENTER" prefHeight="450.0" prefWidth="1250.0">
                      <children>
-                        <HBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="520.0" prefWidth="400.0">
+                        <HBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="520.0" prefWidth="450.0">
                            <children>
-                              <TableView fx:id="slotsTable" maxHeight="-Infinity" prefHeight="430.0" prefWidth="400.0">
+                              <TableView fx:id="slotsTable" maxHeight="-Infinity" prefHeight="430.0" prefWidth="440.0">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>

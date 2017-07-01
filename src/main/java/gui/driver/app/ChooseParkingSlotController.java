@@ -156,7 +156,6 @@ public class ChooseParkingSlotController {
 		        		quartersCounter = departureTime.getHour()*4 + departureMinutes/15;
 		        	}
 		        	int diff = quartersCounter - (arrivalDateTime.get(Calendar.HOUR_OF_DAY)*4 + arrivalDateTime.get(Calendar.MINUTE)/15);
-		        	System.out.println(arrivalDateTime.getTime().toString());
 		        	request = new ParkingSlotRequest(point, arrivalDateTime.getTime(), diff, d);
 		        	return request.getAllAvailableParkingSlot(new BasicBilling());
 
@@ -407,19 +406,19 @@ public class ChooseParkingSlotController {
 		});
 		
 		idColumn = new TableColumn<>("id");
-		idColumn.setPrefWidth(100);
+		idColumn.prefWidthProperty().bind(slotsTable.widthProperty().divide(4));
 		idColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 		
 		priceColumn = new TableColumn<>("price(NIS)");
-		priceColumn.setPrefWidth(100);
+		priceColumn.prefWidthProperty().bind(slotsTable.widthProperty().divide(4));
 		priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 		
 		distanceColumn = new TableColumn<>("distance(m)");
-		distanceColumn.setPrefWidth(100);
+		distanceColumn.prefWidthProperty().bind(slotsTable.widthProperty().divide(4));
 		distanceColumn.setCellValueFactory(new PropertyValueFactory<>("distance"));
 		
 		ratingColumn = new TableColumn<>("rating");
-		ratingColumn.setPrefWidth(100);
+		ratingColumn.prefWidthProperty().bind(slotsTable.widthProperty().divide(4));
 		ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
 		
 		
