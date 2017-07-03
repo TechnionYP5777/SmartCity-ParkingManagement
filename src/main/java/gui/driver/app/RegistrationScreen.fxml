@@ -44,7 +44,7 @@
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <Label fx:id="idLabel" text="Invalid id" textFill="RED" visible="false">
+                        <Label fx:id="idLabel" text="Invalid id. Valid id should contain 9 digits" textFill="RED" visible="false">
                            <font>
                               <Font name="System Italic" size="12.0" />
                            </font>
