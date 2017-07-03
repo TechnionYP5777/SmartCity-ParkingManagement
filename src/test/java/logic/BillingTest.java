@@ -59,7 +59,7 @@ public class BillingTest {
 	@Test
 	public void BasicBilling(){
 		for (StickersColor color : StickersColor.values()) {
-			Assert.assertEquals((20 + color.ordinal() - 15/100)/16, new BasicBilling().calculateCost(color, 15), 10);
+			Assert.assertEquals(20 + color.ordinal() - 15/100, new BasicBilling().calculateCost(color, 15), 10);
 		}
 	}
 	
@@ -70,7 +70,7 @@ public class BillingTest {
 		ParkingSlot p;
 		try {
 			p = new ParkingSlot("testParkingSlot2",dbm);
-			Assert.assertEquals((20 + p.getRank().ordinal() - d/100)/16, new BasicBilling().calculateCostBySlot(p, gp), 10);
+			Assert.assertEquals(20 + p.getRank().ordinal() - d/100, new BasicBilling().calculateCostBySlot(p, gp), 10);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
