@@ -107,7 +107,7 @@ public class RegistrationController {
 		setAllFieldsAndLabels();
 		
 		boolean valid = true;
-		/////// changes to create merge issues 
+
 		if (!Validation.isValidDriverId(id)){
 			valid = false;
 			idField.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
