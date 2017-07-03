@@ -110,7 +110,7 @@ public class ParkingSlotRequest {
 				int voters = p.getInt("numOfVoters");
 				returnList.add(
 						new PresentParkingSlot(parkingName, location.getLatitude(),location.getLongitude(),
-								costCalculator.calculateCost(rank, Distance.AirDistance(location,this.destenation)*this.hoursAmunt/16),
+								costCalculator.calculateCost(rank, Distance.AirDistance(location,this.destenation)*this.hoursAmunt),
 								Distance.AirDistance(p.getParseGeoPoint("location"),this.destenation),ratting/voters)
 						);
 			}

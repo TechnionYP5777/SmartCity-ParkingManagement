@@ -10,7 +10,7 @@ public class BasicBilling  implements Billing{
 	
 	@Override
 	public double calculateCost(StickersColor rank, double distance) {
-		return 20 + rank.ordinal() - distance/100;
+		return (20 + rank.ordinal() - distance/100)/16;
 	}
 	
 	@Override
